@@ -1,5 +1,4 @@
 import type { StarlightPlugin, StarlightUserConfig } from "@astrojs/starlight/types";
-import type { AstroUserConfig, ViteUserConfig } from "astro";
 import { AstroError } from "astro/errors";
 import { z } from "astro/zod";
 
