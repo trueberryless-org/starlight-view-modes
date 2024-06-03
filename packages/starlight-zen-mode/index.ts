@@ -4,7 +4,27 @@ import { z } from "astro/zod";
 
 import { starlightZenModeIntegration } from "./libs/integration";
 
-const starlightZenModeConfigSchema = z.object({}).default({});
+const starlightZenModeConfigSchema = z
+    .object({
+        /**
+         * Indicates if Zen Mode is enabled. When enabled, the user is able to active Zen Mode which
+         * provides a distraction-free interface by hiding everything except the main content.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        zenModeEnabled: z.boolean().default(true),
+
+        /**
+         * Indicates if Presentation Mode is enabled. When enabled, the user is able to active Presentation Mode which
+         * converts the main content into a presentation-like view intended for teaching or presentation purposes.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        presentationModeEnabled: z.boolean().default(true),
+    })
+    .default({});
 
 export default function starlightZenMode(userConfig?: StarlightZenModeUserConfig): StarlightPlugin {
     const parsedConfig = starlightZenModeConfigSchema.safeParse(userConfig);
@@ -30,18 +50,18 @@ export default function starlightZenMode(userConfig?: StarlightZenModeUserConfig
                     updatedConfig.components = {};
                 }
 
-                // If the user has already has a custom override for the TwoColumnContent component, don't override it.
-                if (config.components?.TwoColumnContent) {
+                // If the user has already has a custom override for the PageSidebar component, don't override it.
+                if (config.components?.PageSidebar) {
                     logger.warn(
-                        "It looks like you already have a `TwoColumnContent` component override in your Starlight configuration."
+                        "It looks like you already have a `PageSidebar` component override in your Starlight configuration."
                     );
                     logger.warn(
-                        "To render `@astrojs/starlight-zen-mode`, remove the override for the `TwoColumnContent` component.\n"
+                        "To render `@astrojs/starlight-zen-mode`, remove the override for the `PageSidebar` component.\n"
                     );
                 } else {
-                    // Otherwise, add the TwoColumnContent component override to the user's configuration.
-                    updatedConfig.components.TwoColumnContent =
-                        "starlight-zen-mode/overrides/TwoColumnContent.astro";
+                    // Otherwise, add the PageSidebar component override to the user's configuration.
+                    updatedConfig.components.PageSidebar =
+                        "starlight-zen-mode/overrides/PageSidebar.astro";
                 }
 
                 addIntegration(starlightZenModeIntegration(parsedConfig.data));
