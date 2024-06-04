@@ -15,7 +15,14 @@ export default defineConfig({
             editLink: {
                 baseUrl: "https://github.com/trueberryless/starlight-zen-mode/edit/main/docs/",
             },
-            plugins: [starlightZenMode()],
+            plugins: [
+                starlightZenMode({
+                    zenModeEnabled: true,
+                    zenModeCloseButtonPosition: "top-right",
+                    presentationModeEnabled: false,
+                    presentationModeControlButtonPosition: "top-right",
+                }),
+            ],
             sidebar: [
                 {
                     label: "Start Here",

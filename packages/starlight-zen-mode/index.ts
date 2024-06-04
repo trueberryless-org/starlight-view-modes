@@ -16,6 +16,17 @@ const starlightZenModeConfigSchema = z
         zenModeEnabled: z.boolean().default(true),
 
         /**
+         * Choose the position of the close button for the Zen Mode. It is only visible when the Zen Mode
+         * is active and can be in one of four corners: top left, top right, bottom left, or bottom right.
+         *
+         * @type {enum}
+         * @default "top-right"
+         */
+        zenModeCloseButtonPosition: z
+            .enum(["top-left", "top-right", "bottom-left", "bottom-right"])
+            .default("top-right"),
+
+        /**
          * Indicates if Presentation Mode is enabled. When enabled, the user is able to active Presentation Mode which
          * converts the main content into a presentation-like view intended for teaching or presentation purposes.
          *
@@ -23,6 +34,26 @@ const starlightZenModeConfigSchema = z
          * @default true
          */
         presentationModeEnabled: z.boolean().default(true),
+
+        /**
+         * Choose the position of the control button for the Presentation Mode. It is only visible when the Presentation Mode
+         * is active and can be in one of eight corners: top left, top middle, top right, middle right, bottom left, bottom middle, bottom right, or middle left.
+         *
+         * @type {enum}
+         * @default "middle-right"
+         */
+        presentationModeControlButtonPosition: z
+            .enum([
+                "top-left",
+                "top-middle",
+                "top-right",
+                "middle-right",
+                "bottom-left",
+                "bottom-middle",
+                "bottom-right",
+                "middle-left",
+            ])
+            .default("middle-right"),
     })
     .default({});
 
