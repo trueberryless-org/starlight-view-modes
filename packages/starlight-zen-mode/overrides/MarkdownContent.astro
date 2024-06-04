@@ -1,0 +1,9 @@
+---
+import StarlightMarkdownContent from '@astrojs/starlight/components/MarkdownContent.astro'
+import type { Props } from '@astrojs/starlight/props'
+
+import DeactivationButtons from '../components/DeactivationButtons.astro';
+---
+
+<DeactivationButtons />
+<StarlightMarkdownContent {...Astro.props}><slot /></StarlightMarkdownContent>

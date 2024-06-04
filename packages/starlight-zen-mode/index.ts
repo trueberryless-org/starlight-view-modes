@@ -64,6 +64,20 @@ export default function starlightZenMode(userConfig?: StarlightZenModeUserConfig
                         "starlight-zen-mode/overrides/PageSidebar.astro";
                 }
 
+                // If the user has already has a custom override for the MarkdownContent component, don't override it.
+                if (config.components?.MarkdownContent) {
+                    logger.warn(
+                        "It looks like you already have a `MarkdownContent` component override in your Starlight configuration."
+                    );
+                    logger.warn(
+                        "To render `@astrojs/starlight-zen-mode`, remove the override for the `MarkdownContent` component.\n"
+                    );
+                } else {
+                    // Otherwise, add the MarkdownContent component override to the user's configuration.
+                    updatedConfig.components.MarkdownContent =
+                        "starlight-zen-mode/overrides/MarkdownContent.astro";
+                }
+
                 addIntegration(starlightZenModeIntegration(parsedConfig.data));
                 updateConfig(updatedConfig);
             },

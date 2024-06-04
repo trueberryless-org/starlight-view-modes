@@ -9,6 +9,7 @@
         ".": "./index.ts",
         "./components/ZenMode.astro": "./components/ZenMode.astro",
         "./overrides/PageSidebar.astro": "./overrides/PageSidebar.astro",
+        "./overrides/MarkdownContent.astro": "./overrides/MarkdownContent.astro",
         "./package.json": "./package.json"
     },
     "scripts": {},
