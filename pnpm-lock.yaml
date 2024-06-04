@@ -26,6 +26,9 @@ importers:
       sharp:
         specifier: ^0.32.5
         version: 0.32.6
+      starlight-package-managers:
+        specifier: ^0.6.0
+        version: 0.6.0(@astrojs/starlight@0.23.2)(astro@4.9.2)
       starlight-zen-mode:
         specifier: workspace:*
         version: link:../packages/starlight-zen-mode
@@ -3991,6 +3994,17 @@ packages:
 
   /sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
+
+  /starlight-package-managers@0.6.0(@astrojs/starlight@0.23.2)(astro@4.9.2):
+    resolution: {integrity: sha512-2tE0B4ZVEZXZ1LJjcSvVXLfJP8SB2nE+nhiFgSa3fuHUPtnbzmFxLVp7jEKD8jaMXKWPYtlNTy95gJSK9W1sbQ==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.22.0'
+      astro: '>=4.2.7'
+    dependencies:
+      '@astrojs/starlight': 0.23.2(astro@4.9.2)
+      astro: 4.9.2(typescript@5.4.5)
+    dev: false
 
   /stdin-discarder@0.2.2:
     resolution: {integrity: sha512-UhDfHmA92YAlNnCfhmq0VeNL5bDbiZGg7sZ2IvPsXubGkiNa9EC+tUTsjBRsYUAz87btI6/1wf4XoVvQ3uRnmQ==}

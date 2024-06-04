@@ -20,7 +20,7 @@ export default defineConfig({
                     zenModeEnabled: true,
                     zenModeCloseButtonPosition: "top-right",
                     presentationModeEnabled: false,
-                    presentationModeControlButtonPosition: "top-right",
+                    presentationModeControlButtonPosition: "middle-right",
                 }),
             ],
             sidebar: [

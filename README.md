@@ -1,1 +1,1 @@
-packages/starlight-zen-mode/README.md
+packages/starlight-view-modes/README.md

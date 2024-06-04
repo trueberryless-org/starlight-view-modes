@@ -28,7 +28,29 @@
 </nav>
 
   
-<style is:global>
+<style is:global>  
+  body.zen-mode *:is(:not(:is(:has(main), main, main *, :has(#zen-mode-off), #zen-mode-off, #zen-mode-off *)), footer) {
+    display: none;
+  }
+
+  body.zen-mode {
+    overflow-x: hidden;
+  }
+
+  body.zen-mode main {
+    width: calc(100vw - var(--sl-sidebar-pad-x));
+  }
+
+  body.zen-mode main .sl-container {
+    margin: 0 auto;
+  }
+
+  body.zen-mode .main-frame {
+    padding: 0;
+  }
+</style>
+
+<style>
   .mode {
     margin-top: 0.83em;
   }
@@ -49,26 +71,7 @@
   :is(#zen-mode-on, #presentation-mode-on) > svg {
     transform: translateY(0.2em);
   }
-  
-  body.zen-mode *:is(:not(:is(:has(main), main, main *, :has(#zen-mode-off), #zen-mode-off, #zen-mode-off *)), footer) {
-    display: none;
-  }
 
-  body.zen-mode {
-    overflow-x: hidden;
-  }
-
-  body.zen-mode main {
-    width: calc(100vw - var(--sl-sidebar-pad-x));
-  }
-
-  body.zen-mode main .sl-container {
-    margin: 0 auto;
-  }
-
-  body.zen-mode .main-frame {
-    padding: 0;
-  }
 </style>
   
 <script>

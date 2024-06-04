@@ -3,63 +3,37 @@ title: Demo
 description: Quam clipeum nubila Parnasi plangorem nunc adductis
 ---
 
-## Veluti stupet luminis in infelix petiti
+## Where can I active the different modes now?
 
-Lorem markdownum, nova metuo pudet, deas dixit, nona lapides dilecta nefandas
-nec inquit, discors inquire. Corpore artus sui temptare a est aequor stirpe deos
-dedisti proxima fuit. Turne Tritoniaca deorum uterque Quirini, vellem resedit
-oro deriguisse vota cauti. Sed ambo Tyrrhenae correptus
-[eruiturque](http://ardua.com/) erat lacrimis Dianae accipe partibus.
+If you look in the right sidebar (Table of contents) you can probably spot the `Modes` heading where different modes can be activated. If you find the usability kinda hard and not intuitive, please let me know [here](https://github.com/trueberryless/starlight-zen-mode/discussions/2). If you think the placement is already, let me also know about it [here](https://github.com/trueberryless/starlight-zen-mode/discussions/2) because why not...
 
-    if (startArp(process_recursion + 95, 2, master)) {
-        hibernate.snmp_server_fios.ray_memory_page(syn_framework_firmware,
-                columnVeronicaGif);
-        alpha += domain_app;
-        root_framework_topology = cyberspaceInternet;
-    }
-    if (skyscraperCgi.type_phishing_scanner(dFunction)) {
-        memory_megapixel_frequency(digitalDocking);
-    } else {
-        service_cloud += 48;
-    }
-    if (cd_version_navigation) {
-        sku.bloatware_clock(markup_mode_ad(2, ssl_software, 4), file);
-        partition = 42;
-    }
-    offline = sramPiracyDrive(-5) - tweet_reciprocal + spoolZoneSocial;
+Currently only one mode is supported but stay tuned for more modes, like the `Presentation` mode for example.
 
-Exemplis disparibus est est abscidit aethera. Ut est urbem, iam gener verumtamen
-iussit peregrinosque _gaudia concutiensque inimica_ nemorum, sed.
+## Configuration of this website
 
-## Claudit solet
+I personally think that these settings will be most pleased for your users, so I just put it here so you can copy and paste it if you want:
 
-[Quam](http://www.magnaquenon.com/pronus-opus) miratur ventis magico sed femina
-ipse facere rura leve alter virorum fratri mora humum iam haemoniae quaecumque
-caeli, in. Hunc amplexus annis cornibus eodem; huc corpora Diana sed mora
-poposcerat prius, ubi.
+```js {11-14}
+// astro.config.mjs
+import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
+import starlightViewModes from "starlight-view-modes";
 
-> Rata tum neque signataque novissima fugere accipe aut saepe, profani Iovis,
-> nequiquam nostra sidere grates praeposuisse ignis. Invide diva campoque; modo
-> mihi infelix diramque videre **praecordia** moenia racemis; indicere, inplet,
-> fama praeferre _in_.
+export default defineConfig({
+    integrations: [
+        starlight({
+            plugins: [
+                starlightViewModes({
+                    zenModeEnabled: true,
+                    zenModeCloseButtonPosition: "top-right",
+                    presentationModeEnabled: true, // not supported yet
+                    presentationModeControlButtonPosition: "middle-right", // not supported yet
+                }),
+            ],
+            title: "My Docs",
+        }),
+    ],
+});
+```
 
-## Harenas ut nec condi meo
-
-Ture noviens membris gravi. Flevit saxo has fetum regemque edo Illyricos Ergo
-acrior venerit. Pana olim tempora indigenas Phoebo tergo, tempore vultus, dum
-haec _fugio_ a nutrita humum deterior necetur. Merui qua foret
-[trahat](http://praecutiunt.net/facit). Aquilonibus sole Achilli diu ambarum
-quantusque dominum, ignis et furibundus arbor.
-
--   Et es Hellespontus solvit
--   Conubia flumine fecerit alvum
--   Vultus membra eunti sine censu
--   Solvere inlustre dixit
--   Ex exserere datque equosque sanguis in etiamnum
--   Aoniis pererratis auras
-
-Deae dolentem de flammis quamvis. Sic zonam vos capillis sibi ille magni
-pendebat Numicius unum, quoque vultu profanus, esset velatus ordine super
-imagine? In quoque in _id mille_ et **spes umoribus repetendus** et altera
-coniunx. Et cumque pastor sanguine claro Dircen, quater clausere nolle; sua
-mollit spectatam volucres sine dederat. Ex lyrae.
+You can test exactly this configuartion on this whole website as you like.
