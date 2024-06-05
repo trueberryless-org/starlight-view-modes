@@ -91,10 +91,12 @@
 
         zenModeOff?.addEventListener('click', () => {
             document.body.classList.remove('zen-mode');
+            sessionStorage.removeItem('zenMode');
         });
 
         presentationModeOff?.addEventListener('click', () => {
             document.body.classList.remove('presentation-mode');
+            sessionStorage.removeItem('presentationMode');
         });
 
 
