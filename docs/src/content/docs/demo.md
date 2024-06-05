@@ -3,9 +3,9 @@ title: Demo
 description: Quam clipeum nubila Parnasi plangorem nunc adductis
 ---
 
-## Where can I active the different modes now?
+## Where can I activate the different modes now?
 
-If you look in the right sidebar (Table of contents) you can probably spot the `Modes` heading where different modes can be activated. If you find the usability kinda hard and not intuitive, please let me know [here](https://github.com/trueberryless/starlight-view-modes/discussions/2). If you think the placement is already, let me also know about it [here](https://github.com/trueberryless/starlight-view-modes/discussions/2) because why not...
+If you look in the right sidebar (Table of contents) you can probably spot the `Modes` heading where different modes can be activated. If you find the usability kinda hard and not intuitive, please let me know [here](https://github.com/trueberryless/starlight-view-modes/discussions/2). If you think the placement is alright, let me also know about it [here](https://github.com/trueberryless/starlight-view-modes/discussions/2) because why not...
 
 Currently only one mode is supported but stay tuned for more modes, like the `Presentation` mode for example.
 
