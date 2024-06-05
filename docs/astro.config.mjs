@@ -40,6 +40,7 @@ export default defineConfig({
                 // },
                 { label: "Demo", link: "/demo/" },
             ],
+            credits: true,
         }),
     ],
 });

@@ -18,17 +18,17 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0(typescript@5.4.5)
       '@astrojs/starlight':
-        specifier: ^0.23.2
-        version: 0.23.4(astro@4.9.3)
+        specifier: ^0.24.0
+        version: 0.24.0(astro@4.9.3)
       astro:
-        specifier: ^4.8.6
+        specifier: ^4.9.3
         version: 4.9.3(typescript@5.4.5)
       sharp:
         specifier: ^0.32.5
         version: 0.32.6
       starlight-package-managers:
         specifier: ^0.6.0
-        version: 0.6.0(@astrojs/starlight@0.23.4)(astro@4.9.3)
+        version: 0.6.0(@astrojs/starlight@0.24.0)(astro@4.9.3)
       starlight-view-modes:
         specifier: workspace:*
         version: link:../packages/starlight-view-modes
@@ -181,6 +181,36 @@ packages:
       '@pagefind/default-ui': 1.1.0
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
+      astro: 4.9.3(typescript@5.4.2)
+      astro-expressive-code: 0.35.3(astro@4.9.3)
+      bcp-47: 2.1.0
+      hast-util-from-html: 2.0.1
+      hast-util-select: 6.0.2
+      hast-util-to-string: 3.0.0
+      hastscript: 8.0.0
+      mdast-util-directive: 3.0.0
+      mdast-util-to-markdown: 2.1.0
+      pagefind: 1.1.0
+      rehype: 13.0.1
+      rehype-format: 5.0.0
+      remark-directive: 3.0.0
+      unified: 11.0.4
+      unist-util-visit: 5.0.0
+      vfile: 6.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@astrojs/starlight@0.24.0(astro@4.9.3):
+    resolution: {integrity: sha512-YUBf7TgDUMRcyoZ8S8hlnPuEvgqFuB5F7tQUwPK5GwkTC1E+gMW8zx9J/RgJAXNjQSi19s73nuF19zw/QSy5tw==}
+    peerDependencies:
+      astro: ^4.8.6
+    dependencies:
+      '@astrojs/mdx': 3.0.1(astro@4.9.3)
+      '@astrojs/sitemap': 3.1.5
+      '@pagefind/default-ui': 1.1.0
+      '@types/hast': 3.0.4
+      '@types/mdast': 4.0.4
       astro: 4.9.3(typescript@5.4.5)
       astro-expressive-code: 0.35.3(astro@4.9.3)
       bcp-47: 2.1.0
@@ -199,6 +229,7 @@ packages:
       vfile: 6.0.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /@astrojs/telemetry@3.1.0:
     resolution: {integrity: sha512-/ca/+D8MIKEC8/A9cSaPUqQNZm+Es/ZinRv0ZAzvu2ios7POQSsVD+VOj7/hypWNsNM3T7RpfgNq7H2TU1KEHA==}
@@ -3995,14 +4026,14 @@ packages:
   /sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  /starlight-package-managers@0.6.0(@astrojs/starlight@0.23.4)(astro@4.9.3):
+  /starlight-package-managers@0.6.0(@astrojs/starlight@0.24.0)(astro@4.9.3):
     resolution: {integrity: sha512-2tE0B4ZVEZXZ1LJjcSvVXLfJP8SB2nE+nhiFgSa3fuHUPtnbzmFxLVp7jEKD8jaMXKWPYtlNTy95gJSK9W1sbQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.22.0'
       astro: '>=4.2.7'
     dependencies:
-      '@astrojs/starlight': 0.23.4(astro@4.9.3)
+      '@astrojs/starlight': 0.24.0(astro@4.9.3)
       astro: 4.9.3(typescript@5.4.5)
     dev: false
 
