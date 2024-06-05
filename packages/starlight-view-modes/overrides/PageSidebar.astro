@@ -3,7 +3,7 @@ import type { Props } from '../props';
 
 import MobileTableOfContents from 'virtual:starlight/components/MobileTableOfContents';
 import TableOfContents from 'virtual:starlight/components/TableOfContents';
-import ZenMode from '../components/ZenMode.astro';
+import ViewModes from '../components/ViewModes.astro';
 ---
 
 {
@@ -15,7 +15,7 @@ import ZenMode from '../components/ZenMode.astro';
 			<div class="right-sidebar-panel sl-hidden lg:sl-block">
 				<div class="sl-container">
 					<TableOfContents {...Astro.props} />
-                    <ZenMode />
+                    <ViewModes />
 				</div>
 			</div>
 		</>

@@ -1,14 +1,14 @@
 import type { ViteUserConfig } from "astro";
 
-import type { StarlightZenModeConfig } from "..";
+import type { StarlightViewModesConfig } from "..";
 
-export function vitePluginStarlightZenModeConfig(config: StarlightZenModeConfig): VitePlugin {
-    const moduleId = "virtual:starlight-zen-mode-config";
+export function vitePluginStarlightViewModesConfig(config: StarlightViewModesConfig): VitePlugin {
+    const moduleId = "virtual:starlight-view-modes-config";
     const resolvedModuleId = `\0${moduleId}`;
     const moduleContent = `export default ${JSON.stringify(config)}`;
 
     return {
-        name: "vite-plugin-starlight-zen-mode-config",
+        name: "vite-plugin-starlight-view-modes-config",
         load(id) {
             return id === resolvedModuleId ? moduleContent : undefined;
         },

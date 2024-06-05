@@ -2,9 +2,9 @@ import type { StarlightPlugin, StarlightUserConfig } from "@astrojs/starlight/ty
 import { AstroError } from "astro/errors";
 import { z } from "astro/zod";
 
-import { starlightZenModeIntegration } from "./libs/integration";
+import { starlightViewModesIntegration } from "./libs/integration";
 
-const starlightZenModeConfigSchema = z
+const starlightViewModesConfigSchema = z
     .object({
         /**
          * Indicates if Zen Mode is enabled. When enabled, the user is able to active Zen Mode which
@@ -57,20 +57,22 @@ const starlightZenModeConfigSchema = z
     })
     .default({});
 
-export default function starlightZenMode(userConfig?: StarlightZenModeUserConfig): StarlightPlugin {
-    const parsedConfig = starlightZenModeConfigSchema.safeParse(userConfig);
+export default function starlightViewModes(
+    userConfig?: StarlightViewModesUserConfig
+): StarlightPlugin {
+    const parsedConfig = starlightViewModesConfigSchema.safeParse(userConfig);
 
     if (!parsedConfig.success) {
         throw new AstroError(
             `The provided plugin configuration is invalid.\n${parsedConfig.error.issues
                 .map((issue) => issue.message)
                 .join("\n")}`,
-            `See the error report above for more informations.\n\nIf you believe this is a bug, please file an issue at https://github.com/trueberryless/starlight-zen-mode/issues`
+            `See the error report above for more informations.\n\nIf you believe this is a bug, please file an issue at https://github.com/trueberryless/starlight-view-modes/issues`
         );
     }
 
     return {
-        name: "starlight-zen-mode",
+        name: "starlight-view-modes",
         hooks: {
             setup({ addIntegration, config, logger, updateConfig }) {
                 const updatedConfig: Partial<StarlightUserConfig> = {
@@ -87,12 +89,12 @@ export default function starlightZenMode(userConfig?: StarlightZenModeUserConfig
                         "It looks like you already have a `PageSidebar` component override in your Starlight configuration."
                     );
                     logger.warn(
-                        "To render `@astrojs/starlight-zen-mode`, remove the override for the `PageSidebar` component.\n"
+                        "To render `@astrojs/starlight-view-modes`, remove the override for the `PageSidebar` component.\n"
                     );
                 } else {
                     // Otherwise, add the PageSidebar component override to the user's configuration.
                     updatedConfig.components.PageSidebar =
-                        "starlight-zen-mode/overrides/PageSidebar.astro";
+                        "starlight-view-modes/overrides/PageSidebar.astro";
                 }
 
                 // If the user has already has a custom override for the MarkdownContent component, don't override it.
@@ -101,20 +103,20 @@ export default function starlightZenMode(userConfig?: StarlightZenModeUserConfig
                         "It looks like you already have a `MarkdownContent` component override in your Starlight configuration."
                     );
                     logger.warn(
-                        "To render `@astrojs/starlight-zen-mode`, remove the override for the `MarkdownContent` component.\n"
+                        "To render `@astrojs/starlight-view-modes`, remove the override for the `MarkdownContent` component.\n"
                     );
                 } else {
                     // Otherwise, add the MarkdownContent component override to the user's configuration.
                     updatedConfig.components.MarkdownContent =
-                        "starlight-zen-mode/overrides/MarkdownContent.astro";
+                        "starlight-view-modes/overrides/MarkdownContent.astro";
                 }
 
-                addIntegration(starlightZenModeIntegration(parsedConfig.data));
+                addIntegration(starlightViewModesIntegration(parsedConfig.data));
                 updateConfig(updatedConfig);
             },
         },
     };
 }
 
-export type StarlightZenModeUserConfig = z.input<typeof starlightZenModeConfigSchema>;
-export type StarlightZenModeConfig = z.output<typeof starlightZenModeConfigSchema>;
+export type StarlightViewModesUserConfig = z.input<typeof starlightViewModesConfigSchema>;
+export type StarlightViewModesConfig = z.output<typeof starlightViewModesConfigSchema>;

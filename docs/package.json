@@ -15,7 +15,7 @@
         "astro": "^4.8.6",
         "sharp": "^0.32.5",
         "starlight-package-managers": "^0.6.0",
-        "starlight-zen-mode": "workspace:*",
+        "starlight-view-modes": "workspace:*",
         "typescript": "^5.4.5"
     }
 }

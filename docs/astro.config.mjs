@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
-import starlightZenMode from "starlight-zen-mode";
+import starlightViewModes from "starlight-view-modes";
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,13 +10,13 @@ export default defineConfig({
             title: "Starlight Zen Mode",
             customCss: ["./src/styles/custom.css"],
             social: {
-                github: "https://github.com/trueberryless/starlight-zen-mode",
+                github: "https://github.com/trueberryless/starlight-view-modes",
             },
             editLink: {
-                baseUrl: "https://github.com/trueberryless/starlight-zen-mode/edit/main/docs/",
+                baseUrl: "https://github.com/trueberryless/starlight-view-modes/edit/main/docs/",
             },
             plugins: [
-                starlightZenMode({
+                starlightViewModes({
                     zenModeEnabled: true,
                     zenModeCloseButtonPosition: "top-right",
                     presentationModeEnabled: false,
