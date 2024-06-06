@@ -5,6 +5,7 @@ import MobileTableOfContents from 'virtual:starlight/components/MobileTableOfCon
 import TableOfContents from 'virtual:starlight/components/TableOfContents';
 import ViewModes from '../components/ViewModes.astro';
 import DeactivationButtons from '../components/DeactivationButtons.astro';
+import HeaderButtons from '../components/HeaderButtons.astro';
 ---
 
 {
@@ -18,6 +19,7 @@ import DeactivationButtons from '../components/DeactivationButtons.astro';
 					<TableOfContents {...Astro.props} />
                     <ViewModes />
 					<DeactivationButtons />
+					<HeaderButtons />
 				</div>
 			</div>
 		</>

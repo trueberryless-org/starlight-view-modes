@@ -23,7 +23,7 @@ export default defineConfig({
                     zenModeShowHeader: true,
                     zenModeShowSidebar: false,
                     zenModeShowTableOfContents: false,
-                    zenModeShowFooter: false,
+                    zenModeShowFooter: true,
                     presentationModeEnabled: false,
                     presentationModeControlButtonPosition: "middle-right",
                 }),

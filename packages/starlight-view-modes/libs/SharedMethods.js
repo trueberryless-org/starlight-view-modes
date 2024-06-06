@@ -27,6 +27,9 @@ export function activateZenMode() {
         document.body.classList.add("view-modes-zen-mode-table-of-contents-disabled");
     }
 
+    const zenModeOffHeader = document.getElementById("view-modes-zen-mode-off-header");
+    if (zenModeOffHeader) zenModeOffHeader.title = "Deactivate Zen Mode";
+
     sessionStorage.setItem("viewModesZenMode", "true");
 }
 
@@ -38,6 +41,10 @@ export function deactivateZenMode() {
         "view-modes-zen-mode-header-enabled",
         "view-modes-zen-mode-header-disabled"
     );
+
+    const zenModeOffHeader = document.getElementById("view-modes-zen-mode-off-header");
+    if (zenModeOffHeader) zenModeOffHeader.title = "Activate Zen Mode";
+
     sessionStorage.removeItem("viewModesZenMode");
 }
 

@@ -32,10 +32,10 @@
     }
 
     :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
-        transform: translateY(0.2em);
+        transform: translateY(0.1em);
     }
 
-    body:not(.view-modes-zen-mode) #view-modes-zen-mode-off {
+    body:not(.view-modes-zen-mode) :is(#view-modes-zen-mode-off) {
         display: none;
     }
 
@@ -43,8 +43,6 @@
         display: none;
     }
 </style>
-
-
   
 <script>
     import config from 'virtual:starlight-view-modes-config';
@@ -57,17 +55,22 @@
         var zenModeOffElement = document.createElement("a");
         zenModeOffElement.id = "view-modes-zen-mode-off";
         zenModeOffElement.innerHTML = `
-            <svg width="24" height="24" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M483.333 150C483.333 196.023 446.023 233.333 400 233.333C353.977 233.333 316.667 196.023 316.667 150C316.667 103.976 353.977 66.6665 400 66.6665C446.023 66.6665 483.333 103.976 483.333 150Z" stroke="currentColor" stroke-width="50"/>
-            <path d="M700 566.666L613.703 523.06C605.307 518.816 600 510.143 600 500.653C600 442.741 575.107 389.778 535 352.819" stroke="currentColor" stroke-width="50" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M100 566.667L186.296 523.06C194.695 518.817 200 510.143 200 500.653C200 402.673 271.257 318.858 366.89 302.75C388.66 299.083 411.34 299.083 433.11 302.75C449.168 305.455 464.539 310.068 479 316.337" stroke="currentColor" stroke-width="50" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M367.333 683L361.273 687.547C345.293 699.53 337.303 705.523 328.863 710.43C309.125 721.9 287.24 729.197 264.567 731.86C254.872 733 244.885 733 224.909 733H173.039C166.531 733 160.395 731.408 155 728.592M367.333 683L434 633M367.333 683L451.99 714.747C472.303 722.363 482.463 726.173 492.96 728.627C498.393 729.897 503.887 730.893 509.417 731.61C520.107 733 530.957 733 552.653 733H628.293C649.857 733 667.333 715.523 667.333 693.96C667.333 658.133 642.95 626.903 608.193 618.213L558.7 605.84C556.987 605.413 556.127 605.2 555.3 604.97C541.68 601.187 529.617 593.177 520.847 582.093C520.317 581.42 519.783 580.71 518.723 579.3L484 533" stroke="currentColor" stroke-width="50" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M85 715.68L715.68 84.9999" stroke="currentColor" stroke-width="50" stroke-linecap="round"/>
-            <mask id="mask0_526_2" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="225" y="520" width="130" height="115">
-                <path d="M231.84 633.965C226.915 635.215 223.482 629.176 227.074 625.583L330.748 521.91C333.21 519.447 337.374 520.194 338.827 523.359L354.5 557.5L277 622.5L231.84 633.965Z" fill="#D9D9D9"/>
-            </mask>
-            <g mask="url(#mask0_526_2)">
-                <path d="M316.333 533L281.609 579.3C280.549 580.713 280.019 581.419 279.485 582.093C270.716 593.176 258.652 601.186 245.034 604.969C244.205 605.199 243.347 605.413 241.634 605.84L192.141 618.213" stroke="currentColor" stroke-width="50" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg fill="currentColor" height="24" width="24" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                viewBox="0 0 512 512" xml:space="preserve">
+            <g>
+                <g>
+                    <path d="M256,94.609c-21.478,0-38.957,17.478-38.957,38.957s17.478,38.956,38.957,38.956s38.957-17.478,38.957-38.956
+                        C294.957,112.088,277.478,94.609,256,94.609z"/>
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path d="M256,0C114.843,0,0,114.843,0,256s114.843,256,256,256s256-114.843,256-256S397.157,0,256,0z M256,417.391
+                        c-21.478,0-38.957-17.478-38.957-38.957s17.478-38.956,38.957-38.956s38.957,17.478,38.957,38.956
+                        C294.957,399.912,277.478,417.391,256,417.391z M256,239.304c-75.185,0-136.348,61.163-136.348,136.348
+                        c0,25.278,7.038,48.888,19.074,69.206C75.616,405.521,33.391,335.684,33.391,256c0-122.744,99.865-222.609,222.609-222.609
+                        c56.772,0,102.957,46.185,102.957,102.957C358.957,193.12,312.772,239.304,256,239.304z"/>
+                </g>
             </g>
             </svg>
         `;        
