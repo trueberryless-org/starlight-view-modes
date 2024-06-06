@@ -20,6 +20,7 @@ export default defineConfig({
                 starlightViewModes({
                     zenModeEnabled: true,
                     zenModeCloseButtonPosition: "top-right",
+                    zenModeShowFooter: true,
                     presentationModeEnabled: false,
                     presentationModeControlButtonPosition: "middle-right",
                 }),

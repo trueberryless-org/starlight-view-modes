@@ -51,6 +51,16 @@ There are these options:
 -   `bottom-left`
 -   `bottom-right`
 
+### `zenModeShowFooter`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Whether the footer should be displayed when Zen mode is activated.
+Disabling this option can mean that the user always has to leave Zen mode if they want to go the next or previous page because there are links to these pages in the footer.
+
+I recommend disabling this option if you either want your users to have the full Zen mode experience, or if there are many anchor links on the page so that navigation isn't limited to the footer links.
+
 ## Recommendations
 
 I personally think that these settings will be most pleased for your users, so I just put them here so you can copy and paste it if you want:
@@ -68,6 +78,7 @@ export default defineConfig({
                 starlightViewModes({
                     zenModeEnabled: true,
                     zenModeCloseButtonPosition: "top-right",
+                    zenModeShowFooter: true,
                     presentationModeEnabled: true, // not supported yet
                     presentationModeControlButtonPosition: "middle-right", // not supported yet
                 }),

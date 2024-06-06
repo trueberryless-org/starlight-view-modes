@@ -7,7 +7,7 @@ import { starlightViewModesIntegration } from "./libs/integration";
 const starlightViewModesConfigSchema = z
     .object({
         /**
-         * Indicates if Zen Mode is enabled. When enabled, the user is able to active Zen Mode which
+         * Indicates if Zen mode is enabled. When enabled, the user is able to active Zen mode which
          * provides a distraction-free interface by hiding everything except the main content.
          *
          * @type {boolean}
@@ -16,7 +16,7 @@ const starlightViewModesConfigSchema = z
         zenModeEnabled: z.boolean().default(true),
 
         /**
-         * Choose the position of the close button for the Zen Mode. It is only visible when the Zen Mode
+         * Choose the position of the close button for the Zen mode. It is only visible when the Zen mode
          * is active and can be in one of four corners: top left, top right, bottom left, or bottom right.
          *
          * @type {enum}
@@ -25,6 +25,14 @@ const starlightViewModesConfigSchema = z
         zenModeCloseButtonPosition: z
             .enum(["top-left", "top-right", "bottom-left", "bottom-right"])
             .default("top-right"),
+
+        /**
+         * Indicates if the footer should be shown if the user is actively in Zen mode.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        zenModeShowFooter: z.boolean().default(true),
 
         /**
          * Indicates if Presentation Mode is enabled. When enabled, the user is able to active Presentation Mode which

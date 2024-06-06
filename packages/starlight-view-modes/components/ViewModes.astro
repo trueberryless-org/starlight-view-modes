@@ -29,7 +29,11 @@
 
   
 <style is:global>  
-  body.zen-mode *:is(:not(:is(:has(main), main, main *, :has(#zen-mode-off), #zen-mode-off, #zen-mode-off *, :has(.starlight-image-zoom-dialog), .starlight-image-zoom-dialog, .starlight-image-zoom-dialog *)), footer) {
+  body.zen-mode *:is(:not(:is(:has(main), main, main *, :has(#zen-mode-off), #zen-mode-off, #zen-mode-off *, :has(.starlight-image-zoom-dialog), .starlight-image-zoom-dialog, .starlight-image-zoom-dialog *))) {
+    display: none;
+  }
+
+  body.zen-mode.zen-mode-footer-disabled footer {
     display: none;
   }
 
@@ -95,6 +99,9 @@
         sessionStorage.setItem('zenMode', 'true');
         document.body.classList.remove('presentation-mode');
         document.body.classList.add('zen-mode');
+        if (!config.zenModeShowFooter) {
+          document.body.classList.add('zen-mode-footer-disabled');
+        }
       });
     }
 
@@ -105,17 +112,19 @@
       presentationModeOn?.addEventListener('click', () => {
         sessionStorage.setItem('zenMode', 'false');
         sessionStorage.setItem('presentationMode', 'true');
-        document.body.classList.remove('zen-mode');
+        document.body.classList.remove('zen-mode', 'zen-mode-footer-disabled');
         document.body.classList.add('presentation-mode');
       });
-    }
-  
+    }  
 
     const zenMode = sessionStorage.getItem('zenMode') === 'true';
     const presentationMode = sessionStorage.getItem('presentationMode') === 'true';
 
     if (zenMode) {
       document.body.classList.add('zen-mode');
+        if (!config.zenModeShowFooter) {
+          document.body.classList.add('zen-mode-footer-disabled');
+        }
     }
 
     if (presentationMode) {
