@@ -8,7 +8,7 @@ import starlightImageZoom from "starlight-image-zoom";
 export default defineConfig({
     integrations: [
         starlight({
-            title: "Starlight Zen Mode",
+            title: "Starlight View Modes",
             customCss: ["./src/styles/custom.css"],
             social: {
                 github: "https://github.com/trueberryless/starlight-view-modes",
@@ -19,8 +19,11 @@ export default defineConfig({
             plugins: [
                 starlightViewModes({
                     zenModeEnabled: true,
-                    zenModeCloseButtonPosition: "top-right",
-                    zenModeShowFooter: true,
+                    zenModeCloseButtonPosition: "top-left",
+                    zenModeShowHeader: true,
+                    zenModeShowSidebar: false,
+                    zenModeShowTableOfContents: false,
+                    zenModeShowFooter: false,
                     presentationModeEnabled: false,
                     presentationModeControlButtonPosition: "middle-right",
                 }),

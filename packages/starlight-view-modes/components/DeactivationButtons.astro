@@ -1,5 +1,5 @@
 <style is:global>
-    :is(#zen-mode-off, #presentation-mode-off) {
+    :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) {
         position: fixed;
         width: 3rem;
         height: 3rem;
@@ -25,22 +25,21 @@
         z-index: 1000;
     }
 
-
-    :is(#zen-mode-off, #presentation-mode-off):hover {
+    :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off):hover {
         background: var(--sl-color-gray-1);
         color: var(--sl-color-gray-6);
         box-shadow: 8px 8px var(--sl-color-gray-4);
     }
 
-    :is(#zen-mode-off, #presentation-mode-off) > svg {
+    :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
         transform: translateY(0.2em);
     }
 
-    body:not(.zen-mode) #zen-mode-off {
+    body:not(.view-modes-zen-mode) #view-modes-zen-mode-off {
         display: none;
     }
 
-    body:not(.presentation-mode) #presentation-mode-off {
+    body:not(.view-modes-presentation-mode) #view-modes-presentation-mode-off {
         display: none;
     }
 </style>
@@ -48,13 +47,15 @@
 
   
 <script>
-    import config from 'virtual:starlight-view-modes-config'
+    import config from 'virtual:starlight-view-modes-config';
+    import { deactivateZenMode, deactivatePresentationMode } from '../libs/SharedMethods';
+    import { ZenModePositionStateMachine } from '../libs/ZenModePositionStateMachine';
 
     document.addEventListener('DOMContentLoaded', () => {
         var body = document.body;
 
         var zenModeOffElement = document.createElement("a");
-        zenModeOffElement.id = "zen-mode-off";
+        zenModeOffElement.id = "view-modes-zen-mode-off";
         zenModeOffElement.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M483.333 150C483.333 196.023 446.023 233.333 400 233.333C353.977 233.333 316.667 196.023 316.667 150C316.667 103.976 353.977 66.6665 400 66.6665C446.023 66.6665 483.333 103.976 483.333 150Z" stroke="currentColor" stroke-width="50"/>
@@ -72,7 +73,7 @@
         `;        
 
         var presentationModeOffElement = document.createElement("a");
-        presentationModeOffElement.id = "presentation-mode-off";
+        presentationModeOffElement.id = "view-modes-presentation-mode-off";
         presentationModeOffElement.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M66.6665 66.6665H630" stroke="currentColor" stroke-width="50" stroke-linecap="round"/>
@@ -94,23 +95,23 @@
         body.insertBefore(zenModeOffElement, body.firstChild);
         body.insertBefore(presentationModeOffElement, body.firstChild);
 
-        const zenModeOff = document.getElementById('zen-mode-off');
-        const presentationModeOff = document.getElementById('presentation-mode-off');
+        const zenModeOff = document.getElementById('view-modes-zen-mode-off');
+        const presentationModeOff = document.getElementById('view-modes-presentation-mode-off');
 
         zenModeOff?.addEventListener('click', () => {
-            document.body.classList.remove('zen-mode');
-            sessionStorage.removeItem('zenMode');
+            deactivateZenMode();
         });
 
         presentationModeOff?.addEventListener('click', () => {
-            document.body.classList.remove('presentation-mode');
-            sessionStorage.removeItem('presentationMode');
+            deactivatePresentationMode();
         });
 
+        const zenModePositionStateMachine = new ZenModePositionStateMachine(config, zenModeOff);
+        zenModePositionStateMachine.updatePosition();
 
-        (config.zenModeCloseButtonPosition === 'top-right' || config.zenModeCloseButtonPosition === 'bottom-right') ? zenModeOff?.style.setProperty('right', '1rem') : zenModeOff?.style.setProperty('left', '1rem');
-        (config.zenModeCloseButtonPosition === 'top-right' || config.zenModeCloseButtonPosition === 'top-left') ? zenModeOff?.style.setProperty('top', '1rem') : zenModeOff?.style.setProperty('bottom', '1rem');
 
+        // (config.zenModeCloseButtonPosition === 'top-right' || config.zenModeCloseButtonPosition === 'bottom-right') ? zenModeOff?.style.setProperty('right', '1rem') : zenModeOff?.style.setProperty('left', '1rem');
+        // (config.zenModeCloseButtonPosition === 'top-right' || config.zenModeCloseButtonPosition === 'top-left') ? zenModeOff?.style.setProperty('top', '1rem') : zenModeOff?.style.setProperty('bottom', '1rem');
     });
 </script>
   

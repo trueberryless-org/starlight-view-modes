@@ -1,8 +1,8 @@
-<nav aria-labelledby="starlight__on-this-page" id="modes">
-  <h2 class="mode">Modes</h2>
-  <ul>
+<nav aria-labelledby="starlight__on-this-page" id="view-modes-activation">
+  <h2 id="view-modes-activation-heading">Modes</h2>
+  <ul id="view-modes-activation-list">
     <li>
-      <a id="zen-mode-on">
+      <a id="view-modes-zen-mode-on">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M14.5 4.5C14.5 5.88071 13.3807 7 12 7C10.6193 7 9.5 5.88071 9.5 4.5C9.5 3.11929 10.6193 2 12 2C13.3807 2 14.5 3.11929 14.5 4.5Z" stroke="currentColor" stroke-width="1.5"/>
               <path d="M3 17L5.58887 15.6918C5.84084 15.5645 6 15.3043 6 15.0196C6 12.0802 8.1377 9.56573 11.0067 9.0825C11.6598 8.9725 12.3402 8.9725 12.9933 9.0825C15.8623 9.56573 18 12.0802 18 15.0196C18 15.3043 18.1592 15.5645 18.4111 15.6918L21 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -12,7 +12,7 @@
       </a>
     </li>
     <li>
-      <a id="presentation-mode-on">
+      <a id="view-modes-presentation-mode-on">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 2H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               <path d="M9 10.5L10.2929 9.20711C10.6262 8.87377 10.7929 8.70711 11 8.70711C11.2071 8.70711 11.3738 8.87377 11.7071 9.20711L12.2929 9.79289C12.6262 10.1262 12.7929 10.2929 13 10.2929C13.2071 10.2929 13.3738 10.1262 13.7071 9.79289L15 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -28,63 +28,95 @@
 </nav>
 
   
-<style is:global>  
-  body.zen-mode *:is(:not(:is(:has(main), main, main *, :has(#zen-mode-off), #zen-mode-off, #zen-mode-off *, :has(.starlight-image-zoom-dialog), .starlight-image-zoom-dialog, .starlight-image-zoom-dialog *))) {
+<style is:global>
+  /* body.view-modes-zen-mode *:is(:not(:is(:has(main), main, main *, :has(#view-modes-zen-mode-off), #view-modes-zen-mode-off, #view-modes-zen-mode-off *, :has(.starlight-image-zoom-dialog), .starlight-image-zoom-dialog, .starlight-image-zoom-dialog *))) {
+    display: none;
+  } */
+
+  body.view-modes-zen-mode.view-modes-zen-mode-header-disabled header {
     display: none;
   }
 
-  body.zen-mode.zen-mode-footer-disabled footer {
+  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled #starlight__sidebar {
     display: none;
   }
 
-  body.zen-mode {
-    overflow-x: hidden;
+  body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled .right-sidebar-container {
+    display: none;
   }
 
-  body.zen-mode main {
+  body.view-modes-zen-mode.view-modes-zen-mode-footer-disabled footer {
+    display: none;
+  }
+
+  body.view-modes-zen-mode.view-modes-zen-mode-header-disabled .sidebar-pane {
+    /* inset-block-start: calc(var(--sl-nav-height) + 1.5rem * 2 + 1rem + var(--sl-text-h1) * var(--sl-line-height-headings)); */
+    inset-block-start: 0;
+  }
+
+  @media (min-width: 50rem) {
+    body.view-modes-zen-mode.view-modes-zen-mode-sidebar-enabled main {
+      width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
+      margin-left: var(--sl-sidebar-width);
+    }
+  }
+
+  /* body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-sidebar-disabled site-search button {
+    margin: auto;
+  } */
+
+  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled main {
     width: calc(100vw - var(--sl-sidebar-pad-x));
   }
 
-  body.zen-mode main .sl-container {
+  body.view-modes-zen-mode main .sl-container {
     margin: 0 auto;
   }
 
-  body.zen-mode .main-frame {
-    padding: 0;
+  body.view-modes-zen-mode .main-frame {
+    padding-inline: 0;
   }
+
+body.view-modes-zen-mode {
+  overflow-x: hidden;
+}
 </style>
 
 <style>
-  .mode {
+  #view-modes-activation {
     margin-top: 0.83em;
   }
 
-  ul {
+  #view-modes-activation-list {
     padding: 0;
     list-style: none;
   }
 
-  :is(#zen-mode-on, #presentation-mode-on) {
-    background:none;
-    border:none;
-    margin:0;
-    padding:0;
+  :is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on) {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
     cursor: pointer;
   }
 
-  :is(#zen-mode-on, #presentation-mode-on) > svg {
+  :is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on) > svg {
     transform: translateY(0.2em);
   }
 
 </style>
   
 <script>
-  import config from 'virtual:starlight-view-modes-config'
+  import config from 'virtual:starlight-view-modes-config';
+  import { deactivateAllModes, activateZenMode, activatePresentationMode } from '../libs/SharedMethods';
 
   document.addEventListener('DOMContentLoaded', () => {
-    const modes = document.getElementById('modes');
-    const zenModeOn = document.getElementById('zen-mode-on');
-    const presentationModeOn = document.getElementById('presentation-mode-on');
+    const modes = document.getElementById('view-modes-activation');
+    const zenModeOn = document.getElementById('view-modes-zen-mode-on');
+    const presentationModeOn = document.getElementById('view-modes-presentation-mode-on');
+    
+    const zenMode = sessionStorage.getItem('viewModesZenMode') === 'true';
+    const presentationMode = sessionStorage.getItem('viewModesPresentationMode') === 'true';
 
     if (!config.zenModeEnabled && !config.presentationModeEnabled) {
       modes?.style.setProperty('display', 'none');
@@ -95,13 +127,8 @@
     }
     else {
       zenModeOn?.addEventListener('click', () => {
-        sessionStorage.setItem('presentationMode', 'false');
-        sessionStorage.setItem('zenMode', 'true');
-        document.body.classList.remove('presentation-mode');
-        document.body.classList.add('zen-mode');
-        if (!config.zenModeShowFooter) {
-          document.body.classList.add('zen-mode-footer-disabled');
-        }
+        deactivateAllModes();
+        activateZenMode();
       });
     }
 
@@ -110,25 +137,17 @@
     }
     else {
       presentationModeOn?.addEventListener('click', () => {
-        sessionStorage.setItem('zenMode', 'false');
-        sessionStorage.setItem('presentationMode', 'true');
-        document.body.classList.remove('zen-mode', 'zen-mode-footer-disabled');
-        document.body.classList.add('presentation-mode');
+        deactivateAllModes();
+        activatePresentationMode();
       });
     }  
 
-    const zenMode = sessionStorage.getItem('zenMode') === 'true';
-    const presentationMode = sessionStorage.getItem('presentationMode') === 'true';
-
+    // Session storage
     if (zenMode) {
-      document.body.classList.add('zen-mode');
-        if (!config.zenModeShowFooter) {
-          document.body.classList.add('zen-mode-footer-disabled');
-        }
+      activateZenMode();
     }
-
     if (presentationMode) {
-      document.body.classList.add('presentation-mode');
+      activatePresentationMode();
     }
   });
 </script>

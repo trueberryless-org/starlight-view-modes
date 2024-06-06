@@ -27,6 +27,30 @@ const starlightViewModesConfigSchema = z
             .default("top-right"),
 
         /**
+         * Indicates if the header should be shown if the user is actively in Zen mode.
+         *
+         * @type {boolean}
+         * @default false
+         */
+        zenModeShowHeader: z.boolean().default(false),
+
+        /**
+         * Indicates if the sidebar should be shown if the user is actively in Zen mode.
+         *
+         * @type {boolean}
+         * @default false
+         */
+        zenModeShowSidebar: z.boolean().default(false),
+
+        /**
+         * Indicates if the table of contents should be shown if the user is actively in Zen mode.
+         *
+         * @type {boolean}
+         * @default false
+         */
+        zenModeShowTableOfContents: z.boolean().default(false),
+
+        /**
          * Indicates if the footer should be shown if the user is actively in Zen mode.
          *
          * @type {boolean}
