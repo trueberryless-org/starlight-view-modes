@@ -97,20 +97,6 @@ export default function starlightViewModes(
                         "starlight-view-modes/overrides/PageSidebar.astro";
                 }
 
-                // If the user has already has a custom override for the MarkdownContent component, don't override it.
-                if (config.components?.MarkdownContent) {
-                    logger.warn(
-                        "It looks like you already have a `MarkdownContent` component override in your Starlight configuration."
-                    );
-                    logger.warn(
-                        "To render `@astrojs/starlight-view-modes`, remove the override for the `MarkdownContent` component.\n"
-                    );
-                } else {
-                    // Otherwise, add the MarkdownContent component override to the user's configuration.
-                    updatedConfig.components.MarkdownContent =
-                        "starlight-view-modes/overrides/MarkdownContent.astro";
-                }
-
                 addIntegration(starlightViewModesIntegration(parsedConfig.data));
                 updateConfig(updatedConfig);
             },

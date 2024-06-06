@@ -9,6 +9,10 @@ If you look in the right sidebar (Table of contents) you can probably spot the `
 
 Currently only one mode is supported but stay tuned for more modes, like the `Presentation` mode for example.
 
+:::note
+Mobile Version is not working yet!
+:::
+
 ## Configuration of this website
 
 I personally think that these settings will be most pleased for your users, so I just put it here so you can copy and paste it if you want:
