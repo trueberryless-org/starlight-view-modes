@@ -37,28 +37,6 @@ The Starlight View Modes plugin accepts the following configuration options:
 Whether the Zen Mode Feature overall should be enabled or disabled.
 Disabling this options is useful if a Zen Mode doesn't make much sense on your website.
 
-#### Example
-
-```js {11}
-// astro.config.mjs
-import starlight from "@astrojs/starlight";
-import { defineConfig } from "astro/config";
-import starlightViewModes from "starlight-view-modes";
-
-export default defineConfig({
-    integrations: [
-        starlight({
-            plugins: [
-                starlightViewModes({
-                    zenModeEnabled: false,
-                }),
-            ],
-            title: "My Docs",
-        }),
-    ],
-});
-```
-
 ### `zenModeCloseButtonPosition`
 
 **Type:** `enum`  
@@ -73,9 +51,11 @@ There are these options:
 -   `bottom-left`
 -   `bottom-right`
 
-#### Example
+## Recommendations
 
-```js {11}
+I personally think that these settings will be most pleased for your users, so I just put them here so you can copy and paste it if you want:
+
+```js {11-14}
 // astro.config.mjs
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
@@ -86,7 +66,10 @@ export default defineConfig({
         starlight({
             plugins: [
                 starlightViewModes({
-                    zenModeCloseButtonPosition: "bottom-left",
+                    zenModeEnabled: true,
+                    zenModeCloseButtonPosition: "top-right",
+                    presentationModeEnabled: true, // not supported yet
+                    presentationModeControlButtonPosition: "middle-right", // not supported yet
                 }),
             ],
             title: "My Docs",
@@ -94,3 +77,5 @@ export default defineConfig({
     ],
 });
 ```
+
+You can test exactly this configuartion on this whole website as you like.

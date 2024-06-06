@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 import starlightViewModes from "starlight-view-modes";
+import starlightImageZoom from "starlight-image-zoom";
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,6 +23,7 @@ export default defineConfig({
                     presentationModeEnabled: false,
                     presentationModeControlButtonPosition: "middle-right",
                 }),
+                starlightImageZoom(),
             ],
             sidebar: [
                 {
