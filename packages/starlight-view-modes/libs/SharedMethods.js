@@ -3,6 +3,9 @@ import config from "virtual:starlight-view-modes-config";
 export function activateZenMode() {
     document.body.classList.add("view-modes-zen-mode");
 
+    const zenModeOnText = document.getElementById("view-modes-zen-mode-on-text");
+    if (zenModeOnText) zenModeOnText.innerText = "Deactivate Zen Mode";
+
     const zenModeOffHeader = document.getElementById("view-modes-zen-mode-off-header");
     if (zenModeOffHeader) zenModeOffHeader.title = "Deactivate Zen Mode";
 
@@ -14,6 +17,9 @@ export function activateZenMode() {
 
 export function deactivateZenMode() {
     document.body.classList.remove("view-modes-zen-mode");
+
+    const zenModeOnText = document.getElementById("view-modes-zen-mode-on-text");
+    if (zenModeOnText) zenModeOnText.innerText = "Activate Zen Mode";
 
     const zenModeOffHeader = document.getElementById("view-modes-zen-mode-off-header");
     if (zenModeOffHeader) zenModeOffHeader.title = "Activate Zen Mode";

@@ -21,11 +21,13 @@ export class ZenModePositionStateMachine {
             // Wenn Header angezeigt wird, soll der Button immer unten fixiert sein
             // Wenn Sidebar angezeigt wird, soll der Button immer rechts fixiert sein
             this.setBottomRightPosition();
-        } else if (!window.matchMedia("(min-width: 50rem)").matches) {
-            this.setBottomPosition();
         } else {
             // Ansonsten normale Positionierungslogik basierend auf der Schaltfläche
             this.setDynamicPosition();
+        }
+
+        if (!window.matchMedia("(min-width: 50rem)").matches) {
+            this.setBottomPosition();
         }
     }
 

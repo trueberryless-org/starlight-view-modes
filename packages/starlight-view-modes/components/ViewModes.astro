@@ -52,8 +52,14 @@
 
       /* -------------------------------------------------------------------- Header -------------------------------------------------------------------- */
 
-      &.view-modes-zen-mode-header-disabled header {
-        display: none;
+      &.view-modes-zen-mode-header-disabled {
+        header {
+          display: none;
+        }
+
+        nav {
+          top: 0;
+        }
       }
 
       &.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-disabled {
@@ -70,6 +76,10 @@
       /* -------------------------------------------------------------------- Sidebar ------------------------------------------------------------------- */
 
       &.view-modes-zen-mode-sidebar-disabled {
+        nav {
+          inset-inline-start: 0;
+        }
+
         @media (min-width: 50rem) {
           #starlight__sidebar {
             display: none;
@@ -82,7 +92,13 @@
         
         &.view-modes-zen-mode-table-of-contents-enabled {
           main {
-            width: calc(100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2));
+            width: 100vw;
+          }
+
+          @media (min-width: 72rem) {
+            main {
+              width: calc(100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2));
+            }
           }
 
           .main-frame {
@@ -92,9 +108,14 @@
       }
 
       &.view-modes-zen-mode-sidebar-enabled {
-        &.view-modes-zen-mode-header-disabled .sidebar-pane {
-          /* inset-block-start: calc(var(--sl-nav-height) + 1.5rem * 2 + 1rem + var(--sl-text-h1) * var(--sl-line-height-headings)); */
-          inset-block-start: 0;
+        &.view-modes-zen-mode-header-disabled {
+          .sidebar-pane {
+            inset-block-start: 0;
+          }
+
+          // .sidebar-content {
+          //   padding-top: var(--sl-nav-height);
+          // }
         }
       }
 
@@ -156,13 +177,17 @@
       transition: transform var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    &:hover > svg {
-      transform: rotate(180deg) translateY(-0.15em);
-    }
-
     :is(#view-modes-zen-mode-on-text, #view-modes-presentation-mode-on-text) {
       padding-left: .25rem;
     }
+  }
+
+  body.view-modes-zen-mode-table-of-contents-disabled :is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on):hover > svg {
+    transform: rotate(180deg) translateY(-0.15em);
+  }
+  
+  body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-enabled :is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on) > svg {
+    transform: rotate(180deg) translateY(-0.15em);
   }
 </style>
   
@@ -173,7 +198,6 @@
   document.addEventListener('DOMContentLoaded', () => {
     const modes = document.getElementById('view-modes-activation');
     const zenModeOn = document.getElementById('view-modes-zen-mode-on');
-    const zenModeOnText = document.getElementById('view-modes-zen-mode-on-text');
     const presentationModeOn = document.getElementById('view-modes-presentation-mode-on');
     
     const zenMode = sessionStorage.getItem('viewModesZenMode') === 'true';
@@ -190,11 +214,9 @@
       zenModeOn?.addEventListener('click', () => {
         if (document.body.classList.contains('view-modes-zen-mode')) {
             deactivateZenMode();
-            if (zenModeOnText) zenModeOnText.innerHTML = "Activate Zen Mode";
         }
         else {
             activateZenMode(); 
-            if (zenModeOnText) zenModeOnText.innerHTML = "Deactivate Zen Mode";
         }
       });
     }
@@ -212,7 +234,6 @@
     // Session storage
     if (zenMode) {
       activateZenMode();
-      if (zenModeOnText) zenModeOnText.innerHTML = "Deactivate Zen Mode";
     }
     if (presentationMode) {
       activatePresentationMode();
