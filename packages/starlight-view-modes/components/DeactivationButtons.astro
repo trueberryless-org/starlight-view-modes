@@ -1,4 +1,8 @@
-<style is:global>
+<style is:global lang="scss">
+    :root {
+      --starlight-view-modes-animation-duration: 300ms;
+    }
+
     :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) {
         position: fixed;
         width: 3rem;
@@ -18,21 +22,21 @@
         justify-content: center;
         align-self: center;
 
-        -webkit-transition: color 300ms linear, background-color 300ms linear, box-shadow 300ms linear;
-        -ms-transition: color 300ms linear, background-color 300ms linear, box-shadow 300ms linear;
-        transition: color 300ms linear, background-color 300ms linear, box-shadow 300ms linear;
+        -webkit-transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+        -ms-transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+        transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
 
         z-index: 1000;
-    }
 
-    :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off):hover {
-        background: var(--sl-color-gray-1);
-        color: var(--sl-color-gray-6);
-        box-shadow: 8px 8px var(--sl-color-gray-4);
-    }
+        &:hover {
+            background: var(--sl-color-gray-1);
+            color: var(--sl-color-gray-6);
+            box-shadow: 8px 8px var(--sl-color-gray-4);
+        }
 
-    :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
-        transform: translateY(0.1em);
+        > svg {
+            transform: translateY(0.1em);
+        }
     }
 
     body:not(.view-modes-zen-mode) :is(#view-modes-zen-mode-off) {
@@ -41,6 +45,10 @@
 
     body:not(.view-modes-presentation-mode) #view-modes-presentation-mode-off {
         display: none;
+    }
+
+    body.view-modes-zen-mode :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
+        transform: rotate(180deg);
     }
 </style>
   

@@ -30,6 +30,9 @@ export function activateZenMode() {
     const zenModeOffHeader = document.getElementById("view-modes-zen-mode-off-header");
     if (zenModeOffHeader) zenModeOffHeader.title = "Deactivate Zen Mode";
 
+    const zenModeOffHeaderMobile = document.getElementById("view-modes-zen-mode-off-header-mobile");
+    if (zenModeOffHeaderMobile) zenModeOffHeaderMobile.title = "Deactivate Zen Mode";
+
     sessionStorage.setItem("viewModesZenMode", "true");
 }
 
@@ -44,6 +47,9 @@ export function deactivateZenMode() {
 
     const zenModeOffHeader = document.getElementById("view-modes-zen-mode-off-header");
     if (zenModeOffHeader) zenModeOffHeader.title = "Activate Zen Mode";
+
+    const zenModeOffHeaderMobile = document.getElementById("view-modes-zen-mode-off-header-mobile");
+    if (zenModeOffHeaderMobile) zenModeOffHeaderMobile.title = "Activate Zen Mode";
 
     sessionStorage.removeItem("viewModesZenMode");
 }

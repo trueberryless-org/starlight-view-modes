@@ -19,11 +19,12 @@ export default defineConfig({
             plugins: [
                 starlightViewModes({
                     zenModeEnabled: true,
-                    zenModeCloseButtonPosition: "top-left",
+                    zenModeCloseButtonPosition: "top-right",
+                    zenModeShowSwitchInHeader: true,
                     zenModeShowHeader: true,
                     zenModeShowSidebar: false,
                     zenModeShowTableOfContents: false,
-                    zenModeShowFooter: true,
+                    zenModeShowFooter: false,
                     presentationModeEnabled: false,
                     presentationModeControlButtonPosition: "middle-right",
                 }),

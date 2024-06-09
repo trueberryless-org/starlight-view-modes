@@ -31,7 +31,11 @@
 </nav>
 
   
-<style is:global>  
+<style is:global>
+  :root {
+    --starlight-view-modes-animation-duration: 300ms;
+  }
+
   body.zen-mode *:is(:not(:is(:has(main), main, main *, :has(#zen-mode-off), #zen-mode-off, #zen-mode-off *)), footer) {
     display: none;
   }
@@ -72,9 +76,9 @@
     justify-content: center;
     align-self: center;
 
-    -webkit-transition: color 300ms linear, background-color 300ms linear, box-shadow 300ms linear;
-    -ms-transition: color 300ms linear, background-color 300ms linear, box-shadow 300ms linear;
-    transition: color 300ms linear, background-color 300ms linear, box-shadow 300ms linear;
+    -webkit-transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    -ms-transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   :is(#mobile-zen-mode-on, #mobile-presentation-mode-on):hover {
