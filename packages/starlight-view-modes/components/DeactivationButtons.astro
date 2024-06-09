@@ -120,9 +120,9 @@
         const zenModePositionStateMachine = new ZenModePositionStateMachine(config, zenModeOff);
         zenModePositionStateMachine.updatePosition();
 
-
-        // (config.zenModeCloseButtonPosition === 'top-right' || config.zenModeCloseButtonPosition === 'bottom-right') ? zenModeOff?.style.setProperty('right', '1rem') : zenModeOff?.style.setProperty('left', '1rem');
-        // (config.zenModeCloseButtonPosition === 'top-right' || config.zenModeCloseButtonPosition === 'top-left') ? zenModeOff?.style.setProperty('top', '1rem') : zenModeOff?.style.setProperty('bottom', '1rem');
+        window.addEventListener('resize', () => {
+            zenModePositionStateMachine.updatePosition();
+        });
     });
 </script>
   

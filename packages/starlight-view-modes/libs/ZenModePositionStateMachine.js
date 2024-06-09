@@ -21,6 +21,8 @@ export class ZenModePositionStateMachine {
             // Wenn Header angezeigt wird, soll der Button immer unten fixiert sein
             // Wenn Sidebar angezeigt wird, soll der Button immer rechts fixiert sein
             this.setBottomRightPosition();
+        } else if (!window.matchMedia("(min-width: 50rem)").matches) {
+            this.setBottomPosition();
         } else {
             // Ansonsten normale Positionierungslogik basierend auf der Schaltfläche
             this.setDynamicPosition();
@@ -33,8 +35,10 @@ export class ZenModePositionStateMachine {
             this.config.zenModeCloseButtonPosition === "bottom-right"
         ) {
             this.zenModeOff?.style.setProperty("right", "1rem");
+            this.zenModeOff?.style.removeProperty("left");
         } else {
             this.zenModeOff?.style.setProperty("left", "1rem");
+            this.zenModeOff?.style.removeProperty("right");
         }
 
         if (
@@ -42,8 +46,10 @@ export class ZenModePositionStateMachine {
             this.config.zenModeCloseButtonPosition === "top-left"
         ) {
             this.zenModeOff?.style.setProperty("top", "1rem");
+            this.zenModeOff?.style.removeProperty("bottom");
         } else {
             this.zenModeOff?.style.setProperty("bottom", "1rem");
+            this.zenModeOff?.style.removeProperty("top");
         }
     }
 

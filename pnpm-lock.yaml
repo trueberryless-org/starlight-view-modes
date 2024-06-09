@@ -46,7 +46,7 @@ importers:
         version: 0.23.4(astro@4.9.3)
       astro:
         specifier: ^4.8.7
-        version: 4.9.3(sass@1.77.4)(typescript@5.4.2)
+        version: 4.9.3(sass@1.77.4)
       sass:
         specifier: ^1.77.4
         version: 1.77.4
@@ -148,7 +148,7 @@ packages:
       '@astrojs/markdown-remark': 5.1.0
       '@mdx-js/mdx': 3.0.1
       acorn: 8.11.3
-      astro: 4.9.3(sass@1.77.4)(typescript@5.4.2)
+      astro: 4.9.3(sass@1.77.4)
       es-module-lexer: 1.5.3
       estree-util-visit: 2.0.0
       github-slugger: 2.0.0
@@ -187,7 +187,7 @@ packages:
       '@pagefind/default-ui': 1.1.0
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
-      astro: 4.9.3(sass@1.77.4)(typescript@5.4.2)
+      astro: 4.9.3(sass@1.77.4)
       astro-expressive-code: 0.35.3(astro@4.9.3)
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.1
@@ -1547,10 +1547,10 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^3.3.0
     dependencies:
-      astro: 4.9.3(sass@1.77.4)(typescript@5.4.2)
+      astro: 4.9.3(sass@1.77.4)
       rehype-expressive-code: 0.35.3
 
-  /astro@4.9.3(sass@1.77.4)(typescript@5.4.2):
+  /astro@4.9.3(sass@1.77.4):
     resolution: {integrity: sha512-LhiKZMee56GI7+zIt15bXZVX4JSnj4syTrQdkYNgE+Y0udMad0x8RgJGzc2NMOK31e6w/SL+NFSvnt/d1kgs5w==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
@@ -1609,7 +1609,7 @@ packages:
       shiki: 1.6.2
       string-width: 7.1.0
       strip-ansi: 7.1.0
-      tsconfck: 3.1.0(typescript@5.4.2)
+      tsconfck: 3.1.0
       unist-util-visit: 5.0.0
       vfile: 6.0.1
       vite: 5.2.12(sass@1.77.4)
@@ -1925,6 +1925,7 @@ packages:
   /color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
     engines: {node: '>=7.0.0'}
+    requiresBuild: true
     dependencies:
       color-name: 1.1.4
 
@@ -1933,9 +1934,11 @@ packages:
 
   /color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+    requiresBuild: true
 
   /color-string@1.9.1:
     resolution: {integrity: sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==}
+    requiresBuild: true
     dependencies:
       color-name: 1.1.4
       simple-swizzle: 0.2.2
@@ -1943,6 +1946,7 @@ packages:
   /color@4.2.3:
     resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
     engines: {node: '>=12.5.0'}
+    requiresBuild: true
     dependencies:
       color-convert: 2.0.1
       color-string: 1.9.1
@@ -2011,6 +2015,7 @@ packages:
   /detect-libc@2.0.3:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
     engines: {node: '>=8'}
+    requiresBuild: true
 
   /deterministic-object-hash@2.0.2:
     resolution: {integrity: sha512-KxektNH63SrbfUyDiwXqRb1rLwKt33AmMv+5Nhsw1kqZ13SJBRTgZHtGbE+hH3a1mVW1cz+4pqSWVPAtLVXTzQ==}
@@ -2596,6 +2601,7 @@ packages:
 
   /is-arrayish@0.3.2:
     resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
+    requiresBuild: true
 
   /is-binary-path@2.1.0:
     resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
@@ -4014,6 +4020,7 @@ packages:
 
   /simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
+    requiresBuild: true
     dependencies:
       is-arrayish: 0.3.2
 
@@ -4229,7 +4236,7 @@ packages:
   /trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
 
-  /tsconfck@3.1.0(typescript@5.4.2):
+  /tsconfck@3.1.0:
     resolution: {integrity: sha512-CMjc5zMnyAjcS9sPLytrbFmj89st2g+JYtY/c02ug4Q+CZaAtCgbyviI0n1YvjZE/pzoc6FbNsINS13DOL1B9w==}
     engines: {node: ^18 || >=20}
     hasBin: true
@@ -4238,8 +4245,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-    dependencies:
-      typescript: 5.4.2
 
   /tsconfck@3.1.0(typescript@5.4.5):
     resolution: {integrity: sha512-CMjc5zMnyAjcS9sPLytrbFmj89st2g+JYtY/c02ug4Q+CZaAtCgbyviI0n1YvjZE/pzoc6FbNsINS13DOL1B9w==}
@@ -4283,6 +4288,7 @@ packages:
     resolution: {integrity: sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /typescript@5.4.5:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}

@@ -3,7 +3,7 @@
       --starlight-view-modes-animation-duration: 300ms;
     }
 
-    :is(#view-modes-zen-mode-off-header, #view-modes-zen-mode-off-header-mobile) {
+    #view-modes-zen-mode-off-header {
         width: 32px;
         /* height: 32px; */
         color: var(--sl-color-text-accent);
@@ -46,7 +46,7 @@
         }
     }
 
-    body.view-modes-zen-mode :is(#view-modes-zen-mode-off-header, #view-modes-zen-mode-off-header-mobile) > svg {
+    body.view-modes-zen-mode #view-modes-zen-mode-off-header > svg {
         transform: rotate(180deg);
     }
 </style>
@@ -60,7 +60,6 @@
         if (config.zenModeShowSwitchInHeader) {
             const zenMode = sessionStorage.getItem('viewModesZenMode') === 'true';
             var headerRightGroup = document.getElementsByClassName('right-group')[0];
-            var mobilePreferencesGroup = document.getElementsByClassName('mobile-preferences')[0];
 
             var zenModeOffElementHeader = document.createElement("a");
             zenModeOffElementHeader.id = "view-modes-zen-mode-off-header";
@@ -85,50 +84,13 @@
                         </g>
                     </g>
                 </svg>
-            `;
-            
-
-            var zenModeOffElementHeaderMobile = document.createElement("a");
-            zenModeOffElementHeaderMobile.id = "view-modes-zen-mode-off-header-mobile";
-            zenModeOffElementHeaderMobile.title = zenMode ? 'Deactivate Zen Mode' : 'Activate Zen Mode';
-            zenModeOffElementHeaderMobile.innerHTML = `
-                <span></span>
-                <svg fill="currentColor" height="16" width="16" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                    viewBox="0 0 512 512" xml:space="preserve">
-                    <g>
-                        <g>
-                            <path d="M256,94.609c-21.478,0-38.957,17.478-38.957,38.957s17.478,38.956,38.957,38.956s38.957-17.478,38.957-38.956
-                                C294.957,112.088,277.478,94.609,256,94.609z"/>
-                        </g>
-                    </g>
-                    <g>
-                        <g>
-                            <path d="M256,0C114.843,0,0,114.843,0,256s114.843,256,256,256s256-114.843,256-256S397.157,0,256,0z M256,417.391
-                                c-21.478,0-38.957-17.478-38.957-38.957s17.478-38.956,38.957-38.956s38.957,17.478,38.957,38.956
-                                C294.957,399.912,277.478,417.391,256,417.391z M256,239.304c-75.185,0-136.348,61.163-136.348,136.348
-                                c0,25.278,7.038,48.888,19.074,69.206C75.616,405.521,33.391,335.684,33.391,256c0-122.744,99.865-222.609,222.609-222.609
-                                c56.772,0,102.957,46.185,102.957,102.957C358.957,193.12,312.772,239.304,256,239.304z"/>
-                        </g>
-                    </g>
-                </svg>
-            `;  
+            `; 
         
             headerRightGroup?.appendChild(zenModeOffElementHeader);
-            mobilePreferencesGroup?.appendChild(zenModeOffElementHeaderMobile);
 
             const zenModeOffHeader = document.getElementById('view-modes-zen-mode-off-header');
-            const zenModeOffHeaderMobile = document.getElementById('view-modes-zen-mode-off-header-mobile');
             
             zenModeOffHeader?.addEventListener('click', () => {
-                if (document.body.classList.contains('view-modes-zen-mode')) {
-                    deactivateZenMode();           
-                }
-                else {
-                    activateZenMode(); 
-                }
-            });
-            
-            zenModeOffHeaderMobile?.addEventListener('click', () => {
                 if (document.body.classList.contains('view-modes-zen-mode')) {
                     deactivateZenMode();           
                 }

@@ -35,6 +35,14 @@ const starlightViewModesConfigSchema = z
         zenModeShowSwitchInHeader: z.boolean().default(true),
 
         /**
+         * This option can enable or disable a button in the header of mobile devices that will switch into Zen Mode or back from Zen Mode.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        zenModeShowSwitchInHeaderMobile: z.boolean().default(true),
+
+        /**
          * Indicates if the header should be shown if the user is actively in Zen mode.
          *
          * @type {boolean}
