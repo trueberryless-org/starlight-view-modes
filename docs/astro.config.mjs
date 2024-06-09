@@ -24,7 +24,7 @@ export default defineConfig({
                     zenModeShowSwitchInHeaderMobile: false,
                     zenModeShowHeader: false,
                     zenModeShowSidebar: false,
-                    zenModeShowTableOfContents: false,
+                    zenModeShowTableOfContents: true,
                     zenModeShowFooter: false,
                     presentationModeEnabled: false,
                     presentationModeControlButtonPosition: "middle-right",
