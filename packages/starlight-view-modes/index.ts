@@ -64,7 +64,7 @@ const starlightViewModesConfigSchema = z
          * @type {boolean}
          * @default false
          */
-        zenModeShowTableOfContents: z.boolean().default(false),
+        zenModeShowTableOfContents: z.boolean().default(true),
 
         /**
          * Indicates if the footer should be shown if the user is actively in Zen mode.
@@ -79,9 +79,9 @@ const starlightViewModesConfigSchema = z
          * converts the main content into a presentation-like view intended for teaching or presentation purposes.
          *
          * @type {boolean}
-         * @default true
+         * @default false
          */
-        presentationModeEnabled: z.boolean().default(true),
+        presentationModeEnabled: z.boolean().default(false),
 
         /**
          * Choose the position of the control button for the Presentation Mode. It is only visible when the Presentation Mode
