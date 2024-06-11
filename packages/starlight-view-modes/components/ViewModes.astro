@@ -50,20 +50,20 @@ body.view-modes-zen-mode {
   overflow-x: hidden;
 }
 /* -------------------------------------------------------------------- Header -------------------------------------------------------------------- */
-body.view-modes-zen-mode.view-modes-zen-mode-header-disabled header {
+body.view-modes-zen-mode.view-modes-zen-mode-header-disabled header.header {
   display: none;
 }
 body.view-modes-zen-mode.view-modes-zen-mode-header-disabled nav {
   top: 0;
 }
-body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-sidebar-disabled header > div {
+body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-sidebar-disabled header.header > div {
   grid-template-columns: minmax(calc(var(--__sidebar-width) + var(--__main-column-fr) - var(--sl-nav-gap) / 4), auto) 1fr auto;
 }
-body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-sidebar-enabled header > div {
+body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-sidebar-enabled header.header > div {
   --sl-nav-gap: 1rem;
   grid-template-columns: minmax(calc(var(--__sidebar-width) + max(0rem, (100vw - var(--sl-sidebar-width) - var(--sl-content-width) - var(--sl-nav-gap)) / 2 - var(--sl-nav-gap))), auto) 1fr auto;
 }
-body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-sidebar-disabled header > div {
+body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-sidebar-disabled header.header > div {
   grid-template-columns: minmax(calc(var(--__sidebar-width) + max(0rem, 100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2) - var(--sl-content-width) - var(--sl-sidebar-width) - var(--sl-content-pad-x) * 2)), auto) 1fr auto;
 }
 /* -------------------------------------------------------------------- Sidebar ------------------------------------------------------------------- */
