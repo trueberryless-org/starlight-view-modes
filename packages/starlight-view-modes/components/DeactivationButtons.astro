@@ -1,55 +1,47 @@
-<style is:global lang="scss">
-    :root {
-      --starlight-view-modes-animation-duration: 300ms;
-    }
+<style is:global>
+:root {
+  --starlight-view-modes-animation-duration: 300ms;
+}
 
-    :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) {
-        position: fixed;
-        width: 3rem;
-        height: 3rem;
-        
-        cursor: pointer;
+:is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) {
+  position: fixed;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  background: var(--sl-color-bg);
+  border: 2px solid var(--sl-color-gray-1);
+  border-radius: 0.5rem;
+  color: currentColor;
+  box-shadow: 0px 0px none;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  -webkit-transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+  -ms-transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+}
+:is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off):hover {
+  background: var(--sl-color-gray-1);
+  color: var(--sl-color-gray-6);
+  box-shadow: 8px 8px var(--sl-color-gray-4);
+}
+:is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
+  transform: translateY(0.1em);
+}
 
-        padding: 0.5rem;
-        background: var(--sl-color-bg);
-        border: 2px solid var(--sl-color-gray-1);
-        border-radius: 0.5rem;
+body:not(.view-modes-zen-mode) :is(#view-modes-zen-mode-off) {
+  display: none;
+}
 
-        color: currentColor;
-        box-shadow: 0px 0px none;
+body:not(.view-modes-presentation-mode) #view-modes-presentation-mode-off {
+  display: none;
+}
 
-        display: flex;
-        justify-content: center;
-        align-self: center;
-
-        -webkit-transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
-        -ms-transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
-        transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
-
-        z-index: 1000;
-
-        &:hover {
-            background: var(--sl-color-gray-1);
-            color: var(--sl-color-gray-6);
-            box-shadow: 8px 8px var(--sl-color-gray-4);
-        }
-
-        > svg {
-            transform: translateY(0.1em);
-        }
-    }
-
-    body:not(.view-modes-zen-mode) :is(#view-modes-zen-mode-off) {
-        display: none;
-    }
-
-    body:not(.view-modes-presentation-mode) #view-modes-presentation-mode-off {
-        display: none;
-    }
-
-    body.view-modes-zen-mode :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
-        transform: rotate(180deg);
-    }
+body.view-modes-zen-mode :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
+  transform: rotate(180deg);
+}
 </style>
   
 <script>

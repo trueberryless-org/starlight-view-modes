@@ -27,22 +27,6 @@ const starlightViewModesConfigSchema = z
             .default("top-right"),
 
         /**
-         * This option can enable or disable a button in the header that will switch into Zen Mode or back from Zen Mode.
-         *
-         * @type {boolean}
-         * @default true
-         */
-        zenModeShowSwitchInHeader: z.boolean().default(true),
-
-        /**
-         * This option can enable or disable a button in the header of mobile devices that will switch into Zen Mode or back from Zen Mode.
-         *
-         * @type {boolean}
-         * @default true
-         */
-        zenModeShowSwitchInHeaderMobile: z.boolean().default(true),
-
-        /**
          * Indicates if the header should be shown if the user is actively in Zen mode.
          *
          * @type {boolean}
@@ -73,6 +57,22 @@ const starlightViewModesConfigSchema = z
          * @default true
          */
         zenModeShowFooter: z.boolean().default(true),
+
+        /**
+         * This option can enable or disable a button in the header that will switch into Zen Mode or back from Zen Mode.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        zenModeShowSwitchInHeader: z.boolean().default(true),
+
+        /**
+         * This option can enable or disable a button in the header of mobile devices that will switch into Zen Mode or back from Zen Mode.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        zenModeShowSwitchInHeaderMobile: z.boolean().default(true),
 
         /**
          * Indicates if Presentation Mode is enabled. When enabled, the user is able to active Presentation Mode which

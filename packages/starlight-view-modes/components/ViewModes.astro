@@ -41,162 +41,114 @@
 </nav>
 
   
-<style is:global lang="scss">
-  :root {
-    --starlight-view-modes-animation-duration: 300ms;
+<style is:global>
+:root {
+  --starlight-view-modes-animation-duration: 300ms;
+}
+
+body.view-modes-zen-mode {
+  overflow-x: hidden;
+}
+/* -------------------------------------------------------------------- Header -------------------------------------------------------------------- */
+body.view-modes-zen-mode.view-modes-zen-mode-header-disabled header {
+  display: none;
+}
+body.view-modes-zen-mode.view-modes-zen-mode-header-disabled nav {
+  top: 0;
+}
+body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-sidebar-disabled header > div {
+  grid-template-columns: minmax(calc(var(--__sidebar-width) + var(--__main-column-fr) - var(--sl-nav-gap) / 4), auto) 1fr auto;
+}
+body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-sidebar-enabled header > div {
+  --sl-nav-gap: 1rem;
+  grid-template-columns: minmax(calc(var(--__sidebar-width) + max(0rem, (100vw - var(--sl-sidebar-width) - var(--sl-content-width) - var(--sl-nav-gap)) / 2 - var(--sl-nav-gap))), auto) 1fr auto;
+}
+body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-sidebar-disabled header > div {
+  grid-template-columns: minmax(calc(var(--__sidebar-width) + max(0rem, 100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2) - var(--sl-content-width) - var(--sl-sidebar-width) - var(--sl-content-pad-x) * 2)), auto) 1fr auto;
+}
+/* -------------------------------------------------------------------- Sidebar ------------------------------------------------------------------- */
+body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled nav {
+  inset-inline-start: 0;
+}
+@media (min-width: 50rem) {
+  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled #starlight__sidebar {
+    display: none;
   }
-
-  body {
-    &.view-modes-zen-mode {
-      overflow-x: hidden;
-
-      /* -------------------------------------------------------------------- Header -------------------------------------------------------------------- */
-
-      &.view-modes-zen-mode-header-disabled {
-        header {
-          display: none;
-        }
-
-        nav {
-          top: 0;
-        }
-      }
-
-      &.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-disabled {
-        &.view-modes-zen-mode-sidebar-disabled header > div {
-          grid-template-columns: minmax(calc(var(--__sidebar-width) + var(--__main-column-fr)  - var(--sl-nav-gap) / 4), auto) 1fr auto;
-        }
-
-        &.view-modes-zen-mode-sidebar-enabled header > div {
-          --sl-nav-gap: 1rem;
-          grid-template-columns: minmax(calc(var(--__sidebar-width) + max(0rem, (100vw - var(--sl-sidebar-width) - var(--sl-content-width) - var(--sl-nav-gap)) / 2 - var(--sl-nav-gap))), auto) 1fr auto;
-        }
-      }
-
-      &.view-modes-zen-mode-header-enabled {
-        &.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-sidebar-disabled  {
-          header > div {
-            grid-template-columns: minmax(calc(var(--__sidebar-width) + max(0rem, ((100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2)) - var(--sl-content-width)) - var(--sl-sidebar-width) - var(--sl-content-pad-x) * 2)), auto) 1fr auto;
-          }
-        }
-      }
-
-      /* -------------------------------------------------------------------- Sidebar ------------------------------------------------------------------- */
-
-      &.view-modes-zen-mode-sidebar-disabled {
-        nav {
-          inset-inline-start: 0;
-        }
-
-        @media (min-width: 50rem) {
-          #starlight__sidebar {
-            display: none;
-          }
-        }
-
-        &.view-modes-zen-mode-table-of-contents-disabled main {
-          width: calc(100vw - var(--sl-sidebar-pad-x));
-        }
-        
-        &.view-modes-zen-mode-table-of-contents-enabled {
-          main {
-            width: 100vw;
-          }
-
-          @media (min-width: 72rem) {
-            main {
-              width: calc(100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2));
-            }
-          }
-
-          .main-frame {
-            padding-inline: 0;
-          }
-        }
-      }
-
-      &.view-modes-zen-mode-sidebar-enabled {
-        &.view-modes-zen-mode-header-disabled {
-          .sidebar-pane {
-            inset-block-start: 0;
-          }
-
-          // .sidebar-content {
-          //   padding-top: var(--sl-nav-height);
-          // }
-        }
-      }
-
-      /* --------------------------------------------------------------- Table of Contents -------------------------------------------------------------- */
-
-      &.view-modes-zen-mode-table-of-contents-disabled {
-        --sl-mobile-toc-height: 0rem;
-
-        .right-sidebar-container {
-          display: none;
-        }
-
-        main {
-          .sl-container {
-            margin: 0 auto;
-          }
-        }
-        
-        .main-frame {
-          padding-inline: 0;
-        }
-
-        @media (min-width: 50rem) {
-          &.view-modes-zen-mode-sidebar-enabled main {
-            width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
-            margin-left: var(--sl-sidebar-width);
-          }
-        }
-      }
-
-      /* -------------------------------------------------------------------- Footer -------------------------------------------------------------------- */
-
-      &.view-modes-zen-mode-footer-disabled footer {
-        display: none;
-      }
-    }
+}
+body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-disabled main {
+  width: calc(100vw - var(--sl-sidebar-pad-x));
+}
+body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled main {
+  width: 100vw;
+}
+@media (min-width: 72rem) {
+  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled main {
+    width: calc(100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2));
   }
+}
+body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled .main-frame {
+  padding-inline: 0;
+}
+body.view-modes-zen-mode.view-modes-zen-mode-sidebar-enabled.view-modes-zen-mode-header-disabled .sidebar-pane {
+  inset-block-start: 0;
+}
+/* --------------------------------------------------------------- Table of Contents -------------------------------------------------------------- */
+body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled {
+  --sl-mobile-toc-height: 0rem;
+}
+body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled .right-sidebar-container {
+  display: none;
+}
+body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled main .sl-container {
+  margin: 0 auto;
+}
+body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled .main-frame {
+  padding-inline: 0;
+}
+@media (min-width: 50rem) {
+  body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-sidebar-enabled main {
+    width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
+    margin-left: var(--sl-sidebar-width);
+  }
+}
+/* -------------------------------------------------------------------- Footer -------------------------------------------------------------------- */
+body.view-modes-zen-mode.view-modes-zen-mode-footer-disabled footer {
+  display: none;
+}
 </style>
 
-<style lang="scss">
-  #view-modes-activation {
-    margin-top: 0.83em;
-  }
+<style>
+#view-modes-activation {
+  margin-top: 0.83em;
+}
 
-  #view-modes-activation-list {
-    padding: 0;
-    list-style: none;
-  }
+#view-modes-activation-list {
+  padding: 0;
+  list-style: none;
+}
 
-  :is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on) {
-    background: none;
-    border: none;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    
-    svg {
-      transform: translateY(0.15em);
-      transition: transform var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
-    }
+:is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on) {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+:is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on) svg {
+  transform: translateY(0.15em);
+  transition: transform var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+:is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on) :is(#view-modes-zen-mode-on-text, #view-modes-presentation-mode-on-text) {
+  padding-left: 0.25rem;
+}
 
-    :is(#view-modes-zen-mode-on-text, #view-modes-presentation-mode-on-text) {
-      padding-left: .25rem;
-    }
-  }
+body.view-modes-zen-mode-table-of-contents-disabled :is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on):hover > svg {
+  transform: rotate(180deg) translateY(-0.15em);
+}
 
-  body.view-modes-zen-mode-table-of-contents-disabled :is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on):hover > svg {
-    transform: rotate(180deg) translateY(-0.15em);
-  }
-  
-  body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-enabled :is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on) > svg {
-    transform: rotate(180deg) translateY(-0.15em);
-  }
+body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-enabled :is(#view-modes-zen-mode-on, #view-modes-presentation-mode-on) > svg {
+  transform: rotate(180deg) translateY(-0.15em);
+}
 </style>
   
 <script>

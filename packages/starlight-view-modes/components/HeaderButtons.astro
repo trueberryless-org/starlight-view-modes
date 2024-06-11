@@ -1,58 +1,51 @@
-<style is:global lang="scss">
-    :root {
-      --starlight-view-modes-animation-duration: 300ms;
-    }
+<style is:global>
+:root {
+  --starlight-view-modes-animation-duration: 300ms;
+}
 
-    #view-modes-zen-mode-off-header {
-        width: 32px;
-        /* height: 32px; */
-        color: var(--sl-color-text-accent);
+#view-modes-zen-mode-off-header {
+  width: 32px;
+  /* height: 32px; */
+  color: var(--sl-color-text-accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  align-items: center;
+}
+#view-modes-zen-mode-off-header::before {
+  content: "";
+  height: 2rem;
+  border-inline-end: 1px solid var(--sl-color-gray-5);
+}
+#view-modes-zen-mode-off-header > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+#view-modes-zen-mode-off-header > svg {
+  font-size: var(--sl-icon-size, 1em);
+  width: 1em;
+  height: 1em;
+  transition: transform var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+#view-modes-zen-mode-off-header > svg:hover {
+  opacity: 0.66;
+}
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+body.view-modes-zen-mode #view-modes-zen-mode-off-header > svg {
+  transform: rotate(180deg);
+}
 
-        gap: 1rem;
-        align-items: center;
-
-        &::before {
-            content: "";
-            height: 2rem;
-            border-inline-end: 1px solid var(--sl-color-gray-5);
-        }
-
-        > span {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        > svg {
-            font-size: var(--sl-icon-size, 1em);
-            width: 1em;
-            height: 1em;
-
-            transition: transform var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
-
-            &:hover {
-                opacity: 0.66;
-            }
-        }
-    }
-
-    body.view-modes-zen-mode #view-modes-zen-mode-off-header > svg {
-        transform: rotate(180deg);
-    }
-
-    body.view-modes-zen-mode-header-disabled #view-modes-zen-mode-off-header > svg:hover {
-        transform: rotate(180deg);
-    }
+body.view-modes-zen-mode-header-disabled #view-modes-zen-mode-off-header > svg:hover {
+  transform: rotate(180deg);
+}
 </style>
 
   

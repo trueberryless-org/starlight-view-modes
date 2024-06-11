@@ -94,6 +94,28 @@ Disabling this option can mean that the user always has to leave Zen mode if the
 
 I recommend disabling this option if you either want your users to have the full Zen mode experience, or if there are many anchor links on the page so that navigation isn't limited to the footer links.
 
+#### `zenModeShowSwitchInHeader`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Whether an additional enabling and disabling button should be displayed in the header for switching between Zen mode on and off.
+
+I recommend leaving this option on.
+
+#### `zenModeShowSwitchInHeaderMobile`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Whether an additional enabling and disabling button should be displayed in the header on the mobile version for switching between Zen mode on and off.
+
+I recommend leaving this option on.
+
+:::note
+This option basically enabled Zen mode for mobile devices.
+:::
+
 ## Recommendations
 
 Personally, I think these settings will be the most pleasing to your users, so I just put them here for you to copy and paste if you like. Moreover, these are the default settings, so if you don't want to change anything, just follow [the default integration](/getting-started#installation) and you're good to go!
