@@ -73,6 +73,14 @@
         }
       }
 
+      &.view-modes-zen-mode-header-enabled {
+        &.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-sidebar-disabled  {
+          header > div {
+            grid-template-columns: minmax(calc(var(--__sidebar-width) + max(0rem, ((100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2)) - var(--sl-content-width)) - var(--sl-sidebar-width) - var(--sl-content-pad-x) * 2)), auto) 1fr auto;
+          }
+        }
+      }
+
       /* -------------------------------------------------------------------- Sidebar ------------------------------------------------------------------- */
 
       &.view-modes-zen-mode-sidebar-disabled {
