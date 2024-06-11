@@ -1,1 +1,1 @@
-packages/starlight-view-modes/README.md
+../packages/starlight-view-modes/README.md
