@@ -1,7 +1,3 @@
----
-import Presentation from "./Presentation.astro";
----
-
 <nav aria-labelledby="starlight__on-this-page" id="view-modes-activation">
   <h2 id="view-modes-activation-heading">Modes</h2>
   <ul id="view-modes-activation-list">
@@ -43,7 +39,6 @@ import Presentation from "./Presentation.astro";
   </ul>
 </nav>
 
-<Presentation />
   
 <style is:global>
 :root {
@@ -117,11 +112,6 @@ body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled.view-mod
 }
 /* -------------------------------------------------------------------- Footer -------------------------------------------------------------------- */
 body.view-modes-zen-mode.view-modes-zen-mode-footer-disabled footer {
-  display: none;
-}
-
-/* --------------------------------------------------------------- Presentation Mode -------------------------------------------------------------- */
-body.view-modes-presentation-mode :is(header.header, #starlight__sidebar, main, .right-sidebar-container, footer) {
   display: none;
 }
 </style>
