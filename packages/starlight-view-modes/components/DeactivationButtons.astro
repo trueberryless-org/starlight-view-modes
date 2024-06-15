@@ -28,7 +28,7 @@
   box-shadow: 8px 8px var(--sl-color-gray-4);
 }
 :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
-  transform: rotate(180deg);
+  transform: translateY(0.1em);
 }
 
 body:not(.view-modes-zen-mode) #view-modes-zen-mode-off {
@@ -37,6 +37,10 @@ body:not(.view-modes-zen-mode) #view-modes-zen-mode-off {
 
 body:not(.view-modes-presentation-mode) #view-modes-presentation-mode-off {
   display: none;
+}
+
+body.view-modes-zen-mode :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
+  transform: rotate(180deg);
 }
 </style>
   
