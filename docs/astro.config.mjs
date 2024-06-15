@@ -30,6 +30,8 @@ export default defineConfig({
                     zenModeShowSwitchInTableOfContents: true,
                     presentationModeEnabled: false,
                     presentationModeControlButtonPosition: "middle-right",
+                    presentationModeShowSwitchInHeader: true,
+                    presentationModeShowSwitchInHeaderMobile: true,
                     presentationModeShowSwitchInTableOfContents: true,
                 }),
                 starlightImageZoom(),
