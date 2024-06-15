@@ -28,7 +28,7 @@ export default defineConfig({
                     zenModeShowSwitchInHeader: true,
                     zenModeShowSwitchInHeaderMobile: true,
                     presentationModeEnabled: true,
-                    presentationModeCloseButtonPosition: "bottom-right",
+                    presentationModeCloseButtonPosition: "top-right",
                     presentationModeShowSwitchInHeader: true,
                     presentationModeShowSwitchInHeaderMobile: true,
                 }),
