@@ -84,24 +84,51 @@ const starlightViewModesConfigSchema = z
         presentationModeEnabled: z.boolean().default(false),
 
         /**
-         * Choose the position of the control button for the Presentation Mode. It is only visible when the Presentation Mode
-         * is active and can be in one of eight corners: top left, top middle, top right, middle right, bottom left, bottom middle, bottom right, or middle left.
+         * Choose the position of the close button for the Presentation mode. It is only visible when the Presentation mode
+         * is active and can be in one of four corners: top left, top right, bottom left, or bottom right.
          *
          * @type {enum}
-         * @default "middle-right"
+         * @default "top-right"
          */
-        presentationModeControlButtonPosition: z
-            .enum([
-                "top-left",
-                "top-middle",
-                "top-right",
-                "middle-right",
-                "bottom-left",
-                "bottom-middle",
-                "bottom-right",
-                "middle-left",
-            ])
-            .default("middle-right"),
+        presentationModeCloseButtonPosition: z
+            .enum(["top-left", "top-right", "bottom-left", "bottom-right"])
+            .default("top-right"),
+
+        // /**
+        //  * Choose the position of the control button for the Presentation Mode. It is only visible when the Presentation Mode
+        //  * is active and can be in one of eight corners: top left, top middle, top right, middle right, bottom left, bottom middle, bottom right, or middle left.
+        //  *
+        //  * @type {enum}
+        //  * @default "middle-right"
+        //  */
+        // presentationModeControlButtonPosition: z
+        //     .enum([
+        //         "top-left",
+        //         "top-middle",
+        //         "top-right",
+        //         "middle-right",
+        //         "bottom-left",
+        //         "bottom-middle",
+        //         "bottom-right",
+        //         "middle-left",
+        //     ])
+        //     .default("middle-right"),
+
+        /**
+         * This option can enable or disable a button in the header that will switch into Presentation Mode or back from Presentation Mode.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        presentationModeShowSwitchInHeader: z.boolean().default(true),
+
+        /**
+         * This option can enable or disable a button in the header of mobile devices that will switch into Presentation Mode or back from Presentation Mode.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        presentationModeShowSwitchInHeaderMobile: z.boolean().default(true),
     })
     .default({});
 
