@@ -33,40 +33,11 @@ export function deactivateZenMode() {
 export function activatePresentationMode() {
     document.body.classList.add("view-modes-presentation-mode");
 
-    const presentationModeOnText = document.getElementById("view-modes-presentation-mode-on-text");
-    if (presentationModeOnText) presentationModeOnText.innerText = "Deactivate Presentation Mode";
-
-    const presentationModeOffHeader = document.getElementById(
-        "view-modes-presentation-mode-off-header"
-    );
-    if (presentationModeOffHeader) presentationModeOffHeader.title = "Deactivate Presentation Mode";
-
-    const presentationModeOffHeaderMobile = document.getElementById(
-        "view-modes-presentation-mode-off-header-mobile"
-    );
-    if (presentationModeOffHeaderMobile)
-        presentationModeOffHeaderMobile.title = "Deactivate Presentation Mode";
-
     sessionStorage.setItem("viewModesPresentationMode", "true");
 }
 
 export function deactivatePresentationMode() {
     document.body.classList.remove("view-modes-presentation-mode");
-
-    const presentationModeOnText = document.getElementById("view-modes-presentation-mode-on-text");
-    if (presentationModeOnText) presentationModeOnText.innerText = "Activate Presentation Mode";
-
-    const presentationModeOffHeader = document.getElementById(
-        "view-modes-presentation-mode-off-header"
-    );
-    if (presentationModeOffHeader) presentationModeOffHeader.title = "Activate Presentation Mode";
-
-    const presentationModeOffHeaderMobile = document.getElementById(
-        "view-modes-presentation-mode-off-header-mobile"
-    );
-    if (presentationModeOffHeaderMobile)
-        presentationModeOffHeaderMobile.title = "Activate Presentation Mode";
-
     sessionStorage.removeItem("viewModesPresentationMode");
 }
 
