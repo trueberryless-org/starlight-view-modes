@@ -116,11 +116,22 @@ I recommend leaving this option on.
 This option basically enabled Zen mode for mobile devices.
 :::
 
+#### `zenModeShowSwitchInTableOfContents`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Whether an enabling and disabling button should be displayed in the table of contents (sidebar) for switching between Zen mode on and off.
+
+I recommend leaving this option on.
+
+If you disable this option make sure to enable [`zenModeShowSwitchInHeader`](#zenmodeshowswitchinheader) or the user can not activate the Zen mode on landscape devices. However, maybe you only want the Zen mode on mobile devices, so configurate this plugin as you like!
+
 ## Recommendations
 
 Personally, I think these settings will be the most pleasing to your users, so I just put them here for you to copy and paste if you like. Moreover, these are the default settings, so if you don't want to change anything, just follow [the default integration](/getting-started#installation) and you're good to go!
 
-```js {11-14}
+```js {11-19}
 // astro.config.mjs
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
@@ -133,9 +144,17 @@ export default defineConfig({
                 starlightViewModes({
                     zenModeEnabled: true,
                     zenModeCloseButtonPosition: "top-right",
+                    zenModeShowHeader: false,
+                    zenModeShowSidebar: false,
+                    zenModeShowTableOfContents: true,
                     zenModeShowFooter: true,
+                    zenModeShowSwitchInHeader: true,
+                    zenModeShowSwitchInHeaderMobile: true,
+                    zenModeShowSwitchInTableOfContents: true,
+
                     presentationModeEnabled: true, // not supported yet
                     presentationModeControlButtonPosition: "middle-right", // not supported yet
+                    presentationModeShowSwitchInTableOfContents: true, // not supported yet
                 }),
             ],
             title: "My Docs",

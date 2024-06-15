@@ -1,8 +1,8 @@
-<nav aria-labelledby="starlight__on-this-page" id="view-modes-activation">
+<nav aria-labelledby="starlight__on-this-page" id="view-modes-activation" style="display: none">
   <h2 id="view-modes-activation-heading">Modes</h2>
   <ul id="view-modes-activation-list">
     <li>
-      <a id="view-modes-zen-mode-on">
+      <a id="view-modes-zen-mode-on" style="display: none">
         <svg fill="currentColor" height="14" width="14" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
             viewBox="0 0 512 512" xml:space="preserve">
         <g>
@@ -25,7 +25,7 @@
       </a>
     </li>
     <li>
-      <a id="view-modes-presentation-mode-on">
+      <a id="view-modes-presentation-mode-on" style="display: none">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 2H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               <path d="M9 10.5L10.2929 9.20711C10.6262 8.87377 10.7929 8.70711 11 8.70711C11.2071 8.70711 11.3738 8.87377 11.7071 9.20711L12.2929 9.79289C12.6262 10.1262 12.7929 10.2929 13 10.2929C13.2071 10.2929 13.3738 10.1262 13.7071 9.79289L15 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -155,6 +155,15 @@ body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-enabled :is(#view
   import config from 'virtual:starlight-view-modes-config';
   import { deactivateAllModes, activateZenMode, activatePresentationMode, deactivateZenMode } from '../libs/SharedMethods';
 
+  function isAnyModeEnabledAndShownInTOC(config: any) {
+    const modes = [
+        { enabled: config.zenModeEnabled, showInTOC: config.zenModeShowSwitchInTableOfContents },
+        { enabled: config.presentationModeEnabled, showInTOC: config.presentationModeShowSwitchInTableOfContents },
+    ];
+
+    return modes.some(mode => mode.enabled && mode.showInTOC);
+}
+
   document.addEventListener('DOMContentLoaded', () => {
     const modes = document.getElementById('view-modes-activation');
     const zenModeOn = document.getElementById('view-modes-zen-mode-on');
@@ -163,14 +172,12 @@ body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-enabled :is(#view
     const zenMode = sessionStorage.getItem('viewModesZenMode') === 'true';
     const presentationMode = sessionStorage.getItem('viewModesPresentationMode') === 'true';
 
-    if (!config.zenModeEnabled && !config.presentationModeEnabled) {
-      modes?.style.setProperty('display', 'none');
+    if (isAnyModeEnabledAndShownInTOC(config)) {
+      modes?.style.setProperty('display', 'block');
     }
 
-    if (!config.zenModeEnabled) {
-      zenModeOn?.style.setProperty('display', 'none');
-    }
-    else {
+    if (config.zenModeEnabled && config.zenModeShowSwitchInTableOfContents) {
+      zenModeOn?.style.setProperty('display', 'block');
       zenModeOn?.addEventListener('click', () => {
         if (document.body.classList.contains('view-modes-zen-mode')) {
             deactivateZenMode();
@@ -181,15 +188,13 @@ body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-enabled :is(#view
       });
     }
 
-    if (!config.presentationModeEnabled) {
-      presentationModeOn?.style.setProperty('display', 'none');
-    }
-    else {
+    if (config.presentationModeEnabled && config.presentationModeShowSwitchInTableOfContents) {
+      presentationModeOn?.style.setProperty('display', 'block');
       presentationModeOn?.addEventListener('click', () => {
         deactivateAllModes();
         activatePresentationMode();
       });
-    }  
+    }
 
     // Session storage
     if (zenMode) {

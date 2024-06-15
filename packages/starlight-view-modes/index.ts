@@ -59,6 +59,14 @@ const starlightViewModesConfigSchema = z
         zenModeShowFooter: z.boolean().default(true),
 
         /**
+         * This option can enable or disable a button in the table of contents sidebar that will switch into Zen Mode or back from Zen Mode.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        zenModeShowSwitchInTableOfContents: z.boolean().default(true),
+
+        /**
          * This option can enable or disable a button in the header that will switch into Zen Mode or back from Zen Mode.
          *
          * @type {boolean}
@@ -102,6 +110,14 @@ const starlightViewModesConfigSchema = z
                 "middle-left",
             ])
             .default("middle-right"),
+
+        /**
+         * This option can enable or disable a button in the table of contents sidebar that will switch into Presentation Mode or back from Presentation Mode.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        presentationModeShowSwitchInTableOfContents: z.boolean().default(true),
     })
     .default({});
 
