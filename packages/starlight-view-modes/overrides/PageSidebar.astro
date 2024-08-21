@@ -1,12 +1,15 @@
 ---
 import type { Props } from '../props';
-
 import MobileTableOfContents from 'virtual:starlight/components/MobileTableOfContents';
 import TableOfContents from 'virtual:starlight/components/TableOfContents';
 import ViewModes from '../components/ViewModes.astro';
 import DeactivationButtons from '../components/DeactivationButtons.astro';
 import HeaderButtons from '../components/HeaderButtons.astro';
 import MobileViewModes from '../components/MobileViewModes.astro';
+import SidebarToggle from '../components/SidebarToggle.astro';
+import { Icon } from 'astro-icon/components'
+
+
 ---
 
 {
@@ -17,8 +20,12 @@ import MobileViewModes from '../components/MobileViewModes.astro';
 			</div>
 			<div class="right-sidebar-panel sl-hidden lg:sl-block">
 				<div class="sl-container">
+					<SidebarToggle/>
+					<div class="toggle-right-side-bar-btn cursor-pointer border border-neutral-500 inline-flex flex-row justify-center items-center">
+						<Icon name='mdi:chevron-right' />
+					</div>
 					<TableOfContents {...Astro.props} />
-                    <ViewModes />
+          <ViewModes />
 					<DeactivationButtons />
 					<HeaderButtons />
 					<MobileViewModes />
@@ -28,7 +35,11 @@ import MobileViewModes from '../components/MobileViewModes.astro';
 	)
 }
 
+
+
+
 <style>
+
 	.right-sidebar-panel {
 		padding: 1rem var(--sl-sidebar-pad-x);
 	}

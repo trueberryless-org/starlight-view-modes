@@ -1,0 +1,135 @@
+<style is:global>
+  .right-sidebar {
+    width: auto !important;
+  }
+
+  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-template-doc main {
+    width: 100%;
+  }
+
+  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-template-doc .main-frame{
+    padding-inline-start: 0px !important;
+    padding:0
+  }
+</style>
+
+<script>
+  import config from "virtual:starlight-view-modes-config";
+
+  let documentQuerySelector = (selector) => {
+    return document.querySelector(selector) as HTMLElement;
+  };
+  let documentQuerySelectorAll = (selector) => {
+    return Array.from(
+      document.querySelectorAll(selector)
+    ) as Array<HTMLElement>;
+  };
+
+  let iframeOpenHeight = "calc(950/16 * 1em)"
+  let iframeClosedHeight = "calc(500/16 * 1em)"
+
+  function configureRightSideBar() {
+    let rightSideBar = documentQuerySelector(".right-sidebar");
+    rightSideBar.style.width = "auto";
+    let rightSidebarContainer = documentQuerySelector(
+      ".right-sidebar-container"
+    );
+    let navBar = rightSidebarContainer.querySelectorAll("nav")[1];
+
+
+
+    const toggleRightSideBar = (isRightSideBarCollapsed?) => {
+      // @ts-ignore
+      if (isRightSideBarCollapsed instanceof Event) {
+        isRightSideBarCollapsed =
+          sessionStorage.getItem("rightSideBarCollapsed") === "true";
+      }
+      if (!isRightSideBarCollapsed) {
+        rightSidebarContainer.style.width = "50px";
+        navBar.style.opacity = "0";
+
+        if(sessionStorage.getItem("mainSideBarCollapsed") === "true"){
+          let iframes = documentQuerySelectorAll("iframe")
+          iframes.forEach((iframe)=>{
+            iframe.style.height = iframeOpenHeight
+
+          })
+        }
+      } else {
+        rightSidebarContainer.style.width = "";
+        navBar.style.opacity = "1";
+        if(sessionStorage.getItem("mainSideBarCollapsed") === "false"){
+          let iframes = documentQuerySelectorAll("iframe")
+          iframes.forEach((iframe)=>{
+            iframe.style.height = iframeClosedHeight
+          })
+        }
+      }
+      sessionStorage.setItem(
+        "rightSideBarCollapsed",
+        isRightSideBarCollapsed ? "false" : "true"
+      );
+    };
+    let toggleRightSideBarBtn = documentQuerySelector(
+      ".toggle-right-side-bar-btn"
+    );
+    // @ts-ignore
+    toggleRightSideBarBtn.addEventListener("click", toggleRightSideBar);
+    let isRightSideBarCollapsed =
+      sessionStorage.getItem("rightSideBarCollapsed") === "true";
+    toggleRightSideBar(!isRightSideBarCollapsed);
+  }
+  function configureMainSideBar() {
+    let mainSidebarContainer = documentQuerySelector(".sidebar-pane");
+    let navBar = mainSidebarContainer.querySelector("ul.top-level") as HTMLElement;
+    let mainFrame = documentQuerySelector(".main-frame")
+
+    const toggleMainSideBar = (isMainSideBarCollapsed?) => {
+      // @ts-ignore
+      if (isMainSideBarCollapsed instanceof Event) {
+        isMainSideBarCollapsed =
+          sessionStorage.getItem("mainSideBarCollapsed") === "true";
+      }
+      if (!isMainSideBarCollapsed) {
+        mainSidebarContainer.classList.add("sidebar-pane-collapsed")
+        mainSidebarContainer.style.width = "50px";
+        navBar.style.opacity = "0";
+        mainFrame.style.paddingInlineStart=mainSidebarContainer.style.width
+        if(sessionStorage.getItem("rightSideBarCollapsed") === "true"){
+          let iframes = documentQuerySelectorAll("iframe")
+          iframes.forEach((iframe)=>{
+            iframe.style.height = iframeOpenHeight
+          })
+        }
+      } else {
+        mainSidebarContainer.classList.remove("sidebar-pane-collapsed")
+        mainSidebarContainer.style.width = "";
+        navBar.style.opacity = "";
+        mainFrame.style.paddingInlineStart =""
+        if(sessionStorage.getItem("rightSideBarCollapsed") === "false"){
+          let iframes = documentQuerySelectorAll("iframe")
+          iframes.forEach((iframe)=>{
+            iframe.style.height = iframeClosedHeight
+          })
+        }
+      }
+      sessionStorage.setItem(
+        "mainSideBarCollapsed",
+        isMainSideBarCollapsed ? "false" : "true"
+      );
+    };
+    let toggleMainSideBarBtn = documentQuerySelector(
+      ".toggle-main-side-bar-btn"
+    );
+    // @ts-ignore
+    toggleMainSideBarBtn.addEventListener("click", toggleMainSideBar);
+    let isMainSideBarCollapsed =
+      sessionStorage.getItem("mainSideBarCollapsed") === "true";
+    toggleMainSideBar(!isMainSideBarCollapsed);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    configureRightSideBar();
+    configureMainSideBar();
+  });
+</script>
