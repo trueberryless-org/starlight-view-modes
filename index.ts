@@ -188,7 +188,7 @@ export default function starlightViewModes(
         } else {
           // Otherwise, add the PageSidebar component override to the user's configuration.
           updatedConfig.components.PageSidebar =
-            './src/plugins/view-modes/overrides/PageSidebar.astro';
+            './overrides/PageSidebar.astro';
         }
         if (config.components?.Sidebar) {
           logger.warn(
@@ -200,7 +200,7 @@ export default function starlightViewModes(
         } else {
           // Otherwise, add the Sidebar component override to the user's configuration.
           updatedConfig.components.Sidebar =
-            './src/plugins/view-modes/overrides/Sidebar.astro';
+            './overrides/Sidebar.astro';
         }
 
         addIntegration(starlightViewModesIntegration(parsedConfig.data));
