@@ -25,8 +25,7 @@
     ) as Array<HTMLElement>;
   };
 
-  let iframeOpenHeight = "calc(950/16 * 1em)"
-  let iframeClosedHeight = "calc(500/16 * 1em)"
+
 
   function configureRightSideBar() {
     let rightSideBar = documentQuerySelector(".right-sidebar");
@@ -35,8 +34,7 @@
       ".right-sidebar-container"
     );
     let navBar = rightSidebarContainer.querySelectorAll("nav")[1];
-
-
+    let body = documentQuerySelector("body")
 
     const toggleRightSideBar = (isRightSideBarCollapsed?) => {
       // @ts-ignore
@@ -47,23 +45,13 @@
       if (!isRightSideBarCollapsed) {
         rightSidebarContainer.style.width = "50px";
         navBar.style.opacity = "0";
+        body.classList.add("right-side-bar-collapsed")
 
-        if(sessionStorage.getItem("mainSideBarCollapsed") === "true"){
-          let iframes = documentQuerySelectorAll("iframe")
-          iframes.forEach((iframe)=>{
-            iframe.style.height = iframeOpenHeight
 
-          })
-        }
       } else {
         rightSidebarContainer.style.width = "";
         navBar.style.opacity = "1";
-        if(sessionStorage.getItem("mainSideBarCollapsed") === "false"){
-          let iframes = documentQuerySelectorAll("iframe")
-          iframes.forEach((iframe)=>{
-            iframe.style.height = iframeClosedHeight
-          })
-        }
+        body.classList.remove("right-side-bar-collapsed")
       }
       sessionStorage.setItem(
         "rightSideBarCollapsed",
@@ -83,6 +71,7 @@
     let mainSidebarContainer = documentQuerySelector(".sidebar-pane");
     let navBar = mainSidebarContainer.querySelector("ul.top-level") as HTMLElement;
     let mainFrame = documentQuerySelector(".main-frame")
+    let body = documentQuerySelector("body")
 
     const toggleMainSideBar = (isMainSideBarCollapsed?) => {
       // @ts-ignore
@@ -95,23 +84,13 @@
         mainSidebarContainer.style.width = "50px";
         navBar.style.opacity = "0";
         mainFrame.style.paddingInlineStart=mainSidebarContainer.style.width
-        if(sessionStorage.getItem("rightSideBarCollapsed") === "true"){
-          let iframes = documentQuerySelectorAll("iframe")
-          iframes.forEach((iframe)=>{
-            iframe.style.height = iframeOpenHeight
-          })
-        }
+        body.classList.add("main-side-bar-collapsed")
       } else {
         mainSidebarContainer.classList.remove("sidebar-pane-collapsed")
         mainSidebarContainer.style.width = "";
         navBar.style.opacity = "";
         mainFrame.style.paddingInlineStart =""
-        if(sessionStorage.getItem("rightSideBarCollapsed") === "false"){
-          let iframes = documentQuerySelectorAll("iframe")
-          iframes.forEach((iframe)=>{
-            iframe.style.height = iframeClosedHeight
-          })
-        }
+        body.classList.remove("main-side-bar-collapsed")
       }
       sessionStorage.setItem(
         "mainSideBarCollapsed",
