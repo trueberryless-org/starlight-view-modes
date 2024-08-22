@@ -1,16 +1,20 @@
 ---
 import type { Props } from '../props';
-
 import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
-import SidebarSublist from '../../../../node_modules/@astrojs/starlight/components/SidebarSublist.astro';
-import { Icon } from 'astro-icon/components'
+import SidebarSublist from 'virtual:starlight/components/SidebarSublist';
+import { Icon } from 'astro-icon/components';
 const { sidebar } = Astro.props;
+
+
 ---
+
+
 
 <div class="toggle-main-side-bar-btn cursor-pointer border border-neutral-500 inline-flex flex-row justify-center items-center w-4 self-end">
 	<Icon name='mdi:chevron-left' />
 </div>
 <SidebarSublist sublist={sidebar} />
+<slot />
 <div class="md:sl-hidden">
 	<MobileMenuFooter {...Astro.props} />
 </div>

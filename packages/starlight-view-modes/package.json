@@ -8,18 +8,24 @@
   "exports": {
       ".": "./index.ts",
       "./overrides/PageSidebar.astro": "./overrides/PageSidebar.astro",
+      "./overrides/Sidebar.astro": "./overrides/Sidebar.astro",
       "./components/ViewModes.astro": "./components/ViewModes.astro",
       "./components/DeactivationButtons.astro": "./components/DeactivationButtons.astro",
       "./package.json": "./package.json"
   },
   "scripts": {},
   "devDependencies": {
-      "@astrojs/starlight": "^0.23.1",
-      "astro": "^4.8.7"
-  },
-  "peerDependencies": {
-      "@astrojs/starlight": ">=0.16.0",
-      "astro": ">=4.0.0"
+    "@astrojs/check": "^0.9.1",
+    "@astrojs/starlight": "^0.26.1",
+    "@astrojs/starlight-tailwind": "^2.0.3",
+    "@astrojs/tailwind": "^5.1.0",
+    "@iconify/json": "^2.2.239",
+    "@iconify-json/mdi": "^1.1.68",
+    "astro": "^4.10.2",
+    "astro-icon": "^1.1.1",
+    "sharp": "^0.32.5",
+    "tailwindcss": "^3.4.7",
+    "typescript": "^5.5.4"
   },
   "engines": {
       "node": ">=18"
