@@ -12,6 +12,15 @@ import { Icon } from 'astro-icon/components';
 
 ---
 
+<style>
+	.toggle-right-side-bar-btn{
+		cursor: pointer;
+		border: 1px solid grey;
+		display: inline-flex;
+		justify-content: center;
+		align-items:center;
+	}
+</style>
 {
 	Astro.props.toc && (
 		<>
@@ -21,7 +30,9 @@ import { Icon } from 'astro-icon/components';
 			<div class="right-sidebar-panel sl-hidden lg:sl-block">
 				<div class="sl-container">
 					<SidebarToggle/>
-					<div class="toggle-right-side-bar-btn cursor-pointer border border-neutral-500 inline-flex flex-row justify-center items-center">
+					{/* TODO tail wind does not work for some reason */}
+					{/* <div class="toggle-right-side-bar-btn cursor-pointer border border-neutral-500 inline-flex flex-row justify-center items-center"> */}
+					<div class="toggle-right-side-bar-btn">
 						<Icon name='mdi:chevron-right' />
 					</div>
 					<TableOfContents {...Astro.props} />

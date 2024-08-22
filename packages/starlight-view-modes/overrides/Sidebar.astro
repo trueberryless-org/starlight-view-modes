@@ -7,10 +7,21 @@ const { sidebar } = Astro.props;
 
 
 ---
+<style>
+	.toggle-main-side-bar-btn{
+		cursor: pointer;
+		border: 1px solid grey;
+		display: inline-flex;
+		justify-content: center;
+		align-items:center;
+		align-self: flex-end
+	}
+</style>
 
 
-
-<div class="toggle-main-side-bar-btn cursor-pointer border border-neutral-500 inline-flex flex-row justify-center items-center w-4 self-end">
+<!-- tailwind doesnt work here -->
+<!-- <div class="toggle-main-side-bar-btn cursor-pointer border border-neutral-500 inline-flex flex-row justify-center items-center w-4 self-end"> -->
+<div class="toggle-main-side-bar-btn ">
 	<Icon name='mdi:chevron-left' />
 </div>
 <SidebarSublist sublist={sidebar} />
