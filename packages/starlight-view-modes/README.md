@@ -10,6 +10,17 @@
   <br />
 </div>
 
+## Star History
+
+<a href="https://star-history.com/#trueberryless
+/starlight-view-modes&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=trueberryless/starlight-view-modes&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=trueberryless/starlight-view-modes&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=trueberryless/starlight-view-modes&type=Date" />
+ </picture>
+</a>
+
 ## Getting Started
 
 Want to get started immediately? Check out the [getting started guide](https://starlight-view-modes.trueberryless.org/getting-started/).
