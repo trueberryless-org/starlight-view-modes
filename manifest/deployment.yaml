@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starlight-view-modes
+  namespace: starlight-view-modes
+  labels:
+    app: starlight-view-modes
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: starlight-view-modes
+  template:
+    metadata:
+      labels:
+        app: starlight-view-modes
+    spec:
+      containers:
+        - name: starlight-view-modes
+          image: 'trueberryless/starlight-view-modes:main-3c0d0e5f2393c5a09089851ec7b601d5077f128e'
+          imagePullPolicy: Always
