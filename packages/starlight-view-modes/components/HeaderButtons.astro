@@ -1,80 +1,84 @@
 <style is:global>
-:root {
-  --starlight-view-modes-animation-duration: 300ms;
-}
+    :root {
+        --starlight-view-modes-animation-duration: 300ms;
+    }
 
-#view-modes-header-div {
-  color: var(--sl-color-text-accent);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
+    #view-modes-header-div {
+        color: var(--sl-color-text-accent);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+    #view-modes-header-div::before {
+        content: "";
+        height: 2rem;
+        border-inline-end: 1px solid var(--sl-color-gray-5);
+    }
+    #view-modes-header-div > span {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+    :is(#view-modes-zen-mode-off-header, #view-modes-presentation-mode-off-header) > svg {
+        font-size: var(--sl-icon-size, 1em);
+        width: 1em;
+        height: 1em;
+        transition: transform var(--starlight-view-modes-animation-duration)
+            cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    :is(#view-modes-zen-mode-off-header, #view-modes-presentation-mode-off-header) > svg:hover {
+        opacity: 0.66;
+    }
 
-}
-#view-modes-header-div::before {
-  content: "";
-  height: 2rem;
-  border-inline-end: 1px solid var(--sl-color-gray-5);
-}
-#view-modes-header-div > span {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-:is(#view-modes-zen-mode-off-header, #view-modes-presentation-mode-off-header) > svg {
-  font-size: var(--sl-icon-size, 1em);
-  width: 1em;
-  height: 1em;
-  transition: transform var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-:is(#view-modes-zen-mode-off-header, #view-modes-presentation-mode-off-header) > svg:hover {
-  opacity: 0.66;
-}
+    body.view-modes-zen-mode #view-modes-zen-mode-off-header > svg {
+        transform: rotate(180deg);
+    }
 
-body.view-modes-zen-mode #view-modes-zen-mode-off-header > svg {
-  transform: rotate(180deg);
-}
+    body.view-modes-zen-mode-header-disabled #view-modes-zen-mode-off-header > svg:hover {
+        transform: rotate(180deg);
+    }
 
-body.view-modes-zen-mode-header-disabled #view-modes-zen-mode-off-header > svg:hover {
-  transform: rotate(180deg);
-}
-
-#view-modes-presentation-mode-off-header > svg:hover {
-  transform: rotate(180deg);
-}
+    #view-modes-presentation-mode-off-header > svg:hover {
+        transform: rotate(180deg);
+    }
 </style>
 
-
 <script>
-    import config from 'virtual:starlight-view-modes-config';
-    import { activateZenMode, deactivateZenMode, activatePresentationMode, deactivatePresentationMode } from '../libs/SharedMethods';
+    import config from "virtual:starlight-view-modes-config";
+    import {
+        activateZenMode,
+        deactivateZenMode,
+        activatePresentationMode,
+        deactivatePresentationMode,
+    } from "../libs/SharedMethods";
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener("DOMContentLoaded", () => {
         if (config.zenModeShowSwitchInHeader || config.presentationModeShowSwitchInHeader) {
-          var headerRightGroup = document.getElementsByClassName('right-group')[0];
+            var headerRightGroup = document.getElementsByClassName("right-group")[0];
 
-          var modeElementsHeader = document.createElement("div");
-          modeElementsHeader.id = "view-modes-header-div";
-          modeElementsHeader.innerHTML = `<span></span>`;
-          headerRightGroup?.appendChild(modeElementsHeader);
+            var modeElementsHeader = document.createElement("div");
+            modeElementsHeader.id = "view-modes-header-div";
+            modeElementsHeader.innerHTML = `<span></span>`;
+            headerRightGroup?.appendChild(modeElementsHeader);
         }
 
         if (config.zenModeShowSwitchInHeader) {
-            const zenMode = sessionStorage.getItem('viewModesZenMode') === 'true';
-            var headerDiv = document.getElementById('view-modes-header-div');
+            const zenMode = sessionStorage.getItem("viewModesZenMode") === "true";
+            var headerDiv = document.getElementById("view-modes-header-div");
 
             var zenModeOffElementHeader = document.createElement("a");
             zenModeOffElementHeader.id = "view-modes-zen-mode-off-header";
-            zenModeOffElementHeader.title = zenMode ? 'Deactivate Zen Mode' : 'Activate Zen Mode';
+            zenModeOffElementHeader.title = zenMode ? "Deactivate Zen Mode" : "Activate Zen Mode";
             zenModeOffElementHeader.innerHTML = `
                 <svg fill="currentColor" height="16" width="16" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     viewBox="0 0 512 512" xml:space="preserve">
@@ -98,25 +102,26 @@ body.view-modes-zen-mode-header-disabled #view-modes-zen-mode-off-header > svg:h
 
             headerDiv?.appendChild(zenModeOffElementHeader);
 
-            const zenModeOffHeader = document.getElementById('view-modes-zen-mode-off-header');
+            const zenModeOffHeader = document.getElementById("view-modes-zen-mode-off-header");
 
-            zenModeOffHeader?.addEventListener('click', () => {
-                if (document.body.classList.contains('view-modes-zen-mode')) {
+            zenModeOffHeader?.addEventListener("click", () => {
+                if (document.body.classList.contains("view-modes-zen-mode")) {
                     deactivateZenMode();
-                }
-                else {
+                } else {
                     activateZenMode();
                 }
             });
         }
 
         if (config.presentationModeShowSwitchInHeader) {
-            const presentationMode = sessionStorage.getItem('viewModesPresentationMode') === 'true';
-            var headerDiv = document.getElementById('view-modes-header-div');
+            const presentationMode = sessionStorage.getItem("viewModesPresentationMode") === "true";
+            var headerDiv = document.getElementById("view-modes-header-div");
 
             var presentationModeOffElementHeader = document.createElement("a");
             presentationModeOffElementHeader.id = "view-modes-presentation-mode-off-header";
-            presentationModeOffElementHeader.title = presentationMode ? 'Deactivate Presentation Mode' : 'Activate Presentation Mode';
+            presentationModeOffElementHeader.title = presentationMode
+                ? "Deactivate Presentation Mode"
+                : "Activate Presentation Mode";
             presentationModeOffElementHeader.innerHTML = `
                 <svg width="16" height="16" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_531_2)">
@@ -129,13 +134,14 @@ body.view-modes-zen-mode-header-disabled #view-modes-zen-mode-off-header > svg:h
 
             headerDiv?.appendChild(presentationModeOffElementHeader);
 
-            const presentationModeOffHeader = document.getElementById('view-modes-presentation-mode-off-header');
+            const presentationModeOffHeader = document.getElementById(
+                "view-modes-presentation-mode-off-header"
+            );
 
-            presentationModeOffHeader?.addEventListener('click', () => {
-                if (document.body.classList.contains('view-modes-presentation-mode')) {
+            presentationModeOffHeader?.addEventListener("click", () => {
+                if (document.body.classList.contains("view-modes-presentation-mode")) {
                     deactivatePresentationMode();
-                }
-                else {
+                } else {
                     activatePresentationMode();
                 }
             });
