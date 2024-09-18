@@ -1,5 +1,7 @@
 import config from 'virtual:starlight-view-modes-config';
 
+
+
 export function activateZenMode() {
   document.body.classList.add('view-modes-zen-mode');
 

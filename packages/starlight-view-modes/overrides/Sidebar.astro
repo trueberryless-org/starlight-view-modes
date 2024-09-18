@@ -17,7 +17,14 @@ const { sidebar } = Astro.props;
 		align-self: flex-end
 	}
 </style>
+<script>
+  import config from "virtual:starlight-view-modes-config";
 
+	if(config.leftSidebarEnabled === false){
+		let mainSideBarIcon = document.querySelector(".toggle-main-side-bar-btn") as HTMLElement;
+		mainSideBarIcon.style.display = "none";
+	}
+</script>
 
 <!-- tailwind doesnt work here -->
 <!-- <div class="toggle-main-side-bar-btn cursor-pointer border border-neutral-500 inline-flex flex-row justify-center items-center w-4 self-end"> -->

@@ -148,6 +148,24 @@ const starlightViewModesConfigSchema = z
      * @default true
      */
     presentationModeShowSwitchInTableOfContents: z.boolean().default(true),
+
+
+    /**
+     * Indicates if the ability to toggle the collapse expanded state of the left sidebar is enabled.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    leftSidebarEnabled: z.boolean().default(true),
+
+
+    /**
+     * Indicates if the ability to toggle the collapse expanded state of the left sidebar is enabled.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    rightSidebarEnabled: z.boolean().default(true),
   })
   .default({});
 

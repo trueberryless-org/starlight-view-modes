@@ -24,7 +24,7 @@
 </style>
 
 <script>
-  import config from "virtual:starlight-view-modes-config";
+  import config from 'virtual:starlight-view-modes-config';
 
   let documentQuerySelector = (selector) => {
     return document.querySelector(selector) as HTMLElement;
@@ -35,52 +35,20 @@
     ) as Array<HTMLElement>;
   };
 
-  let root = documentQuerySelector(":root");
-  let rootStyle = () => getComputedStyle(root);
-
-  function configureRightSideBar() {
-    let rightSideBar = documentQuerySelector(".right-sidebar");
-    rightSideBar.style.width = "auto";
-    let rightSidebarContainer = documentQuerySelector(
-      ".right-sidebar-container"
+  let toggleMainSideBarBtn = documentQuerySelector(
+      ".toggle-main-side-bar-btn"
     );
-    let navBar = rightSidebarContainer.querySelectorAll("nav")[1];
-
-    let body = documentQuerySelector("body")
-
-    const toggleRightSideBar = (isRightSideBarCollapsed?) => {
-      // @ts-ignore
-      if (isRightSideBarCollapsed instanceof Event) {
-        isRightSideBarCollapsed =
-          sessionStorage.getItem("rightSideBarCollapsed") === "true";
-      }
-      if (!isRightSideBarCollapsed) {
-        rightSidebarContainer.style.width = "50px";
-        rightSideBar.style.overflow = "hidden";
-        navBar.style.opacity = "0";
-        body.classList.add("right-side-bar-collapsed")
-
-
-      } else {
-        rightSidebarContainer.style.width = "";
-        rightSideBar.style.overflow = "";
-        navBar.style.opacity = "1";
-        body.classList.remove("right-side-bar-collapsed")
-      }
-      sessionStorage.setItem(
-        "rightSideBarCollapsed",
-        isRightSideBarCollapsed ? "false" : "true"
-      );
-    };
-    let toggleRightSideBarBtn = documentQuerySelector(
+  let toggleRightSideBarBtn = documentQuerySelector(
       ".toggle-right-side-bar-btn"
     );
-    // @ts-ignore
-    toggleRightSideBarBtn.addEventListener("click", toggleRightSideBar);
-    let isRightSideBarCollapsed =
-      sessionStorage.getItem("rightSideBarCollapsed") === "true";
-    toggleRightSideBar(!isRightSideBarCollapsed);
+
+  if(config.leftSidebarEnabled === false){
+    toggleMainSideBarBtn.style.display = "none";
   }
+  if(config.rightSidebarEnabled === false){
+    toggleRightSideBarBtn.style.display = "none";
+  }
+
   function configureMainSideBar() {
     let mainSidebarContainer = documentQuerySelector(".sidebar-pane");
     let navBar = mainSidebarContainer.querySelector("ul.top-level") as HTMLElement;
@@ -117,9 +85,7 @@
         isMainSideBarCollapsed ? "false" : "true"
       );
     };
-    let toggleMainSideBarBtn = documentQuerySelector(
-      ".toggle-main-side-bar-btn"
-    );
+
     // @ts-ignore
     toggleMainSideBarBtn.addEventListener("click", toggleMainSideBar);
     let isMainSideBarCollapsed =
@@ -127,8 +93,50 @@
     toggleMainSideBar(!isMainSideBarCollapsed);
   }
 
+  function configureRightSideBar() {
+    let rightSideBar = documentQuerySelector(".right-sidebar");
+    rightSideBar.style.width = "auto";
+    let rightSidebarContainer = documentQuerySelector(
+      ".right-sidebar-container"
+    );
+    let navBar = rightSidebarContainer.querySelectorAll("nav")[1];
+
+    let body = documentQuerySelector("body")
+
+    const toggleRightSideBar = (isRightSideBarCollapsed?) => {
+      // @ts-ignore
+      if (isRightSideBarCollapsed instanceof Event) {
+        isRightSideBarCollapsed =
+          sessionStorage.getItem("rightSideBarCollapsed") === "true";
+      }
+      if (!isRightSideBarCollapsed) {
+        rightSidebarContainer.style.width = "50px";
+        rightSideBar.style.overflow = "hidden";
+        navBar.style.opacity = "0";
+        body.classList.add("right-side-bar-collapsed")
+
+
+      } else {
+        rightSidebarContainer.style.width = "";
+        rightSideBar.style.overflow = "";
+        navBar.style.opacity = "1";
+        body.classList.remove("right-side-bar-collapsed")
+      }
+      sessionStorage.setItem(
+        "rightSideBarCollapsed",
+        isRightSideBarCollapsed ? "false" : "true"
+      );
+    };
+
+    // @ts-ignore
+    toggleRightSideBarBtn.addEventListener("click", toggleRightSideBar);
+    let isRightSideBarCollapsed =
+      sessionStorage.getItem("rightSideBarCollapsed") === "true";
+    toggleRightSideBar(!isRightSideBarCollapsed);
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
-    configureRightSideBar();
-    configureMainSideBar();
+    if(config.leftSidebarEnabled) configureMainSideBar();
+    if(config.rightSidebarEnabled) configureRightSideBar();
   });
 </script>
