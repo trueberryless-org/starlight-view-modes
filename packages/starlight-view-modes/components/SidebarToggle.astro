@@ -1,4 +1,8 @@
 <style is:global>
+
+  :root{
+    --tablet-navbar-inset-inline-start:50px
+  }
   .right-sidebar {
     width: auto !important;
   }
@@ -10,6 +14,12 @@
   body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-template-doc .main-frame{
     padding-inline-start: 0px !important;
     padding:0
+  }
+
+  @media (min-width: 50rem) {
+    nav:where(.astro-doynk5tl) {
+        inset-inline-start: var(--tablet-navbar-inset-inline-start);
+    }
   }
 </style>
 
@@ -25,7 +35,8 @@
     ) as Array<HTMLElement>;
   };
 
-
+  let root = documentQuerySelector(":root");
+  let rootStyle = () => getComputedStyle(root);
 
   function configureRightSideBar() {
     let rightSideBar = documentQuerySelector(".right-sidebar");
@@ -34,6 +45,7 @@
       ".right-sidebar-container"
     );
     let navBar = rightSidebarContainer.querySelectorAll("nav")[1];
+
     let body = documentQuerySelector("body")
 
     const toggleRightSideBar = (isRightSideBarCollapsed?) => {
@@ -44,12 +56,14 @@
       }
       if (!isRightSideBarCollapsed) {
         rightSidebarContainer.style.width = "50px";
+        rightSideBar.style.overflow = "hidden";
         navBar.style.opacity = "0";
         body.classList.add("right-side-bar-collapsed")
 
 
       } else {
         rightSidebarContainer.style.width = "";
+        rightSideBar.style.overflow = "";
         navBar.style.opacity = "1";
         body.classList.remove("right-side-bar-collapsed")
       }
@@ -82,12 +96,18 @@
       if (!isMainSideBarCollapsed) {
         mainSidebarContainer.classList.add("sidebar-pane-collapsed")
         mainSidebarContainer.style.width = "50px";
+        document.documentElement.style.setProperty("--tablet-navbar-inset-inline-start", "50px");
+        mainSidebarContainer.style.overflow = "hidden";
         navBar.style.opacity = "0";
         mainFrame.style.paddingInlineStart=mainSidebarContainer.style.width
         body.classList.add("main-side-bar-collapsed")
       } else {
         mainSidebarContainer.classList.remove("sidebar-pane-collapsed")
         mainSidebarContainer.style.width = "";
+        document.documentElement.style.setProperty("--tablet-navbar-inset-inline-start",
+          getComputedStyle(mainSidebarContainer).getPropertyValue("width")
+        );
+        mainSidebarContainer.style.overflow = "";
         navBar.style.opacity = "";
         mainFrame.style.paddingInlineStart =""
         body.classList.remove("main-side-bar-collapsed")
