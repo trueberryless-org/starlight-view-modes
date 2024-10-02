@@ -223,7 +223,13 @@ export default function starlightViewModes(
           updatedConfig.components.Sidebar =
             'starlight-view-modes/overrides/Sidebar.astro';
         }
-        addIntegration(icon())
+        addIntegration(
+          icon({
+            include:{
+              mdi:["chevron-left","chevron-right","chevron-down"]
+            }
+          })
+        )
         addIntegration(starlightViewModesIntegration(parsedConfig.data));
         updateConfig(updatedConfig);
       },
