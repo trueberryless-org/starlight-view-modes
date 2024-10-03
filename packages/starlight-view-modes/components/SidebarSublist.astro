@@ -1,6 +1,6 @@
 ---
 
-import { Icon } from 'astro-icon/components';
+import { Icon } from '@astrojs/starlight/components';
 function flattenSidebar(sidebar: SidebarEntry[]): Link[] {
 	return sidebar.flatMap((entry) =>
 		entry.type === 'group' ? flattenSidebar(entry.entries) : entry
@@ -70,7 +70,7 @@ const { sublist, nested } = Astro.props;
 									/>
 								)} */}
 							</div>
-							<Icon name='mdi:chevron-down' />
+							<Icon name='down-caret' />
 						</summary>
 						<Astro.self sublist={entry.entries} nested />
 					</details>

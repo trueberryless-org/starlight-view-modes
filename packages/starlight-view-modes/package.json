@@ -1,49 +1,45 @@
 {
-  "name": "starlight-view-modes",
-  "author": "trueberryless (https://trueberryless.org)",
-  "version": "0.7.0",
-  "license": "MIT",
-  "description": "Starlight plugin adding view mode capabilities to your documentation website.",
-  "type": "module",
-  "exports": {
-      ".": "./index.ts",
-      "./overrides/PageSidebar.astro": "./overrides/PageSidebar.astro",
-      "./overrides/Sidebar.astro": "./overrides/Sidebar.astro",
-      "./components/ViewModes.astro": "./components/ViewModes.astro",
-      "./components/DeactivationButtons.astro": "./components/DeactivationButtons.astro",
-      "./package.json": "./package.json"
-  },
-  "scripts": {},
-  "dependencies": {
-    "@iconify/json": "^2.2.239",
-    "@iconify-json/mdi": "^1.1.68",
-    "astro-icon": "^1.1.1"
-  },
-  "devDependencies": {
-    "@astrojs/check": "^0.9.1"
-  },
-  "peerDependencies": {
-    "@astrojs/starlight": ">=0.16.0",
-    "astro": ">=4.0.0"
-  },
-  "engines": {
-      "node": ">=18"
-  },
-  "keywords": [
-      "starlight",
-      "plugin",
-      "zen",
-      "view",
-      "mode",
-      "zen-mode",
-      "view-modes",
-      "documentation"
-  ],
-  "homepage": "https://starlight-view-modes.trueberryless.org",
-  "repository": {
-      "type": "git",
-      "url": "https://github.com/trueberryless/starlight-view-modes.git",
-      "directory": "packages/starlight-view-modes"
-  },
-  "bugs": "https://github.com/trueberryless/starlight-view-modes/issues"
+    "name": "starlight-view-modes",
+    "author": "trueberryless (https://trueberryless.org)",
+    "version": "0.7.0",
+    "license": "MIT",
+    "description": "Starlight plugin adding view mode capabilities to your documentation website.",
+    "type": "module",
+    "exports": {
+        ".": "./index.ts",
+        "./overrides/PageSidebar.astro": "./overrides/PageSidebar.astro",
+        "./overrides/Sidebar.astro": "./overrides/Sidebar.astro",
+        "./components/ViewModes.astro": "./components/ViewModes.astro",
+        "./components/DeactivationButtons.astro": "./components/DeactivationButtons.astro",
+        "./package.json": "./package.json"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "devDependencies": {
+        "@astrojs/check": "^0.9.1"
+    },
+    "peerDependencies": {
+        "@astrojs/starlight": ">=0.16.0",
+        "astro": ">=4.0.0"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "keywords": [
+        "starlight",
+        "plugin",
+        "zen",
+        "view",
+        "mode",
+        "zen-mode",
+        "view-modes",
+        "documentation"
+    ],
+    "homepage": "https://starlight-view-modes.trueberryless.org",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/trueberryless/starlight-view-modes.git",
+        "directory": "packages/starlight-view-modes"
+    },
+    "bugs": "https://github.com/trueberryless/starlight-view-modes/issues"
 }

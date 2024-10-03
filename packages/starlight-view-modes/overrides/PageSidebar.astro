@@ -7,7 +7,7 @@ import DeactivationButtons from '../components/DeactivationButtons.astro';
 import HeaderButtons from '../components/HeaderButtons.astro';
 import MobileViewModes from '../components/MobileViewModes.astro';
 import SidebarToggle from '../components/SidebarToggle.astro';
-import { Icon } from 'astro-icon/components';
+import { Icon } from '@astrojs/starlight/components';
 
 
 ---
@@ -35,10 +35,10 @@ import { Icon } from 'astro-icon/components';
 					{/* TODO tail wind does not work for some reason */}
 					{/* <div class="toggle-right-side-bar-btn cursor-pointer border border-neutral-500 inline-flex flex-row justify-center items-center"> */}
 					<div class="toggle-right-side-bar-btn">
-						<Icon name='mdi:chevron-right' />
+						<Icon name='right-caret' />
 					</div>
 					<TableOfContents {...Astro.props} />
-          <ViewModes />
+          			<ViewModes />
 					<DeactivationButtons />
 					<HeaderButtons />
 					<MobileViewModes />

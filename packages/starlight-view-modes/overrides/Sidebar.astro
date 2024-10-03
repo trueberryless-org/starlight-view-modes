@@ -2,7 +2,7 @@
 import type { Props } from '../props';
 import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
 import SidebarSublist from '../components/SidebarSublist.astro';
-import { Icon } from 'astro-icon/components';
+import { Icon } from '@astrojs/starlight/components';
 const { sidebar } = Astro.props;
 
 
@@ -16,6 +16,10 @@ const { sidebar } = Astro.props;
 		align-items:center;
 		align-self: flex-end
 	}
+
+	.rotate-180 {
+		transform: rotate(180deg);
+	}
 </style>
 <script>
   import config from "virtual:starlight-view-modes-config";
@@ -28,8 +32,8 @@ const { sidebar } = Astro.props;
 
 <!-- tailwind doesnt work here -->
 <!-- <div class="toggle-main-side-bar-btn cursor-pointer border border-neutral-500 inline-flex flex-row justify-center items-center w-4 self-end"> -->
-<div class="toggle-main-side-bar-btn ">
-	<Icon name='mdi:chevron-left' />
+<div class="toggle-main-side-bar-btn">
+	<Icon name='right-caret' class='rotate-180'/>
 </div>
 <SidebarSublist sublist={sidebar} />
 <slot />
