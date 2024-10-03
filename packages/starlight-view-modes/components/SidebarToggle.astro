@@ -1,30 +1,42 @@
 <style is:global>
-
-  :root{
-    --tablet-navbar-inset-inline-start:50px
+  :root {
+    --tablet-navbar-inset-inline-start: 50px;
   }
   .right-sidebar {
     width: auto !important;
   }
 
-  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-template-doc main {
+  .main-pane {
+    flex: 1 0 78%;
+  }
+
+  .sl-container{
+    width: 100%;
+    max-width: none;
+  }
+
+
+
+  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-template-doc
+    main {
     width: 100%;
   }
 
-  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-template-doc .main-frame{
+  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-template-doc
+    .main-frame {
     padding-inline-start: 0px !important;
-    padding:0
+    padding: 0;
   }
 
   @media (min-width: 50rem) {
     nav:where(.astro-doynk5tl) {
-        inset-inline-start: var(--tablet-navbar-inset-inline-start);
+      inset-inline-start: var(--tablet-navbar-inset-inline-start);
     }
   }
 </style>
 
 <script>
-  import config from 'virtual:starlight-view-modes-config';
+  import config from "virtual:starlight-view-modes-config";
 
   let documentQuerySelector = (selector) => {
     return document.querySelector(selector) as HTMLElement;
@@ -35,25 +47,25 @@
     ) as Array<HTMLElement>;
   };
 
-  let toggleMainSideBarBtn = documentQuerySelector(
-      ".toggle-main-side-bar-btn"
-    );
+  let toggleMainSideBarBtn = documentQuerySelector(".toggle-main-side-bar-btn");
   let toggleRightSideBarBtn = documentQuerySelector(
-      ".toggle-right-side-bar-btn"
-    );
+    ".toggle-right-side-bar-btn"
+  );
 
-  if(config.leftSidebarEnabled === false){
+  if (config.leftSidebarEnabled === false) {
     toggleMainSideBarBtn.style.display = "none";
   }
-  if(config.rightSidebarEnabled === false){
+  if (config.rightSidebarEnabled === false) {
     toggleRightSideBarBtn.style.display = "none";
   }
 
   function configureMainSideBar() {
     let mainSidebarContainer = documentQuerySelector(".sidebar-pane");
-    let navBar = mainSidebarContainer.querySelector("ul.top-level") as HTMLElement;
-    let mainFrame = documentQuerySelector(".main-frame")
-    let body = documentQuerySelector("body")
+    let navBar = mainSidebarContainer.querySelector(
+      "ul.top-level"
+    ) as HTMLElement;
+    let mainFrame = documentQuerySelector(".main-frame");
+    let body = documentQuerySelector("body");
 
     const toggleMainSideBar = (isMainSideBarCollapsed?) => {
       // @ts-ignore
@@ -62,23 +74,27 @@
           sessionStorage.getItem("mainSideBarCollapsed") === "true";
       }
       if (!isMainSideBarCollapsed) {
-        mainSidebarContainer.classList.add("sidebar-pane-collapsed")
+        mainSidebarContainer.classList.add("sidebar-pane-collapsed");
         mainSidebarContainer.style.width = "50px";
-        document.documentElement.style.setProperty("--tablet-navbar-inset-inline-start", "50px");
+        document.documentElement.style.setProperty(
+          "--tablet-navbar-inset-inline-start",
+          "50px"
+        );
         mainSidebarContainer.style.overflow = "hidden";
         navBar.style.opacity = "0";
-        mainFrame.style.paddingInlineStart=mainSidebarContainer.style.width
-        body.classList.add("main-side-bar-collapsed")
+        mainFrame.style.paddingInlineStart = mainSidebarContainer.style.width;
+        body.classList.add("main-side-bar-collapsed");
       } else {
-        mainSidebarContainer.classList.remove("sidebar-pane-collapsed")
+        mainSidebarContainer.classList.remove("sidebar-pane-collapsed");
         mainSidebarContainer.style.width = "";
-        document.documentElement.style.setProperty("--tablet-navbar-inset-inline-start",
+        document.documentElement.style.setProperty(
+          "--tablet-navbar-inset-inline-start",
           getComputedStyle(mainSidebarContainer).getPropertyValue("width")
         );
         mainSidebarContainer.style.overflow = "";
         navBar.style.opacity = "";
-        mainFrame.style.paddingInlineStart =""
-        body.classList.remove("main-side-bar-collapsed")
+        mainFrame.style.paddingInlineStart = "";
+        body.classList.remove("main-side-bar-collapsed");
       }
       sessionStorage.setItem(
         "mainSideBarCollapsed",
@@ -100,8 +116,8 @@
       ".right-sidebar-container"
     );
     let navBar = rightSidebarContainer.querySelectorAll("nav")[1];
-
-    let body = documentQuerySelector("body")
+    let viewModesActivationNav = documentQuerySelector("nav#view-modes-activation")
+    let body = documentQuerySelector("body");
 
     const toggleRightSideBar = (isRightSideBarCollapsed?) => {
       // @ts-ignore
@@ -112,15 +128,17 @@
       if (!isRightSideBarCollapsed) {
         rightSidebarContainer.style.width = "50px";
         rightSideBar.style.overflow = "hidden";
-        navBar.style.opacity = "0";
-        body.classList.add("right-side-bar-collapsed")
-
-
+        [viewModesActivationNav, navBar].forEach((element) => {
+          element.style.opacity = "0";
+        })
+        body.classList.add("right-side-bar-collapsed");
       } else {
         rightSidebarContainer.style.width = "";
         rightSideBar.style.overflow = "";
-        navBar.style.opacity = "1";
-        body.classList.remove("right-side-bar-collapsed")
+        [viewModesActivationNav, navBar].forEach((element) => {
+          element.style.opacity = "1";
+        })
+        body.classList.remove("right-side-bar-collapsed");
       }
       sessionStorage.setItem(
         "rightSideBarCollapsed",
@@ -136,7 +154,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    if(config.leftSidebarEnabled) configureMainSideBar();
-    if(config.rightSidebarEnabled) configureRightSideBar();
+    if (config.leftSidebarEnabled) configureMainSideBar();
+    if (config.rightSidebarEnabled) configureRightSideBar();
   });
 </script>

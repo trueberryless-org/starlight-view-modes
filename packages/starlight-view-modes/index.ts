@@ -167,6 +167,15 @@ const starlightViewModesConfigSchema = z
      * @default true
      */
     rightSidebarEnabled: z.boolean().default(true),
+
+
+    astroIconIntegration: z.any().default(
+      icon({
+        include:{
+          mdi:["chevron-left","chevron-right","chevron-down"]
+        }
+      })
+    ),
   })
   .default({});
 
@@ -224,12 +233,9 @@ export default function starlightViewModes(
             'starlight-view-modes/overrides/Sidebar.astro';
         }
         addIntegration(
-          icon({
-            include:{
-              mdi:["chevron-left","chevron-right","chevron-down"]
-            }
-          })
+          parsedConfig.data.astroIconIntegration
         )
+        // addIntegration(icon());
         addIntegration(starlightViewModesIntegration(parsedConfig.data));
         updateConfig(updatedConfig);
       },
