@@ -14,7 +14,8 @@
 
 <a href="https://star-history.com/#trueberryless
 /starlight-view-modes&Date">
- <picture>
+<picture>
+
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=trueberryless/starlight-view-modes&type=Date&theme=dark" />
    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=trueberryless/starlight-view-modes&type=Date" />
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=trueberryless/starlight-view-modes&type=Date" />

@@ -1,22 +1,22 @@
-import type { ViteUserConfig } from 'astro';
-import { resolve } from 'path';
-import type { StarlightViewModesConfig } from '..';
+import type { ViteUserConfig } from "astro";
+import { resolve } from "path";
+import type { StarlightViewModesConfig } from "..";
 
 export function vitePluginStarlightViewModesConfig(
   config: StarlightViewModesConfig
 ): VitePlugin {
-  const moduleId = 'virtual:starlight-view-modes-config';
+  const moduleId = "virtual:starlight-view-modes-config";
   const resolvedModuleId = `\0${moduleId}`;
   const moduleContent = `export default ${JSON.stringify(config)}`;
 
   // Path to the utils directory within @astrojs/starlight
   const utilsPath = resolve(
     process.cwd(),
-    'node_modules/@astrojs/starlight/utils'
+    "node_modules/@astrojs/starlight/utils"
   );
 
   return {
-    name: 'vite-plugin-starlight-view-modes-config',
+    name: "vite-plugin-starlight-view-modes-config",
 
     load(id) {
       if (id === resolvedModuleId) {
@@ -24,7 +24,7 @@ export function vitePluginStarlightViewModesConfig(
       }
 
       // Handle the utils path for the virtual import
-      if (id === 'virtual:starlight/utils') {
+      if (id === "virtual:starlight/utils") {
         return `export * from '${utilsPath}';`;
       }
 
@@ -37,7 +37,7 @@ export function vitePluginStarlightViewModesConfig(
       }
 
       // Resolve the virtual import for utils/navigation
-      if (id === 'virtual:starlight/utils') {
+      if (id === "virtual:starlight/utils") {
         return id;
       }
 
@@ -46,4 +46,4 @@ export function vitePluginStarlightViewModesConfig(
   };
 }
 
-type VitePlugin = NonNullable<ViteUserConfig['plugins']>[number];
+type VitePlugin = NonNullable<ViteUserConfig["plugins"]>[number];

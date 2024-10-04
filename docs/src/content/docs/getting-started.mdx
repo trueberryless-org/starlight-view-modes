@@ -5,10 +5,10 @@ description: Learn how to add the view modes to your documentation website with 
 
 A [Starlight](https://starlight.astro.build) plugin adding different view mode capabilities to your documentation website.
 
--   No client-side third-party dependencies
--   Mobile support is working for Zen Mode
--   Many options to configurate plugin for your website (look [here](/configuration))
--   Zen mode and more to come...
+- No client-side third-party dependencies
+- Mobile support is working for Zen Mode
+- Many options to configurate plugin for your website (look [here](/configuration))
+- Zen mode and more to come...
 
 Check out the [demo](/demo/) for a preview of the plugin in action.
 
@@ -26,25 +26,25 @@ import { PackageManagers } from "starlight-package-managers";
 
 1. Starlight View Modes is a Starlight [plugin](https://starlight.astro.build/reference/plugins/) that you can install using your favorite package manager:
 
-    <PackageManagers pkg="starlight-view-modes" />
+   <PackageManagers pkg="starlight-view-modes" />
 
 2. Configure the plugin in your Starlight [configuration](https://starlight.astro.build/reference/configuration/#plugins) in the `astro.config.mjs` file.
 
-    ```diff lang="js"
-    // astro.config.mjs
-    import starlight from '@astrojs/starlight'
-    import { defineConfig } from 'astro/config'
-    +import starlightViewModes from 'starlight-view-modes'
+   ```diff lang="js"
+   // astro.config.mjs
+   import starlight from '@astrojs/starlight'
+   import { defineConfig } from 'astro/config'
+   +import starlightViewModes from 'starlight-view-modes'
 
-    export default defineConfig({
-      integrations: [
-        starlight({
-    +      plugins: [starlightViewModes()],
-          title: 'My Docs',
-        }),
-      ],
-    })
-    ```
+   export default defineConfig({
+     integrations: [
+       starlight({
+   +      plugins: [starlightViewModes()],
+         title: 'My Docs',
+       }),
+     ],
+   })
+   ```
 
 3. [Start the development server](https://starlight.astro.build/getting-started/#start-the-development-server) to see the plugin in action.
 

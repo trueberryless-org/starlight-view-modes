@@ -12,16 +12,16 @@ import { defineConfig } from "astro/config";
 import starlightViewModes from "starlight-view-modes";
 
 export default defineConfig({
-    integrations: [
-        starlight({
-            plugins: [
-                starlightViewModes({
-                    // Configuration options go here.
-                }),
-            ],
-            title: "My Docs",
+  integrations: [
+    starlight({
+      plugins: [
+        starlightViewModes({
+          // Configuration options go here.
         }),
-    ],
+      ],
+      title: "My Docs",
+    }),
+  ],
 });
 ```
 
@@ -50,10 +50,10 @@ When the Zen Mode is enabled the user is able to activate the Zen Mode. When act
 
 There are these options:
 
--   `top-left`
--   `top-right`
--   `bottom-left`
--   `bottom-right`
+- `top-left`
+- `top-right`
+- `bottom-left`
+- `bottom-right`
 
 #### `zenModeShowHeader`
 
@@ -138,28 +138,28 @@ import { defineConfig } from "astro/config";
 import starlightViewModes from "starlight-view-modes";
 
 export default defineConfig({
-    integrations: [
-        starlight({
-            plugins: [
-                starlightViewModes({
-                    zenModeEnabled: true,
-                    zenModeCloseButtonPosition: "top-right",
-                    zenModeShowHeader: false,
-                    zenModeShowSidebar: false,
-                    zenModeShowTableOfContents: true,
-                    zenModeShowFooter: true,
-                    zenModeShowSwitchInHeader: true,
-                    zenModeShowSwitchInHeaderMobile: true,
-                    zenModeShowSwitchInTableOfContents: true,
+  integrations: [
+    starlight({
+      plugins: [
+        starlightViewModes({
+          zenModeEnabled: true,
+          zenModeCloseButtonPosition: "top-right",
+          zenModeShowHeader: false,
+          zenModeShowSidebar: false,
+          zenModeShowTableOfContents: true,
+          zenModeShowFooter: true,
+          zenModeShowSwitchInHeader: true,
+          zenModeShowSwitchInHeaderMobile: true,
+          zenModeShowSwitchInTableOfContents: true,
 
-                    presentationModeEnabled: true, // not supported yet
-                    presentationModeControlButtonPosition: "middle-right", // not supported yet
-                    presentationModeShowSwitchInTableOfContents: true, // not supported yet
-                }),
-            ],
-            title: "My Docs",
+          presentationModeEnabled: true, // not supported yet
+          presentationModeControlButtonPosition: "middle-right", // not supported yet
+          presentationModeShowSwitchInTableOfContents: true, // not supported yet
         }),
-    ],
+      ],
+      title: "My Docs",
+    }),
+  ],
 });
 ```
 

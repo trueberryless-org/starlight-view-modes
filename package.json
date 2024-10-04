@@ -1,35 +1,35 @@
 {
-    "name": "starlight-view-modes",
-    "author": "trueberryless (https://trueberryless.org)",
-    "version": "0.1.0",
-    "license": "MIT",
-    "description": "Starlight plugin adding view mode capabilities to your documentation website.",
-    "type": "module",
-    "scripts": {},
-    "devDependencies": {
-        "typescript": "5.4.2"
-    },
-    "engines": {
-        "node": ">=18"
-    },
-    "packageManager": "pnpm@8.15.4",
-    "private": true,
-    "sideEffects": false,
-    "keywords": [
-        "starlight",
-        "plugin",
-        "zen",
-        "view",
-        "mode",
-        "zen-mode",
-        "view-modes",
-        "documentation"
-    ],
-    "homepage": "https://starlight-view-modes.trueberryless.org",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/trueberryless/starlight-view-modes.git",
-        "directory": "packages/starlight-view-modes"
-    },
-    "bugs": "https://github.com/trueberryless/starlight-view-modes/issues"
+  "name": "starlight-view-modes",
+  "author": "trueberryless (https://trueberryless.org)",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Starlight plugin adding view mode capabilities to your documentation website.",
+  "type": "module",
+  "scripts": {},
+  "devDependencies": {
+    "typescript": "5.4.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@8.15.4",
+  "private": true,
+  "sideEffects": false,
+  "keywords": [
+    "starlight",
+    "plugin",
+    "zen",
+    "view",
+    "mode",
+    "zen-mode",
+    "view-modes",
+    "documentation"
+  ],
+  "homepage": "https://starlight-view-modes.trueberryless.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueberryless/starlight-view-modes.git",
+    "directory": "packages/starlight-view-modes"
+  },
+  "bugs": "https://github.com/trueberryless/starlight-view-modes/issues"
 }
