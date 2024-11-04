@@ -44,13 +44,10 @@ export default defineConfig({
                         { label: "Configuration", link: "/configuration/" },
                     ],
                 },
-                // {
-                //     label: "Guides",
-                //     items: [
-                //         { label: "Ignoring Images", link: "/ignoring-images/" },
-                //         { label: "Customization", link: "/customization/" },
-                //     ],
-                // },
+                {
+                    label: "Resources",
+                    autogenerate: { directory: "resources" },
+                },
                 { label: "Demo", link: "/demo/" },
             ],
             credits: true,
