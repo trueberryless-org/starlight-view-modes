@@ -9,6 +9,11 @@ export default defineConfig({
     integrations: [
         starlight({
             title: "Starlight View Modes",
+            logo: {
+                light: "./src/assets/logo-light.png",
+                dark: "./src/assets/logo-dark.png",
+                replacesTitle: true,
+            },
             customCss: ["./src/styles/custom.css"],
             social: {
                 github: "https://github.com/trueberryless/starlight-view-modes",
