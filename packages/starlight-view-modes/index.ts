@@ -2,7 +2,8 @@ import type { StarlightPlugin, StarlightUserConfig } from "@astrojs/starlight/ty
 import { AstroError } from "astro/errors";
 import { z } from "astro/zod";
 
-import { starlightViewModesIntegration } from "./libs/integration";
+import { vitePluginStarlightViewModesConfig } from "./libs/vite";
+import type { AstroIntegrationLogger } from "astro";
 
 const starlightViewModesConfigSchema = z
     .object({
@@ -165,33 +166,66 @@ export default function starlightViewModes(
     return {
         name: "starlight-view-modes",
         hooks: {
-            setup({ addIntegration, config, logger, updateConfig }) {
-                const updatedConfig: Partial<StarlightUserConfig> = {
-                    components: { ...config.components },
-                };
+            setup({
+                addIntegration,
+                config: starlightConfig,
+                logger,
+                updateConfig: updateStarlightConfig,
+            }) {
+                updateStarlightConfig({
+                    components: {
+                        ...starlightConfig.components,
+                        ...overrideStarlightComponent(
+                            starlightConfig.components,
+                            logger,
+                            "PageSidebar"
+                        ),
+                    },
+                });
 
-                if (!updatedConfig.components) {
-                    updatedConfig.components = {};
-                }
+                addIntegration({
+                    name: "starlight-view-modes-integration",
+                    hooks: {
+                        "astro:config:setup": ({ injectRoute, updateConfig }) => {
+                            injectRoute({
+                                entrypoint: "starlight-view-modes/routes/ZenMode.astro",
+                                pattern: "/zen-mode/[...path]",
+                                prerender: true,
+                            });
 
-                // If the user has already has a custom override for the PageSidebar component, don't override it.
-                if (config.components?.PageSidebar) {
-                    logger.warn(
-                        "It looks like you already have a `PageSidebar` component override in your Starlight configuration."
-                    );
-                    logger.warn(
-                        "To render `@astrojs/starlight-view-modes`, remove the override for the `PageSidebar` component.\n"
-                    );
-                } else {
-                    // Otherwise, add the PageSidebar component override to the user's configuration.
-                    updatedConfig.components.PageSidebar =
-                        "starlight-view-modes/overrides/PageSidebar.astro";
-                }
-
-                addIntegration(starlightViewModesIntegration(parsedConfig.data));
-                updateConfig(updatedConfig);
+                            updateConfig({
+                                vite: {
+                                    plugins: [
+                                        vitePluginStarlightViewModesConfig(parsedConfig.data),
+                                    ],
+                                },
+                            });
+                        },
+                    },
+                });
             },
         },
+    };
+}
+
+function overrideStarlightComponent(
+    components: StarlightUserConfig["components"],
+    logger: AstroIntegrationLogger,
+    component: keyof NonNullable<StarlightUserConfig["components"]>
+) {
+    if (components?.[component]) {
+        logger.warn(
+            `It looks like you already have a \`${component}\` component override in your Starlight configuration.`
+        );
+        logger.warn(
+            `To use \`starlight-view-modes\`, either remove your override or update it to render the content from \`starlight-view-modes/overrides/${component}.astro\`.`
+        );
+
+        return {};
+    }
+
+    return {
+        [component]: `starlight-view-modes/overrides/${component}.astro`,
     };
 }
 

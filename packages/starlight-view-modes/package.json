@@ -10,6 +10,7 @@
         "./overrides/PageSidebar.astro": "./overrides/PageSidebar.astro",
         "./components/ViewModes.astro": "./components/ViewModes.astro",
         "./components/DeactivationButtons.astro": "./components/DeactivationButtons.astro",
+        "./routes/ZenMode.astro": "./routes/ZenMode.astro",
         "./package.json": "./package.json"
     },
     "scripts": {},
@@ -40,5 +41,8 @@
         "url": "https://github.com/trueberryless/starlight-view-modes.git",
         "directory": "packages/starlight-view-modes"
     },
-    "bugs": "https://github.com/trueberryless/starlight-view-modes/issues"
+    "bugs": "https://github.com/trueberryless/starlight-view-modes/issues",
+    "dependencies": {
+        "reveal.js": "^5.1.0"
+    }
 }

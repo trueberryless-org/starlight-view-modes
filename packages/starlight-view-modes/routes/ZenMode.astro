@@ -1,0 +1,19 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+
+export function getStaticPaths() {
+  return [
+    {params: {path: 'test'}},
+    {params: {path: 'rover'}},
+    {params: {path: 'spot'}},
+  ];
+}
+
+export const prerender = true
+
+const { path } = Astro.params;
+---
+
+<StarlightPage frontmatter={{ title: `Zen Mode: ${path}` }}>
+    <h1>Zen Mode: {path}</h1>
+</StarlightPage>
