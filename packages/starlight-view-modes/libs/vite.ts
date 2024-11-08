@@ -8,7 +8,7 @@ export function vitePluginStarlightViewModesConfig(config: StarlightViewModesCon
     const moduleContent = `export default ${JSON.stringify(config)}`;
 
     return {
-        name: "vite-plugin-starlight-view-modes-config",
+        name: "vite-plugin-starlight-view-modes",
         load(id) {
             return id === resolvedModuleId ? moduleContent : undefined;
         },

@@ -19,20 +19,19 @@ export default defineConfig({
             tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4 },
             plugins: [
                 starlightViewModes({
-                    zenModeEnabled: true,
-                    zenModeCloseButtonPosition: "top-right",
-                    zenModeShowHeader: false,
-                    zenModeShowSidebar: false,
-                    zenModeShowTableOfContents: true,
-                    zenModeShowFooter: true,
-                    zenModeShowSwitchInHeader: true,
-                    zenModeShowSwitchInHeaderMobile: true,
-                    zenModeShowSwitchInTableOfContents: true,
-                    presentationModeEnabled: true,
-                    presentationModeCloseButtonPosition: "top-right",
-                    presentationModeShowSwitchInHeader: true,
-                    presentationModeShowSwitchInHeaderMobile: true,
-                    presentationModeShowSwitchInTableOfContents: true,
+                    zenModeSettings: {
+                        enabled: true,
+                        closeButtonPosition: "top-right",
+                        displayOptions: {
+                            showHeader: false,
+                            showSidebar: false,
+                            showTableOfContents: false,
+                            showFooter: false,
+                        },
+                        switchVisibility: {
+                            location: ["tableOfContents", "header", "headerMobile"],
+                        },
+                    },
                 }),
                 starlightImageZoom(),
             ],

@@ -1,19 +1,25 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
 
-export function getStaticPaths() {
-  return [
-    {params: {path: 'test'}},
-    {params: {path: 'rover'}},
-    {params: {path: 'spot'}},
-  ];
+import { getCollection, type CollectionEntry } from 'astro:content';
+export async function getStaticPaths() {
+  const allDocs = await getCollection('docs');
+  return allDocs.map((doc) => ({
+    params: { path: doc.slug },
+    props: { doc },
+  }));
 }
 
 export const prerender = true
 
-const { path } = Astro.params;
+const { doc } = Astro.props;
+const { Content } = await doc.render();
 ---
 
-<StarlightPage frontmatter={{ title: `Zen Mode: ${path}` }}>
-    <h1>Zen Mode: {path}</h1>
+<StarlightPage frontmatter={{ title: doc.data.title }} hasSidebar={false} headings={doc.data.headings}>
+    {JSON.stringify(doc)}
+
+
+    <Content />
+
 </StarlightPage>
