@@ -17,5 +17,5 @@ spec:
     spec:
       containers:
         - name: starlight-view-modes
-          image: 'trueberryless/starlight-view-modes:main-d78bd27fdd23e141cfec5e586d663510a55e90af'
+          image: 'trueberryless/starlight-view-modes:main-59fd3a1cf21fb7a227f700d021f7f78e582d21fb'
           imagePullPolicy: Always
