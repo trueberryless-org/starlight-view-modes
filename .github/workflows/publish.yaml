@@ -1,4 +1,4 @@
-name: Deployment
+name: Publish
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
     name: Filter
     runs-on: ubuntu-latest
     outputs:
-      docs: ${{ steps.filter.outputs.docs }}
+      starlight-view-modes: ${{ steps.filter.outputs.starlight-view-modes }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
@@ -30,8 +30,8 @@ jobs:
         id: filter
         with:
           filters: |
-            docs:
-              - 'docs/**'
+            starlight-view-modes:
+              - 'packages/starlight-view-modes/**'
 
   changesets:
     name: Changesets
@@ -79,10 +79,10 @@ jobs:
       - name: Read version from package.json
         id: get_version
         run: |
-          VERSION=$(jq -r '.version' docs/package.json)
+          VERSION=$(jq -r '.version' packages/starlight-view-modes/package.json)
           echo "IMAGE_TAG=$VERSION" >> $GITHUB_ENV
 
-  deployment:
+  publish:
     needs: [changes, changesets, image-tag]
     if: >
       (
@@ -96,70 +96,32 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
 
       - name: Setup PNPM
         uses: pnpm/action-setup@v3
-        with:
-          package_json_file: ./docs/package.json
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
+          cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
 
-      - name: Install dependencies
-        run: pnpm install
-        shell: bash
-        working-directory: ./docs
+      - name: Install Dependencies
+        run: pnpm i
 
-      - name: Build Website
-        run: pnpm run build
-        shell: bash
-        working-directory: ./docs
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/${{ env.IMAGE_NAME }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: |
-            ${{ env.IMAGE_OWNER }}/${{ env.IMAGE_NAME }}:${{ needs.image-tag.outputs.IMAGE_TAG }}
-            ${{ env.IMAGE_OWNER }}/${{ env.IMAGE_NAME }}:latest
-          labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Update deployment.yaml file
-        run: |
-          yq eval '.spec.template.spec.containers[0].image = "${{ env.IMAGE_OWNER }}/${{ env.IMAGE_NAME }}:${{ needs.image-tag.outputs.IMAGE_TAG }}"' -i manifest/deployment.yaml
-
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: update deployment.json container image (automated)
+      - run: |
+          cd packages/starlight-view-modes
+          npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   release:
     name: Release
-    needs: [image-tag, deployment]
+    needs: [image-tag, publish]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -170,13 +132,12 @@ jobs:
       - id: extract-changelog
         uses: sean0x42/markdown-extract@v2.1.0
         with:
-          file: docs/CHANGELOG.md
+          file: packages/starlight-view-modes/CHANGELOG.md
           pattern: ${{ needs.image-tag.outputs.IMAGE_TAG }}
 
       - uses: ncipollo/release-action@v1
-        id: create_release
         with:
-          tag: ${{ env.IMAGE_NAME }}-docs@${{ needs.image-tag.outputs.IMAGE_TAG }}
+          tag: ${{ env.IMAGE_NAME }}@${{ needs.image-tag.outputs.IMAGE_TAG }}
           makeLatest: true
           body: ${{ steps.extract-changelog.outputs.markdown }}
 
@@ -185,4 +146,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: "# ${{ env.IMAGE_NAME }}-docs@${{ needs.image-tag.outputs.IMAGE_TAG }}\n\n${{ steps.extract-changelog.outputs.markdown }}"
+          args: "# ${{ env.IMAGE_NAME }}@${{ needs.image-tag.outputs.IMAGE_TAG }}\n\n${{ steps.extract-changelog.outputs.markdown }}"
