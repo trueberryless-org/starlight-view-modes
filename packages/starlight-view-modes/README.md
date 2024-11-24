@@ -31,6 +31,6 @@ A [Starlight](https://starlight.astro.build) plugin adding view mode capabilitie
 
 ## License
 
-Licensed under the MIT license, Copyright © trueberryless-org.
+Licensed under the MIT License, Copyright © trueberryless.
 
 See [LICENSE](/LICENSE) for more information.

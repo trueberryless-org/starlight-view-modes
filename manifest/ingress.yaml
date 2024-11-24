@@ -17,6 +17,6 @@ spec:
                   number: 80
 
   tls:
-  - hosts:
-    - starlight-view-modes.trueberryless.org
-    secretName: starlight-view-modes
+    - hosts:
+        - starlight-view-modes.trueberryless.org
+      secretName: starlight-view-modes
