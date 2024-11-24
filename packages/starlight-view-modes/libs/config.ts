@@ -46,16 +46,16 @@ const configSchema = z
                         showSidebar: false,
                         showTableOfContents: true,
                         showFooter: true,
-                    })
-                    .refine(
-                        (options) => {
-                            const values = Object.values(options);
-                            return values.includes(false);
-                        },
-                        {
-                            message: "At least one element must be hidden in Zen mode.",
-                        }
-                    ),
+                    }),
+                // .refine(
+                //     (options) => {
+                //         const values = Object.values(options);
+                //         return values.includes(false);
+                //     },
+                //     {
+                //         message: "At least one element must be hidden in Zen mode.",
+                //     }
+                // ),
 
                 /**
                  * Controls the visibility of Zen mode switches in various parts of the interface.

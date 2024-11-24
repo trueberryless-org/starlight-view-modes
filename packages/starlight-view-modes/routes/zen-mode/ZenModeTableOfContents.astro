@@ -1,0 +1,65 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const allDocs = await getCollection('docs');
+  return allDocs.map((doc) => ({
+    params: { path: doc.slug },
+    props: { doc },
+  }));
+}
+
+export const prerender = true
+
+const { doc } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await doc.render();
+
+const { hasSidebar } = remarkPluginFrontmatter
+---
+
+<StarlightPage frontmatter={ remarkPluginFrontmatter } headings={headings} {hasSidebar} >
+    <Content />
+</StarlightPage>
+
+<style is:global>
+header.header {
+  display: none;
+}
+nav {
+  top: 0;
+  inset-inline-start: 0;
+}
+@media (min-width: 50rem) {
+  #starlight__sidebar {
+    display: none;
+  }
+}
+footer {
+  display: none;
+}
+</style>
+
+{ hasSidebar && (
+  <style is:global>
+  main {
+    width: 100vw;
+  }
+  @media (min-width: 72rem) {
+    main {
+      width: calc(100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2));
+    }
+  }
+  .main-frame {
+    padding-inline: 0;
+  }
+  </style>
+)}
+
+<script define:vars={{ hasSidebar }}>
+  if (hasSidebar) {
+    document.body.classList.add("view-modes-zen-mode-template-doc");
+  } else {
+    document.body.classList.add("view-modes-zen-mode-template-splash");
+  }
+</script>

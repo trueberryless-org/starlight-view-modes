@@ -29,7 +29,7 @@ export default function starlightViewModes(userConfig?: StarlightViewModesUserCo
                             const zenModeFileName = getFileNameZenMode(config.zenModeSettings.displayOptions);
 
                             injectRoute({
-                                entrypoint: `starlight-view-modes/routes/${zenModeFileName}.astro`,
+                                entrypoint: `starlight-view-modes/routes/zen-mode/${zenModeFileName}.astro`,
                                 pattern: "/zen-mode/[...path]",
                                 prerender: true,
                             });

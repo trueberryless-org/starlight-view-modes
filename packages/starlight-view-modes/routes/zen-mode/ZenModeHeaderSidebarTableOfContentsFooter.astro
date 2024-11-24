@@ -1,0 +1,25 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import userConfig from "virtual:starlight/user-config";
+
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allDocs = await getCollection('docs');
+  return allDocs.map((doc) => ({
+    params: { path: doc.slug },
+    props: { doc },
+  }));
+}
+
+export const prerender = true
+
+const { doc } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await doc.render();
+
+const { hasSidebar } = remarkPluginFrontmatter
+---
+
+<StarlightPage frontmatter={ remarkPluginFrontmatter } headings={ headings } {hasSidebar}>
+  <Content />
+</StarlightPage>

@@ -1,7 +1,7 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
 
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
   const allDocs = await getCollection('docs');
   return allDocs.map((doc) => ({
@@ -13,13 +13,17 @@ export async function getStaticPaths() {
 export const prerender = true
 
 const { doc } = Astro.props;
-const { Content } = await doc.render();
+const { Content, headings, remarkPluginFrontmatter } = await doc.render();
+
+const { hasSidebar } = remarkPluginFrontmatter
 ---
 
-<StarlightPage frontmatter={{ title: doc.data.title }} hasSidebar={false} headings={doc.data.headings}>
-    {JSON.stringify(doc)}
-
-
+<StarlightPage frontmatter={ remarkPluginFrontmatter } headings={headings} {hasSidebar} >
     <Content />
-
 </StarlightPage>
+
+<style is:global>
+footer {
+  display: none;
+}
+</style>

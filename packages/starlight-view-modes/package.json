@@ -10,7 +10,7 @@
         "./overrides/PageSidebar.astro": "./overrides/PageSidebar.astro",
         "./components/ViewModes.astro": "./components/ViewModes.astro",
         "./components/DeactivationButtons.astro": "./components/DeactivationButtons.astro",
-        "./routes/ZenMode.astro": "./routes/ZenMode.astro",
+        "./routes/zen-mode/*": "./routes/zen-mode/*",
         "./package.json": "./package.json"
     },
     "scripts": {},
