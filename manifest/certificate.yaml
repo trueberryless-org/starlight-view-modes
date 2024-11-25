@@ -9,4 +9,4 @@ spec:
     name: acme-issuer
     kind: ClusterIssuer
   dnsNames:
-    - 'starlight-view-modes.trueberryless.org'
+    - "starlight-view-modes.trueberryless.org"
