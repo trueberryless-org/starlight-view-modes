@@ -1,35 +1,39 @@
 {
-    "name": "starlight-view-modes",
-    "author": "trueberryless (https://trueberryless.org)",
-    "version": "0.1.0",
-    "license": "MIT",
-    "description": "Starlight plugin adding view mode capabilities to your documentation website.",
-    "type": "module",
-    "scripts": {},
-    "devDependencies": {
-        "typescript": "5.4.2"
-    },
-    "engines": {
-        "node": ">=18"
-    },
-    "packageManager": "pnpm@9.3.0",
-    "private": true,
-    "sideEffects": false,
-    "keywords": [
-        "starlight",
-        "plugin",
-        "zen",
-        "view",
-        "mode",
-        "zen-mode",
-        "view-modes",
-        "documentation"
-    ],
-    "homepage": "https://starlight-view-modes.trueberryless.org",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/trueberryless/starlight-view-modes.git",
-        "directory": "packages/starlight-view-modes"
-    },
-    "bugs": "https://github.com/trueberryless/starlight-view-modes/issues"
+  "name": "starlight-view-modes",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Starlight plugin adding view mode capabilities to your documentation website.",
+  "keywords": [
+    "starlight",
+    "plugin",
+    "zen",
+    "view",
+    "mode",
+    "zen-mode",
+    "view-modes",
+    "documentation"
+  ],
+  "homepage": "https://starlight-view-modes.trueberryless.org",
+  "bugs": "https://github.com/trueberryless/starlight-view-modes/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueberryless/starlight-view-modes.git",
+    "directory": "packages/starlight-view-modes"
+  },
+  "license": "MIT",
+  "author": "trueberryless (https://trueberryless.org)",
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "version": "pnpm changeset version && pnpm i --no-frozen-lockfile"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.9",
+    "typescript": "5.4.2"
+  },
+  "packageManager": "pnpm@9.6.0",
+  "engines": {
+    "node": ">=18"
+  }
 }
