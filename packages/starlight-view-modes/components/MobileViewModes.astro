@@ -1,3 +1,9 @@
+---
+const currentPathname = Astro.url.pathname;
+const zenModeActive = currentPathname.startsWith('/zen-mode');
+// const presentationModeActive = currentPathname.startsWith('/presentation-mode');
+---
+
 <style is:global>
 :root {
   --starlight-view-modes-animation-duration: 300ms;
@@ -50,12 +56,12 @@ body.view-modes-presentation-mode #view-modes-presentation-mode-off-header-mobil
 </style>
 
   
-<script>
+<script define:vars={{ zenModeActive }}>
     import config from 'virtual:starlight-view-modes-config';
-    import { activateZenMode, deactivateZenMode, activatePresentationMode, deactivatePresentationMode, deactivateAllModes } from '../libs/SharedMethods';
 
     document.addEventListener('DOMContentLoaded', () => {
-        if (config.zenModeShowSwitchInHeader || config.presentationModeShowSwitchInHeader) {
+        // if (config.zenModeSettings.switchVisibility.location.includes('header') || config.presentationModeSettings.switchVisibility.location.includes('header')) {
+        if (config.zenModeSettings.switchVisibility.location.includes('header')) {
           var headerRightGroup = document.getElementsByClassName('mobile-preferences')[0];
             
           var modeElementsHeader = document.createElement("div");
@@ -64,13 +70,12 @@ body.view-modes-presentation-mode #view-modes-presentation-mode-off-header-mobil
           headerRightGroup?.appendChild(modeElementsHeader);
         }
 
-        if (config.zenModeShowSwitchInHeader) {
-            const zenMode = sessionStorage.getItem('viewModesZenMode') === 'true';
+        if (config.zenModeSettings.switchVisibility.location.includes('header')) {
             var headerDiv = document.getElementById('view-modes-header-div-mobile');
 
             var zenModeOffElementHeader = document.createElement("a");
             zenModeOffElementHeader.id = "view-modes-zen-mode-off-header-mobile";
-            zenModeOffElementHeader.title = zenMode ? 'Deactivate Zen Mode' : 'Activate Zen Mode';
+            zenModeOffElementHeader.title = zenModeActive ? 'Deactivate Zen Mode' : 'Activate Zen Mode';
             zenModeOffElementHeader.innerHTML = `
                 <svg fill="currentColor" height="16" width="16" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                     viewBox="0 0 512 512" xml:space="preserve">
@@ -92,58 +97,27 @@ body.view-modes-presentation-mode #view-modes-presentation-mode-off-header-mobil
                 </svg>
             `; 
         
-            headerDiv?.appendChild(zenModeOffElementHeader);
-
-            const zenModeOffHeader = document.getElementById('view-modes-zen-mode-off-header-mobile');
-            
-            zenModeOffHeader?.addEventListener('click', () => {
-                if (document.body.classList.contains('view-modes-zen-mode')) {
-                    deactivateZenMode();           
-                }
-                else {
-                    deactivateAllModes();
-                    activateZenMode(); 
-                }
-                
-                document.getElementsByTagName('starlight-menu-button')[0]?.setAttribute('aria-expanded', String(false));
-                document.body.toggleAttribute('data-mobile-menu-expanded', false);
-            });
+            headerDiv?.appendChild(zenModeOffElementHeader);            
         }
         
-        if (config.presentationModeShowSwitchInHeader) {
-            const presentationMode = sessionStorage.getItem('viewModesPresentationMode') === 'true';
-            var headerDiv = document.getElementById('view-modes-header-div-mobile');
+        // if (config.presentationModeSettings.switchVisibility.location.includes('header')) {
+        //     var headerDiv = document.getElementById('view-modes-header-div-mobile');
 
-            var presentationModeOffElementHeader = document.createElement("a");
-            presentationModeOffElementHeader.id = "view-modes-presentation-mode-off-header-mobile";
-            presentationModeOffElementHeader.title = presentationMode ? 'Deactivate Presentation Mode' : 'Activate Presentation Mode';
-            presentationModeOffElementHeader.innerHTML = `
-                <svg width="16" height="16" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_531_2)">
-                  <path d="M250 18.75C250 8.39466 258.407 -0.0731739 268.733 0.702651C316.495 4.29108 362.368 21.5428 400.782 50.5891C444.196 83.4159 475.711 129.514 490.541 181.882C505.371 234.251 502.706 290.028 482.95 340.744C463.194 391.459 427.427 434.342 381.081 462.88C334.735 491.417 280.342 504.051 226.162 498.861C171.982 493.671 120.976 470.942 80.8905 434.125C40.8046 397.308 13.8288 348.415 4.05982 294.871C-4.58405 247.494 0.661715 198.766 18.9584 154.502C22.9142 144.932 34.2602 141.237 43.5069 145.898V145.898C52.7536 150.56 56.3863 161.811 52.5575 171.433C37.8633 208.359 33.7728 248.798 40.9508 288.141C49.2544 333.653 72.1839 375.212 106.257 406.506C140.33 437.801 183.685 457.12 229.738 461.532C275.79 465.943 322.025 455.205 361.419 430.948C400.813 406.691 431.215 370.24 448.007 327.132C464.8 284.024 467.065 236.613 454.46 192.1C441.854 147.587 415.067 108.404 378.165 80.5007C346.265 56.3801 308.314 41.8284 268.727 38.3265C258.412 37.4141 250 29.1053 250 18.75V18.75Z" fill="currentColor"/>
-                  <path d="M250 93.7504C250 83.3948 258.419 74.8961 268.715 76.0035C295.097 78.841 320.575 87.6517 343.173 101.866C371.081 119.419 393.462 144.498 407.739 174.215C422.016 203.931 427.609 237.077 423.873 269.833C420.136 302.589 407.223 333.623 386.62 359.361C366.018 385.099 338.564 404.494 307.42 415.312C276.277 426.129 242.712 427.929 210.59 420.505C178.468 413.08 149.097 396.733 125.86 373.346C107.043 354.408 92.8676 331.477 84.3227 306.357C80.9879 296.553 87.4372 286.478 97.5415 284.21V284.21C107.646 281.943 117.555 288.362 121.175 298.065C127.987 316.321 138.628 332.991 152.462 346.914C170.72 365.29 193.797 378.134 219.035 383.967C244.273 389.801 270.646 388.386 295.116 379.887C319.585 371.388 341.156 356.149 357.344 335.926C373.532 315.704 383.678 291.32 386.613 265.583C389.549 239.846 385.155 213.804 373.937 190.455C362.719 167.106 345.134 147.401 323.207 133.61C306.593 123.159 287.997 116.426 268.693 113.777C258.433 112.369 250 104.106 250 93.7504V93.7504Z" fill="currentColor"/>
-                  <!-- <path d="M250 168.75C250 158.395 258.467 149.822 268.641 151.753C285.876 155.023 302.063 162.794 315.486 174.425C333.666 190.178 345.559 211.957 348.982 235.768C352.406 259.579 347.131 283.827 334.125 304.064C324.523 319.006 311.181 331.022 295.566 339.016C286.348 343.734 275.808 337.895 272.891 327.959V327.959C269.974 318.023 275.914 307.81 284.544 302.086C291.702 297.338 297.862 291.129 302.578 283.79C310.707 271.142 314.004 255.987 311.864 241.105C309.724 226.223 302.291 212.611 290.929 202.766C284.336 197.053 276.676 192.83 268.47 190.292C258.578 187.231 250 179.105 250 168.75V168.75Z" fill="currentColor"/> -->
-                  </g>
-                </svg>
-            `; 
+        //     var presentationModeOffElementHeader = document.createElement("a");
+        //     presentationModeOffElementHeader.id = "view-modes-presentation-mode-off-header-mobile";
+        //     presentationModeOffElementHeader.title = presentationModeActive ? 'Deactivate Presentation Mode' : 'Activate Presentation Mode';
+        //     presentationModeOffElementHeader.innerHTML = `
+        //         <svg width="16" height="16" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        //           <g clip-path="url(#clip0_531_2)">
+        //           <path d="M250 18.75C250 8.39466 258.407 -0.0731739 268.733 0.702651C316.495 4.29108 362.368 21.5428 400.782 50.5891C444.196 83.4159 475.711 129.514 490.541 181.882C505.371 234.251 502.706 290.028 482.95 340.744C463.194 391.459 427.427 434.342 381.081 462.88C334.735 491.417 280.342 504.051 226.162 498.861C171.982 493.671 120.976 470.942 80.8905 434.125C40.8046 397.308 13.8288 348.415 4.05982 294.871C-4.58405 247.494 0.661715 198.766 18.9584 154.502C22.9142 144.932 34.2602 141.237 43.5069 145.898V145.898C52.7536 150.56 56.3863 161.811 52.5575 171.433C37.8633 208.359 33.7728 248.798 40.9508 288.141C49.2544 333.653 72.1839 375.212 106.257 406.506C140.33 437.801 183.685 457.12 229.738 461.532C275.79 465.943 322.025 455.205 361.419 430.948C400.813 406.691 431.215 370.24 448.007 327.132C464.8 284.024 467.065 236.613 454.46 192.1C441.854 147.587 415.067 108.404 378.165 80.5007C346.265 56.3801 308.314 41.8284 268.727 38.3265C258.412 37.4141 250 29.1053 250 18.75V18.75Z" fill="currentColor"/>
+        //           <path d="M250 93.7504C250 83.3948 258.419 74.8961 268.715 76.0035C295.097 78.841 320.575 87.6517 343.173 101.866C371.081 119.419 393.462 144.498 407.739 174.215C422.016 203.931 427.609 237.077 423.873 269.833C420.136 302.589 407.223 333.623 386.62 359.361C366.018 385.099 338.564 404.494 307.42 415.312C276.277 426.129 242.712 427.929 210.59 420.505C178.468 413.08 149.097 396.733 125.86 373.346C107.043 354.408 92.8676 331.477 84.3227 306.357C80.9879 296.553 87.4372 286.478 97.5415 284.21V284.21C107.646 281.943 117.555 288.362 121.175 298.065C127.987 316.321 138.628 332.991 152.462 346.914C170.72 365.29 193.797 378.134 219.035 383.967C244.273 389.801 270.646 388.386 295.116 379.887C319.585 371.388 341.156 356.149 357.344 335.926C373.532 315.704 383.678 291.32 386.613 265.583C389.549 239.846 385.155 213.804 373.937 190.455C362.719 167.106 345.134 147.401 323.207 133.61C306.593 123.159 287.997 116.426 268.693 113.777C258.433 112.369 250 104.106 250 93.7504V93.7504Z" fill="currentColor"/>
+        //           <!-- <path d="M250 168.75C250 158.395 258.467 149.822 268.641 151.753C285.876 155.023 302.063 162.794 315.486 174.425C333.666 190.178 345.559 211.957 348.982 235.768C352.406 259.579 347.131 283.827 334.125 304.064C324.523 319.006 311.181 331.022 295.566 339.016C286.348 343.734 275.808 337.895 272.891 327.959V327.959C269.974 318.023 275.914 307.81 284.544 302.086C291.702 297.338 297.862 291.129 302.578 283.79C310.707 271.142 314.004 255.987 311.864 241.105C309.724 226.223 302.291 212.611 290.929 202.766C284.336 197.053 276.676 192.83 268.47 190.292C258.578 187.231 250 179.105 250 168.75V168.75Z" fill="currentColor"/> -->
+        //           </g>
+        //         </svg>
+        //     `; 
         
-            headerDiv?.appendChild(presentationModeOffElementHeader);
-
-            const presentationModeOffHeader = document.getElementById('view-modes-presentation-mode-off-header-mobile');
-            
-            presentationModeOffHeader?.addEventListener('click', () => {
-                if (document.body.classList.contains('view-modes-presentation-mode')) {
-                    deactivatePresentationMode();           
-                }
-                else {
-                    deactivateAllModes();
-                    activatePresentationMode(); 
-                }
-                
-                document.getElementsByTagName('starlight-menu-button')[0]?.setAttribute('aria-expanded', String(false));
-                document.body.toggleAttribute('data-mobile-menu-expanded', false);
-            });
-        }
+        //     headerDiv?.appendChild(presentationModeOffElementHeader);
+        // }
     });
 </script>
     

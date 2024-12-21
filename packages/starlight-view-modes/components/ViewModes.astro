@@ -1,11 +1,28 @@
 ---
+import config from 'virtual:starlight-view-modes-config';
+import type { StarlightViewModesConfig } from '../libs/config';
+
+function shouldShowInTOC(config: StarlightViewModesConfig): { showInTOC: boolean; showZenModeInTOC: boolean } {
+
+  const showZenModeInTOC = config.zenModeSettings.enabled && config.zenModeSettings.switchVisibility.location.includes('tableOfContents');
+  // const showPresentationModeInTOC = config.presentationModeSettings.enabled && config.presentationModeSettings.switchVisibility.location.includes('tableOfContents');
+  const showInTOC = showZenModeInTOC;
+  // const showInTOC = showZenModeInTOC && showPresentationModeInTOC;
+
+  return { showInTOC, showZenModeInTOC };
+}
+
+const { showInTOC, showZenModeInTOC } = shouldShowInTOC(config);
+
+const currentPathname = Astro.url.pathname;
+const zenModePath = `/zen-mode${currentPathname}`;
 ---
 
-<nav aria-labelledby="starlight__on-this-page" id="view-modes-activation" style="display: none;">
+<nav aria-labelledby="starlight__on-this-page" id="view-modes-activation" class:list={{ hidden: !showInTOC }}>
   <h2 id="view-modes-activation-heading">Modes</h2>
   <ul id="view-modes-activation-list">
     <li>
-      <a id="view-modes-zen-mode-on" style="display: none">
+      <a href={zenModePath} id="view-modes-zen-mode-on" class:list={{ hidden: !showZenModeInTOC }}>
         <svg fill="currentColor" height="14" width="14" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
             viewBox="0 0 512 512" xml:space="preserve">
         <g>
@@ -28,7 +45,7 @@
       </a>
     </li>
     <li>
-      <a id="view-modes-presentation-mode-on" style="display: none">
+      <a id="view-modes-presentation-mode-on" class:list={{ hidden: true }}>
         <svg width="14" height="14" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_531_2)">
           <path d="M250 18.75C250 8.39466 258.407 -0.0731739 268.733 0.702651C316.495 4.29108 362.368 21.5428 400.782 50.5891C444.196 83.4159 475.711 129.514 490.541 181.882C505.371 234.251 502.706 290.028 482.95 340.744C463.194 391.459 427.427 434.342 381.081 462.88C334.735 491.417 280.342 504.051 226.162 498.861C171.982 493.671 120.976 470.942 80.8905 434.125C40.8046 397.308 13.8288 348.415 4.05982 294.871C-4.58405 247.494 0.661715 198.766 18.9584 154.502C22.9142 144.932 34.2602 141.237 43.5069 145.898V145.898C52.7536 150.56 56.3863 161.811 52.5575 171.433C37.8633 208.359 33.7728 248.798 40.9508 288.141C49.2544 333.653 72.1839 375.212 106.257 406.506C140.33 437.801 183.685 457.12 229.738 461.532C275.79 465.943 322.025 455.205 361.419 430.948C400.813 406.691 431.215 370.24 448.007 327.132C464.8 284.024 467.065 236.613 454.46 192.1C441.854 147.587 415.067 108.404 378.165 80.5007C346.265 56.3801 308.314 41.8284 268.727 38.3265C258.412 37.4141 250 29.1053 250 18.75V18.75Z" fill="currentColor"/>
@@ -50,80 +67,13 @@
 body.view-modes-zen-mode {
   overflow-x: hidden;
 }
-/* -------------------------------------------------------------------- Header -------------------------------------------------------------------- */
-body.view-modes-zen-mode.view-modes-zen-mode-header-disabled header.header {
-  display: none;
-}
-body.view-modes-zen-mode.view-modes-zen-mode-header-disabled nav {
-  top: 0;
-}
-body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-template-doc header.header > div {
-  grid-template-columns: minmax(calc(var(--__sidebar-width) + var(--__main-column-fr) - var(--sl-nav-gap) / 4), auto) 1fr auto;
-}
-body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-sidebar-enabled.view-modes-zen-mode-template-doc header.header > div {
-  --sl-nav-gap: 1rem;
-  grid-template-columns: minmax(calc(var(--__sidebar-width) + max(0rem, (100vw - var(--sl-sidebar-width) - var(--sl-content-width) - var(--sl-nav-gap)) / 2 - var(--sl-nav-gap))), auto) 1fr auto;
-}
-body.view-modes-zen-mode.view-modes-zen-mode-header-enabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-template-doc header.header > div {
-  grid-template-columns: minmax(calc(var(--__sidebar-width) + max(0rem, 100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2) - var(--sl-content-width) - var(--sl-sidebar-width) - var(--sl-content-pad-x) * 2)), auto) 1fr auto;
-}
-/* -------------------------------------------------------------------- Sidebar ------------------------------------------------------------------- */
-body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled nav {
-  inset-inline-start: 0;
-}
-@media (min-width: 50rem) {
-  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled #starlight__sidebar {
-    display: none;
-  }
-}
-body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-template-doc main {
-  width: calc(100vw - var(--sl-sidebar-pad-x));
-}
-body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-template-doc main {
-  width: 100vw;
-}
-@media (min-width: 72rem) {
-  body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-template-doc main {
-    width: calc(100vw - (var(--sl-sidebar-width) + (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2));
-  }
-}
-body.view-modes-zen-mode.view-modes-zen-mode-sidebar-disabled.view-modes-zen-mode-table-of-contents-enabled.view-modes-zen-mode-template-doc .main-frame {
-  padding-inline: 0;
-}
-body.view-modes-zen-mode.view-modes-zen-mode-sidebar-enabled.view-modes-zen-mode-header-disabled .sidebar-pane {
-  inset-block-start: 0;
-}
-/* --------------------------------------------------------------- Table of Contents -------------------------------------------------------------- */
-body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled {
-  --sl-mobile-toc-height: 0rem;
-}
-body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled .right-sidebar-container {
-  display: none;
-}
-body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-template-doc main .sl-container {
-  margin: 0 auto;
-}
-body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-template-doc .main-frame {
-  padding-inline: 0;
-}
-@media (min-width: 50rem) {
-  body.view-modes-zen-mode.view-modes-zen-mode-table-of-contents-disabled.view-modes-zen-mode-sidebar-enabled.view-modes-zen-mode-template-doc main {
-    width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
-    margin-left: var(--sl-sidebar-width);
-  }
-}
-/* -------------------------------------------------------------------- Footer -------------------------------------------------------------------- */
-body.view-modes-zen-mode.view-modes-zen-mode-footer-disabled footer {
-  display: none;
-}
-
-/* --------------------------------------------------------------- Presentation Mode -------------------------------------------------------------- */
-body.view-modes-presentation-mode :is(header.header, #starlight__sidebar, main, .right-sidebar-container, footer) {
-  display: none;
-}
 </style>
 
 <style>
+.hidden {
+  display: none !important;
+}
+
 #view-modes-activation {
   margin-top: 0.83em;
 }
@@ -164,94 +114,3 @@ body.view-modes-presentation-mode.view-modes-zen-mode-table-of-contents-enabled 
   transform: rotate(180deg) translateY(-0.15em);
 }
 </style>
-  
-<script>
-  import config from 'virtual:starlight-view-modes-config';
-  import { deactivateAllModes, activateZenMode, activatePresentationMode, deactivateZenMode, deactivatePresentationMode } from '../libs/SharedMethods';
-
-  function isAnyModeEnabledAndShownInTOC(config: any) {
-    const modes = [
-        { enabled: config.zenModeEnabled, showInTOC: config.zenModeShowSwitchInTableOfContents },
-        { enabled: config.presentationModeEnabled, showInTOC: config.presentationModeShowSwitchInTableOfContents },
-    ];
-
-    return modes.some(mode => mode.enabled && mode.showInTOC);
-}
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const modes = document.getElementById('view-modes-activation');
-    const zenModeOn = document.getElementById('view-modes-zen-mode-on');
-    const presentationModeOn = document.getElementById('view-modes-presentation-mode-on');
-    
-    const zenMode = sessionStorage.getItem('viewModesZenMode') === 'true';
-    const presentationMode = sessionStorage.getItem('viewModesPresentationMode') === 'true';
-
-    if (isAnyModeEnabledAndShownInTOC(config)) {
-      modes?.style.setProperty('display', 'block');
-    }
-
-    if (config.zenModeEnabled && config.zenModeShowSwitchInTableOfContents) {
-      zenModeOn?.style.setProperty('display', 'block');
-      zenModeOn?.addEventListener('click', () => {
-        if (document.body.classList.contains('view-modes-zen-mode')) {
-            deactivateZenMode();
-        }
-        else {
-            deactivateAllModes();
-            activateZenMode(); 
-        }
-      });
-    }
-
-    if (config.presentationModeEnabled && config.presentationModeShowSwitchInTableOfContents) {
-      presentationModeOn?.style.setProperty('display', 'block');
-      presentationModeOn?.addEventListener('click', () => {
-        if (document.body.classList.contains('view-modes-presentation-mode')) {
-            deactivatePresentationMode();
-        }
-        else {
-          deactivateAllModes();
-          activatePresentationMode();
-        }
-      });
-    }
-
-    // Session storage
-    if (zenMode) {
-      activateZenMode();
-    }
-    if (presentationMode) {
-      activatePresentationMode();
-    }    
-
-    if (config.zenModeShowFooter) {
-        document.body.classList.add("view-modes-zen-mode-footer-enabled");
-    } else {
-        document.body.classList.add("view-modes-zen-mode-footer-disabled");
-    }
-
-    if (config.zenModeShowHeader) {
-        document.body.classList.add("view-modes-zen-mode-header-enabled");
-    } else {
-        document.body.classList.add("view-modes-zen-mode-header-disabled");
-    }
-
-    if (config.zenModeShowSidebar) {
-        document.body.classList.add("view-modes-zen-mode-sidebar-enabled");
-    } else {
-        document.body.classList.add("view-modes-zen-mode-sidebar-disabled");
-    }
-
-    if (config.zenModeShowTableOfContents) {
-        document.body.classList.add("view-modes-zen-mode-table-of-contents-enabled");
-    } else {
-        document.body.classList.add("view-modes-zen-mode-table-of-contents-disabled");
-    }
-
-    if (document.documentElement.dataset.hasSidebar === undefined) {
-        document.body.classList.add("view-modes-zen-mode-template-splash");
-    } else {
-        document.body.classList.add("view-modes-zen-mode-template-doc");
-    }
-  });
-</script>

@@ -41,24 +41,20 @@ nav {
 footer {
   display: none;
 }
-</style>
 
-{ hasSidebar && (
-  <style is:global>
-  main .sl-container {
-    margin: 0 auto;
+.view-modes-zen-mode-template-doc main .sl-container {
+  margin: 0 auto;
+}
+.view-modes-zen-mode-template-doc .main-frame {
+  padding-inline: 0;
+}
+@media (min-width: 50rem) {
+  .view-modes-zen-mode-template-doc main {
+    width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
+    margin-left: var(--sl-sidebar-width);
   }
-  .main-frame {
-    padding-inline: 0;
-  }
-  @media (min-width: 50rem) {
-    main {
-      width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
-      margin-left: var(--sl-sidebar-width);
-    }
-  }
-  </style>
-)}
+}
+</style>
 
 <script define:vars={{ hasSidebar }}>
   if (hasSidebar) {
