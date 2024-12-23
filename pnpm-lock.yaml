@@ -44,6 +44,9 @@ importers:
       starlight-package-managers:
         specifier: ^0.6.0
         version: 0.6.0(@astrojs/starlight@0.28.6(astro@4.16.9(rollup@4.21.3)(typescript@5.6.2)))(astro@4.16.9(rollup@4.21.3)(typescript@5.6.2))
+      starlight-plugin-show-latest-version:
+        specifier: ^0.2.0
+        version: 0.2.0(@astrojs/starlight@0.28.6(astro@4.16.9(rollup@4.21.3)(typescript@5.6.2)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../packages/starlight-view-modes
@@ -2436,6 +2439,12 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.22.0'
       astro: '>=4.2.7'
+
+  starlight-plugin-show-latest-version@0.2.0:
+    resolution: {integrity: sha512-isJafUbOIL6IjH0YhbWPhEAnKj4Q32hdfd7scUP2RAH0LknejNqk90oChfBQMB6rmlnb6n4qO7b8823LyZpn5Q==}
+    engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.30'
 
   starlight-showcases@0.1.2:
     resolution: {integrity: sha512-yj3RjcdWLIWdehTjne9Ethd3ff95vMbuVx/87lU4yilTQewQxjnAyOf1KSnGUgTMQT5WTqhDw8LciPBJox+b8Q==}
@@ -6248,6 +6257,10 @@ snapshots:
     dependencies:
       '@astrojs/starlight': 0.28.6(astro@4.16.9(rollup@4.21.3)(typescript@5.6.2))
       astro: 4.16.9(rollup@4.21.3)(typescript@5.6.2)
+
+  starlight-plugin-show-latest-version@0.2.0(@astrojs/starlight@0.28.6(astro@4.16.9(rollup@4.21.3)(typescript@5.6.2))):
+    dependencies:
+      '@astrojs/starlight': 0.28.6(astro@4.16.9(rollup@4.21.3)(typescript@5.6.2))
 
   starlight-showcases@0.1.2(@astrojs/starlight@0.28.6(astro@4.16.9(rollup@4.21.3)(typescript@5.6.2)))(astro@4.16.9(rollup@4.21.3)(typescript@5.6.2)):
     dependencies:

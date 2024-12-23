@@ -3,6 +3,7 @@ import starlight from "@astrojs/starlight";
 
 import starlightViewModes from "starlight-view-modes";
 import starlightImageZoom from "starlight-image-zoom";
+import starlightPluginShowLatestVersion from "starlight-plugin-show-latest-version";
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,6 +42,9 @@ export default defineConfig({
           presentationModeShowSwitchInTableOfContents: true,
         }),
         starlightImageZoom(),
+        starlightPluginShowLatestVersion({
+          repo: "trueberryless/starlight-view-modes",
+        }),
       ],
       sidebar: [
         {
