@@ -1,0 +1,37 @@
+name: autofix.ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+
+jobs:
+  autofix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install Dependencies
+        run: pnpm i
+
+      - name: Run prettier
+        run: npx prettier --write .
+
+      # Optimize all PNGs with https://pngquant.org/
+      - run: sudo apt-get update && sudo apt-get install -y pngquant
+      - name: Run pngquant
+        run: |
+          shopt -s globstar
+          find . -name '*.png' -exec pngquant --ext .png --force 256 {} \;
+
+      - uses: autofix-ci/action@ff86a557419858bb967097bfc916833f5647fa8c
