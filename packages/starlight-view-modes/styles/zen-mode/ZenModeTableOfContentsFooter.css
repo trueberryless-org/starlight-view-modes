@@ -1,0 +1,30 @@
+body:has(.zen-mode-table-of-contents-footer) header.header {
+  display: none;
+}
+body:has(.zen-mode-table-of-contents-footer) nav {
+  top: 0;
+  inset-inline-start: 0;
+}
+@media (min-width: 50rem) {
+  body:has(.zen-mode-table-of-contents-footer) #starlight__sidebar {
+    display: none;
+  }
+}
+
+body:has(.zen-mode-table-of-contents-footer) main {
+  width: 100vw;
+}
+@media (min-width: 72rem) {
+  body:has(.zen-mode-table-of-contents-footer) main {
+    width: calc(
+      100vw -
+        (
+          var(--sl-sidebar-width) +
+            (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2
+        )
+    );
+  }
+}
+body:has(.zen-mode-table-of-contents-footer) .main-frame {
+  padding-inline: 0;
+}

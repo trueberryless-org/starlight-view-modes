@@ -1,6 +1,7 @@
 ---
 title: Configuration
 description: An overview of all the configuration options supported by the Starlight View Modes plugin.
+template: splash
 ---
 
 The Starlight View Modes plugin can be configured inside the `astro.config.mjs` configuration file of your project:

@@ -1,0 +1,12 @@
+body:has(.zen-mode-sidebar-table-of-contents) header.header {
+  display: none;
+}
+body:has(.zen-mode-sidebar-table-of-contents) nav {
+  top: 0;
+}
+body:has(.zen-mode-sidebar-table-of-contents) .sidebar-pane {
+  inset-block-start: 0;
+}
+body:has(.zen-mode-sidebar-table-of-contents) footer {
+  display: none !important;
+}

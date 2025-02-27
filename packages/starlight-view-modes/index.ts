@@ -38,6 +38,12 @@ export default function starlightViewModes(
               "TableOfContents",
               "TableOfContents"
             ),
+            ...overrideStarlightComponent(
+              starlightConfig.components,
+              logger,
+              "SocialIcons",
+              "SocialIcons"
+            ),
           },
         });
 
@@ -45,6 +51,12 @@ export default function starlightViewModes(
           name: "starlight-view-modes-integration",
           hooks: {
             "astro:config:setup": ({ injectRoute, updateConfig }) => {
+              updateConfig({
+                vite: {
+                  plugins: [vitePluginStarlightViewModesConfig(config)],
+                },
+              });
+
               if (config.zenModeSettings.enabled) {
                 injectRoute({
                   entrypoint: `starlight-view-modes/routes/ZenMode.astro`,
@@ -52,12 +64,6 @@ export default function starlightViewModes(
                   prerender: true,
                 });
               }
-
-              updateConfig({
-                vite: {
-                  plugins: [vitePluginStarlightViewModesConfig(config)],
-                },
-              });
             },
           },
         });

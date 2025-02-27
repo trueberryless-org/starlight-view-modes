@@ -1,0 +1,37 @@
+body:has(.zen-mode-header) {
+  --sl-mobile-toc-height: 0rem;
+}
+body:has(.zen-mode-header) nav {
+  inset-inline-start: 0;
+}
+@media (min-width: 50rem) {
+  body:has(.zen-mode-header) #starlight__sidebar {
+    display: none;
+  }
+}
+body:has(.zen-mode-header) .right-sidebar-container {
+  display: none;
+}
+body:has(.zen-mode-header) footer {
+  display: none !important;
+}
+
+body:has(.zen-mode-header) header.header > div {
+  grid-template-columns:
+    minmax(
+      calc(
+        var(--__sidebar-width) + var(--__main-column-fr) - var(--sl-nav-gap) / 4
+      ),
+      auto
+    )
+    1fr auto;
+}
+body:has(.zen-mode-header) main {
+  width: calc(100vw);
+}
+body:has(.zen-mode-header) main .sl-container {
+  margin: 0 auto;
+}
+body:has(.zen-mode-header) .main-frame {
+  padding-inline: 0;
+}

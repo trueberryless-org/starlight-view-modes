@@ -1,0 +1,28 @@
+body:has(.zen-mode-sidebar-footer) {
+  --sl-mobile-toc-height: 0rem;
+}
+body:has(.zen-mode-sidebar-footer) header.header {
+  display: none;
+}
+body:has(.zen-mode-sidebar-footer) nav {
+  top: 0;
+}
+body:has(.zen-mode-sidebar-footer) .sidebar-pane {
+  inset-block-start: 0;
+}
+body:has(.zen-mode-sidebar-footer) .right-sidebar-container {
+  display: none;
+}
+
+body:has(.zen-mode-sidebar-footer) main .sl-container {
+  margin: 0 auto;
+}
+body:has(.zen-mode-sidebar-footer) .main-frame {
+  padding-inline: 0;
+}
+@media (min-width: 50rem) {
+  body:has(.zen-mode-sidebar-footer) main {
+    width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
+    margin-left: var(--sl-sidebar-width);
+  }
+}

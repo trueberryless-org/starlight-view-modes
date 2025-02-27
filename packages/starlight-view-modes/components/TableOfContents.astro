@@ -13,7 +13,7 @@ const getUpdatedPath = (currentPathname: string) => {
 const atLeastOneModeEnabled = config.zenModeSettings.enabled;
 
 const currentPathname = Astro.url.pathname;
-const updatedPath = getUpdatedPath(currentPathname);
+const zenModePath = getUpdatedPath(currentPathname);
 
 const depth = 0;
 ---
@@ -26,7 +26,7 @@ const depth = 0;
 					<>
 						<h2>View Modes</h2>
 						<ul>
-							{ config.zenModeSettings.enabled && <li><a href={updatedPath}>Switch to {isZenMode ? 'Normal Mode' : 'Zen Mode'}</a></li> }
+							{ config.zenModeSettings.enabled && <li><a href={zenModePath}>Switch to {isZenMode ? 'Normal Mode' : 'Zen Mode'}</a></li> }
 						</ul>
 					</>
 				}

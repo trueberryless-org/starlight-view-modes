@@ -1,0 +1,31 @@
+body:has(.zen-mode-sidebar) {
+  --sl-mobile-toc-height: 0rem;
+}
+body:has(.zen-mode-sidebar) header.header {
+  display: none;
+}
+body:has(.zen-mode-sidebar) nav {
+  top: 0;
+}
+body:has(.zen-mode-sidebar) .sidebar-pane {
+  inset-block-start: 0;
+}
+body:has(.zen-mode-sidebar) .right-sidebar-container {
+  display: none;
+}
+body:has(.zen-mode-sidebar) footer {
+  display: none !important;
+}
+
+body:has(.zen-mode-sidebar) main .sl-container {
+  margin: 0 auto;
+}
+body:has(.zen-mode-sidebar) .main-frame {
+  padding-inline: 0;
+}
+@media (min-width: 50rem) {
+  body:has(.zen-mode-sidebar) main {
+    width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
+    margin-left: var(--sl-sidebar-width);
+  }
+}

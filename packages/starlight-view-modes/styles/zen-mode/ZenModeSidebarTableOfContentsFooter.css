@@ -1,0 +1,9 @@
+body:has(.zen-mode-sidebar-table-of-contents-footer) header.header {
+  display: none;
+}
+body:has(.zen-mode-sidebar-table-of-contents-footer) nav {
+  top: 0;
+}
+body:has(.zen-mode-sidebar-table-of-contents-footer) .sidebar-pane {
+  inset-block-start: 0;
+}

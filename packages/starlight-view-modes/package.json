@@ -8,10 +8,12 @@
   "exports": {
     ".": "./index.ts",
     "./middleware": "./middleware.ts",
+    "./overrides/SocialIcons.astro": "./overrides/SocialIcons.astro",
     "./overrides/TableOfContents.astro": "./overrides/TableOfContents.astro",
     "./components/ViewModes.astro": "./components/ViewModes.astro",
     "./components/DeactivationButtons.astro": "./components/DeactivationButtons.astro",
     "./routes/ZenMode.astro": "./routes/ZenMode.astro",
+    "./styles/*.css": "./styles/*.css",
     "./package.json": "./package.json"
   },
   "scripts": {},

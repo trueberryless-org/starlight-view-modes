@@ -1,0 +1,54 @@
+---
+import Icon from './Icon.astro';
+import config from "virtual:starlight-view-modes-config";
+const { isZenMode } = Astro.locals.starlightRoute;
+
+const getUpdatedPath = (currentPathname: string) => {  
+  const updatedPath = isZenMode
+    ? currentPathname.replace(/^\/zen-mode/, '') || '/'
+    : `/zen-mode${currentPathname}`;
+
+  return updatedPath;
+};
+
+const atLeastOneModeEnabled = config.zenModeSettings.enabled;
+
+const currentPathname = Astro.url.pathname;
+const zenModePath = getUpdatedPath(currentPathname);
+---
+
+<!-- Icon paths from: https://iconmonstr.com/ -->
+
+{
+	atLeastOneModeEnabled && (
+		<>
+			{ config.zenModeSettings.enabled && (
+				<a href={zenModePath} class="sl-flex">
+					<span class="sr-only">Switch to {isZenMode ? 'Normal Mode' : 'Zen Mode'}</span>
+					<Icon>
+						<path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1 21.949v-4.949h-2v4.949c-4.717-.47-8.479-4.232-8.949-8.949h4.949v-2h-4.949c.47-4.717 4.232-8.479 8.949-8.949v4.949h2v-4.949c4.717.471 8.479 4.232 8.949 8.949h-4.949v2h4.949c-.47 4.717-4.232 8.479-8.949 8.949z"/>
+					</Icon>
+				</a>
+			)}
+			{/* { config.presentationModeSettings.enabled && (
+				<a href={presentationModePath} class="sl-flex">
+					<span class="sr-only">Switch to {isPresentationMode ? 'Normal Mode' : 'Presentation Mode'}</span>
+					<Icon>
+						<path d="M0 0v3h1v15h22v-15h1v-3h-24zm21 16h-18v-13h18v13zm-11.636 4l-2.736 4h-2.628l2.732-4h2.632zm10.636 4h-2.627l-2.736-4h2.632l2.731 4zm-11-10h-4v-4h4v4zm10 0h-4v-6h4v6zm-5 0h-4v-9h4v9z"/>
+					</Icon>
+				</a>
+			)} */}
+		</>
+	)
+}
+
+<style>
+	a {
+		color: var(--sl-color-text-accent);
+		padding: 0.5em;
+		margin: -0.5em;
+	}
+	a:hover {
+		opacity: 0.66;
+	}
+</style>

@@ -1,14 +1,19 @@
 ---
+import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import config from 'virtual:starlight-view-modes-config';
+import { getClassNameZenMode } from '../libs/utils';
 
-export async function getStaticPaths() {
+export const getStaticPaths = (async () => {
 	const allDocs = await getCollection('docs');
-	return allDocs.map((doc: { id: string; }) => ({
-		params: { path: doc.id },
-		props: { doc },
-	}));
-}
+	return allDocs
+		.filter((doc: { id: string }) => doc.id !== "index")
+		.map((doc: { id: string; }) => ({
+			params: { path: doc.id },
+			props: { doc },
+		}));
+}) satisfies GetStaticPaths;
 
 export const prerender = true
 
@@ -16,42 +21,14 @@ const { doc } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(doc);
 
 const { hasSidebar } = remarkPluginFrontmatter
+
+const zenModeFileName = getClassNameZenMode(config.zenModeSettings.displayOptions);
+console.log(zenModeFileName);
+import.meta.glob('../styles/zen-mode/*.css')
 ---
 
-<StarlightPage frontmatter={ remarkPluginFrontmatter } {headings} {hasSidebar}>
-	<Content />
+<StarlightPage frontmatter={ remarkPluginFrontmatter } headings={headings} hasSidebar={hasSidebar}>
+	<div class:list={zenModeFileName}>
+		<Content />
+	</div>
 </StarlightPage>
-
-<style is:global>
-	body {
-		--sl-mobile-toc-height: 0rem;
-	}
-	header.header {
-		display: none;
-	}
-	nav {
-		top: 0;
-	}
-	.sidebar-pane {
-		inset-block-start: 0;
-	}
-	.right-sidebar-container {
-		display: none;
-	}
-	footer {
-		display: none;
-	}
-	
-	.view-modes-zen-mode-template-doc main .sl-container {
-		margin: 0 auto;
-	}
-	.view-modes-zen-mode-template-doc .main-frame {
-		padding-inline: 0;
-	}
-	@media (min-width: 50rem) {
-		.view-modes-zen-mode-template-doc main {
-			width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
-			margin-left: var(--sl-sidebar-width);
-		}
-	}
-	</style>

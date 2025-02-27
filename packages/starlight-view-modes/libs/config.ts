@@ -28,34 +28,34 @@ const configSchema = z
         //  */
         // closeButtonPosition: z.enum(["top-left", "top-right", "bottom-left", "bottom-right"]).default("top-right"),
 
-        // /**
-        //  * Choose what elements should be hidden when Zen mode is active.
-        //  *
-        //  * @type {object}
-        //  * @default {}
-        //  */
-        // displayOptions: z
-        //   .object({
-        //     showHeader: z.boolean().default(false),
-        //     showSidebar: z.boolean().default(false),
-        //     showTableOfContents: z.boolean().default(true),
-        //     showFooter: z.boolean().default(true),
-        //   })
-        //   .default({
-        //     showHeader: false,
-        //     showSidebar: false,
-        //     showTableOfContents: true,
-        //     showFooter: true,
-        //   })
-        //   .refine(
-        //     (options) => {
-        //       const values = Object.values(options);
-        //       return values.includes(false);
-        //     },
-        //     {
-        //       message: "At least one element must be hidden in Zen mode.",
-        //     }
-        //   ),
+        /**
+         * Choose what elements should be hidden when Zen mode is active.
+         *
+         * @type {object}
+         * @default {}
+         */
+        displayOptions: z
+          .object({
+            showHeader: z.boolean().default(false),
+            showSidebar: z.boolean().default(false),
+            showTableOfContents: z.boolean().default(true),
+            showFooter: z.boolean().default(true),
+          })
+          .default({
+            showHeader: false,
+            showSidebar: false,
+            showTableOfContents: true,
+            showFooter: true,
+          }),
+        // .refine(
+        //   (options) => {
+        //     const values = Object.values(options);
+        //     return values.includes(false);
+        //   },
+        //   {
+        //     message: "At least one element must be hidden in Zen mode.",
+        //   }
+        // ),
 
         // /**
         //  * Controls the visibility of Zen mode switches in various parts of the interface.
@@ -84,12 +84,12 @@ const configSchema = z
       .default({
         enabled: true,
         // closeButtonPosition: "top-right",
-        // displayOptions: {
-        //   showHeader: false,
-        //   showSidebar: false,
-        //   showTableOfContents: true,
-        //   showFooter: true,
-        // },
+        displayOptions: {
+          showHeader: false,
+          showSidebar: false,
+          showTableOfContents: true,
+          showFooter: true,
+        },
         // switchVisibility: {
         //   location: ["tableOfContents", "header", "headerMobile"],
         // },

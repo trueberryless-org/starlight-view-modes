@@ -30,16 +30,16 @@ export default defineConfig({
         starlightViewModes({
           zenModeSettings: {
             enabled: true,
-            closeButtonPosition: "top-right",
-            displayOptions: {
-              showHeader: true,
-              showSidebar: true,
-              showTableOfContents: true,
-              showFooter: false,
-            },
-            switchVisibility: {
-              location: ["tableOfContents", "header", "headerMobile"],
-            },
+            // closeButtonPosition: "top-right",
+            // displayOptions: {
+            //   showHeader: true,
+            //   showSidebar: false,
+            //   showTableOfContents: false,
+            //   showFooter: true,
+            // },
+            // switchVisibility: {
+            //   location: ["tableOfContents", "header", "headerMobile"],
+            // },
           },
         }),
         starlightImageZoom(),
