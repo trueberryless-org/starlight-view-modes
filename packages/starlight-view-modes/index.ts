@@ -1,17 +1,12 @@
-import type {
-  StarlightPlugin,
-  StarlightUserConfig,
-} from "@astrojs/starlight/types";
-import type { AstroIntegrationLogger } from "astro";
+import type { StarlightPlugin } from "@astrojs/starlight/types";
 
 import {
   type StarlightViewModesConfig,
   validateConfig,
   type StarlightViewModesUserConfig,
 } from "./libs/config";
-// import { stripLeadingSlash, stripTrailingSlash } from "./libs/path";
 import { vitePluginStarlightViewModesConfig } from "./libs/vite";
-import { getFileNameZenMode } from "./libs/zenModeDisplayOptionsHelper";
+import { overrideStarlightComponent } from "./libs/starlight";
 
 export type { StarlightViewModesConfig, StarlightViewModesUserConfig };
 
@@ -25,17 +20,23 @@ export default function starlightViewModes(
     hooks: {
       "config:setup"({
         addIntegration,
+        addRouteMiddleware,
         config: starlightConfig,
         logger,
-        updateConfig: updateStarlightConfig,
+        updateConfig,
       }) {
-        updateStarlightConfig({
+        addRouteMiddleware({
+          entrypoint: "starlight-view-modes/middleware",
+        });
+
+        updateConfig({
           components: {
             ...starlightConfig.components,
             ...overrideStarlightComponent(
               starlightConfig.components,
               logger,
-              "PageSidebar"
+              "TableOfContents",
+              "TableOfContents"
             ),
           },
         });
@@ -44,15 +45,13 @@ export default function starlightViewModes(
           name: "starlight-view-modes-integration",
           hooks: {
             "astro:config:setup": ({ injectRoute, updateConfig }) => {
-              const zenModeFileName = getFileNameZenMode(
-                config.zenModeSettings.displayOptions
-              );
-
-              injectRoute({
-                entrypoint: `starlight-view-modes/routes/zen-mode/${zenModeFileName}.astro`,
-                pattern: "/zen-mode/[...path]",
-                prerender: true,
-              });
+              if (config.zenModeSettings.enabled) {
+                injectRoute({
+                  entrypoint: `starlight-view-modes/routes/ZenMode.astro`,
+                  pattern: "/zen-mode/[...path]",
+                  prerender: true,
+                });
+              }
 
               updateConfig({
                 vite: {
@@ -64,26 +63,5 @@ export default function starlightViewModes(
         });
       },
     },
-  };
-}
-
-function overrideStarlightComponent(
-  components: StarlightUserConfig["components"],
-  logger: AstroIntegrationLogger,
-  component: keyof NonNullable<StarlightUserConfig["components"]>
-) {
-  if (components?.[component]) {
-    logger.warn(
-      `It looks like you already have a \`${component}\` component override in your Starlight configuration.`
-    );
-    logger.warn(
-      `To use \`starlight-view-modes\`, either remove your override or update it to render the content from \`starlight-view-modes/overrides/${component}.astro\`.`
-    );
-
-    return {};
-  }
-
-  return {
-    [component]: `starlight-view-modes/overrides/${component}.astro`,
   };
 }

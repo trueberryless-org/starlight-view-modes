@@ -4,62 +4,73 @@ import starlight from "@astrojs/starlight";
 import starlightViewModes from "starlight-view-modes";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightPluginShowLatestVersion from "starlight-plugin-show-latest-version";
+// import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
+
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [
-        starlight({
-            title: "Starlight View Modes",
-						logo: {
-							light: "./src/assets/logo-light.png",
-							dark: "./src/assets/logo-dark.png",
-							replacesTitle: true,
-						},
-            customCss: ["./src/styles/custom.css"],
-            social: {
-                github: "https://github.com/trueberryless/starlight-view-modes",
+  integrations: [
+    starlight({
+      title: "Starlight View Modes",
+      logo: {
+        light: "./src/assets/logo-light.png",
+        dark: "./src/assets/logo-dark.png",
+        replacesTitle: true,
+      },
+      customCss: ["./src/styles/custom.css"],
+      social: {
+        github: "https://github.com/trueberryless/starlight-view-modes",
+      },
+      editLink: {
+        baseUrl:
+          "https://github.com/trueberryless/starlight-view-modes/edit/main/docs/",
+      },
+      plugins: [
+        starlightViewModes({
+          zenModeSettings: {
+            enabled: true,
+            closeButtonPosition: "top-right",
+            displayOptions: {
+              showHeader: true,
+              showSidebar: true,
+              showTableOfContents: true,
+              showFooter: false,
             },
-            editLink: {
-                baseUrl: 
-								"https://github.com/trueberryless/starlight-view-modes/edit/main/docs/",
+            switchVisibility: {
+              location: ["tableOfContents", "header", "headerMobile"],
             },
-            tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4 },
-            plugins: [
-                starlightViewModes({
-									zenModeSettings: {
-										enabled: true,
-										closeButtonPosition: "top-right",
-										displayOptions: {
-											showHeader: true,
-											showSidebar: true,
-											showTableOfContents: false,
-											showFooter: false,
-										},
-										switchVisibility: {
-											location: ["tableOfContents", "header", "headerMobile"],
-										},
-									},
-                }),
-                starlightImageZoom(),
-								starlightPluginShowLatestVersion({
-									repo: "trueberryless/starlight-view-modes",
-								}),
-            ],
-            sidebar: [
-                {
-                    label: "Start Here",
-                    items: [
-                        { label: "Getting Started", link: "/getting-started/" },
-                        { label: "Configuration", link: "/configuration/" },
-                    ],
-                },
-                {
-                    label: "Resources",
-                    autogenerate: { directory: "resources" },
-                },
-                { label: "Demo", link: "/demo/" },
-            ],
-            credits: true,
+          },
         }),
-    ],
+        starlightImageZoom(),
+        starlightPluginShowLatestVersion({
+          source: {
+            type: "npm",
+            slug: "starlight-view-modes",
+          },
+          showInSiteTitle: "deferred",
+        }),
+        // starlightPluginsDocsComponents({
+        //   pluginName: "starlight-view-modes",
+        //   showcaseProps: {
+        //     entries: [],
+        //   },
+        // }),
+      ],
+      sidebar: [
+        {
+          label: "Start Here",
+          items: [
+            { label: "Getting Started", link: "/getting-started/" },
+            { label: "Configuration", link: "/configuration/" },
+          ],
+        },
+        { label: "Demo", link: "/demo/" },
+      ],
+      credits: true,
+    }),
+  ],
+  adapter: node({
+    mode: "standalone",
+  }),
 });

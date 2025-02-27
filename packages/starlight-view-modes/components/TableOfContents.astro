@@ -1,0 +1,60 @@
+---
+import config from "virtual:starlight-view-modes-config";
+const { toc, isZenMode } = Astro.locals.starlightRoute;
+
+const getUpdatedPath = (currentPathname: string) => {  
+  const updatedPath = isZenMode
+    ? currentPathname.replace(/^\/zen-mode/, '') || '/'
+    : `/zen-mode${currentPathname}`;
+
+  return updatedPath;
+};
+
+const atLeastOneModeEnabled = config.zenModeSettings.enabled;
+
+const currentPathname = Astro.url.pathname;
+const updatedPath = getUpdatedPath(currentPathname);
+
+const depth = 0;
+---
+
+{
+	toc && (
+		<>
+			<div class="starlight-view-modes-table-of-contents-container">
+				{ atLeastOneModeEnabled &&
+					<>
+						<h2>View Modes</h2>
+						<ul>
+							{ config.zenModeSettings.enabled && <li><a href={updatedPath}>Switch to {isZenMode ? 'Normal Mode' : 'Zen Mode'}</a></li> }
+						</ul>
+					</>
+				}
+			</div>
+		</>
+	)
+}
+
+<style define:vars={{ depth }}>
+	.starlight-view-modes-table-of-contents-container {
+		margin-top: 1rem;
+	}
+	ul {
+		padding: 0;
+		list-style: none;
+	}
+	a {
+		--pad-inline: 0.5rem;
+		display: block;
+		border-radius: 0.25rem;
+		padding-block: 0.25rem;
+		padding-inline: calc(1rem * var(--depth) + var(--pad-inline)) var(--pad-inline);
+		line-height: 1.25;
+	}
+</style>
+
+<style is:global>
+	.sl-container {
+		display: block;
+	}
+</style>
