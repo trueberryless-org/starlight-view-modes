@@ -8,6 +8,7 @@
   "exports": {
     ".": "./index.ts",
     "./middleware": "./middleware.ts",
+    "./overrides/PageTitle.astro": "./overrides/PageTitle.astro",
     "./overrides/SocialIcons.astro": "./overrides/SocialIcons.astro",
     "./overrides/TableOfContents.astro": "./overrides/TableOfContents.astro",
     "./components/ViewModes.astro": "./components/ViewModes.astro",

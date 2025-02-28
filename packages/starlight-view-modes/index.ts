@@ -35,14 +35,20 @@ export default function starlightViewModes(
             ...overrideStarlightComponent(
               starlightConfig.components,
               logger,
-              "TableOfContents",
-              "TableOfContents"
+              "PageTitle",
+              "PageTitle"
             ),
             ...overrideStarlightComponent(
               starlightConfig.components,
               logger,
               "SocialIcons",
               "SocialIcons"
+            ),
+            ...overrideStarlightComponent(
+              starlightConfig.components,
+              logger,
+              "TableOfContents",
+              "TableOfContents"
             ),
           },
         });

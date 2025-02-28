@@ -23,12 +23,20 @@ const { Content, headings, remarkPluginFrontmatter } = await render(doc);
 const { hasSidebar } = remarkPluginFrontmatter
 
 const zenModeFileName = getClassNameZenMode(config.zenModeSettings.displayOptions);
-console.log(zenModeFileName);
 import.meta.glob('../styles/zen-mode/*.css')
+
+let classes = [
+  zenModeFileName,
+  !config.zenModeSettings.displayOptions.showHeader && 'starlight-view-modes-zen-mode-no-header',
+  !config.zenModeSettings.displayOptions.showSidebar && 'starlight-view-modes-zen-mode-no-sidebar',
+  !config.zenModeSettings.displayOptions.showTableOfContents && 'starlight-view-modes-zen-mode-no-table-of-contents',
+  !config.zenModeSettings.displayOptions.showFooter && 'starlight-view-modes-zen-mode-no-footer'
+].filter(Boolean);
+console.log(classes)
 ---
 
 <StarlightPage frontmatter={ remarkPluginFrontmatter } headings={headings} hasSidebar={hasSidebar}>
-	<div class:list={zenModeFileName}>
+	<div class:list={classes}>
 		<Content />
 	</div>
 </StarlightPage>

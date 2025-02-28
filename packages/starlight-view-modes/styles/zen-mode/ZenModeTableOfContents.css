@@ -1,24 +1,31 @@
-body:has(.zen-mode-table-of-contents) header.header {
+body:has(.starlight-view-modes-zen-mode-table-of-contents) header.header {
   display: none;
 }
-body:has(.zen-mode-table-of-contents) nav {
+body:has(.starlight-view-modes-zen-mode-table-of-contents) nav {
   top: 0;
   inset-inline-start: 0;
 }
 @media (min-width: 50rem) {
-  body:has(.zen-mode-table-of-contents) #starlight__sidebar {
+  body:has(.starlight-view-modes-zen-mode-table-of-contents)
+    #starlight__sidebar {
     display: none;
   }
 }
-body:has(.zen-mode-table-of-contents) footer {
+body:has(.starlight-view-modes-zen-mode-table-of-contents) footer {
   display: none !important;
 }
 
-body:has(.zen-mode-table-of-contents):has(#starlight__sidebar) main {
+body:has(.starlight-view-modes-zen-mode-table-of-contents):has(
+    #starlight__sidebar
+  )
+  main {
   width: 100vw;
 }
 @media (min-width: 72rem) {
-  body:has(.zen-mode-table-of-contents):has(#starlight__sidebar) main {
+  body:has(.starlight-view-modes-zen-mode-table-of-contents):has(
+      #starlight__sidebar
+    )
+    main {
     width: calc(
       100vw -
         (
@@ -28,6 +35,9 @@ body:has(.zen-mode-table-of-contents):has(#starlight__sidebar) main {
     );
   }
 }
-body:has(.zen-mode-table-of-contents):has(#starlight__sidebar) .main-frame {
+body:has(.starlight-view-modes-zen-mode-table-of-contents):has(
+    #starlight__sidebar
+  )
+  .main-frame {
   padding-inline: 0;
 }

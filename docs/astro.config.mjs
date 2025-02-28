@@ -26,6 +26,17 @@ export default defineConfig({
         baseUrl:
           "https://github.com/trueberryless/starlight-view-modes/edit/main/docs/",
       },
+      defaultLocale: "root",
+      locales: {
+        root: {
+          label: "English",
+          lang: "en",
+        },
+        de: {
+          label: "Deutsch",
+          lang: "de",
+        },
+      },
       plugins: [
         starlightViewModes({
           zenModeSettings: {
@@ -33,8 +44,8 @@ export default defineConfig({
             // closeButtonPosition: "top-right",
             displayOptions: {
               showHeader: false,
-              showSidebar: false,
-              showTableOfContents: true,
+              showSidebar: true,
+              showTableOfContents: false,
               showFooter: true,
             },
             // switchVisibility: {

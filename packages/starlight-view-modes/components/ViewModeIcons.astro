@@ -1,0 +1,52 @@
+---
+import Icon from './Icon.astro';
+import config from "virtual:starlight-view-modes-config";
+const { isZenMode } = Astro.locals.starlightRoute;
+
+const getUpdatedPath = (currentPathname: string) => {  
+  const updatedPath = isZenMode
+    ? currentPathname.replace(/^\/zen-mode/, '') || '/'
+    : `/zen-mode${currentPathname}`;
+
+  return updatedPath;
+};
+
+const atLeastOneModeEnabled = config.zenModeSettings.enabled;
+
+const currentPathname = Astro.url.pathname;
+const zenModePath = getUpdatedPath(currentPathname);
+---
+
+<!-- Icon paths from: https://iconmonstr.com/ -->
+
+{
+	atLeastOneModeEnabled && (
+		<>
+			{ config.zenModeSettings.enabled && (
+				<a href={zenModePath} class="sl-flex">
+					<span class="sr-only">Switch to {isZenMode ? 'Normal Mode' : 'Zen Mode'}</span>
+					<Icon>
+						<path d="M22.001 13c0-5.522-4.475-10.001-10.002-10.001-5.523 0-10.001 4.479-10.001 10.001 0 4.316 3.087 10 10.001 10 6.93 0 10.002-5.693 10.002-10zm-10.002 8c-4.411 0-8.001-3.59-8.001-8 0-4.413 3.59-8.001 8.001-8.001 4.412 0 8.002 3.588 8.002 8.001 0 4.41-3.59 8-8.002 8zm3-4h-6.005l.005-1.571 3.821-4.825h-3.821v-1.604h5.992v1.579l-3.779 4.84h3.787v1.581zm-14.197-8.285c-.535-.824-.802-1.772-.802-2.718 0-2.757 2.233-4.995 4.991-4.995.948 0 1.896.268 2.721.803-3.172 1.217-5.692 3.739-6.91 6.91zm18.201-7.715c-.947 0-1.895.268-2.719.803 3.17 1.218 5.694 3.739 6.914 6.909.534-.823.801-1.77.801-2.717 0-2.761-2.236-4.995-4.996-4.995z"/>
+					</Icon>
+				</a>
+			)}
+			{/* { config.presentationModeSettings.enabled && (
+				<a href={presentationModePath} class="sl-flex">
+					<span class="sr-only">Switch to {isPresentationMode ? 'Normal Mode' : 'Presentation Mode'}</span>
+					<Icon>
+						<path d="M0 0v3h1v15h22v-15h1v-3h-24zm21 16h-18v-13h18v13zm-11.636 4l-2.736 4h-2.628l2.732-4h2.632zm10.636 4h-2.627l-2.736-4h2.632l2.731 4zm-11-10h-4v-4h4v4zm10 0h-4v-6h4v6zm-5 0h-4v-9h4v9z"/>
+					</Icon>
+				</a>
+			)} */}
+		</>
+	)
+}
+
+<style>
+	a {
+		color: var(--sl-color-text-accent);
+	}
+	a:hover {
+		opacity: 0.66;
+	}
+</style>

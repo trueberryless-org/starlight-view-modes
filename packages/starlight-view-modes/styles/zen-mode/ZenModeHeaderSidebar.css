@@ -1,14 +1,15 @@
-body:has(.zen-mode-header-sidebar) {
+body:has(.starlight-view-modes-zen-mode-header-sidebar) {
   --sl-mobile-toc-height: 0rem;
 }
-body:has(.zen-mode-header-sidebar) .right-sidebar-container {
+body:has(.starlight-view-modes-zen-mode-header-sidebar)
+  .right-sidebar-container {
   display: none;
 }
-body:has(.zen-mode-header-sidebar) footer {
+body:has(.starlight-view-modes-zen-mode-header-sidebar) footer {
   display: none !important;
 }
 
-body:has(.zen-mode-header-sidebar):has(#starlight__sidebar)
+body:has(.starlight-view-modes-zen-mode-header-sidebar):has(#starlight__sidebar)
   header.header
   > div {
   --sl-nav-gap: 1rem;
@@ -28,14 +29,20 @@ body:has(.zen-mode-header-sidebar):has(#starlight__sidebar)
     )
     1fr auto;
 }
-body:has(.zen-mode-header-sidebar):has(#starlight__sidebar) main .sl-container {
+body:has(.starlight-view-modes-zen-mode-header-sidebar):has(#starlight__sidebar)
+  main
+  .sl-container {
   margin: 0 auto;
 }
-body:has(.zen-mode-header-sidebar):has(#starlight__sidebar) .main-frame {
+body:has(.starlight-view-modes-zen-mode-header-sidebar):has(#starlight__sidebar)
+  .main-frame {
   padding-inline: 0;
 }
 @media (min-width: 50rem) {
-  body:has(.zen-mode-header-sidebar):has(#starlight__sidebar) main {
+  body:has(.starlight-view-modes-zen-mode-header-sidebar):has(
+      #starlight__sidebar
+    )
+    main {
     width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
     margin-left: var(--sl-sidebar-width);
   }

@@ -1,0 +1,24 @@
+---
+import ViewModeIcons from "./ViewModeIcons.astro";
+---
+
+<div class="starlight-view-modes-page-title-switcher">
+	<ViewModeIcons />
+</div>
+
+<style>
+	.starlight-view-modes-page-title-switcher {
+		display: none;
+	}
+	body:has(.starlight-view-modes-zen-mode-no-header):has(.starlight-view-modes-zen-mode-no-table-of-contents) .starlight-view-modes-page-title-switcher {
+		display: block !important;
+	}
+</style>
+
+<style is:global>
+	.sl-container:has(.starlight-view-modes-page-title-switcher) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+</style>
