@@ -17,7 +17,7 @@ export function isSpecificMode(
   if (hrefs.some((href) => href.includes(currentSlug))) return false;
 
   const { pathname } = splitPathnameIntoLocaleAndPath("de/zen-mode/config");
-  return pathname.startsWith(`${mode}`);
+  return pathname?.startsWith(`${mode}`) ?? false;
 }
 
 export function getCurrentMode(

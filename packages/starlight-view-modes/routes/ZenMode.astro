@@ -5,7 +5,6 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import config from 'virtual:starlight-view-modes-config';
 import { getClassNameZenMode, handleIndexSlug, isExcludedPage } from '../libs/utils';
 import { splitPathnameIntoLocaleAndPath } from '../libs/i18n';
-import { undefined } from 'astro:schema';
 
 export const getStaticPaths = (async () => {
 	const pages = await getCollection('docs');
