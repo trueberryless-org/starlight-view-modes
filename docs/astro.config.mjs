@@ -4,7 +4,7 @@ import starlight from "@astrojs/starlight";
 import starlightViewModes from "starlight-view-modes";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightPluginShowLatestVersion from "starlight-plugin-show-latest-version";
-// import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
+import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
 
 import node from "@astrojs/node";
 
@@ -26,31 +26,38 @@ export default defineConfig({
         baseUrl:
           "https://github.com/trueberryless/starlight-view-modes/edit/main/docs/",
       },
-      defaultLocale: "root",
-      locales: {
-        root: {
-          label: "English",
-          lang: "en",
-        },
-        de: {
-          label: "Deutsch",
-          lang: "de",
-        },
-      },
       plugins: [
+        starlightPluginsDocsComponents({
+          pluginName: "starlight-view-modes",
+          showcaseProps: {
+            entries: [
+              {
+                thumbnail: "./src/assets/crabrolls.png",
+                href: "https://crabrolls-cartesi.github.io/crabrolls/",
+                title: "CrabRolls",
+              },
+              {
+                thumbnail: "./src/assets/koliantylers-dotfiles.png",
+                href: "https://dotfiles.wiki/",
+                title: "kiliantyler's Dotfiles",
+              },
+              {
+                thumbnail: "./src/assets/alove.png",
+                href: "https://alove.vercel.app/",
+                title: "欢迎了解紧缚文化",
+              },
+            ],
+          },
+        }),
         starlightViewModes({
           zenModeSettings: {
             enabled: true,
-            // closeButtonPosition: "top-right",
             displayOptions: {
-              showHeader: false,
-              showSidebar: true,
+              showHeader: true,
+              showSidebar: false,
               showTableOfContents: false,
               showFooter: true,
             },
-            // switchVisibility: {
-            //   location: ["tableOfContents", "header", "headerMobile"],
-            // },
           },
         }),
         starlightImageZoom(),
@@ -61,12 +68,6 @@ export default defineConfig({
           },
           showInSiteTitle: "deferred",
         }),
-        // starlightPluginsDocsComponents({
-        //   pluginName: "starlight-view-modes",
-        //   showcaseProps: {
-        //     entries: [],
-        //   },
-        // }),
       ],
       sidebar: [
         {
@@ -74,9 +75,9 @@ export default defineConfig({
           items: [
             { label: "Getting Started", link: "/getting-started/" },
             { label: "Configuration", link: "/configuration/" },
+            { label: "Demo", link: "/demo/" },
           ],
         },
-        { label: "Demo", link: "/demo/" },
       ],
       credits: true,
     }),

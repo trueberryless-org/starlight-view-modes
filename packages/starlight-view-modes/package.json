@@ -11,8 +11,9 @@
     "./overrides/PageTitle.astro": "./overrides/PageTitle.astro",
     "./overrides/SocialIcons.astro": "./overrides/SocialIcons.astro",
     "./overrides/TableOfContents.astro": "./overrides/TableOfContents.astro",
-    "./components/ViewModes.astro": "./components/ViewModes.astro",
-    "./components/DeactivationButtons.astro": "./components/DeactivationButtons.astro",
+    "./components/PageTitle.astro": "./components/starlight/PageTitle.astro",
+    "./components/SocialIcons.astro": "./components/starlight/SocialIcons.astro",
+    "./components/TableOfContents.astro": "./components/starlight/TableOfContents.astro",
     "./routes/ZenMode.astro": "./routes/ZenMode.astro",
     "./styles/*.css": "./styles/*.css",
     "./package.json": "./package.json"
@@ -23,8 +24,7 @@
     "astro": "^5.3.1"
   },
   "peerDependencies": {
-    "@astrojs/starlight": ">=0.16.0",
-    "astro": ">=4.0.0"
+    "@astrojs/starlight": ">=0.32"
   },
   "engines": {
     "node": ">=18"
