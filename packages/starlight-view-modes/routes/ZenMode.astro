@@ -16,12 +16,7 @@ export const getStaticPaths = (async () => {
 		};
 	});
 
-	return pages
-		.filter((doc: { id: string }) => !isExcludedPage(doc.id, config.zenModeSettings.exclude))
-		.map((doc: { id: string; }) => ({
-			params: { path: handleIndexSlug(doc.id) },
-			props: { doc },
-		}));
+	return paths;
 }) satisfies GetStaticPaths;
 
 export const prerender = true
