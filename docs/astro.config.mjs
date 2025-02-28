@@ -4,7 +4,7 @@ import starlight from "@astrojs/starlight";
 import starlightViewModes from "starlight-view-modes";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightPluginShowLatestVersion from "starlight-plugin-show-latest-version";
-// import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
+import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
 
 import node from "@astrojs/node";
 
@@ -43,10 +43,10 @@ export default defineConfig({
             enabled: true,
             // closeButtonPosition: "top-right",
             displayOptions: {
-              showHeader: false,
+              showHeader: true,
               showSidebar: true,
               showTableOfContents: false,
-              showFooter: true,
+              showFooter: false,
             },
             // switchVisibility: {
             //   location: ["tableOfContents", "header", "headerMobile"],

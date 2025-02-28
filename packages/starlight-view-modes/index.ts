@@ -66,7 +66,7 @@ export default function starlightViewModes(
               if (config.zenModeSettings.enabled) {
                 injectRoute({
                   entrypoint: `starlight-view-modes/routes/ZenMode.astro`,
-                  pattern: "/zen-mode/[...path]",
+                  pattern: "[locale]/zen-mode/[...path]",
                   prerender: true,
                 });
               }

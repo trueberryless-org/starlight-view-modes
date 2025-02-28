@@ -1,5 +1,6 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
+import { splitPathnameIntoLocaleAndPath } from "./i18n";
 
 export function isSpecificMode(
   currentSlug: string,
@@ -13,7 +14,8 @@ export function isSpecificMode(
   );
   if (hrefs.some((href) => href.includes(currentSlug))) return false;
 
-  return currentSlug.startsWith(`${mode}/`);
+  const { pathname } = splitPathnameIntoLocaleAndPath("de/zen-mode/config");
+  return pathname.startsWith(`${mode}/`);
 }
 
 export function getCurrentMode(
