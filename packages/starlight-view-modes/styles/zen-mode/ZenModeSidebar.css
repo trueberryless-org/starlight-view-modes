@@ -17,14 +17,14 @@ body:has(.zen-mode-sidebar) footer {
   display: none !important;
 }
 
-body:has(.zen-mode-sidebar) main .sl-container {
+body:has(.zen-mode-sidebar):has(#starlight__sidebar) main .sl-container {
   margin: 0 auto;
 }
-body:has(.zen-mode-sidebar) .main-frame {
+body:has(.zen-mode-sidebar):has(#starlight__sidebar) .main-frame {
   padding-inline: 0;
 }
 @media (min-width: 50rem) {
-  body:has(.zen-mode-sidebar) main {
+  body:has(.zen-mode-sidebar):has(#starlight__sidebar) main {
     width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
     margin-left: var(--sl-sidebar-width);
   }

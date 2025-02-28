@@ -8,7 +8,9 @@ body:has(.zen-mode-header-sidebar) footer {
   display: none !important;
 }
 
-body:has(.zen-mode-header-sidebar) header.header > div {
+body:has(.zen-mode-header-sidebar):has(#starlight__sidebar)
+  header.header
+  > div {
   --sl-nav-gap: 1rem;
   grid-template-columns:
     minmax(
@@ -26,14 +28,14 @@ body:has(.zen-mode-header-sidebar) header.header > div {
     )
     1fr auto;
 }
-body:has(.zen-mode-header-sidebar) main .sl-container {
+body:has(.zen-mode-header-sidebar):has(#starlight__sidebar) main .sl-container {
   margin: 0 auto;
 }
-body:has(.zen-mode-header-sidebar) .main-frame {
+body:has(.zen-mode-header-sidebar):has(#starlight__sidebar) .main-frame {
   padding-inline: 0;
 }
 @media (min-width: 50rem) {
-  body:has(.zen-mode-header-sidebar) main {
+  body:has(.zen-mode-header-sidebar):has(#starlight__sidebar) main {
     width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
     margin-left: var(--sl-sidebar-width);
   }

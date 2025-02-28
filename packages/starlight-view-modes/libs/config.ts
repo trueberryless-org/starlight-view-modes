@@ -41,21 +41,16 @@ const configSchema = z
             showTableOfContents: z.boolean().default(true),
             showFooter: z.boolean().default(true),
           })
-          .default({
-            showHeader: false,
-            showSidebar: false,
-            showTableOfContents: true,
-            showFooter: true,
-          }),
-        // .refine(
-        //   (options) => {
-        //     const values = Object.values(options);
-        //     return values.includes(false);
-        //   },
-        //   {
-        //     message: "At least one element must be hidden in Zen mode.",
-        //   }
-        // ),
+          .default({})
+          .refine(
+            (options) => {
+              const values = Object.values(options);
+              return values.includes(false);
+            },
+            {
+              message: "At least one element must be hidden in Zen mode.",
+            }
+          ),
 
         // /**
         //  * Controls the visibility of Zen mode switches in various parts of the interface.
@@ -82,14 +77,14 @@ const configSchema = z
         //   }),
       })
       .default({
-        enabled: true,
+        // enabled: true,
         // closeButtonPosition: "top-right",
-        displayOptions: {
-          showHeader: false,
-          showSidebar: false,
-          showTableOfContents: true,
-          showFooter: true,
-        },
+        // displayOptions: {
+        //   showHeader: false,
+        //   showSidebar: false,
+        //   showTableOfContents: true,
+        //   showFooter: true,
+        // },
         // switchVisibility: {
         //   location: ["tableOfContents", "header", "headerMobile"],
         // },

@@ -14,14 +14,14 @@ body:has(.zen-mode-sidebar-footer) .right-sidebar-container {
   display: none;
 }
 
-body:has(.zen-mode-sidebar-footer) main .sl-container {
+body:has(.zen-mode-sidebar-footer):has(#starlight__sidebar) main .sl-container {
   margin: 0 auto;
 }
-body:has(.zen-mode-sidebar-footer) .main-frame {
+body:has(.zen-mode-sidebar-footer):has(#starlight__sidebar) .main-frame {
   padding-inline: 0;
 }
 @media (min-width: 50rem) {
-  body:has(.zen-mode-sidebar-footer) main {
+  body:has(.zen-mode-sidebar-footer):has(#starlight__sidebar) main {
     width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
     margin-left: var(--sl-sidebar-width);
   }

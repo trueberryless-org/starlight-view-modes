@@ -31,12 +31,12 @@ export default defineConfig({
           zenModeSettings: {
             enabled: true,
             // closeButtonPosition: "top-right",
-            // displayOptions: {
-            //   showHeader: true,
-            //   showSidebar: false,
-            //   showTableOfContents: false,
-            //   showFooter: true,
-            // },
+            displayOptions: {
+              showHeader: false,
+              showSidebar: false,
+              showTableOfContents: true,
+              showFooter: true,
+            },
             // switchVisibility: {
             //   location: ["tableOfContents", "header", "headerMobile"],
             // },

@@ -26,12 +26,12 @@ body:has(.zen-mode) footer {
   display: none !important;
 }
 
-body:has(.zen-mode) main {
+body:has(.zen-mode):has(#starlight__sidebar) main {
   width: calc(100vw);
 }
-body:has(.zen-mode) main .sl-container {
+body:has(.zen-mode):has(#starlight__sidebar) main .sl-container {
   margin: 0 auto;
 }
-body:has(.zen-mode) .main-frame {
+body:has(.zen-mode):has(#starlight__sidebar) .main-frame {
   padding-inline: 0;
 }

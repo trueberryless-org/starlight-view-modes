@@ -16,7 +16,7 @@ body:has(.zen-mode-header) footer {
   display: none !important;
 }
 
-body:has(.zen-mode-header) header.header > div {
+body:has(.zen-mode-header):has(#starlight__sidebar) header.header > div {
   grid-template-columns:
     minmax(
       calc(
@@ -26,12 +26,12 @@ body:has(.zen-mode-header) header.header > div {
     )
     1fr auto;
 }
-body:has(.zen-mode-header) main {
+body:has(.zen-mode-header):has(#starlight__sidebar) main {
   width: calc(100vw);
 }
-body:has(.zen-mode-header) main .sl-container {
+body:has(.zen-mode-header):has(#starlight__sidebar) main .sl-container {
   margin: 0 auto;
 }
-body:has(.zen-mode-header) .main-frame {
+body:has(.zen-mode-header):has(#starlight__sidebar) .main-frame {
   padding-inline: 0;
 }
