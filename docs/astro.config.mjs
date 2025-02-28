@@ -38,19 +38,38 @@ export default defineConfig({
         },
       },
       plugins: [
+        starlightPluginsDocsComponents({
+          pluginName: "starlight-view-modes",
+          showcaseProps: {
+            entries: [
+              {
+                thumbnail: "./src/assets/crabrolls.png",
+                href: "https://crabrolls-cartesi.github.io/crabrolls/",
+                title: "CrabRolls",
+              },
+              {
+                thumbnail: "./src/assets/koliantylers-dotfiles.png",
+                href: "https://dotfiles.wiki/",
+                title: "kiliantyler's Dotfiles",
+              },
+              {
+                thumbnail: "./src/assets/alove.png",
+                href: "https://alove.vercel.app/",
+                title: "欢迎了解紧缚文化",
+              },
+            ],
+          },
+        }),
         starlightViewModes({
           zenModeSettings: {
             enabled: true,
-            // closeButtonPosition: "top-right",
             displayOptions: {
               showHeader: true,
-              showSidebar: true,
-              showTableOfContents: false,
-              showFooter: false,
+              showSidebar: false,
+              showTableOfContents: true,
+              showFooter: true,
             },
-            // switchVisibility: {
-            //   location: ["tableOfContents", "header", "headerMobile"],
-            // },
+            exclude: ["/resources/*"],
           },
         }),
         starlightImageZoom(),
@@ -61,12 +80,6 @@ export default defineConfig({
           },
           showInSiteTitle: "deferred",
         }),
-        // starlightPluginsDocsComponents({
-        //   pluginName: "starlight-view-modes",
-        //   showcaseProps: {
-        //     entries: [],
-        //   },
-        // }),
       ],
       sidebar: [
         {
@@ -74,9 +87,9 @@ export default defineConfig({
           items: [
             { label: "Getting Started", link: "/getting-started/" },
             { label: "Configuration", link: "/configuration/" },
+            { label: "Demo", link: "/demo/" },
           ],
         },
-        { label: "Demo", link: "/demo/" },
       ],
       credits: true,
     }),

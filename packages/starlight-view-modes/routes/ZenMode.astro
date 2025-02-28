@@ -3,24 +3,25 @@ import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import config from 'virtual:starlight-view-modes-config';
-import { getClassNameZenMode } from '../libs/utils';
+import { getClassNameZenMode, handleIndexSlug, isExcludedPage } from '../libs/utils';
 import { splitPathnameIntoLocaleAndPath } from '../libs/i18n';
 import { undefined } from 'astro:schema';
 
 export const getStaticPaths = (async () => {
-	const allDocs = await getCollection('docs');
-	console.log(allDocs
-		.map((doc: { id: string; }) => splitPathnameIntoLocaleAndPath(doc.id))
-		// .filter((doc: { id: string }) => doc.id !== "index")
-		.map((doc: { locale: string; pathname: string }) => ({
-			params: { locale: doc.locale, path: doc.pathname === "" || doc.pathname === "index" ? undefined : doc.pathname },
-			props: { doc },
-		})));
-	return allDocs
-		.map((doc: { id: string; }) => splitPathnameIntoLocaleAndPath(doc.id))
-		// .filter((doc: { id: string }) => doc.id !== "index")
-		.map((doc: { locale: string; pathname: string }) => ({
-			params: { locale: doc.locale ?? "en", path: doc.pathname === "" || doc.pathname === "index" ? undefined : doc.pathname },
+	const pages = await getCollection('docs');
+
+	const paths = pages.map((page: any) => {
+		if (isExcludedPage(page.id, config.zenModeSettings.exclude)) return;
+		return {
+			params: { path: handleIndexSlug(page.id) },
+			props: { doc: page },
+		};
+	});
+
+	return pages
+		.filter((doc: { id: string }) => !isExcludedPage(doc.id, config.zenModeSettings.exclude))
+		.map((doc: { id: string; }) => ({
+			params: { path: handleIndexSlug(doc.id) },
 			props: { doc },
 		}));
 }) satisfies GetStaticPaths;
@@ -44,7 +45,7 @@ let classes = [
 ].filter(Boolean);
 ---
 
-<StarlightPage frontmatter={ remarkPluginFrontmatter } headings={headings} hasSidebar={hasSidebar}>
+<StarlightPage frontmatter={remarkPluginFrontmatter} headings={headings} hasSidebar={hasSidebar}>
 	<div class:list={classes}>
 		<Content />
 	</div>

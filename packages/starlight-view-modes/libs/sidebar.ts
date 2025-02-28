@@ -1,5 +1,7 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
+import config from "virtual:starlight-view-modes-config";
+import { isExcludedPage } from "./utils";
 import { splitPathnameIntoLocaleAndPath } from "./i18n";
 
 export function isSpecificMode(
@@ -15,7 +17,7 @@ export function isSpecificMode(
   if (hrefs.some((href) => href.includes(currentSlug))) return false;
 
   const { pathname } = splitPathnameIntoLocaleAndPath("de/zen-mode/config");
-  return pathname.startsWith(`${mode}/`);
+  return pathname.startsWith(`${mode}`);
 }
 
 export function getCurrentMode(
@@ -27,13 +29,12 @@ export function getCurrentMode(
   const isZenMode = isSpecificMode(currentSlug, sidebar, "zen-mode");
 
   if (isZenMode) {
-    const zenSidebar = modifySidebar(sidebar, "/zen-mode", currentSlug);
-    const zenPagination = modifyPagination(pagination, zenSidebar);
+    const zenSidebar = modifySidebar(sidebar, currentSlug, "zen-mode");
+    const zenPagination = modifyPagination(pagination, zenSidebar, "zen-mode");
     return {
       mode: "zen-mode",
       sidebar: zenSidebar,
       pagination: zenPagination,
-      isZenMode: true,
     };
   }
 
@@ -46,17 +47,21 @@ export function getCurrentMode(
 
 function modifySidebar(
   sidebar: SidebarEntry[],
-  prefix: string = "",
-  currentSlug: string
+  currentSlug: string,
+  prefix: string = ""
 ): SidebarEntry[] {
   for (const entry of sidebar) {
     if (entry.type === "link") {
-      entry.href = `${prefix}${entry.href}`;
+      if (currentSlug === stripLeadingSlash(stripTrailingSlash(prefix)))
+        continue;
+      entry.href = `/${stripLeadingSlash(stripTrailingSlash(prefix))}${
+        entry.href
+      }`;
       entry.isCurrent = entry.href.includes(currentSlug);
     }
 
     if (entry.type === "group") {
-      entry.entries = modifySidebar(entry.entries, prefix, currentSlug);
+      entry.entries = modifySidebar(entry.entries, currentSlug, prefix);
     }
   }
   return sidebar;
@@ -64,16 +69,33 @@ function modifySidebar(
 
 function modifyPagination(
   pagination: PaginationLinks,
-  sidebar: SidebarEntry[]
+  sidebar: SidebarEntry[],
+  prefix: string = ""
 ): PaginationLinks {
   const flattenedSidebar = flattenSidebar(sidebar);
+
+  function findNextValid(index: number): SidebarLink | undefined {
+    if (index >= flattenedSidebar.length) return undefined;
+    const entry = flattenedSidebar[index];
+    return excludePagination(entry, config.zenModeSettings.exclude, prefix)
+      ? findNextValid(index + 1)
+      : entry;
+  }
+
+  function findPrevValid(index: number): SidebarLink | undefined {
+    if (index < 0) return undefined;
+    const entry = flattenedSidebar[index];
+    return excludePagination(entry, config.zenModeSettings.exclude, prefix)
+      ? findPrevValid(index - 1)
+      : entry;
+  }
 
   for (let i = 0; i < flattenedSidebar.length; i++) {
     const entry = flattenedSidebar[i]!;
 
     if (entry.isCurrent) {
-      pagination.prev = flattenedSidebar[i - 1] || undefined;
-      pagination.next = flattenedSidebar[i + 1] || undefined;
+      pagination.prev = findPrevValid(i - 1);
+      pagination.next = findNextValid(i + 1);
       break;
     }
   }
@@ -81,9 +103,27 @@ function modifyPagination(
   return pagination;
 }
 
+// This version will recursively step through the sidebar list until it finds a valid page or reaches the end/beginning of the list. Let me know if you want any adjustments! 🚀
+
 function flattenSidebar(sidebar: SidebarEntry[]): SidebarLink[] {
   return sidebar.flatMap((entry) =>
     entry.type === "group" ? flattenSidebar(entry.entries) : entry
+  );
+}
+
+function excludePagination(
+  link: SidebarLink | undefined,
+  exclude: string[],
+  prefix: string = ""
+): boolean {
+  return isExcludedPage(
+    stripLeadingSlash(stripTrailingSlash(link?.href || "")),
+    exclude.map(
+      (e) =>
+        `${stripLeadingSlash(stripTrailingSlash(prefix))}/${stripLeadingSlash(
+          stripTrailingSlash(e)
+        )}`
+    )
   );
 }
 
@@ -95,5 +135,4 @@ export interface ViewMode {
   mode: "zen-mode" | "default";
   sidebar: SidebarEntry[];
   pagination: PaginationLinks;
-  isZenMode?: boolean;
 }

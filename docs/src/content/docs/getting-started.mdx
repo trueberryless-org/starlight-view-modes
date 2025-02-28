@@ -51,3 +51,23 @@ import { PackageManagers } from "starlight-package-managers";
 </Steps>
 
 The Starlight View Modes plugin behavior can be tweaked using various [configuration options](/configuration).
+
+## Component overrides
+
+The Starlight View Modes plugin uses a Starlight [component override](https://starlight.astro.build/guides/overriding-components/) for the [`PageTitle`](https://starlight.astro.build/reference/overrides/#pagetitle), [`SocialIcons`](https://starlight.astro.build/reference/overrides/#socialicons), and [`TableOfContents`](https://starlight.astro.build/reference/overrides/#tableofcontents) components.
+
+If you have a custom `PageTitle` component override in your Starlight project, you will need to manually render the `PageTitle` component from the Starlight View Modes plugin in your custom component:
+
+```diff lang="astro"
+---
+// src/components/overrides/PageTitle.astro
+import Default from '@astrojs/starlight/components/PageTitle.astro'
++import StarlightViewModesPageTitle from 'starlight-view-modes/components/PageTitle.astro'
+---
+
+<Default><slot /></Default>
+<p>Custom content in the PageTitle override</p>
++<StarlightViewModesPageTitle />
+```
+
+The same logic applies to the `SocialIcons` and `TableOfContents` components.
