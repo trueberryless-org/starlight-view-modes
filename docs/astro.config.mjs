@@ -54,10 +54,11 @@ export default defineConfig({
             enabled: true,
             displayOptions: {
               showHeader: true,
-              showSidebar: false,
+              showSidebar: true,
               showTableOfContents: false,
               showFooter: true,
             },
+            exclude: ["/resources/*"],
           },
         }),
         starlightImageZoom(),

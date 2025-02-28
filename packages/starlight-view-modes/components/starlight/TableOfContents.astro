@@ -1,5 +1,6 @@
 ---
 import config from "virtual:starlight-view-modes-config";
+import { isExcludedPage } from "../../libs/utils";
 const { toc, isZenMode } = Astro.locals.starlightRoute;
 
 const getUpdatedPath = (currentPathname: string) => {  
@@ -16,10 +17,12 @@ const currentPathname = Astro.url.pathname;
 const zenModePath = getUpdatedPath(currentPathname);
 
 const depth = 0;
+
+const excludePage = isExcludedPage(currentPathname, config.zenModeSettings.exclude);
 ---
 
 {
-	toc && (
+	toc && !excludePage && (
 		<>
 			<div class="starlight-view-modes-table-of-contents-container">
 				{ atLeastOneModeEnabled &&

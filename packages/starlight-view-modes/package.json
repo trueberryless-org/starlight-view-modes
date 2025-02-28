@@ -45,5 +45,8 @@
     "url": "https://github.com/trueberryless/starlight-view-modes.git",
     "directory": "packages/starlight-view-modes"
   },
-  "bugs": "https://github.com/trueberryless/starlight-view-modes/issues"
+  "bugs": "https://github.com/trueberryless/starlight-view-modes/issues",
+  "dependencies": {
+    "picomatch": "^4.0.2"
+  }
 }

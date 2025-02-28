@@ -1,5 +1,7 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
+import config from "virtual:starlight-view-modes-config";
+import { isExcludedPage } from "./utils";
 
 export function isSpecificMode(
   currentSlug: string,
@@ -13,7 +15,7 @@ export function isSpecificMode(
   );
   if (hrefs.some((href) => href.includes(currentSlug))) return false;
 
-  return currentSlug.startsWith(`${mode}/`);
+  return currentSlug.startsWith(`${mode}`);
 }
 
 export function getCurrentMode(
@@ -25,13 +27,12 @@ export function getCurrentMode(
   const isZenMode = isSpecificMode(currentSlug, sidebar, "zen-mode");
 
   if (isZenMode) {
-    const zenSidebar = modifySidebar(sidebar, "/zen-mode", currentSlug);
-    const zenPagination = modifyPagination(pagination, zenSidebar);
+    const zenSidebar = modifySidebar(sidebar, currentSlug, "zen-mode");
+    const zenPagination = modifyPagination(pagination, zenSidebar, "zen-mode");
     return {
       mode: "zen-mode",
       sidebar: zenSidebar,
       pagination: zenPagination,
-      isZenMode: true,
     };
   }
 
@@ -44,17 +45,21 @@ export function getCurrentMode(
 
 function modifySidebar(
   sidebar: SidebarEntry[],
-  prefix: string = "",
-  currentSlug: string
+  currentSlug: string,
+  prefix: string = ""
 ): SidebarEntry[] {
   for (const entry of sidebar) {
     if (entry.type === "link") {
-      entry.href = `${prefix}${entry.href}`;
+      if (currentSlug === stripLeadingSlash(stripTrailingSlash(prefix)))
+        continue;
+      entry.href = `/${stripLeadingSlash(stripTrailingSlash(prefix))}${
+        entry.href
+      }`;
       entry.isCurrent = entry.href.includes(currentSlug);
     }
 
     if (entry.type === "group") {
-      entry.entries = modifySidebar(entry.entries, prefix, currentSlug);
+      entry.entries = modifySidebar(entry.entries, currentSlug, prefix);
     }
   }
   return sidebar;
@@ -62,16 +67,24 @@ function modifySidebar(
 
 function modifyPagination(
   pagination: PaginationLinks,
-  sidebar: SidebarEntry[]
+  sidebar: SidebarEntry[],
+  prefix: string = ""
 ): PaginationLinks {
   const flattenedSidebar = flattenSidebar(sidebar);
 
   for (let i = 0; i < flattenedSidebar.length; i++) {
     const entry = flattenedSidebar[i]!;
 
+    const prev = flattenedSidebar[i - 1] ?? undefined;
+    const next = flattenedSidebar[i + 1] ?? undefined;
+
     if (entry.isCurrent) {
-      pagination.prev = flattenedSidebar[i - 1] || undefined;
-      pagination.next = flattenedSidebar[i + 1] || undefined;
+      if (!excludePagination(prev, config.zenModeSettings.exclude, prefix)) {
+        pagination.prev = prev;
+      }
+      if (!excludePagination(next, config.zenModeSettings.exclude, prefix)) {
+        pagination.next = next;
+      }
       break;
     }
   }
@@ -85,6 +98,22 @@ function flattenSidebar(sidebar: SidebarEntry[]): SidebarLink[] {
   );
 }
 
+function excludePagination(
+  link: SidebarLink | undefined,
+  exclude: string[],
+  prefix: string = ""
+): boolean {
+  return isExcludedPage(
+    stripLeadingSlash(stripTrailingSlash(link?.href || "")),
+    exclude.map(
+      (e) =>
+        `${stripLeadingSlash(stripTrailingSlash(prefix))}/${stripLeadingSlash(
+          stripTrailingSlash(e)
+        )}`
+    )
+  );
+}
+
 type SidebarEntry = StarlightRouteData["sidebar"][number];
 type SidebarLink = Extract<SidebarEntry, { type: "link" }>;
 type PaginationLinks = StarlightRouteData["pagination"];
@@ -93,5 +122,4 @@ export interface ViewMode {
   mode: "zen-mode" | "default";
   sidebar: SidebarEntry[];
   pagination: PaginationLinks;
-  isZenMode?: boolean;
 }

@@ -1,3 +1,4 @@
+import type { StarlightUserConfig } from "@astrojs/starlight/types";
 import { AstroError } from "astro/errors";
 import { z } from "astro/zod";
 
@@ -51,6 +52,13 @@ const configSchema = z
               message: "At least one element must be hidden in Zen mode.",
             }
           ),
+
+        /**
+         * Defines a list of pages or glob patterns that are not viewable in Zen mode.
+         *
+         * @default []
+         */
+        exclude: z.array(z.string()).default([]),
 
         // /**
         //  * Controls the visibility of Zen mode switches in various parts of the interface.

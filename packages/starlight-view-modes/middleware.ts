@@ -8,5 +8,5 @@ export const onRequest = defineRouteMiddleware((context) => {
   const currentMode = getCurrentMode(id, sidebar, pagination);
   starlightRoute.sidebar = currentMode.sidebar;
   starlightRoute.pagination = currentMode.pagination;
-  starlightRoute.isZenMode = currentMode.isZenMode;
+  starlightRoute.currentMode = currentMode.mode;
 });

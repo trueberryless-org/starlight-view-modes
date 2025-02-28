@@ -1,4 +1,5 @@
 import type { StarlightViewModesConfig } from "./config";
+import picomatch from "picomatch";
 
 export function getClassNameZenMode(
   displayOptions: StarlightViewModesConfig["zenModeSettings"]["displayOptions"]
@@ -49,4 +50,15 @@ function getDisplayOptionsKey(
   const { showHeader, showSidebar, showTableOfContents, showFooter } =
     displayOptions;
   return `${showHeader}-${showSidebar}-${showTableOfContents}-${showFooter}`;
+}
+
+export function isExcludedPage(path: string, exclude: string[]): boolean {
+  return picomatch(exclude)(path);
+}
+
+export function handleIndexSlug(slug: string): string | undefined {
+  if (["index", "/"].some((indexSlug) => slug.startsWith(indexSlug))) {
+    return undefined;
+  }
+  return slug;
 }
