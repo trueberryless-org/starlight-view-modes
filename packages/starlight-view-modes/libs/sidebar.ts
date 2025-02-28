@@ -72,25 +72,36 @@ function modifyPagination(
 ): PaginationLinks {
   const flattenedSidebar = flattenSidebar(sidebar);
 
+  function findNextValid(index: number): SidebarLink | undefined {
+    if (index >= flattenedSidebar.length) return undefined;
+    const entry = flattenedSidebar[index];
+    return excludePagination(entry, config.zenModeSettings.exclude, prefix)
+      ? findNextValid(index + 1)
+      : entry;
+  }
+
+  function findPrevValid(index: number): SidebarLink | undefined {
+    if (index < 0) return undefined;
+    const entry = flattenedSidebar[index];
+    return excludePagination(entry, config.zenModeSettings.exclude, prefix)
+      ? findPrevValid(index - 1)
+      : entry;
+  }
+
   for (let i = 0; i < flattenedSidebar.length; i++) {
     const entry = flattenedSidebar[i]!;
 
-    const prev = flattenedSidebar[i - 1] ?? undefined;
-    const next = flattenedSidebar[i + 1] ?? undefined;
-
     if (entry.isCurrent) {
-      if (!excludePagination(prev, config.zenModeSettings.exclude, prefix)) {
-        pagination.prev = prev;
-      }
-      if (!excludePagination(next, config.zenModeSettings.exclude, prefix)) {
-        pagination.next = next;
-      }
+      pagination.prev = findPrevValid(i - 1);
+      pagination.next = findNextValid(i + 1);
       break;
     }
   }
 
   return pagination;
 }
+
+// This version will recursively step through the sidebar list until it finds a valid page or reaches the end/beginning of the list. Let me know if you want any adjustments! 🚀
 
 function flattenSidebar(sidebar: SidebarEntry[]): SidebarLink[] {
   return sidebar.flatMap((entry) =>

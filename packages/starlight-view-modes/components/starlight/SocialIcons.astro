@@ -1,10 +1,5 @@
 ---
-import ViewModeIcons from "../ViewModeIcons.astro";
-import { isExcludedPage } from "../../libs/utils";
-import config from "virtual:starlight-view-modes-config";
-
-const pathname = Astro.url.pathname;
-const excludePage = isExcludedPage(pathname, config.zenModeSettings.exclude);
+import ViewModeSwitcher from "../ViewModeSwitcher.astro";
 ---
 
-{ !excludePage && <ViewModeIcons /> }
+<ViewModeSwitcher type="social-links" />

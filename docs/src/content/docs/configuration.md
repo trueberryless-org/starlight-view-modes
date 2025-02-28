@@ -113,3 +113,10 @@ Whether the footer should be displayed when Zen mode is activated.
 Disabling this option can mean that the user always has to leave Zen mode if they want to go the next or previous page because there are links to these pages in the footer.
 
 We recommend disabling this option if you either want your users to have the full Zen mode experience, or if there are many anchor links on the page so that navigation isn't limited to the footer links.
+
+#### `exclude`
+
+**Type:** `string[]`  
+**Default:** `[]`
+
+A list of pages or [glob patterns](https://github.com/micromatch/picomatch#globbing-features) that are not viewable in Zen mode.
