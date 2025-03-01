@@ -1,4 +1,7 @@
-import type { StarlightPlugin } from "@astrojs/starlight/types";
+import type {
+  StarlightPlugin,
+  StarlightUserConfig,
+} from "@astrojs/starlight/types";
 
 import {
   type StarlightViewModesConfig,
@@ -7,6 +10,7 @@ import {
 } from "./libs/config";
 import { vitePluginStarlightViewModesConfig } from "./libs/vite";
 import { overrideStarlightComponent } from "./libs/starlight";
+import { replicateStarlightSite } from "./libs/replica";
 
 export type { StarlightViewModesConfig, StarlightViewModesUserConfig };
 
@@ -63,10 +67,22 @@ export default function starlightViewModes(
                 },
               });
 
+              replicateStarlightSite(
+                {
+                  mode: "test-mode",
+                  entrypoint: `starlight-view-modes/routes/TestMode.astro`,
+                },
+                { injectRoute, addRouteMiddleware },
+                {
+                  starlightConfig: starlightConfig as StarlightUserConfig,
+                  config,
+                }
+              );
+
               if (config.zenModeSettings.enabled) {
                 injectRoute({
                   entrypoint: `starlight-view-modes/routes/ZenMode.astro`,
-                  pattern: "[locale]/zen-mode/[...path]",
+                  pattern: "[...locale]/zen-mode/[...path]",
                   prerender: true,
                 });
               }

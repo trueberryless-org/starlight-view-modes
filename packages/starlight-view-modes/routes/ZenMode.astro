@@ -11,11 +11,14 @@ export const getStaticPaths = (async () => {
 
 	const paths = pages.map((page: any) => {
 		if (isExcludedPage(page.id, config.zenModeSettings.exclude)) return;
+		const { locale, pathname } = splitPathnameIntoLocaleAndPath(page.id);
 		return {
-			params: { path: handleIndexSlug(page.id) },
+			params: { path: handleIndexSlug(pathname), locale: locale ?? "en" },
 			props: { doc: page },
 		};
 	});
+
+	console.log(paths);
 
 	return paths;
 }) satisfies GetStaticPaths;

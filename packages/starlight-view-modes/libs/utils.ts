@@ -56,7 +56,8 @@ export function isExcludedPage(path: string, exclude: string[]): boolean {
   return picomatch(exclude)(path);
 }
 
-export function handleIndexSlug(slug: string): string | undefined {
+export function handleIndexSlug(slug: string | undefined): string | undefined {
+  if (!slug) return undefined;
   if (["index", "/"].some((indexSlug) => slug.startsWith(indexSlug))) {
     return undefined;
   }
