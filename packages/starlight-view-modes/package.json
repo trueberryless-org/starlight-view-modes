@@ -14,6 +14,7 @@
     "./components/PageTitle.astro": "./components/starlight/PageTitle.astro",
     "./components/SocialIcons.astro": "./components/starlight/SocialIcons.astro",
     "./components/TableOfContents.astro": "./components/starlight/TableOfContents.astro",
+    "./routes/TestMode.astro": "./routes/TestMode.astro",
     "./routes/ZenMode.astro": "./routes/ZenMode.astro",
     "./styles/*.css": "./styles/*.css",
     "./package.json": "./package.json"

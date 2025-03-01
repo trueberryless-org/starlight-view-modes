@@ -13,7 +13,7 @@ export const getStaticPaths = (async () => {
 		if (isExcludedPage(page.id, config.zenModeSettings.exclude)) return;
 		const { locale, pathname } = splitPathnameIntoLocaleAndPath(page.id);
 		return {
-			params: { path: handleIndexSlug(pathname), locale: locale ?? "en" },
+			params: { path: handleIndexSlug(pathname), locale: locale ?? "" },
 			props: { doc: page },
 		};
 	});

@@ -1,0 +1,23 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getReplicaStaticPaths } from '../libs/replica';
+
+export const getStaticPaths = (async () => {
+	return getReplicaStaticPaths();
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+export const prerender = true
+
+const { doc } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await render(doc);
+
+const { hasSidebar } = remarkPluginFrontmatter
+---
+
+<StarlightPage frontmatter={remarkPluginFrontmatter} headings={headings} hasSidebar={hasSidebar}>
+	<Content />
+</StarlightPage>
