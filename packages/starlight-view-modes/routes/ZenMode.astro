@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import config from 'virtual:starlight-view-modes-config';
 import { getClassNameZenMode, handleIndexSlug, isExcludedPage } from '../libs/utils';
@@ -8,11 +8,11 @@ import { getClassNameZenMode, handleIndexSlug, isExcludedPage } from '../libs/ut
 export const getStaticPaths = (async () => {
 	const pages = await getCollection('docs');
 
-	const paths = pages.map((page: any) => {
+	const paths = pages.map((page: CollectionEntry<'docs'>) => {
 		if (isExcludedPage(page.id, config.zenModeSettings.exclude)) return;
 		return {
 			params: { path: handleIndexSlug(page.id) },
-			props: { doc: page },
+			props: { entry: page },
 		};
 	});
 
@@ -21,8 +21,8 @@ export const getStaticPaths = (async () => {
 
 export const prerender = true
 
-const { doc } = Astro.props;
-const { Content, headings, remarkPluginFrontmatter } = await render(doc);
+const { entry } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await render(entry);
 
 const { hasSidebar } = remarkPluginFrontmatter
 
@@ -36,10 +36,69 @@ let classes = [
   !config.zenModeSettings.displayOptions.showTableOfContents && 'starlight-view-modes-zen-mode-no-table-of-contents',
   !config.zenModeSettings.displayOptions.showFooter && 'starlight-view-modes-zen-mode-no-footer'
 ].filter(Boolean);
+
+let darkImage: ImageMetadata | undefined;
+let lightImage: ImageMetadata | undefined;
+let rawHtml: string | undefined;
+const image = entry.data.hero?.image;
+
+if (image) {
+	if ('file' in image) {
+		darkImage = image.file;
+	} else if ('dark' in image) {
+		darkImage = image.dark;
+		lightImage = image.light;
+	} else {
+		rawHtml = image.html;
+	}
+}
 ---
 
-<StarlightPage frontmatter={remarkPluginFrontmatter} headings={headings} hasSidebar={hasSidebar}>
-	<div class:list={classes}>
-		<Content />
-	</div>
-</StarlightPage>
+{
+  darkImage && lightImage && (
+    <StarlightPage
+      frontmatter={{
+        ...remarkPluginFrontmatter as any,
+        hero: { image: { dark: darkImage, light: lightImage } },
+      }}
+      headings={headings}
+      hasSidebar={hasSidebar}
+    >
+      <div class:list={classes}>
+        <Content />
+      </div>
+    </StarlightPage>
+  )
+}
+{
+  darkImage && !lightImage && (
+    <StarlightPage
+      frontmatter={{
+        ...remarkPluginFrontmatter as any,
+        hero: { image: { file: darkImage } },
+      }}
+      headings={headings}
+      hasSidebar={hasSidebar}
+    >
+      <div class:list={classes}>
+        <Content />
+      </div>
+    </StarlightPage>
+  )
+}
+{
+  rawHtml && (
+    <StarlightPage
+      frontmatter={{
+        ...remarkPluginFrontmatter as any,
+        hero: { image: { html: rawHtml } },
+      }}
+      headings={headings}
+      hasSidebar={hasSidebar}
+    >
+      <div class:list={classes}>
+        <Content />
+      </div>
+    </StarlightPage>
+  )
+}
