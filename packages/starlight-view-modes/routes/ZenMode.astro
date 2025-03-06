@@ -1,41 +1,51 @@
 ---
-import type { GetStaticPaths } from 'astro';
-import { getCollection, render, type CollectionEntry } from 'astro:content';
-import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import config from 'virtual:starlight-view-modes-config';
-import { getClassNameZenMode, handleIndexSlug, isExcludedPage } from '../libs/utils';
-import RenderHtmlWithRehype from '../components/RenderHtmlWithRehype.astro';
+import type { GetStaticPaths } from "astro";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import config from "virtual:starlight-view-modes-config";
+import {
+  getClassNameZenMode,
+  handleIndexSlug,
+  isExcludedPage,
+} from "../libs/utils";
+import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
 
 export const getStaticPaths = (async () => {
-	const pages = await getCollection('docs');
+  const pages = await getCollection("docs");
 
-	const paths = pages.map((page: CollectionEntry<'docs'>) => {
-		if (isExcludedPage(page.id, config.zenModeSettings.exclude)) return;
-		return {
-			params: { path: handleIndexSlug(page.id) },
-			props: { entry: page },
-		};
-	});
+  const paths = pages.map((page: CollectionEntry<"docs">) => {
+    if (isExcludedPage(page.id, config.zenModeSettings.exclude)) return;
+    return {
+      params: { path: handleIndexSlug(page.id) },
+      props: { entry: page },
+    };
+  });
 
-	return paths;
+  return paths;
 }) satisfies GetStaticPaths;
 
-export const prerender = true
+export const prerender = true;
 
 const { entry } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(entry);
 
-const { hasSidebar } = remarkPluginFrontmatter
+const { hasSidebar } = remarkPluginFrontmatter;
 
-const zenModeFileName = getClassNameZenMode(config.zenModeSettings.displayOptions);
-import.meta.glob('../styles/zen-mode/*.css')
+const zenModeFileName = getClassNameZenMode(
+  config.zenModeSettings.displayOptions
+);
+import.meta.glob("../styles/zen-mode/*.css");
 
 let classes = [
   zenModeFileName,
-  !config.zenModeSettings.displayOptions.showHeader && 'starlight-view-modes-zen-mode-no-header',
-  !config.zenModeSettings.displayOptions.showSidebar && 'starlight-view-modes-zen-mode-no-sidebar',
-  !config.zenModeSettings.displayOptions.showTableOfContents && 'starlight-view-modes-zen-mode-no-table-of-contents',
-  !config.zenModeSettings.displayOptions.showFooter && 'starlight-view-modes-zen-mode-no-footer'
+  !config.zenModeSettings.displayOptions.showHeader &&
+    "starlight-view-modes-zen-mode-no-header",
+  !config.zenModeSettings.displayOptions.showSidebar &&
+    "starlight-view-modes-zen-mode-no-sidebar",
+  !config.zenModeSettings.displayOptions.showTableOfContents &&
+    "starlight-view-modes-zen-mode-no-table-of-contents",
+  !config.zenModeSettings.displayOptions.showFooter &&
+    "starlight-view-modes-zen-mode-no-footer",
 ].filter(Boolean);
 
 let darkImage: ImageMetadata | undefined;
@@ -44,14 +54,14 @@ let rawImageHtml: string | undefined;
 const image = entry.data.hero?.image;
 
 if (image) {
-	if ('file' in image) {
-		darkImage = image.file;
-	} else if ('dark' in image) {
-		darkImage = image.dark;
-		lightImage = image.light;
-	} else {
-		rawImageHtml = image.html;
-	}
+  if ("file" in image) {
+    darkImage = image.file;
+  } else if ("dark" in image) {
+    darkImage = image.dark;
+    lightImage = image.light;
+  } else {
+    rawImageHtml = image.html;
+  }
 }
 ---
 
@@ -59,7 +69,7 @@ if (image) {
   !darkImage && !lightImage && !rawImageHtml && (
     <StarlightPage
       frontmatter={{
-        ...remarkPluginFrontmatter as any,
+        ...(remarkPluginFrontmatter as any),
       }}
       headings={headings}
       hasSidebar={hasSidebar}
@@ -76,13 +86,13 @@ if (image) {
   darkImage && lightImage && (
     <StarlightPage
       frontmatter={{
-        ...remarkPluginFrontmatter as any,
+        ...(remarkPluginFrontmatter as any),
         hero: {
           ...remarkPluginFrontmatter.hero,
           image: {
-            dark: darkImage, 
-            light: lightImage 
-          } 
+            dark: darkImage,
+            light: lightImage,
+          },
         },
       }}
       headings={headings}
@@ -100,12 +110,12 @@ if (image) {
   darkImage && !lightImage && (
     <StarlightPage
       frontmatter={{
-        ...remarkPluginFrontmatter as any,
+        ...(remarkPluginFrontmatter as any),
         hero: {
           ...remarkPluginFrontmatter.hero,
           image: {
-            file: darkImage
-          }
+            file: darkImage,
+          },
         },
       }}
       headings={headings}
@@ -123,12 +133,12 @@ if (image) {
   rawImageHtml && (
     <StarlightPage
       frontmatter={{
-        ...remarkPluginFrontmatter as any,
+        ...(remarkPluginFrontmatter as any),
         hero: {
           ...remarkPluginFrontmatter.hero,
           image: {
-            html: rawImageHtml
-          }
+            html: rawImageHtml,
+          },
         },
       }}
       headings={headings}

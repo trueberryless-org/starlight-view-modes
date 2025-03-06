@@ -21,7 +21,8 @@ body:has(.starlight-view-modes-zen-mode-header-sidebar-footer):has(
             (
                 100vw - var(--sl-sidebar-width) - var(--sl-content-width) -
                   var(--sl-nav-gap)
-              ) / 2 - var(--sl-nav-gap)
+              ) /
+              2 - var(--sl-nav-gap)
           )
       ),
       auto

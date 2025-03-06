@@ -8,22 +8,25 @@ if (isTemplateSplash) return;
 ---
 
 <div class="starlight-view-modes-page-title-switcher">
-	<ViewModeSwitcher type="social-links" />
+  <ViewModeSwitcher type="social-links" />
 </div>
 
 <style>
-	.starlight-view-modes-page-title-switcher {
-		display: none;
-	}
-	body:has(.starlight-view-modes-zen-mode-no-header):has(.starlight-view-modes-zen-mode-no-table-of-contents) .starlight-view-modes-page-title-switcher {
-		display: block !important;
-	}
+  .starlight-view-modes-page-title-switcher {
+    display: none;
+  }
+  body:has(.starlight-view-modes-zen-mode-no-header):has(
+      .starlight-view-modes-zen-mode-no-table-of-contents
+    )
+    .starlight-view-modes-page-title-switcher {
+    display: block !important;
+  }
 </style>
 
 <style is:global>
-	.sl-container:has(.starlight-view-modes-page-title-switcher) {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
+  .sl-container:has(.starlight-view-modes-page-title-switcher) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 </style>
