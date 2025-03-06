@@ -1,5 +1,10 @@
 ---
 import ViewModeSwitcher from "../ViewModeSwitcher.astro";
+
+const { entry } = Astro.locals.starlightRoute;
+const isTemplateSplash = entry.data.template === "splash";
+
+if (isTemplateSplash) return;
 ---
 
 <div class="starlight-view-modes-page-title-switcher">

@@ -7,6 +7,7 @@ import {
 } from "./libs/config";
 import { vitePluginStarlightViewModesConfig } from "./libs/vite";
 import { overrideStarlightComponent } from "./libs/starlight";
+import { rehypePrefixInternalLinks } from "./libs/rehype";
 
 export type { StarlightViewModesConfig, StarlightViewModesUserConfig };
 
@@ -61,6 +62,9 @@ export default function starlightViewModes(
                 vite: {
                   plugins: [vitePluginStarlightViewModesConfig(config)],
                 },
+                // markdown: {
+                //   rehypePlugins: [rehypePrefixInternalLinks],
+                // },
               });
 
               if (config.zenModeSettings.enabled) {

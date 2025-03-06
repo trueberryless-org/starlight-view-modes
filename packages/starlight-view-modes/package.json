@@ -47,6 +47,11 @@
   },
   "bugs": "https://github.com/trueberryless/starlight-view-modes/issues",
   "dependencies": {
-    "picomatch": "^4.0.2"
+    "is-absolute-url": "^4.0.1",
+    "picomatch": "^4.0.2",
+    "rehype-parse": "^9.0.1",
+    "rehype-stringify": "^10.0.1",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0"
   }
 }

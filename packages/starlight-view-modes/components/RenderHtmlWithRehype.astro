@@ -1,0 +1,8 @@
+---
+import { processedHtml, rehypePrefixInternalLinks } from "../libs/rehype";
+
+const html = await Astro.slots.render('default');
+const contentHtml = await processedHtml(html, rehypePrefixInternalLinks);
+---
+
+<Fragment set:html={contentHtml} />

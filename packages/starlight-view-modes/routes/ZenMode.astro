@@ -4,6 +4,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import config from 'virtual:starlight-view-modes-config';
 import { getClassNameZenMode, handleIndexSlug, isExcludedPage } from '../libs/utils';
+import RenderHtmlWithRehype from '../components/RenderHtmlWithRehype.astro';
 
 export const getStaticPaths = (async () => {
 	const pages = await getCollection('docs');
@@ -39,7 +40,7 @@ let classes = [
 
 let darkImage: ImageMetadata | undefined;
 let lightImage: ImageMetadata | undefined;
-let rawHtml: string | undefined;
+let rawImageHtml: string | undefined;
 const image = entry.data.hero?.image;
 
 if (image) {
@@ -49,11 +50,28 @@ if (image) {
 		darkImage = image.dark;
 		lightImage = image.light;
 	} else {
-		rawHtml = image.html;
+		rawImageHtml = image.html;
 	}
 }
 ---
 
+{
+  !darkImage && !lightImage && !rawImageHtml && (
+    <StarlightPage
+      frontmatter={{
+        ...remarkPluginFrontmatter as any,
+      }}
+      headings={headings}
+      hasSidebar={hasSidebar}
+    >
+      <div class:list={classes}>
+        <RenderHtmlWithRehype>
+          <Content />
+        </RenderHtmlWithRehype>
+      </div>
+    </StarlightPage>
+  )
+}
 {
   darkImage && lightImage && (
     <StarlightPage
@@ -65,7 +83,9 @@ if (image) {
       hasSidebar={hasSidebar}
     >
       <div class:list={classes}>
-        <Content />
+        <RenderHtmlWithRehype>
+          <Content />
+        </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
   )
@@ -81,23 +101,27 @@ if (image) {
       hasSidebar={hasSidebar}
     >
       <div class:list={classes}>
-        <Content />
+        <RenderHtmlWithRehype>
+          <Content />
+        </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
   )
 }
 {
-  rawHtml && (
+  rawImageHtml && (
     <StarlightPage
       frontmatter={{
         ...remarkPluginFrontmatter as any,
-        hero: { image: { html: rawHtml } },
+        hero: { image: { html: rawImageHtml } },
       }}
       headings={headings}
       hasSidebar={hasSidebar}
     >
       <div class:list={classes}>
-        <Content />
+        <RenderHtmlWithRehype>
+          <Content />
+        </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
   )
