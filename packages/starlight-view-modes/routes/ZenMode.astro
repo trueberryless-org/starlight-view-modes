@@ -77,7 +77,13 @@ if (image) {
     <StarlightPage
       frontmatter={{
         ...remarkPluginFrontmatter as any,
-        hero: { image: { dark: darkImage, light: lightImage } },
+        hero: {
+          ...remarkPluginFrontmatter.hero,
+          image: {
+            dark: darkImage, 
+            light: lightImage 
+          } 
+        },
       }}
       headings={headings}
       hasSidebar={hasSidebar}
@@ -95,7 +101,12 @@ if (image) {
     <StarlightPage
       frontmatter={{
         ...remarkPluginFrontmatter as any,
-        hero: { image: { file: darkImage } },
+        hero: {
+          ...remarkPluginFrontmatter.hero,
+          image: {
+            file: darkImage
+          }
+        },
       }}
       headings={headings}
       hasSidebar={hasSidebar}
@@ -113,7 +124,12 @@ if (image) {
     <StarlightPage
       frontmatter={{
         ...remarkPluginFrontmatter as any,
-        hero: { image: { html: rawImageHtml } },
+        hero: {
+          ...remarkPluginFrontmatter.hero,
+          image: {
+            html: rawImageHtml
+          }
+        },
       }}
       headings={headings}
       hasSidebar={hasSidebar}
