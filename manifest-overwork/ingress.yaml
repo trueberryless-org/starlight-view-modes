@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: starlight-view-modes-overwork
+  namespace: starlight-view-modes-overwork
+spec:
+  rules:
+    - host: starlight-view-modes-overwork.trueberryless.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: starlight-view-modes-overwork
+                port:
+                  number: 80
+
+  tls:
+    - hosts:
+        - starlight-view-modes-overwork.trueberryless.org
+      secretName: starlight-view-modes-overwork

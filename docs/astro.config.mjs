@@ -4,6 +4,9 @@ import starlight from "@astrojs/starlight";
 import starlightViewModes from "starlight-view-modes";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightPluginShowLatestVersion from "starlight-plugin-show-latest-version";
+import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
+
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
@@ -23,27 +26,48 @@ export default defineConfig({
         baseUrl:
           "https://github.com/trueberryless/starlight-view-modes/edit/main/docs/",
       },
-      tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4 },
       plugins: [
+        starlightPluginsDocsComponents({
+          pluginName: "starlight-view-modes",
+          showcaseProps: {
+            entries: [
+              {
+                thumbnail: "./src/assets/crabrolls.png",
+                href: "https://crabrolls-cartesi.github.io/crabrolls/",
+                title: "CrabRolls",
+              },
+              {
+                thumbnail: "./src/assets/koliantylers-dotfiles.png",
+                href: "https://dotfiles.wiki/",
+                title: "kiliantyler's Dotfiles",
+              },
+              {
+                thumbnail: "./src/assets/alove.png",
+                href: "https://alove.vercel.app/",
+                title: "欢迎了解紧缚文化",
+              },
+            ],
+          },
+        }),
         starlightViewModes({
-          zenModeEnabled: true,
-          zenModeCloseButtonPosition: "top-right",
-          zenModeShowHeader: false,
-          zenModeShowSidebar: false,
-          zenModeShowTableOfContents: true,
-          zenModeShowFooter: true,
-          zenModeShowSwitchInHeader: true,
-          zenModeShowSwitchInHeaderMobile: true,
-          zenModeShowSwitchInTableOfContents: true,
-          presentationModeEnabled: true,
-          presentationModeCloseButtonPosition: "top-right",
-          presentationModeShowSwitchInHeader: true,
-          presentationModeShowSwitchInHeaderMobile: true,
-          presentationModeShowSwitchInTableOfContents: true,
+          zenModeSettings: {
+            enabled: true,
+            displayOptions: {
+              showHeader: true,
+              showSidebar: false,
+              showTableOfContents: true,
+              showFooter: true,
+            },
+            exclude: ["/resources/*"],
+          },
         }),
         starlightImageZoom(),
         starlightPluginShowLatestVersion({
-          repo: "trueberryless/starlight-view-modes",
+          source: {
+            type: "npm",
+            slug: "starlight-view-modes",
+          },
+          showInSiteTitle: "deferred",
         }),
       ],
       sidebar: [
@@ -52,15 +76,14 @@ export default defineConfig({
           items: [
             { label: "Getting Started", link: "/getting-started/" },
             { label: "Configuration", link: "/configuration/" },
+            { label: "Demo", link: "/demo/" },
           ],
         },
-        {
-          label: "Resources",
-          autogenerate: { directory: "resources" },
-        },
-        { label: "Demo", link: "/demo/" },
       ],
       credits: true,
     }),
   ],
+  adapter: node({
+    mode: "standalone",
+  }),
 });
