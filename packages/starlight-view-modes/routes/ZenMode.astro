@@ -68,9 +68,7 @@ if (image) {
 {
   !darkImage && !lightImage && !rawImageHtml && (
     <StarlightPage
-      frontmatter={{
-        ...(remarkPluginFrontmatter as any),
-      }}
+      frontmatter={remarkPluginFrontmatter}
       headings={headings}
       hasSidebar={hasSidebar}
     >
