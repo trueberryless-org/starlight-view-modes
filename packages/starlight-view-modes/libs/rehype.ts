@@ -9,7 +9,6 @@ export function rehypePrefixInternalLinks() {
    * @param {Root} tree
    */
   return function (tree: any) {
-    console.log(tree);
     visit(tree, "element", function (node) {
       if (
         node.tagName === "a" &&
