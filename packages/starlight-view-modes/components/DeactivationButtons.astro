@@ -1,57 +1,78 @@
 <style is:global>
-:root {
-  --starlight-view-modes-animation-duration: 300ms;
-}
+  :root {
+    --starlight-view-modes-animation-duration: 300ms;
+  }
 
-:is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) {
-  position: fixed;
-  width: 3rem;
-  height: 3rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  background: var(--sl-color-bg);
-  border: 2px solid var(--sl-color-gray-1);
-  border-radius: 0.5rem;
-  color: currentColor;
-  box-shadow: 0px 0px none;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  -webkit-transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
-  -ms-transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
-  transition: color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), background-color var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1), box-shadow var(--starlight-view-modes-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
-}
-:is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off):hover {
-  background: var(--sl-color-gray-1);
-  color: var(--sl-color-gray-6);
-  box-shadow: 8px 8px var(--sl-color-gray-4);
-}
-:is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
-  transform: rotate(180deg);
-}
+  :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) {
+    position: fixed;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    background: var(--sl-color-bg);
+    border: 2px solid var(--sl-color-gray-1);
+    border-radius: 0.5rem;
+    color: currentColor;
+    box-shadow: 0px 0px none;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    -webkit-transition:
+      color var(--starlight-view-modes-animation-duration)
+        cubic-bezier(0.4, 0, 0.2, 1),
+      background-color var(--starlight-view-modes-animation-duration)
+        cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow var(--starlight-view-modes-animation-duration)
+        cubic-bezier(0.4, 0, 0.2, 1);
+    -ms-transition:
+      color var(--starlight-view-modes-animation-duration)
+        cubic-bezier(0.4, 0, 0.2, 1),
+      background-color var(--starlight-view-modes-animation-duration)
+        cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow var(--starlight-view-modes-animation-duration)
+        cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      color var(--starlight-view-modes-animation-duration)
+        cubic-bezier(0.4, 0, 0.2, 1),
+      background-color var(--starlight-view-modes-animation-duration)
+        cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow var(--starlight-view-modes-animation-duration)
+        cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+  }
+  :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off):hover {
+    background: var(--sl-color-gray-1);
+    color: var(--sl-color-gray-6);
+    box-shadow: 8px 8px var(--sl-color-gray-4);
+  }
+  :is(#view-modes-zen-mode-off, #view-modes-presentation-mode-off) > svg {
+    transform: rotate(180deg);
+  }
 
-body:not(.view-modes-zen-mode) #view-modes-zen-mode-off {
-  display: none;
-}
+  body:not(.view-modes-zen-mode) #view-modes-zen-mode-off {
+    display: none;
+  }
 
-body:not(.view-modes-presentation-mode) #view-modes-presentation-mode-off {
-  display: none;
-}
+  body:not(.view-modes-presentation-mode) #view-modes-presentation-mode-off {
+    display: none;
+  }
 </style>
-  
+
 <script>
-    import config from 'virtual:starlight-view-modes-config';
-    import { deactivateZenMode, deactivatePresentationMode } from '../libs/SharedMethods';
-    import { ZenModePositionStateMachine } from '../libs/ZenModePositionStateMachine';
-    import { PresentationModePositionStateMachine } from '../libs/PresentationModePositionStateMachine';
+  import config from "virtual:starlight-view-modes-config";
+  import {
+    deactivateZenMode,
+    deactivatePresentationMode,
+  } from "../libs/SharedMethods";
+  import { ZenModePositionStateMachine } from "../libs/ZenModePositionStateMachine";
+  import { PresentationModePositionStateMachine } from "../libs/PresentationModePositionStateMachine";
 
-    document.addEventListener('DOMContentLoaded', () => {
-        var body = document.body;
+  document.addEventListener("DOMContentLoaded", () => {
+    var body = document.body;
 
-        var zenModeOffElement = document.createElement("a");
-        zenModeOffElement.id = "view-modes-zen-mode-off";
-        zenModeOffElement.innerHTML = `
+    var zenModeOffElement = document.createElement("a");
+    zenModeOffElement.id = "view-modes-zen-mode-off";
+    zenModeOffElement.innerHTML = `
             <svg fill="currentColor" height="24" width="24" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                 viewBox="0 0 512 512" xml:space="preserve">
             <g>
@@ -70,11 +91,11 @@ body:not(.view-modes-presentation-mode) #view-modes-presentation-mode-off {
                 </g>
             </g>
             </svg>
-        `;        
+        `;
 
-        var presentationModeOffElement = document.createElement("a");
-        presentationModeOffElement.id = "view-modes-presentation-mode-off";
-        presentationModeOffElement.innerHTML = `
+    var presentationModeOffElement = document.createElement("a");
+    presentationModeOffElement.id = "view-modes-presentation-mode-off";
+    presentationModeOffElement.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_531_2)">
               <path d="M250 18.75C250 8.39466 258.407 -0.0731739 268.733 0.702651C316.495 4.29108 362.368 21.5428 400.782 50.5891C444.196 83.4159 475.711 129.514 490.541 181.882C505.371 234.251 502.706 290.028 482.95 340.744C463.194 391.459 427.427 434.342 381.081 462.88C334.735 491.417 280.342 504.051 226.162 498.861C171.982 493.671 120.976 470.942 80.8905 434.125C40.8046 397.308 13.8288 348.415 4.05982 294.871C-4.58405 247.494 0.661715 198.766 18.9584 154.502C22.9142 144.932 34.2602 141.237 43.5069 145.898V145.898C52.7536 150.56 56.3863 161.811 52.5575 171.433C37.8633 208.359 33.7728 248.798 40.9508 288.141C49.2544 333.653 72.1839 375.212 106.257 406.506C140.33 437.801 183.685 457.12 229.738 461.532C275.79 465.943 322.025 455.205 361.419 430.948C400.813 406.691 431.215 370.24 448.007 327.132C464.8 284.024 467.065 236.613 454.46 192.1C441.854 147.587 415.067 108.404 378.165 80.5007C346.265 56.3801 308.314 41.8284 268.727 38.3265C258.412 37.4141 250 29.1053 250 18.75V18.75Z" fill="currentColor"/>
@@ -84,30 +105,35 @@ body:not(.view-modes-presentation-mode) #view-modes-presentation-mode-off {
             </svg>
         `;
 
-        body.insertBefore(zenModeOffElement, body.firstChild);
-        body.insertBefore(presentationModeOffElement, body.firstChild);
+    body.insertBefore(zenModeOffElement, body.firstChild);
+    body.insertBefore(presentationModeOffElement, body.firstChild);
 
-        const zenModeOff = document.getElementById('view-modes-zen-mode-off');
-        const presentationModeOff = document.getElementById('view-modes-presentation-mode-off');
+    const zenModeOff = document.getElementById("view-modes-zen-mode-off");
+    const presentationModeOff = document.getElementById(
+      "view-modes-presentation-mode-off"
+    );
 
-        zenModeOff?.addEventListener('click', () => {
-            deactivateZenMode();
-        });
-
-        presentationModeOff?.addEventListener('click', () => {
-            deactivatePresentationMode();
-        });
-
-        const zenModePositionStateMachine = new ZenModePositionStateMachine(config, zenModeOff);
-        zenModePositionStateMachine.updatePosition();
-
-        const presentationModePositionStateMachine = new PresentationModePositionStateMachine(config, presentationModeOff);
-        presentationModePositionStateMachine.updatePosition();
-
-        window.addEventListener('resize', () => {
-            zenModePositionStateMachine.updatePosition();
-            presentationModePositionStateMachine.updatePosition();
-        });
+    zenModeOff?.addEventListener("click", () => {
+      deactivateZenMode();
     });
+
+    presentationModeOff?.addEventListener("click", () => {
+      deactivatePresentationMode();
+    });
+
+    const zenModePositionStateMachine = new ZenModePositionStateMachine(
+      config,
+      zenModeOff
+    );
+    zenModePositionStateMachine.updatePosition();
+
+    const presentationModePositionStateMachine =
+      new PresentationModePositionStateMachine(config, presentationModeOff);
+    presentationModePositionStateMachine.updatePosition();
+
+    window.addEventListener("resize", () => {
+      zenModePositionStateMachine.updatePosition();
+      presentationModePositionStateMachine.updatePosition();
+    });
+  });
 </script>
-  
