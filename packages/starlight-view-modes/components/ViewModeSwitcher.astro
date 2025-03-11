@@ -129,13 +129,21 @@ const zenModePath = getUpdatedPath(currentMode, currentPathname, "zen-mode");
 </style>
 
 <script define:vars={{ zenModePath }}>
-  const zenModeLinks = document.querySelectorAll(
-    ".starlight-view-modes-switcher-a"
-  );
-  if (zenModeLinks.length > 0) {
-    const hash = window.location.hash;
-    zenModeLinks.forEach((link) => {
-      link.href = zenModePath + hash;
-    });
+  function updateZenModeLinks() {
+    const zenModeLinks = document.querySelectorAll(
+      ".starlight-view-modes-switcher-a"
+    );
+    if (zenModeLinks.length > 0) {
+      const hash = window.location.hash;
+      zenModeLinks.forEach((link) => {
+        link.href = zenModePath + hash;
+      });
+    }
   }
+
+  // Run on initial load
+  updateZenModeLinks();
+
+  // Update on hash change
+  window.addEventListener("hashchange", updateZenModeLinks);
 </script>
