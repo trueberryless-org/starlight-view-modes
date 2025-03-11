@@ -17,5 +17,5 @@ spec:
     spec:
       containers:
         - name: starlight-view-modes-overwork
-          image: "trueberryless/starlight-view-modes-overwork:0.0.2"
+          image: "trueberryless/starlight-view-modes-overwork:0.0.3"
           imagePullPolicy: Always
