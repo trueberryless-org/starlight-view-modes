@@ -28,13 +28,19 @@ export function rehypePrefixInternalLinks() {
 
 export const processedHtml = async (
   contentHtml: string,
-  rehypeFunction: any
+  ...rehypeFunctions: any[]
 ) => {
-  const processedHtml = await unified()
-    .use(rehypeParse, { fragment: true })
-    .use(rehypeFunction)
-    .use(rehypeStringify)
-    .process(contentHtml);
+  let processor = unified().use(rehypeParse, { fragment: true });
+
+  // Apply all the rehype functions in the order they are passed
+  for (const rehypeFunction of rehypeFunctions) {
+    processor = processor.use(rehypeFunction);
+  }
+
+  // Add the final stringify step
+  const finalProcessor = processor.use(rehypeStringify);
+
+  const processedHtml = await finalProcessor.process(contentHtml);
 
   return processedHtml.toString();
 };

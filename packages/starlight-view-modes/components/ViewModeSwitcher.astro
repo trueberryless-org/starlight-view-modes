@@ -1,4 +1,5 @@
 ---
+import { getUpdatedPath } from "../libs/path";
 import { currentModeKey } from "../libs/shared";
 import { isExcludedPage } from "../libs/utils";
 import Icon from "./Icon.astro";
@@ -12,15 +13,6 @@ interface Props {
 }
 const { type } = Astro.props;
 
-const getUpdatedPath = (currentPathname: string, mode: string) => {
-  const updatedPath =
-    currentMode === mode
-      ? currentPathname.replace(new RegExp(`^/${mode}`), "") || "/"
-      : `/${mode}${currentPathname}`;
-
-  return updatedPath;
-};
-
 const currentPathname = Astro.url.pathname;
 const excludePage = isExcludedPage(
   currentPathname,
@@ -28,7 +20,7 @@ const excludePage = isExcludedPage(
 );
 
 const atLeastOneModeEnabled = config.zenModeSettings.enabled;
-const zenModePath = getUpdatedPath(currentPathname, "zen-mode");
+const zenModePath = getUpdatedPath(currentMode, currentPathname, "zen-mode");
 ---
 
 <!-- Icon paths from: https://iconmonstr.com/ -->{

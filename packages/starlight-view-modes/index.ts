@@ -41,6 +41,12 @@ export default function starlightViewModes(
             ...overrideStarlightComponent(
               starlightConfig.components,
               logger,
+              "Search" /* Override because should stay in zen-mode for all search results */,
+              "Search"
+            ),
+            ...overrideStarlightComponent(
+              starlightConfig.components,
+              logger,
               "SocialIcons",
               "SocialIcons"
             ),

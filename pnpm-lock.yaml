@@ -65,9 +65,15 @@ importers:
 
   packages/starlight-view-modes:
     dependencies:
+      '@pagefind/default-ui':
+        specifier: ^1.3.0
+        version: 1.3.0
       is-absolute-url:
         specifier: ^4.0.1
         version: 4.0.1
+      pagefind:
+        specifier: ^1.3.0
+        version: 1.3.0
       picomatch:
         specifier: ^4.0.2
         version: 4.0.2

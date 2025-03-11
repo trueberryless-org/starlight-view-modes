@@ -21,3 +21,16 @@ export function ensureTrailingSlash(path: string): string {
 
   return `${path}/`;
 }
+
+export const getUpdatedPath = (
+  currentMode: string,
+  currentPathname: string,
+  mode: string
+) => {
+  const updatedPath =
+    currentMode === mode
+      ? currentPathname.replace(new RegExp(`^/${mode}`), "") || "/"
+      : `/${mode}${currentPathname}`;
+
+  return updatedPath;
+};
