@@ -33,7 +33,7 @@ const zenModePath = getUpdatedPath(currentMode, currentPathname, "zen-mode");
               {config.zenModeSettings.enabled && (
                 <a
                   href={zenModePath}
-                  class="sl-flex starlight-view-modes-social-link-a"
+                  class="sl-flex starlight-view-modes-social-link-a starlight-view-modes-switcher-a"
                 >
                   <span class="sr-only">
                     Switch to{" "}
@@ -74,7 +74,10 @@ const zenModePath = getUpdatedPath(currentMode, currentPathname, "zen-mode");
                     <ul>
                       {config.zenModeSettings.enabled && (
                         <li>
-                          <a href={zenModePath}>
+                          <a
+                            href={zenModePath}
+                            class="starlight-view-modes-switcher-a"
+                          >
                             Switch to{" "}
                             {currentMode === "zen-mode"
                               ? "Normal Mode"
@@ -124,3 +127,15 @@ const zenModePath = getUpdatedPath(currentMode, currentPathname, "zen-mode");
     display: block;
   }
 </style>
+
+<script define:vars={{ zenModePath }}>
+  const zenModeLinks = document.querySelectorAll(
+    ".starlight-view-modes-switcher-a"
+  );
+  if (zenModeLinks.length > 0) {
+    const hash = window.location.hash;
+    zenModeLinks.forEach((link) => {
+      link.href = zenModePath + hash;
+    });
+  }
+</script>
