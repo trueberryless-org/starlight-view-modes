@@ -7,7 +7,6 @@ import {
 } from "./libs/config";
 import { vitePluginStarlightViewModesConfig } from "./libs/vite";
 import { overrideStarlightComponent } from "./libs/starlight";
-import { rehypePrefixInternalLinks } from "./libs/rehype";
 
 export type { StarlightViewModesConfig, StarlightViewModesUserConfig };
 

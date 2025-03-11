@@ -1,5 +1,6 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
 import { getCurrentMode } from "./libs/sidebar";
+import { currentModeKey } from "./libs/shared";
 
 export const onRequest = defineRouteMiddleware((context) => {
   const { starlightRoute } = context.locals;
@@ -8,5 +9,6 @@ export const onRequest = defineRouteMiddleware((context) => {
   const currentMode = getCurrentMode(id, sidebar, pagination);
   starlightRoute.sidebar = currentMode.sidebar;
   starlightRoute.pagination = currentMode.pagination;
-  starlightRoute.currentMode = currentMode.mode;
+
+  starlightRoute[currentModeKey] = currentMode.mode;
 });

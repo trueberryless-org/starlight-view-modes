@@ -68,7 +68,10 @@ if (image) {
 {
   !darkImage && !lightImage && !rawImageHtml && (
     <StarlightPage
-      frontmatter={remarkPluginFrontmatter}
+      frontmatter={{
+        ...(remarkPluginFrontmatter as any),
+        pagefind: false,
+      }}
       headings={headings}
       hasSidebar={hasSidebar}
     >
@@ -92,6 +95,7 @@ if (image) {
             light: lightImage,
           },
         },
+        pagefind: false,
       }}
       headings={headings}
       hasSidebar={hasSidebar}
@@ -115,6 +119,7 @@ if (image) {
             file: darkImage,
           },
         },
+        pagefind: false,
       }}
       headings={headings}
       hasSidebar={hasSidebar}
@@ -138,6 +143,7 @@ if (image) {
             html: rawImageHtml,
           },
         },
+        pagefind: false,
       }}
       headings={headings}
       hasSidebar={hasSidebar}
