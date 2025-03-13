@@ -1,12 +1,10 @@
-import { defineConfig } from "astro/config";
+import node from "@astrojs/node";
 import starlight from "@astrojs/starlight";
-
-import starlightViewModes from "starlight-view-modes";
+import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
+import { defineConfig } from "astro/config";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightPluginShowLatestVersion from "starlight-plugin-show-latest-version";
-import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
-
-import node from "@astrojs/node";
+import starlightViewModes from "starlight-view-modes";
 
 // https://astro.build/config
 export default defineConfig({
