@@ -1,6 +1,6 @@
 {
   "name": "starlight-view-modes-docs",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "astro": "astro",
