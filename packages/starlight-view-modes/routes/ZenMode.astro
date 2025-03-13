@@ -1,14 +1,6 @@
 ---
-<<<<<<< HEAD
-import type { GetStaticPaths } from 'astro';
-import { getCollection, render } from 'astro:content';
-import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import config from 'virtual:starlight-view-modes-config';
-import { getClassNameZenMode, handleIndexSlug, isExcludedPage } from '../libs/utils';
-import { splitPathnameIntoLocaleAndPath } from '../libs/i18n';
-=======
 import type { GetStaticPaths } from "astro";
-import { getCollection, render, type CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import config from "virtual:starlight-view-modes-config";
 import {
@@ -16,9 +8,7 @@ import {
   handleIndexSlug,
   isExcludedPage,
 } from "../libs/utils";
-import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
-import isAbsoluteUrl from "is-absolute-url";
->>>>>>> main
+import { splitPathnameIntoLocaleAndPath } from "../libs/i18n";
 
 export const getStaticPaths = (async () => {
   const pages = await getCollection("docs");
