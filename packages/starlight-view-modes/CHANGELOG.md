@@ -2,6 +2,8 @@
 
 ## 0.8.0
 
+Thanks to [@HiDeoo](https://github.com/HiDeoo) for reviewing the upgrade and overwork PR and ensuring everything works smoothly with no missing elements or logic! 🚀
+
 ### Minor Changes
 
 - [#19](https://github.com/trueberryless-org/starlight-view-modes/pull/19) [`a16ce2e`](https://github.com/trueberryless-org/starlight-view-modes/commit/a16ce2ecafcdb557402b7390ae2531a84de03554) Thanks [@trueberryless](https://github.com/trueberryless)! - > ⚠️ **DISCLAIMER:** This plugin has been overworked completely and now works very different under the hoods. These has many benefits, like huge performance improvements because there is no more JavaScript, but there are still some things which are not supported in this release, namely **multilingual websites**.
