@@ -17,5 +17,5 @@ spec:
     spec:
       containers:
         - name: starlight-view-modes
-          image: "trueberryless/starlight-view-modes:0.0.2"
+          image: "trueberryless/starlight-view-modes:0.1.0"
           imagePullPolicy: Always
