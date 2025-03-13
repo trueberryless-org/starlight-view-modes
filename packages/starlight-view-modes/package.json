@@ -44,10 +44,10 @@
   "homepage": "https://starlight-view-modes.trueberryless.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trueberryless/starlight-view-modes.git",
+    "url": "https://github.com/trueberryless-org/starlight-view-modes.git",
     "directory": "packages/starlight-view-modes"
   },
-  "bugs": "https://github.com/trueberryless/starlight-view-modes/issues",
+  "bugs": "https://github.com/trueberryless-org/starlight-view-modes/issues",
   "dependencies": {
     "@pagefind/default-ui": "^1.3.0",
     "is-absolute-url": "^4.0.1",
