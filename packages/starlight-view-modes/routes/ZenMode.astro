@@ -1,0 +1,167 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import config from "virtual:starlight-view-modes-config";
+import {
+  getClassNameZenMode,
+  handleIndexSlug,
+  isExcludedPage,
+} from "../libs/utils";
+import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
+import isAbsoluteUrl from "is-absolute-url";
+
+export const getStaticPaths = (async () => {
+  const pages = await getCollection("docs");
+
+  const paths = pages.map((page: CollectionEntry<"docs">) => {
+    if (isExcludedPage(page.id, config.zenModeSettings.exclude)) return;
+    return {
+      params: { path: handleIndexSlug(page.id) },
+      props: { entry: page },
+    };
+  });
+
+  return paths;
+}) satisfies GetStaticPaths;
+
+export const prerender = true;
+
+const { entry } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await render(entry);
+
+const { hasSidebar } = remarkPluginFrontmatter;
+
+if (remarkPluginFrontmatter.hero?.actions) {
+  for (const action of remarkPluginFrontmatter.hero.actions) {
+    if (!isAbsoluteUrl(action.link)) {
+      action.link = `/zen-mode${action.link}`;
+    }
+  }
+}
+
+const zenModeFileName = getClassNameZenMode(
+  config.zenModeSettings.displayOptions
+);
+import.meta.glob("../styles/zen-mode/*.css");
+
+let classes = [
+  zenModeFileName,
+  !config.zenModeSettings.displayOptions.showHeader &&
+    "starlight-view-modes-zen-mode-no-header",
+  !config.zenModeSettings.displayOptions.showSidebar &&
+    "starlight-view-modes-zen-mode-no-sidebar",
+  !config.zenModeSettings.displayOptions.showTableOfContents &&
+    "starlight-view-modes-zen-mode-no-table-of-contents",
+  !config.zenModeSettings.displayOptions.showFooter &&
+    "starlight-view-modes-zen-mode-no-footer",
+].filter(Boolean);
+
+let darkImage: ImageMetadata | undefined;
+let lightImage: ImageMetadata | undefined;
+let rawImageHtml: string | undefined;
+const image = entry.data.hero?.image;
+
+if (image) {
+  if ("file" in image) {
+    darkImage = image.file;
+  } else if ("dark" in image) {
+    darkImage = image.dark;
+    lightImage = image.light;
+  } else {
+    rawImageHtml = image.html;
+  }
+}
+---
+
+{
+  !darkImage && !lightImage && !rawImageHtml && (
+    <StarlightPage
+      frontmatter={{
+        ...(remarkPluginFrontmatter as any),
+        pagefind: false,
+      }}
+      headings={headings}
+      hasSidebar={hasSidebar}
+    >
+      <div class:list={classes}>
+        <RenderHtmlWithRehype>
+          <Content />
+        </RenderHtmlWithRehype>
+      </div>
+    </StarlightPage>
+  )
+}
+{
+  darkImage && lightImage && (
+    <StarlightPage
+      frontmatter={{
+        ...(remarkPluginFrontmatter as any),
+        hero: {
+          ...remarkPluginFrontmatter.hero,
+          image: {
+            dark: darkImage,
+            light: lightImage,
+          },
+        },
+        pagefind: false,
+      }}
+      headings={headings}
+      hasSidebar={hasSidebar}
+    >
+      <div class:list={classes}>
+        <RenderHtmlWithRehype>
+          <Content />
+        </RenderHtmlWithRehype>
+      </div>
+    </StarlightPage>
+  )
+}
+{
+  darkImage && !lightImage && (
+    <StarlightPage
+      frontmatter={{
+        ...(remarkPluginFrontmatter as any),
+        hero: {
+          ...remarkPluginFrontmatter.hero,
+          image: {
+            file: darkImage,
+          },
+        },
+        pagefind: false,
+      }}
+      headings={headings}
+      hasSidebar={hasSidebar}
+    >
+      <div class:list={classes}>
+        <RenderHtmlWithRehype>
+          <Content />
+        </RenderHtmlWithRehype>
+      </div>
+    </StarlightPage>
+  )
+}
+{
+  rawImageHtml && (
+    <StarlightPage
+      frontmatter={{
+        ...(remarkPluginFrontmatter as any),
+        hero: {
+          ...remarkPluginFrontmatter.hero,
+          image: {
+            html: rawImageHtml,
+          },
+        },
+        pagefind: false,
+      }}
+      headings={headings}
+      hasSidebar={hasSidebar}
+    >
+      <div class:list={classes}>
+        <RenderHtmlWithRehype>
+          <Content />
+        </RenderHtmlWithRehype>
+      </div>
+    </StarlightPage>
+  )
+}

@@ -1,0 +1,23 @@
+---
+const a11yAttrs = { "aria-hidden": "true" } as const;
+---
+
+<svg
+  {...a11yAttrs}
+  class={Astro.props.class}
+  width="16"
+  height="16"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+>
+  <slot />
+</svg>
+
+<style define:vars={{ "sl-icon-size": "1em" }}>
+  svg {
+    color: var(--sl-icon-color);
+    font-size: var(--sl-icon-size, 1em);
+    width: 1em;
+    height: 1em;
+  }
+</style>
