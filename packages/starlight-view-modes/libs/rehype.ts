@@ -1,8 +1,8 @@
-import { visit } from "unist-util-visit";
 import isAbsoluteUrl from "is-absolute-url";
-import { unified } from "unified";
 import rehypeParse from "rehype-parse";
 import rehypeStringify from "rehype-stringify";
+import { unified } from "unified";
+import { visit } from "unist-util-visit";
 
 export function rehypePrefixInternalLinks() {
   /**

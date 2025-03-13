@@ -1,6 +1,7 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
-import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import config from "virtual:starlight-view-modes-config";
+
+import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import { isExcludedPage } from "./utils";
 
 export function isSpecificMode(

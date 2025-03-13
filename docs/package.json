@@ -1,14 +1,13 @@
 {
   "name": "starlight-view-modes-docs",
-  "type": "module",
   "version": "0.0.2",
-  "packageManager": "pnpm@9.6.0",
+  "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "astro": "astro",
     "build": "astro check && astro build",
+    "dev": "astro dev",
     "preview": "astro preview",
-    "astro": "astro"
+    "start": "astro dev"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -23,5 +22,6 @@
     "starlight-plugin-show-latest-version": "^0.5.0",
     "starlight-view-modes": "workspace:*",
     "typescript": "^5.4.5"
-  }
+  },
+  "packageManager": "pnpm@9.6.0"
 }
