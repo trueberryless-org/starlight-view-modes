@@ -2,11 +2,11 @@ import type { StarlightPlugin } from "@astrojs/starlight/types";
 
 import {
   type StarlightViewModesConfig,
-  validateConfig,
   type StarlightViewModesUserConfig,
+  validateConfig,
 } from "./libs/config";
-import { vitePluginStarlightViewModesConfig } from "./libs/vite";
 import { overrideStarlightComponent } from "./libs/starlight";
+import { vitePluginStarlightViewModesConfig } from "./libs/vite";
 
 export type { StarlightViewModesConfig, StarlightViewModesUserConfig };
 
@@ -41,6 +41,12 @@ export default function starlightViewModes(
             ...overrideStarlightComponent(
               starlightConfig.components,
               logger,
+              "Search" /* Override because should stay in zen-mode for all search results */,
+              "Search"
+            ),
+            ...overrideStarlightComponent(
+              starlightConfig.components,
+              logger,
               "SocialIcons",
               "SocialIcons"
             ),
@@ -61,6 +67,9 @@ export default function starlightViewModes(
                 vite: {
                   plugins: [vitePluginStarlightViewModesConfig(config)],
                 },
+                // markdown: {
+                //   rehypePlugins: [rehypePrefixInternalLinks],
+                // },
               });
 
               if (config.zenModeSettings.enabled) {

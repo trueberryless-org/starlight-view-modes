@@ -1,5 +1,16 @@
 # starlight-view-modes-docs
 
+## 0.1.0
+
+### Minor Changes
+
+- [#19](https://github.com/trueberryless-org/starlight-view-modes/pull/19) [`a16ce2e`](https://github.com/trueberryless-org/starlight-view-modes/commit/a16ce2ecafcdb557402b7390ae2531a84de03554) Thanks [@trueberryless](https://github.com/trueberryless)! - Add [Node server adapter](https://docs.astro.build/en/guides/integrations-guide/node/) and [Starlight Plugin Show Latest Version](https://starlight-plugin-show-latest-version.trueberryless.org/).
+
+### Patch Changes
+
+- Updated dependencies [[`a16ce2e`](https://github.com/trueberryless-org/starlight-view-modes/commit/a16ce2ecafcdb557402b7390ae2531a84de03554), [`a16ce2e`](https://github.com/trueberryless-org/starlight-view-modes/commit/a16ce2ecafcdb557402b7390ae2531a84de03554), [`a16ce2e`](https://github.com/trueberryless-org/starlight-view-modes/commit/a16ce2ecafcdb557402b7390ae2531a84de03554)]:
+  - starlight-view-modes@0.8.0
+
 ## 0.0.2
 
 ### Patch Changes

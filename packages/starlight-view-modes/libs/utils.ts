@@ -1,5 +1,6 @@
-import type { StarlightViewModesConfig } from "./config";
 import picomatch from "picomatch";
+
+import type { StarlightViewModesConfig } from "./config";
 
 export function getClassNameZenMode(
   displayOptions: StarlightViewModesConfig["zenModeSettings"]["displayOptions"]
