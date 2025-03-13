@@ -1,5 +1,11 @@
 # starlight-view-modes-docs
 
+## 0.1.1
+
+### Patch Changes
+
+- [`e51a08d`](https://github.com/trueberryless-org/starlight-view-modes/commit/e51a08d849e45aa53f4cca8efd3050490cfad97c) Thanks [@trueberryless](https://github.com/trueberryless)! - Fix Dockerfile
+
 ## 0.1.0
 
 ### Minor Changes
