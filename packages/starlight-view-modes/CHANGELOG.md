@@ -1,5 +1,11 @@
 # starlight-view-modes
 
+## 0.8.1
+
+### Patch Changes
+
+- [#53](https://github.com/trueberryless-org/starlight-view-modes/pull/53) [`3358d48`](https://github.com/trueberryless-org/starlight-view-modes/commit/3358d480efa95c4d5c9c91d33abd7e6a2f3c3292) Thanks [@trueberryless](https://github.com/trueberryless)! - Add support for Astro's [base option](https://docs.astro.build/en/reference/configuration-reference/#base)
+
 ## 0.8.0
 
 Thanks to [@HiDeoo](https://github.com/HiDeoo) for reviewing the upgrade and overwork PR and ensuring everything works smoothly with no missing elements or logic! 🚀
