@@ -1,36 +1,19 @@
-<div align="center">
-  <h1>starlight-view-modes 🧘</h1>
-  <p>Starlight plugin adding view mode capabilities to your documentation website.</p>
-</div>
+# `starlight-view-modes`
 
-<div align="center">
-  <a href="https://github.com/trueberryless/starlight-view-modes/blob/main/LICENSE">
-    <img alt="License" src="https://badgen.net/github/license/trueberryless/starlight-view-modes" />
-  </a>
-  <br />
-</div>
+Add view mode capabilities to your documentation website. 
 
-## Star History
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5cb2b193-ebf9-48ff-8b4f-8f13f2e24957/deploy-status)](https://app.netlify.com/sites/starlight-view-modes/deploys)
 
-<a href="https://star-history.com/#trueberryless
-/starlight-view-modes&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=trueberryless/starlight-view-modes&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=trueberryless/starlight-view-modes&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=trueberryless/starlight-view-modes&type=Date" />
- </picture>
-</a>
+## Package
 
-## Getting Started
+If you are looking for the Starlight plugin package, you can find it in the [`packages/starlight-view-modes/`](/packages/starlight-view-modes/) directory.
 
-Want to get started immediately? Check out the [getting started guide](https://starlight-view-modes.trueberryless.org/getting-started/).
+## Project structure
 
-## Features
-
-A [Starlight](https://starlight.astro.build) plugin adding view mode capabilities to your documentation website.
+This project uses pnpm workspaces to develop a single Starlight plugin from the `packages/starlight-view-modes/` directory. A Starlight documentation site is also available in the `docs/` directory that is also used for testing and demonstrating the Starlight plugin.
 
 ## License
 
-Licensed under the MIT license, Copyright © trueberryless.
+Licensed under the MIT License, Copyright © trueberryless-org.
 
 See [LICENSE](/LICENSE) for more information.

@@ -5,10 +5,12 @@ import {
   type StarlightViewModesUserConfig,
   validateConfig,
 } from "./libs/config";
+import { currentModeKey } from "./libs/shared";
 import { overrideStarlightComponent } from "./libs/starlight";
 import { vitePluginStarlightViewModesConfig } from "./libs/vite";
 
 export type { StarlightViewModesConfig, StarlightViewModesUserConfig };
+export { currentModeKey };
 
 export default function starlightViewModes(
   userConfig?: StarlightViewModesUserConfig
@@ -22,6 +24,7 @@ export default function starlightViewModes(
         addIntegration,
         addRouteMiddleware,
         config: starlightConfig,
+        astroConfig,
         logger,
         updateConfig,
       }) {
@@ -65,7 +68,12 @@ export default function starlightViewModes(
             "astro:config:setup": ({ injectRoute, updateConfig }) => {
               updateConfig({
                 vite: {
-                  plugins: [vitePluginStarlightViewModesConfig(config)],
+                  plugins: [
+                    vitePluginStarlightViewModesConfig(config, {
+                      base: astroConfig.base,
+                      trailingSlash: astroConfig.trailingSlash,
+                    }),
+                  ],
                 },
                 // markdown: {
                 //   rehypePlugins: [rehypePrefixInternalLinks],

@@ -20,10 +20,14 @@
     "./styles/*.css": "./styles/*.css",
     "./package.json": "./package.json"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
   "devDependencies": {
     "@astrojs/starlight": "^0.32.1",
-    "astro": "^5.3.1"
+    "astro": "^5.3.1",
+    "vitest": "^3.0.9"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.32"

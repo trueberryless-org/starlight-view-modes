@@ -2,11 +2,11 @@ import starlight from "@astrojs/starlight";
 import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
 import { defineConfig } from "astro/config";
 import starlightImageZoom from "starlight-image-zoom";
-import starlightLinksValidator from "starlight-links-validator";
 import starlightViewModes from "starlight-view-modes";
 
 // https://astro.build/config
 export default defineConfig({
+  base: "/my-website",
   integrations: [
     starlight({
       title: "Starlight View Modes",
@@ -24,7 +24,6 @@ export default defineConfig({
           "https://github.com/trueberryless/starlight-view-modes/edit/main/docs/",
       },
       plugins: [
-        starlightLinksValidator(),
         starlightPluginsDocsComponents({
           pluginName: "starlight-view-modes",
           showcaseProps: {

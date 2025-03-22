@@ -10,6 +10,8 @@ import {
 } from "../libs/utils";
 import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
 import isAbsoluteUrl from "is-absolute-url";
+import { getCurrentModeFromPath } from "../libs/mode";
+import { appendModePathname } from "../libs/modeClient";
 
 export const getStaticPaths = (async () => {
   const pages = await getCollection("docs");
@@ -30,12 +32,14 @@ export const prerender = true;
 const { entry } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(entry);
 
+await getCurrentModeFromPath(Astro.url.pathname);
+
 const { hasSidebar } = remarkPluginFrontmatter;
 
 if (remarkPluginFrontmatter.hero?.actions) {
   for (const action of remarkPluginFrontmatter.hero.actions) {
     if (!isAbsoluteUrl(action.link)) {
-      action.link = `/zen-mode${action.link}`;
+      action.link = appendModePathname(action.link, "zen-mode");
     }
   }
 }

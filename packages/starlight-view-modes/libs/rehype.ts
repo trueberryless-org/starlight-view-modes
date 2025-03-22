@@ -4,6 +4,8 @@ import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 
+import { appendModePathname } from "./modeClient";
+
 export function rehypePrefixInternalLinks() {
   /**
    * @param {Root} tree
@@ -19,7 +21,7 @@ export function rehypePrefixInternalLinks() {
         // Check if the link is internal
         if (!isAbsoluteUrl(href)) {
           // Prefix the internal link with '/mode'
-          node.properties.href = `/zen-mode` + href;
+          node.properties.href = appendModePathname(href, "zen-mode");
         }
       }
     });
