@@ -50,6 +50,9 @@ importers:
       starlight-image-zoom:
         specifier: ^0.5.0
         version: 0.5.0(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))
+      starlight-links-validator:
+        specifier: ^0.14.3
+        version: 0.14.3(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))
       starlight-package-managers:
         specifier: ^0.6.0
         version: 0.6.0(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))
@@ -880,6 +883,9 @@ packages:
 
   '@types/node@17.0.45':
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+
+  '@types/picomatch@3.0.2':
+    resolution: {integrity: sha512-n0i8TD3UDB7paoMMxA3Y65vUncFJXjcUf7lQY7YyKGl6031FNjfsLs6pdLFCy2GNFxItPJG8GvvpbZc2skH7WA==}
 
   '@types/sax@1.2.7':
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
@@ -2486,6 +2492,12 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.22.0'
 
+  starlight-links-validator@0.14.3:
+    resolution: {integrity: sha512-2CvQs0ZdIVExrEQ1bn0r2aFx4n+VSOb6vDWK+gTNb5N1c+nXJ7VjUbEsQhj+9Lb7XgY6Nxqz9JXUM9364hJ3ZA==}
+    engines: {node: '>=18.17.1'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.15.0'
+
   starlight-package-managers@0.6.0:
     resolution: {integrity: sha512-2tE0B4ZVEZXZ1LJjcSvVXLfJP8SB2nE+nhiFgSa3fuHUPtnbzmFxLVp7jEKD8jaMXKWPYtlNTy95gJSK9W1sbQ==}
     engines: {node: '>=18.14.1'}
@@ -3955,6 +3967,8 @@ snapshots:
   '@types/node@12.20.55': {}
 
   '@types/node@17.0.45': {}
+
+  '@types/picomatch@3.0.2': {}
 
   '@types/sax@1.2.7':
     dependencies:
@@ -6295,6 +6309,22 @@ snapshots:
       rehype-raw: 7.0.0
       unist-util-visit: 5.0.0
       unist-util-visit-parents: 6.0.1
+
+  starlight-links-validator@0.14.3(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))):
+    dependencies:
+      '@astrojs/starlight': 0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))
+      '@types/picomatch': 3.0.2
+      github-slugger: 2.0.0
+      hast-util-from-html: 2.0.3
+      hast-util-has-property: 3.0.0
+      is-absolute-url: 4.0.1
+      kleur: 4.1.5
+      mdast-util-mdx-jsx: 3.2.0
+      mdast-util-to-string: 4.0.0
+      picomatch: 4.0.2
+      unist-util-visit: 5.0.0
+    transitivePeerDependencies:
+      - supports-color
 
   starlight-package-managers@0.6.0(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)):
     dependencies:
