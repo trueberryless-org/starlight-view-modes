@@ -1,5 +1,5 @@
 {
-  "name": "starlight-view-modes-docs",
+  "name": "@starlight-view-modes-tests/base-option",
   "version": "0.1.1",
   "type": "module",
   "scripts": {
