@@ -2,8 +2,10 @@
 import "@pagefind/default-ui/css/ui.css";
 import { Icon } from "@astrojs/starlight/components";
 import project from "virtual:starlight/project-context";
-import { currentModeKey } from "../../libs/shared";
-const currentMode = Astro.locals.starlightRoute[currentModeKey];
+import { getCurrentMode } from "../../libs/mode";
+
+const currentPathname = Astro.url.pathname;
+const currentMode = await getCurrentMode(currentPathname);
 
 const pagefindTranslations = {
   placeholder: Astro.locals.t("search.label"),
@@ -87,6 +89,7 @@ if (project.trailingSlash === "never")
 
 <script>
   import { pagefindUserConfig } from "virtual:starlight/pagefind-config";
+  import { appendModePathname } from "../../libs/modeClient";
 
   class SiteSearch extends HTMLElement {
     constructor() {
@@ -167,24 +170,23 @@ if (project.trailingSlash === "never")
             showImages: false,
             translations,
             showSubResults: true,
-            processResult: (result: {
+            processResult: async (result: {
               url: string;
               sub_results: Array<{ url: string }>;
             }) => {
-              if (this.dataset.mode == "default") {
-                result.url = formatURL(result.url);
-                result.sub_results = result.sub_results.map((sub_result) => {
-                  sub_result.url = formatURL(sub_result.url);
+              result.url = await appendModePathname(
+                formatURL(result.url),
+                this.dataset.mode ?? "default"
+              );
+              result.sub_results = await Promise.all(
+                result.sub_results.map(async (sub_result) => {
+                  sub_result.url = await appendModePathname(
+                    formatURL(sub_result.url),
+                    this.dataset.mode ?? "default"
+                  );
                   return sub_result;
-                });
-              }
-              if (this.dataset.mode == "zen-mode") {
-                result.url = "/zen-mode" + formatURL(result.url);
-                result.sub_results = result.sub_results.map((sub_result) => {
-                  sub_result.url = "/zen-mode" + formatURL(sub_result.url);
-                  return sub_result;
-                });
-              }
+                })
+              );
             },
           });
         });

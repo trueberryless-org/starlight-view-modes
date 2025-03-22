@@ -10,6 +10,7 @@ import {
 } from "../libs/utils";
 import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
 import isAbsoluteUrl from "is-absolute-url";
+import { getCurrentMode } from "../libs/mode";
 
 export const getStaticPaths = (async () => {
   const pages = await getCollection("docs");
@@ -29,6 +30,8 @@ export const prerender = true;
 
 const { entry } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(entry);
+
+await getCurrentMode(Astro.url.pathname);
 
 const { hasSidebar } = remarkPluginFrontmatter;
 

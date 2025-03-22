@@ -1,5 +1,6 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
 
+import { appendModePathname } from "./libs/modeClient";
 import { currentModeKey } from "./libs/shared";
 import { getCurrentMode } from "./libs/sidebar";
 
@@ -14,5 +15,8 @@ export const onRequest = defineRouteMiddleware((context) => {
   starlightRoute[currentModeKey] = currentMode.mode;
 
   if (currentMode.mode !== "default")
-    starlightRoute.siteTitleHref = `/${currentMode.mode}${siteTitleHref}`;
+    starlightRoute.siteTitleHref = appendModePathname(
+      siteTitleHref,
+      currentMode.mode
+    );
 });

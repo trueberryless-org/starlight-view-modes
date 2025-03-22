@@ -1,26 +1,28 @@
 ---
-import { getUpdatedPath } from "../libs/path";
-import { currentModeKey } from "../libs/shared";
+import { getCurrentMode, getUpdatedModePathname } from "../libs/mode";
 import { isExcludedPage } from "../libs/utils";
 import Icon from "./Icon.astro";
 import config from "virtual:starlight-view-modes-config";
 const { toc } = Astro.locals.starlightRoute;
 
-const currentMode = Astro.locals.starlightRoute[currentModeKey];
+const currentPathname = Astro.url.pathname;
+const currentMode = await getCurrentMode(currentPathname);
 
 interface Props {
   type: "social-links" | "table-of-contents";
 }
 const { type } = Astro.props;
 
-const currentPathname = Astro.url.pathname;
 const excludePage = isExcludedPage(
   currentPathname,
   config.zenModeSettings.exclude
 );
 
 const atLeastOneModeEnabled = config.zenModeSettings.enabled;
-const zenModePath = getUpdatedPath(currentMode, currentPathname, "zen-mode");
+const zenModePath = await getUpdatedModePathname(
+  currentPathname,
+  currentMode == "default" ? "zen-mode" : "default"
+);
 ---
 
 <!-- Icon paths from: https://iconmonstr.com/ -->{

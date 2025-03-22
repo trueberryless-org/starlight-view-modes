@@ -8,6 +8,7 @@ import starlightViewModes from "starlight-view-modes";
 
 // https://astro.build/config
 export default defineConfig({
+  base: "/my-website",
   integrations: [
     starlight({
       title: "Starlight View Modes",
@@ -74,7 +75,6 @@ export default defineConfig({
           items: [
             { label: "Getting Started", link: "/getting-started/" },
             { label: "Configuration", link: "/configuration/" },
-            { label: "Demo", link: "/demo/" },
           ],
         },
       ],
