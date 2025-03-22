@@ -27,39 +27,6 @@ importers:
         specifier: 5.4.2
         version: 5.4.2
 
-  base-option:
-    dependencies:
-      '@astrojs/check':
-        specifier: ^0.9.4
-        version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.2)
-      '@astrojs/starlight':
-        specifier: ^0.32.1
-        version: 0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))
-      '@hideoo/starlight-plugins-docs-components':
-        specifier: ^0.2.2
-        version: 0.2.2(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))
-      '@trueberryless-org/starlight-plugins-docs-components':
-        specifier: ^0.4.1
-        version: 0.4.1(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))
-      astro:
-        specifier: ^5.3.1
-        version: 5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)
-      sharp:
-        specifier: ^0.32.5
-        version: 0.32.6
-      starlight-image-zoom:
-        specifier: ^0.5.0
-        version: 0.5.0(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))
-      starlight-package-managers:
-        specifier: ^0.6.0
-        version: 0.6.0(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))
-      starlight-view-modes:
-        specifier: workspace:*
-        version: link:../packages/starlight-view-modes
-      typescript:
-        specifier: ^5.4.5
-        version: 5.8.2
-
   docs:
     dependencies:
       '@astrojs/check':
@@ -129,6 +96,39 @@ importers:
       vitest:
         specifier: ^3.0.9
         version: 3.0.9(@types/debug@4.1.12)(yaml@2.5.1)
+
+  packages/starlight-view-modes/tests/fixtures/base-option:
+    dependencies:
+      '@astrojs/check':
+        specifier: ^0.9.4
+        version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.2)
+      '@astrojs/starlight':
+        specifier: ^0.32.1
+        version: 0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))
+      '@hideoo/starlight-plugins-docs-components':
+        specifier: ^0.2.2
+        version: 0.2.2(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))
+      '@trueberryless-org/starlight-plugins-docs-components':
+        specifier: ^0.4.1
+        version: 0.4.1(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))
+      astro:
+        specifier: ^5.3.1
+        version: 5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)
+      sharp:
+        specifier: ^0.32.5
+        version: 0.32.6
+      starlight-image-zoom:
+        specifier: ^0.5.0
+        version: 0.5.0(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))
+      starlight-package-managers:
+        specifier: ^0.6.0
+        version: 0.6.0(@astrojs/starlight@0.32.2(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1)))(astro@5.4.1(rollup@4.34.8)(typescript@5.8.2)(yaml@2.5.1))
+      starlight-view-modes:
+        specifier: workspace:*
+        version: link:../../..
+      typescript:
+        specifier: ^5.4.5
+        version: 5.8.2
 
 packages:
 
