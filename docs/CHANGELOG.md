@@ -1,5 +1,12 @@
 # starlight-view-modes-docs
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`3358d48`](https://github.com/trueberryless-org/starlight-view-modes/commit/3358d480efa95c4d5c9c91d33abd7e6a2f3c3292)]:
+  - starlight-view-modes@0.8.1
+
 ## 0.1.1
 
 ### Patch Changes
