@@ -2,6 +2,8 @@
 
 Add view mode capabilities to your documentation website. 
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5cb2b193-ebf9-48ff-8b4f-8f13f2e24957/deploy-status)](https://app.netlify.com/sites/starlight-view-modes/deploys)
+
 ## Package
 
 If you are looking for the Starlight plugin package, you can find it in the [`packages/starlight-view-modes/`](/packages/starlight-view-modes/) directory.
