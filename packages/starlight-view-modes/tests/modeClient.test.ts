@@ -11,9 +11,82 @@ function mockAstroConfigBase(base: string = "", trailingSlash: "never" | "always
 async function importAppendModePathname() {
   return (await import("../libs/modeClient")).appendModePathname;
 }
+async function importGetCurrentModeFromPath() {
+  return (await import("../libs/modeClient")).getCurrentModeFromPath;
+}
 
 afterEach(() => {
   vi.resetModules();
+});
+
+describe("getCurrentModeFromPath", () => {
+  test("returns 'default' when no mode is present", async () => {
+    mockAstroConfigBase("");
+
+    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+
+    expect(await getCurrentModeFromPath("/docs")).toBe("default");
+    expect(await getCurrentModeFromPath("/docs/intro")).toBe("default");
+    expect(await getCurrentModeFromPath("/")).toBe("default");
+  });
+
+  test("returns the correct mode when a mode is present", async () => {
+    mockAstroConfigBase("");
+
+    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+
+    expect(await getCurrentModeFromPath("/zen-mode/intro")).toBe("zen-mode");
+    // expect(await getCurrentModeFromPath("/presentation-mode/guide")).toBe("presentation-mode");
+  });
+
+  test("returns 'default' when the mode is not in AVAILABLE_MODES", async () => {
+    mockAstroConfigBase("");
+
+    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+
+    expect(await getCurrentModeFromPath("/invalid-mode/intro")).toBe("default");
+  });
+
+  test("handles cases where base is '/docs'", async () => {
+    mockAstroConfigBase("/docs");
+
+    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+
+    expect(await getCurrentModeFromPath("/docs/zen-mode/intro")).toBe(
+      "zen-mode"
+    );
+    // expect(await getCurrentModeFromPath("/docs/presentation-mode/guide")).toBe("presentation-mode");
+    expect(await getCurrentModeFromPath("/docs/intro")).toBe("default");
+  });
+
+  test("returns 'default' when the base is set but the mode is not at the start", async () => {
+    mockAstroConfigBase("/docs");
+
+    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+
+    expect(await getCurrentModeFromPath("/notdocs/zen-mode/intro")).toBe(
+      "default"
+    );
+  });
+
+  test("handles trailing and leading slashes correctly", async () => {
+    mockAstroConfigBase("/docs");
+
+    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+
+    expect(await getCurrentModeFromPath("/docs/zen-mode/")).toBe("zen-mode");
+    expect(await getCurrentModeFromPath("/docs/zen-mode")).toBe("zen-mode");
+  });
+
+  test("returns 'default' when the mode is not at the start of the slug", async () => {
+    mockAstroConfigBase("/docs");
+
+    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+
+    expect(await getCurrentModeFromPath("/docs/intro/zen-mode")).toBe(
+      "default"
+    );
+  });
 });
 
 describe("appendModePathname", () => {

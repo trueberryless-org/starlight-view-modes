@@ -1,32 +1,25 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import config from "virtual:starlight-view-modes-config";
 
+import { getCurrentModeFromPath } from "./mode";
 import { appendModePathname } from "./modeClient";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import { isExcludedPage } from "./utils";
 
-export function isSpecificMode(
+export async function isSpecificMode(
   currentSlug: string,
-  sidebar: SidebarEntry[],
   mode: string
-): boolean {
-  // If user has their own e.g. "zen-mode" page, it doesn't count as zen-mode,
-  // because it's just the name of the page rather than a prefix.
-  const hrefs = flattenSidebar(sidebar).map((entry) =>
-    stripLeadingSlash(stripTrailingSlash(entry.href))
-  );
-  if (hrefs.some((href) => href.includes(currentSlug))) return false;
-
-  return currentSlug.startsWith(`${mode}`);
+): Promise<boolean> {
+  return (await getCurrentModeFromPath(currentSlug)) === mode;
 }
 
-export function getCurrentMode(
+export async function getCurrentMode(
   currentSlug: string,
   sidebar: SidebarEntry[],
   pagination: PaginationLinks
-): ViewMode {
+): Promise<ViewMode> {
   currentSlug = stripLeadingSlash(stripTrailingSlash(currentSlug));
-  const isZenMode = isSpecificMode(currentSlug, sidebar, "zen-mode");
+  const isZenMode = await isSpecificMode(currentSlug, "zen-mode");
 
   if (isZenMode) {
     const zenSidebar = modifySidebar(sidebar, currentSlug, "zen-mode");

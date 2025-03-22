@@ -1,12 +1,12 @@
 ---
-import { getCurrentMode, getUpdatedModePathname } from "../libs/mode";
+import { getCurrentModeFromPath, getUpdatedModePathname } from "../libs/mode";
 import { isExcludedPage } from "../libs/utils";
 import Icon from "./Icon.astro";
 import config from "virtual:starlight-view-modes-config";
 const { toc } = Astro.locals.starlightRoute;
 
 const currentPathname = Astro.url.pathname;
-const currentMode = await getCurrentMode(currentPathname);
+const currentMode = await getCurrentModeFromPath(currentPathname);
 
 interface Props {
   type: "social-links" | "table-of-contents";
