@@ -52,8 +52,8 @@ export default defineConfig({
             enabled: true,
             displayOptions: {
               showHeader: true,
-              showSidebar: false,
-              showTableOfContents: true,
+              showSidebar: true,
+              showTableOfContents: false,
               showFooter: true,
             },
             exclude: ["/resources/*"],
@@ -67,10 +67,12 @@ export default defineConfig({
           items: [
             { label: "Getting Started", link: "/getting-started/" },
             { label: "Configuration", link: "/configuration/" },
+            { label: "View Modes Data", link: "/view-modes-data/" },
           ],
         },
       ],
       credits: true,
+      routeMiddleware: "./src/routeData.ts",
     }),
   ],
 });

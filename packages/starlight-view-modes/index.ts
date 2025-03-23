@@ -5,12 +5,10 @@ import {
   type StarlightViewModesUserConfig,
   validateConfig,
 } from "./libs/config";
-import { currentModeKey } from "./libs/shared";
 import { overrideStarlightComponent } from "./libs/starlight";
 import { vitePluginStarlightViewModesConfig } from "./libs/vite";
 
 export type { StarlightViewModesConfig, StarlightViewModesUserConfig };
-export { currentModeKey };
 
 export default function starlightViewModes(
   userConfig?: StarlightViewModesUserConfig
@@ -30,6 +28,7 @@ export default function starlightViewModes(
       }) {
         addRouteMiddleware({
           entrypoint: "starlight-view-modes/middleware",
+          order: "pre",
         });
 
         updateConfig({

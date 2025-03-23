@@ -1,0 +1,56 @@
+---
+title: View Modes Data
+description: Learn how to use Starlight View Modes’ data to access information about view modes.
+tableOfContents:
+  maxHeadingLevel: 4
+---
+
+Starlight View Modes exposes information about the view modes in your project.
+This guide explains how to use Starlight View Modes’ data.
+
+## What is view modes data?
+
+Starlight View Modes data is an object containing the information about all the view modes in your project.
+It includes information like the currently active view mode.
+
+## Using view modes data
+
+The `currentMode` field contains the currently active view mode.
+
+You can access this data from the `Astro.locals.starlightViewModes` global in Astro components:
+
+```astro title="example.astro"
+---
+const { currentMode } = Astro.locals.starlightViewModes
+//          ^ The currently active view mode
+---
+```
+
+This can be useful for example to conditionally render content based on the active view mode.
+
+import { Preview } from '@hideoo/starlight-plugins-docs-components'
+import ViewModesDataExample from '../../components/ViewModesDataExample.astro'
+
+<Preview>
+
+```astro title="ActiveViewMode.astro" "Astro.locals.starlightViewModes.currentMode"
+<p>{Astro.locals.starlightViewModes.currentMode}</p>
+```
+
+<Fragment slot="preview">
+
+<ViewModesDataExample />
+
+</Fragment>
+
+</Preview>
+
+## `starlightViewModes`
+
+The `starlightViewModes` object has the following properties:
+
+### `currentMode`
+
+**Type:** `string`
+
+The currently active view mode.
