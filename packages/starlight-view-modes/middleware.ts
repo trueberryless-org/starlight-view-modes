@@ -23,7 +23,6 @@ export const onRequest = defineRouteMiddleware(async (context) => {
 });
 
 function attachRouteData(context: APIContext, currentMode: ViewMode) {
-  // @ts-expect-error
   context.locals.starlightViewModes = getRouteData(currentMode);
 }
 
