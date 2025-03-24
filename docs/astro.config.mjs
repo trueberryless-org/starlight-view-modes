@@ -72,6 +72,7 @@ export default defineConfig({
         },
       ],
       credits: true,
+      routeMiddleware: "./src/routeData.ts",
     }),
   ],
 });

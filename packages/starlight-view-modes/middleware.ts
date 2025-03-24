@@ -1,33 +1,28 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
 import type { APIContext } from "astro";
 
-import type { StarlightViewModesRouteData } from "./data";
 import { appendModePathname } from "./libs/modeClient";
-import { type ViewMode, modifySidebarAndPagination } from "./libs/sidebar";
+import { getRouteData } from "./libs/modes";
+import { modifySidebarAndPagination } from "./libs/sidebar";
 
 export const onRequest = defineRouteMiddleware(async (context) => {
   const { starlightRoute } = context.locals;
   const { id, sidebar, pagination, siteTitleHref } = starlightRoute;
 
-  const currentMode = await modifySidebarAndPagination(id, sidebar, pagination);
-  starlightRoute.sidebar = currentMode.sidebar;
-  starlightRoute.pagination = currentMode.pagination;
+  await modifySidebarAndPagination(starlightRoute, id, sidebar, pagination);
+  await attachRouteData(context);
 
-  if (currentMode.mode !== "default")
+  const currentMode = context.locals.starlightViewModes.modes.find(
+    (mode) => mode.isCurrent
+  );
+
+  if (currentMode && currentMode.name !== "default")
     starlightRoute.siteTitleHref = appendModePathname(
       siteTitleHref,
-      currentMode.mode
+      currentMode.name
     );
-
-  attachRouteData(context, currentMode);
 });
 
-function attachRouteData(context: APIContext, currentMode: ViewMode) {
-  context.locals.starlightViewModes = getRouteData(currentMode);
-}
-
-function getRouteData(currentMode: ViewMode): StarlightViewModesRouteData {
-  return {
-    currentMode: currentMode.mode,
-  };
+async function attachRouteData(context: APIContext) {
+  context.locals.starlightViewModes = await getRouteData(context);
 }

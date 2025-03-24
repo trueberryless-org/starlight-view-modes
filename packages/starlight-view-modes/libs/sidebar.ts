@@ -15,28 +15,32 @@ export async function isSpecificMode(
 }
 
 export async function modifySidebarAndPagination(
+  starlightRoute: StarlightRouteData,
   currentSlug: string,
   sidebar: SidebarEntry[],
   pagination: PaginationLinks
-): Promise<ViewMode> {
+): Promise<void> {
   currentSlug = stripLeadingSlash(stripTrailingSlash(currentSlug));
   const isZenMode = await isSpecificMode(currentSlug, "zen-mode");
+
+  let currentMode = {
+    mode: "default",
+    sidebar,
+    pagination,
+  };
 
   if (isZenMode) {
     const zenSidebar = modifySidebar(sidebar, currentSlug, "zen-mode");
     const zenPagination = modifyPagination(pagination, zenSidebar, "zen-mode");
-    return {
+    currentMode = {
       mode: "zen-mode",
       sidebar: zenSidebar,
       pagination: zenPagination,
     };
   }
 
-  return {
-    mode: "default",
-    sidebar,
-    pagination,
-  };
+  starlightRoute.sidebar = currentMode.sidebar;
+  starlightRoute.pagination = currentMode.pagination;
 }
 
 function modifySidebar(
@@ -128,9 +132,3 @@ function excludeLink(
 type SidebarEntry = StarlightRouteData["sidebar"][number];
 type SidebarLink = Extract<SidebarEntry, { type: "link" }>;
 type PaginationLinks = StarlightRouteData["pagination"];
-
-export interface ViewMode {
-  mode: AvailableMode;
-  sidebar: SidebarEntry[];
-  pagination: PaginationLinks;
-}

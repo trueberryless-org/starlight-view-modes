@@ -41,13 +41,17 @@ export async function getUpdatedModePathname(
 
   // If switching back to "default", remove the current mode
   if (targetMode === "default") {
-    return pathname.replace(`${currentMode}/`, "");
+    return pathname.includes("/")
+      ? pathname.replace(`${currentMode}/`, "")
+      : pathname.replace(`${currentMode}`, "");
   }
 
   // If currently in a mode, remove it before inserting the new mode
   let cleanedPath = pathname;
   if (currentMode !== "default") {
-    cleanedPath = pathname.replace(`${currentMode}/`, "");
+    cleanedPath = pathname.includes("/")
+      ? pathname.replace(`${currentMode}/`, "")
+      : pathname.replace(`${currentMode}`, "");
   }
 
   return appendModePathname(cleanedPath, targetMode);
