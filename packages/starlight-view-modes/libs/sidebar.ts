@@ -1,6 +1,7 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import config from "virtual:starlight-view-modes-config";
 
+import type { AvailableMode } from "../constants";
 import { getCurrentModeFromPath } from "./mode";
 import { appendModePathname } from "./modeClient";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
@@ -129,7 +130,7 @@ type SidebarLink = Extract<SidebarEntry, { type: "link" }>;
 type PaginationLinks = StarlightRouteData["pagination"];
 
 export interface ViewMode {
-  mode: "zen-mode" | "default";
+  mode: AvailableMode;
   sidebar: SidebarEntry[];
   pagination: PaginationLinks;
 }

@@ -1,3 +1,4 @@
+/// <reference path="./locals.d.ts" />
 import type { StarlightPlugin } from "@astrojs/starlight/types";
 
 import {

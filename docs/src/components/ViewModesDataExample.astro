@@ -1,1 +1,5 @@
-<p>{Astro.locals.starlightViewModes.currentMode}</p>
+---
+const { currentMode } = Astro.locals.starlightViewModes;
+---
+
+<p>{currentMode}</p>

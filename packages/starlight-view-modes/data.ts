@@ -1,6 +1,4 @@
-import { AVAILABLE_MODES } from "./constants";
-
-export type AvailableMode = (typeof AVAILABLE_MODES)[number] | "default";
+import { type AvailableMode } from "./constants";
 
 export interface StarlightViewModesRouteData {
   /**
