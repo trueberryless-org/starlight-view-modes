@@ -1,11 +1,6 @@
 ---
-let currentMode = "default";
-
-try {
-  currentMode = Astro.locals.starlightViewModes.currentMode;
-} catch (e) {
-  console.error(e);
-}
+const { currentMode } = Astro.locals.starlightViewModes;
 ---
 
-<p>{currentMode}</p>
+{currentMode == "default" && <p>Normal Mode</p>}
+{currentMode == "zen-mode" && <p>Zen Mode</p>}

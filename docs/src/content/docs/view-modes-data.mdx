@@ -34,7 +34,12 @@ import ViewModesDataExample from '../../components/ViewModesDataExample.astro'
 <Preview>
 
 ```astro title="ActiveViewMode.astro" "Astro.locals.starlightViewModes.currentMode"
-<p>{Astro.locals.starlightViewModes.currentMode}</p>
+---
+const { currentMode } = Astro.locals.starlightViewModes;
+---
+
+{currentMode == "default" && <p>Normal Mode</p>}
+{currentMode == "zen-mode" && <p>Zen Mode</p>}
 ```
 
 <Fragment slot="preview">

@@ -15,6 +15,7 @@ import {
 import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
 import isAbsoluteUrl from "is-absolute-url";
 import { appendModePathname } from "../libs/modeClient";
+import Renderer from "../components/Renderer.astro";
 
 export const getStaticPaths = (async () => {
   const pages = await getCollection("docs");
@@ -37,14 +38,8 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export const prerender = true;
 
-try {
-  console.log(Astro.locals.starlightViewModes.currentMode);
-} catch (e) {
-  console.error(e);
-}
-
 const { entry } = Astro.props as Props;
-const { Content, headings, remarkPluginFrontmatter } = await render(entry);
+const { headings, remarkPluginFrontmatter } = await render(entry);
 
 const { hasSidebar } = remarkPluginFrontmatter;
 
@@ -102,7 +97,7 @@ if (image) {
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
-          <Content />
+          <Renderer {entry} />
         </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
@@ -127,7 +122,7 @@ if (image) {
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
-          <Content />
+          <Renderer {entry} />
         </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
@@ -151,7 +146,7 @@ if (image) {
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
-          <Content />
+          <Renderer {entry} />
         </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
@@ -175,7 +170,7 @@ if (image) {
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
-          <Content />
+          <Renderer {entry} />
         </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
