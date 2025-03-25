@@ -1,5 +1,17 @@
 # starlight-view-modes
 
+## 0.9.0
+
+### Minor Changes
+
+- [#60](https://github.com/trueberryless-org/starlight-view-modes/pull/60) [`bc9eb6b`](https://github.com/trueberryless-org/starlight-view-modes/commit/bc9eb6b31f7f2b22ac52bdc95d28aa448df5141d) Thanks [@trueberryless](https://github.com/trueberryless)! - Adds a route data object accessible on Starlight pages using `Astro.locals.starlightViewModes` containing information about all the modes available on the current page. This can be useful to create custom view modes switchers or just access additional data about the view modes.
+
+  See the [“View Modes Data” guide](https://starlight-view-modes.netlify.app/view-modes-data/) for more information.
+
+### Patch Changes
+
+- [#60](https://github.com/trueberryless-org/starlight-view-modes/pull/60) [`bc9eb6b`](https://github.com/trueberryless-org/starlight-view-modes/commit/bc9eb6b31f7f2b22ac52bdc95d28aa448df5141d) Thanks [@trueberryless](https://github.com/trueberryless)! - Fix sidebar showing elements that are excluded from mode
+
 ## 0.8.1
 
 ### Patch Changes
