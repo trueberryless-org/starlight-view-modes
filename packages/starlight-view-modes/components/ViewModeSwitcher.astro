@@ -15,9 +15,9 @@ const { type } = Astro.props;
     <>
       {modes.map((mode) => {
         if (mode.name === "default") return;
-        let href = mode.link;
+        let href = mode.href;
         if (mode.isCurrent)
-          href = modes.find((m) => m.name === "default")?.link!;
+          href = modes.find((m) => m.name === "default")?.href!;
         return (
           <a
             {href}
@@ -41,9 +41,9 @@ const { type } = Astro.props;
             <ul>
               {modes.map((mode) => {
                 if (mode.name === "default") return;
-                let href = mode.link;
+                let href = mode.href;
                 if (mode.isCurrent)
-                  href = modes.find((m) => m.name === "default")?.link!;
+                  href = modes.find((m) => m.name === "default")?.href!;
                 return (
                   <li>
                     <a {href} class={`starlight-view-modes-switcher-a`}>

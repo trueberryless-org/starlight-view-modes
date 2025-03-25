@@ -1,6 +1,11 @@
----
-const { currentMode } = Astro.locals.starlightViewModes;
----
-
-{currentMode == "default" && <p>Normal Mode</p>}
-{currentMode == "zen-mode" && <p>Zen Mode</p>}
+<ul>
+  {
+    Astro.locals.starlightViewModes.modes.slice(0, 5).map((mode) => (
+      <li>
+        <a href={mode.href} view-modes-ignore>
+          {mode.title}
+        </a>
+      </li>
+    ))
+  }
+</ul>

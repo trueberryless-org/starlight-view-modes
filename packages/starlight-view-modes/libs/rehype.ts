@@ -17,6 +17,11 @@ export function rehypePrefixInternalLinks() {
         node.properties &&
         typeof node.properties.href === "string"
       ) {
+        // Check if 'view-modes-ignore' is set
+        if ("view-modes-ignore" in node.properties) {
+          return;
+        }
+
         const href = node.properties.href;
         // Check if the link is internal
         if (!isAbsoluteUrl(href)) {

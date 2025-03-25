@@ -19,13 +19,11 @@ export async function getRouteData(
 
   let modes: StarlightViewModesRouteData["modes"] = [];
 
-  const currentModeData = AvailableModes.find(
-    (mode) => mode.name === currentMode
-  )!;
-  addMode(modes, currentModeData, id, true);
-
   for (const mode of AvailableModes) {
-    if (mode.name === currentMode) continue;
+    if (mode.name === currentMode) {
+      addMode(modes, mode, id, true);
+      continue;
+    }
     if (mode.name !== "default" && noDefault(mode).enabled === false) continue;
     if (
       mode.name !== "default" &&
@@ -53,14 +51,14 @@ function addMode(
       icon: isCurrent
         ? noDefault(mode).disableIcon
         : noDefault(mode).enableIcon,
-      link: trimToExactlyOneLeadingSlash(link),
+      href: trimToExactlyOneLeadingSlash(link),
       isCurrent,
     });
   } else {
     modes.push({
       name: mode.name,
       title: mode.title,
-      link: trimToExactlyOneLeadingSlash(link),
+      href: trimToExactlyOneLeadingSlash(link),
       isCurrent,
     });
   }
