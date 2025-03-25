@@ -23,7 +23,12 @@ const { type } = Astro.props;
             {href}
             class={`sl-flex starlight-view-modes-social-link-a starlight-view-modes-switcher-a`}
           >
-            <span class="sr-only">Switch to {currentMode.title}</span>
+            <span class="sr-only">
+              Switch to{" "}
+              {mode.isCurrent
+                ? modes.find((mode) => mode.name === "default")?.title
+                : mode.title}
+            </span>
             <Icon set:html={mode.icon} />
           </a>
         );
@@ -47,7 +52,10 @@ const { type } = Astro.props;
                 return (
                   <li>
                     <a {href} class={`starlight-view-modes-switcher-a`}>
-                      Switch to {mode.title}
+                      Switch to{" "}
+                      {mode.isCurrent
+                        ? modes.find((mode) => mode.name === "default")?.title
+                        : mode.title}
                     </a>
                   </li>
                 );
