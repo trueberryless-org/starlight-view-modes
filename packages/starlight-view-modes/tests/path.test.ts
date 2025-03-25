@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { stripLeadingSlash, stripTrailingSlash, ensureLeadingSlash, ensureTrailingSlash, insertSegment } from "../libs/path";
+import { stripLeadingSlash, stripTrailingSlash, ensureLeadingSlash, ensureTrailingSlash, trimToExactlyOneLeadingSlash, insertSegment } from "../libs/path";
 
 describe("stripLeadingSlash", () => {
   test("removes leading slash", () => {
@@ -86,6 +86,30 @@ describe("ensureTrailingSlash", () => {
 
   test("handles multiple trailing slashes", () => {
     expect(ensureTrailingSlash("test//")).toBe("test//");
+  });
+});
+
+describe("trimToExactlyOneLeadingSlash", () => {
+  test("leave one leading slash", () => {
+    expect(trimToExactlyOneLeadingSlash("/")).toBe("/");
+    expect(trimToExactlyOneLeadingSlash("/test")).toBe("/test");
+    expect(trimToExactlyOneLeadingSlash("/path/to/file")).toBe("/path/to/file");
+  });
+
+  test("remove multiple leading slashes", () => {
+    expect(trimToExactlyOneLeadingSlash("//")).toBe("/");
+    expect(trimToExactlyOneLeadingSlash("//test")).toBe("/test");
+    expect(trimToExactlyOneLeadingSlash("//path/to/file")).toBe("/path/to/file");
+    
+    expect(trimToExactlyOneLeadingSlash("///test")).toBe("/test");
+    expect(trimToExactlyOneLeadingSlash("////test")).toBe("/test");
+    expect(trimToExactlyOneLeadingSlash("/////test")).toBe("/test");
+  });
+
+  test("adds one leading slash", () => {
+    expect(trimToExactlyOneLeadingSlash("")).toBe("/");
+    expect(trimToExactlyOneLeadingSlash("test")).toBe("/test");
+    expect(trimToExactlyOneLeadingSlash("path/to/file")).toBe("/path/to/file");
   });
 });
 

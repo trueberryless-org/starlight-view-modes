@@ -12,6 +12,14 @@ export interface StarlightViewModesRouteData {
      */
     link: string;
     /**
+     * The icon of the view mode.
+     * This will be a disable icon if this is the current mode.
+     * This will always be undefined for the default mode.
+     *
+     * In other words: The icon symbolizes the link (exception: current mode).
+     */
+    icon?: string;
+    /**
      * Indicates if the current page is part of the view mode.
      */
     isCurrent: boolean;

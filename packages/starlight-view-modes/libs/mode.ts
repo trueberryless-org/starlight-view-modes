@@ -41,7 +41,7 @@ export async function getUpdatedModePathname(
 
   // If switching back to "default", remove the current mode
   if (targetMode === "default") {
-    return pathname.includes("/")
+    return pathname.includes(`${currentMode}/`)
       ? pathname.replace(`${currentMode}/`, "")
       : pathname.replace(`${currentMode}`, "");
   }

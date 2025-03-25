@@ -1,6 +1,6 @@
 import astroConfig from "virtual:starlight-view-modes-context";
 
-import { AVAILABLE_MODES } from "../constants";
+import { AvailableModes } from "../definitions";
 import { insertSegment, stripLeadingSlash, stripTrailingSlash } from "./path";
 
 /**
@@ -19,7 +19,8 @@ export async function getCurrentModeFromPath(
   }
 
   return (
-    AVAILABLE_MODES.find((mode) => slug.startsWith(`${mode}`)) || "default"
+    AvailableModes.find((mode) => slug.startsWith(`${mode.name}`))?.name ||
+    "default"
   );
 }
 

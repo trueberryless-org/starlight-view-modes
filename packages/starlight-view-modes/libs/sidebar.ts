@@ -1,7 +1,6 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import config from "virtual:starlight-view-modes-config";
 
-import type { AvailableMode } from "../constants";
 import { getCurrentModeFromPath } from "./mode";
 import { appendModePathname } from "./modeClient";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
