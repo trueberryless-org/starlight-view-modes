@@ -2,7 +2,6 @@
 import Icon from "./Icon.astro";
 const { toc } = Astro.locals.starlightRoute;
 const { modes } = Astro.locals.starlightViewModes;
-const currentMode = modes.find((mode) => mode.isCurrent)!;
 
 interface Props {
   type: "social-links" | "table-of-contents";
