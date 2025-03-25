@@ -24,12 +24,11 @@ export async function getRouteData(
       addMode(modes, mode, id, true);
       continue;
     }
-    if (mode.name !== "default" && noDefault(mode).enabled === false) continue;
-    if (
-      mode.name !== "default" &&
-      isExcludedPage(stripLeadingSlash(id), noDefault(mode).exclude)
-    )
-      continue;
+    if (mode.name !== "default") {
+      if (noDefault(mode).enabled === false) continue;
+      if (isExcludedPage(stripLeadingSlash(id), noDefault(mode).exclude))
+        continue;
+    }
 
     const link = await getUpdatedModePathname(id, mode.name);
     addMode(modes, mode, link, false);
