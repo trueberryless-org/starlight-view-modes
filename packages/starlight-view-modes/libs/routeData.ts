@@ -3,9 +3,9 @@ import astroConfig from "virtual:starlight-view-modes-context";
 
 import type { StarlightViewModesRouteData } from "../data";
 import { type AvailableMode, AvailableModes } from "./definitions";
-import { trimToExactlyOneLeadingSlash } from "./path";
+import { stripLeadingSlash, trimToExactlyOneLeadingSlash } from "./path";
 import { getCurrentModeFromPath } from "./server";
-import { getUpdatedModePathname } from "./utils";
+import { getUpdatedModePathname, isExcludedPage } from "./utils";
 
 export async function getRouteData(
   context: APIContext
@@ -26,9 +26,10 @@ export async function getRouteData(
 
   for (const mode of AvailableModes) {
     if (mode.name === currentMode) continue;
+    if (mode.name !== "default" && noDefault(mode).enabled === false) continue;
     if (
       mode.name !== "default" &&
-      (mode as Exclude<AvailableMode, { name: "default" }>).enabled === false
+      isExcludedPage(stripLeadingSlash(id), noDefault(mode).exclude)
     )
       continue;
 
@@ -50,8 +51,8 @@ function addMode(
       name: mode.name,
       title: mode.title,
       icon: isCurrent
-        ? (mode as Exclude<AvailableMode, { name: "default" }>).disableIcon
-        : (mode as Exclude<AvailableMode, { name: "default" }>).enableIcon,
+        ? noDefault(mode).disableIcon
+        : noDefault(mode).enableIcon,
       link: trimToExactlyOneLeadingSlash(link),
       isCurrent,
     });
@@ -63,4 +64,8 @@ function addMode(
       isCurrent,
     });
   }
+}
+
+function noDefault(mode: AvailableMode) {
+  return mode as Exclude<AvailableMode, { name: "default" }>;
 }

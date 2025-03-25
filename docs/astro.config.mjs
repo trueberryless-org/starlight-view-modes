@@ -56,7 +56,7 @@ export default defineConfig({
               showTableOfContents: true,
               showFooter: true,
             },
-            exclude: ["/resources/*"],
+            exclude: ["/resources/*/"],
           },
         }),
         starlightImageZoom(),
@@ -72,7 +72,6 @@ export default defineConfig({
         },
       ],
       credits: true,
-      routeMiddleware: "./src/routeData.ts",
     }),
   ],
 });

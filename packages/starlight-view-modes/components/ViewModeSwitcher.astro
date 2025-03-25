@@ -18,7 +18,6 @@ const { type } = Astro.props;
         let href = mode.link;
         if (mode.isCurrent)
           href = modes.find((m) => m.name === "default")?.link!;
-        console.log(mode.icon);
         return (
           <a
             {href}
@@ -36,7 +35,7 @@ const { type } = Astro.props;
   toc && type === "table-of-contents" && (
     <>
       <div class="starlight-view-modes-table-of-contents-container">
-        {modes.length > 0 && (
+        {modes.length > 1 && (
           <>
             <h2>View Modes</h2>
             <ul>
