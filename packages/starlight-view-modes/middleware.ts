@@ -1,9 +1,9 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
 import type { APIContext } from "astro";
 
-import { appendModePathname } from "./libs/modeClient";
-import { getRouteData } from "./libs/modes";
+import { getRouteData } from "./libs/routeData";
 import { modifySidebarAndPagination } from "./libs/sidebar";
+import { appendModePathname } from "./libs/utils";
 
 export const onRequest = defineRouteMiddleware(async (context) => {
   const { starlightRoute } = context.locals;

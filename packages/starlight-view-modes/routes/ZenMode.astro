@@ -14,7 +14,7 @@ import {
 } from "../libs/utils";
 import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
 import isAbsoluteUrl from "is-absolute-url";
-import { appendModePathname } from "../libs/modeClient";
+import { appendModePathname } from "../libs/utils";
 import Renderer from "../components/Renderer.astro";
 
 export const getStaticPaths = (async () => {
@@ -31,6 +31,7 @@ export const getStaticPaths = (async () => {
     .filter(Boolean);
 
   return paths;
+  // @ts-ignore
 }) satisfies GetStaticPaths;
 
 // type Params = InferGetStaticParamsType<typeof getStaticPaths>;

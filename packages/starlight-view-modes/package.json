@@ -14,10 +14,12 @@
     "./overrides/TableOfContents.astro": "./overrides/TableOfContents.astro",
     "./components/PageTitle.astro": "./components/starlight/PageTitle.astro",
     "./components/Search.astro": "./components/starlight/Search.astro",
-    "./components/SocialIcons.astro": "./components/starlight/SocialIcons.astro",
-    "./components/TableOfContents.astro": "./components/starlight/TableOfContents.astro",
+    "./components/Icon.astro": "./components/Icon.astro",
+    "./components/Renderer.astro": "./components/Renderer.astro",
+    "./components/RenderHtmlWithRehype.astro": "./components/RenderHtmlWithRehype.astro",
+    "./components/ViewModeSwitcher.astro": "./components/ViewModeSwitcher.astro",
     "./routes/ZenMode.astro": "./routes/ZenMode.astro",
-    "./styles/*.css": "./styles/*.css",
+    "./styles/**/*.css": "./styles/**/*.css",
     "./package.json": "./package.json"
   },
   "scripts": {

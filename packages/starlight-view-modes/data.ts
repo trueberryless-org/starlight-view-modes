@@ -1,3 +1,5 @@
+import type { AvailableMode } from "./libs/definitions";
+
 export interface StarlightViewModesRouteData {
   /**
    * A list of all configured view modes.
@@ -6,7 +8,11 @@ export interface StarlightViewModesRouteData {
     /**
      * The name of the view mode.
      */
-    name: string;
+    name: AvailableMode["name"];
+    /**
+     * The name of the view mode but in readable form.
+     */
+    title: string;
     /**
      * The link to the same page in this view mode.
      */

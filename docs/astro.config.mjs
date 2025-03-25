@@ -52,8 +52,8 @@ export default defineConfig({
             enabled: true,
             displayOptions: {
               showHeader: true,
-              showSidebar: true,
-              showTableOfContents: false,
+              showSidebar: false,
+              showTableOfContents: true,
               showFooter: true,
             },
             exclude: ["/resources/*"],

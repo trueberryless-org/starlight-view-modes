@@ -1,9 +1,9 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import config from "virtual:starlight-view-modes-config";
 
-import { getCurrentModeFromPath } from "./mode";
-import { appendModePathname } from "./modeClient";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
+import { getCurrentModeFromPath } from "./server";
+import { appendModePathname } from "./utils";
 import { isExcludedPage } from "./utils";
 
 export async function isSpecificMode(

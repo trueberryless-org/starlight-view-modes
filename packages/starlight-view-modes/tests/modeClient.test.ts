@@ -9,10 +9,10 @@ function mockAstroConfigBase(base: string = "", trailingSlash: "never" | "always
 
 // Import the function AFTER mocking
 async function importAppendModePathname() {
-  return (await import("../libs/modeClient")).appendModePathname;
+  return (await import("../libs/utils")).appendModePathname;
 }
 async function importGetCurrentModeFromPath() {
-  return (await import("../libs/modeClient")).getCurrentModeFromPath;
+  return (await import("../libs/utils")).getCurrentModeFromPath;
 }
 
 afterEach(() => {

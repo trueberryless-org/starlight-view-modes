@@ -1,100 +1,62 @@
 ---
-import { getCurrentModeFromPath, getUpdatedModePathname } from "../libs/mode";
-import { isExcludedPage } from "../libs/utils";
 import Icon from "./Icon.astro";
-import config from "virtual:starlight-view-modes-config";
 const { toc } = Astro.locals.starlightRoute;
-
-const currentPathname = Astro.url.pathname;
-const currentMode = await getCurrentModeFromPath(currentPathname);
+const { modes } = Astro.locals.starlightViewModes;
+const currentMode = modes.find((mode) => mode.isCurrent)!;
 
 interface Props {
   type: "social-links" | "table-of-contents";
 }
 const { type } = Astro.props;
-
-const excludePage = isExcludedPage(
-  currentPathname,
-  config.zenModeSettings.exclude
-);
-
-const atLeastOneModeEnabled = config.zenModeSettings.enabled;
-const zenModePath = await getUpdatedModePathname(
-  currentPathname,
-  currentMode == "default" ? "zen-mode" : "default"
-);
 ---
 
-<!-- Icon paths from: https://iconmonstr.com/ -->{
-  !excludePage && (
+{
+  type === "social-links" && (
     <>
-      {type === "social-links" && (
-        <>
-          {atLeastOneModeEnabled && (
-            <>
-              {config.zenModeSettings.enabled && (
-                <a
-                  href={zenModePath}
-                  class="sl-flex starlight-view-modes-social-link-a starlight-view-modes-switcher-a"
-                >
-                  <span class="sr-only">
-                    Switch to{" "}
-                    {currentMode === "zen-mode" ? "Normal Mode" : "Zen Mode"}
-                  </span>
-                  <Icon>
-                    {currentMode === "zen-mode" ? (
-                      <>
-                        <path d="M22 13a10 10 0 1 0-20 0c0 4.32 3.08 10 10 10 6.93 0 10-5.7 10-10Zm-10 8a8.01 8.01 0 0 1 0-16 8.01 8.01 0 0 1 0 16ZM.8 8.71a4.99 4.99 0 0 1 6.91-6.9 12.04 12.04 0 0 0-6.9 6.9ZM19 1a5 5 0 0 0-2.72.8 12.06 12.06 0 0 1 6.92 6.91A4.99 4.99 0 0 0 19 1Z" />
-                        <path d="M14.22 9.72 12 11.94 9.78 9.72a.75.75 0 0 0-1.06 1.06L10.94 13l-2.22 2.22a.75.75 0 0 0 1.06 1.06L12 14.06l2.23 2.22a.75.75 0 0 0 1.06-1.06L13.06 13l2.22-2.22a.75.75 0 0 0-1.06-1.06Z" />
-                      </>
-                    ) : (
-                      <path d="M22 13a10 10 0 1 0-20 0c0 4.32 3.09 10 10 10 6.93 0 10-5.7 10-10zm-10 8a8.01 8.01 0 0 1 0-16 8.01 8.01 0 0 1 0 16zm3-4H9v-1.57l3.82-4.83H9V9h6v1.58l-3.79 4.84H15V17zM.8 8.71a4.99 4.99 0 0 1 6.91-6.9 12.04 12.04 0 0 0-6.9 6.9zM19 1a5 5 0 0 0-2.72.8 12.06 12.06 0 0 1 6.92 6.91A4.99 4.99 0 0 0 19 1z" />
-                    )}
-                  </Icon>
-                </a>
-              )}
-              {/* { config.presentationModeSettings.enabled && (
-									<a href={presentationModePath} class="sl-flex">
-										<span class="sr-only">Switch to {currentMode === 'presentation-mode' ? 'Normal Mode' : 'Presentation Mode'}</span>
-										<Icon>
-											<path d="M0 0v3h1v15h22v-15h1v-3h-24zm21 16h-18v-13h18v13zm-11.636 4l-2.736 4h-2.628l2.732-4h2.632zm10.636 4h-2.627l-2.736-4h2.632l2.731 4zm-11-10h-4v-4h4v4zm10 0h-4v-6h4v6zm-5 0h-4v-9h4v9z"/>
-										</Icon>
-									</a>
-								)} */}
-            </>
-          )}
-        </>
-      )}
-      {type === "table-of-contents" && (
-        <>
-          {toc && (
-            <>
-              <div class="starlight-view-modes-table-of-contents-container">
-                {atLeastOneModeEnabled && (
-                  <>
-                    <h2>View Modes</h2>
-                    <ul>
-                      {config.zenModeSettings.enabled && (
-                        <li>
-                          <a
-                            href={zenModePath}
-                            class="starlight-view-modes-switcher-a"
-                          >
-                            Switch to{" "}
-                            {currentMode === "zen-mode"
-                              ? "Normal Mode"
-                              : "Zen Mode"}
-                          </a>
-                        </li>
-                      )}
-                    </ul>
-                  </>
-                )}
-              </div>
-            </>
-          )}
-        </>
-      )}
+      {modes.map((mode) => {
+        if (mode.name === "default") return;
+        let href = mode.link;
+        if (mode.isCurrent)
+          href = modes.find((m) => m.name === "default")?.link!;
+        console.log(mode.icon);
+        return (
+          <a
+            {href}
+            class={`sl-flex starlight-view-modes-social-link-a starlight-view-modes-switcher-a`}
+          >
+            <span class="sr-only">Switch to {currentMode.title}</span>
+            <Icon set:html={mode.icon} />
+          </a>
+        );
+      })}
+    </>
+  )
+}
+{
+  toc && type === "table-of-contents" && (
+    <>
+      <div class="starlight-view-modes-table-of-contents-container">
+        {modes.length > 0 && (
+          <>
+            <h2>View Modes</h2>
+            <ul>
+              {modes.map((mode) => {
+                if (mode.name === "default") return;
+                let href = mode.link;
+                if (mode.isCurrent)
+                  href = modes.find((m) => m.name === "default")?.link!;
+                return (
+                  <li>
+                    <a {href} class={`starlight-view-modes-switcher-a`}>
+                      Switch to {mode.title}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        )}
+      </div>
     </>
   )
 }
@@ -130,22 +92,23 @@ const zenModePath = await getUpdatedModePathname(
   }
 </style>
 
-<script define:vars={{ zenModePath }}>
-  function updateZenModeLinks() {
-    const zenModeLinks = document.querySelectorAll(
-      ".starlight-view-modes-switcher-a"
-    );
-    if (zenModeLinks.length > 0) {
-      const hash = window.location.hash;
-      zenModeLinks.forEach((link) => {
-        link.href = zenModePath + hash;
+<script>
+  function updateModeLinksWithHash() {
+    const hash = window.location.hash;
+    document
+      .querySelectorAll(".starlight-view-modes-switcher-a")
+      .forEach((link) => {
+        // @ts-ignore
+        if (link.href) {
+          // @ts-ignore
+          link.href = link.href.split("#")[0] + hash;
+        }
       });
-    }
   }
 
   // Run on initial load
-  updateZenModeLinks();
+  updateModeLinksWithHash();
 
   // Update on hash change
-  window.addEventListener("hashchange", updateZenModeLinks);
+  window.addEventListener("hashchange", updateModeLinksWithHash);
 </script>

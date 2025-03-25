@@ -4,7 +4,7 @@ import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 
-import { appendModePathname } from "./modeClient";
+import { appendModePathname } from "./utils";
 
 export function rehypePrefixInternalLinks() {
   /**
