@@ -30,6 +30,14 @@ export function ensureTrailingSlash(path: string): string {
   return `${path}/`;
 }
 
+export function trimToExactlyOneLeadingSlash(path: string): string {
+  while (path.startsWith("/")) {
+    path = path.slice(1);
+  }
+
+  return "/" + path;
+}
+
 export function insertSegment(path: string, segment: string, position: number) {
   const hasLeadingSlash = path.startsWith("/");
   const hasTrailingSlash = path.endsWith("/");

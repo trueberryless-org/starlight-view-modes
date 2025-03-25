@@ -4,7 +4,7 @@ import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 
-import { appendModePathname } from "./modeClient";
+import { appendModePathname } from "./utils";
 
 export function rehypePrefixInternalLinks() {
   /**
@@ -17,6 +17,11 @@ export function rehypePrefixInternalLinks() {
         node.properties &&
         typeof node.properties.href === "string"
       ) {
+        // Check if 'view-modes-ignore' is set
+        if ("view-modes-ignore" in node.properties) {
+          return;
+        }
+
         const href = node.properties.href;
         // Check if the link is internal
         if (!isAbsoluteUrl(href)) {

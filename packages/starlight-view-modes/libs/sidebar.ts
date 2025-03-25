@@ -1,9 +1,9 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import config from "virtual:starlight-view-modes-config";
 
-import { getCurrentModeFromPath } from "./mode";
-import { appendModePathname } from "./modeClient";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
+import { getCurrentModeFromPath } from "./server";
+import { appendModePathname } from "./utils";
 import { isExcludedPage } from "./utils";
 
 export async function isSpecificMode(
@@ -13,29 +13,33 @@ export async function isSpecificMode(
   return (await getCurrentModeFromPath(currentSlug)) === mode;
 }
 
-export async function getCurrentMode(
+export async function modifySidebarAndPagination(
+  starlightRoute: StarlightRouteData,
   currentSlug: string,
   sidebar: SidebarEntry[],
   pagination: PaginationLinks
-): Promise<ViewMode> {
+): Promise<void> {
   currentSlug = stripLeadingSlash(stripTrailingSlash(currentSlug));
   const isZenMode = await isSpecificMode(currentSlug, "zen-mode");
+
+  let currentMode = {
+    mode: "default",
+    sidebar,
+    pagination,
+  };
 
   if (isZenMode) {
     const zenSidebar = modifySidebar(sidebar, currentSlug, "zen-mode");
     const zenPagination = modifyPagination(pagination, zenSidebar, "zen-mode");
-    return {
+    currentMode = {
       mode: "zen-mode",
       sidebar: zenSidebar,
       pagination: zenPagination,
     };
   }
 
-  return {
-    mode: "default",
-    sidebar,
-    pagination,
-  };
+  starlightRoute.sidebar = currentMode.sidebar;
+  starlightRoute.pagination = currentMode.pagination;
 }
 
 function modifySidebar(
@@ -43,19 +47,30 @@ function modifySidebar(
   currentSlug: string,
   prefix: string = ""
 ): SidebarEntry[] {
-  for (const entry of sidebar) {
-    if (entry.type === "link") {
-      if (currentSlug === stripLeadingSlash(stripTrailingSlash(prefix)))
-        continue;
-      entry.href = appendModePathname(entry.href, prefix);
-      entry.isCurrent = entry.href.includes(currentSlug);
-    }
+  return sidebar
+    .map((entry) => {
+      if (entry.type === "link") {
+        if (isExcludedPage(entry.href, config.zenModeSettings.exclude)) {
+          return null; // Remove excluded entry
+        }
 
-    if (entry.type === "group") {
-      entry.entries = modifySidebar(entry.entries, currentSlug, prefix);
-    }
-  }
-  return sidebar;
+        // Skip modification if currentSlug matches the stripped prefix
+        if (currentSlug !== stripLeadingSlash(stripTrailingSlash(prefix))) {
+          entry.href = appendModePathname(entry.href, prefix);
+          entry.isCurrent = entry.href.includes(currentSlug);
+        }
+      }
+
+      if (entry.type === "group") {
+        entry.entries = modifySidebar(entry.entries, currentSlug, prefix);
+        if (entry.entries.length === 0) {
+          return null; // Remove group if empty
+        }
+      }
+
+      return entry;
+    })
+    .filter((entry) => entry !== null) as SidebarEntry[];
 }
 
 function modifyPagination(
@@ -68,7 +83,7 @@ function modifyPagination(
   function findNextValid(index: number): SidebarLink | undefined {
     if (index >= flattenedSidebar.length) return undefined;
     const entry = flattenedSidebar[index];
-    return excludePagination(entry, config.zenModeSettings.exclude, prefix)
+    return excludeLink(entry, config.zenModeSettings.exclude, prefix)
       ? findNextValid(index + 1)
       : entry;
   }
@@ -76,7 +91,7 @@ function modifyPagination(
   function findPrevValid(index: number): SidebarLink | undefined {
     if (index < 0) return undefined;
     const entry = flattenedSidebar[index];
-    return excludePagination(entry, config.zenModeSettings.exclude, prefix)
+    return excludeLink(entry, config.zenModeSettings.exclude, prefix)
       ? findPrevValid(index - 1)
       : entry;
   }
@@ -100,7 +115,7 @@ function flattenSidebar(sidebar: SidebarEntry[]): SidebarLink[] {
   );
 }
 
-function excludePagination(
+function excludeLink(
   link: SidebarLink | undefined,
   exclude: string[],
   prefix: string = ""
@@ -116,9 +131,3 @@ function excludePagination(
 type SidebarEntry = StarlightRouteData["sidebar"][number];
 type SidebarLink = Extract<SidebarEntry, { type: "link" }>;
 type PaginationLinks = StarlightRouteData["pagination"];
-
-export interface ViewMode {
-  mode: "zen-mode" | "default";
-  sidebar: SidebarEntry[];
-  pagination: PaginationLinks;
-}

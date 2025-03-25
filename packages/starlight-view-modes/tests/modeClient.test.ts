@@ -7,12 +7,22 @@ function mockAstroConfigBase(base: string = "", trailingSlash: "never" | "always
   }));
 }
 
+function mockConfig() {
+  vi.doMock("virtual:starlight-view-modes-config", () => ({
+    default: {
+      zenModeSettings: {
+        exclude: [],
+      },
+    },
+  }));
+}
+
 // Import the function AFTER mocking
 async function importAppendModePathname() {
-  return (await import("../libs/modeClient")).appendModePathname;
+  return (await import("../libs/utils")).appendModePathname;
 }
 async function importGetCurrentModeFromPath() {
-  return (await import("../libs/modeClient")).getCurrentModeFromPath;
+  return (await import("../libs/utils")).getCurrentModeFromPath;
 }
 
 afterEach(() => {
@@ -22,6 +32,7 @@ afterEach(() => {
 describe("getCurrentModeFromPath", () => {
   test("returns 'default' when no mode is present", async () => {
     mockAstroConfigBase("");
+    mockConfig();
 
     const getCurrentModeFromPath = await importGetCurrentModeFromPath();
 
@@ -32,6 +43,7 @@ describe("getCurrentModeFromPath", () => {
 
   test("returns the correct mode when a mode is present", async () => {
     mockAstroConfigBase("");
+    mockConfig();
 
     const getCurrentModeFromPath = await importGetCurrentModeFromPath();
 
@@ -41,6 +53,7 @@ describe("getCurrentModeFromPath", () => {
 
   test("returns 'default' when the mode is not in AVAILABLE_MODES", async () => {
     mockAstroConfigBase("");
+    mockConfig();
 
     const getCurrentModeFromPath = await importGetCurrentModeFromPath();
 
@@ -49,6 +62,7 @@ describe("getCurrentModeFromPath", () => {
 
   test("handles cases where base is '/docs'", async () => {
     mockAstroConfigBase("/docs");
+    mockConfig();
 
     const getCurrentModeFromPath = await importGetCurrentModeFromPath();
 
@@ -61,6 +75,7 @@ describe("getCurrentModeFromPath", () => {
 
   test("returns 'default' when the base is set but the mode is not at the start", async () => {
     mockAstroConfigBase("/docs");
+    mockConfig();
 
     const getCurrentModeFromPath = await importGetCurrentModeFromPath();
 
@@ -71,6 +86,7 @@ describe("getCurrentModeFromPath", () => {
 
   test("handles trailing and leading slashes correctly", async () => {
     mockAstroConfigBase("/docs");
+    mockConfig();
 
     const getCurrentModeFromPath = await importGetCurrentModeFromPath();
 
@@ -80,6 +96,7 @@ describe("getCurrentModeFromPath", () => {
 
   test("returns 'default' when the mode is not at the start of the slug", async () => {
     mockAstroConfigBase("/docs");
+    mockConfig();
 
     const getCurrentModeFromPath = await importGetCurrentModeFromPath();
 
@@ -92,6 +109,7 @@ describe("getCurrentModeFromPath", () => {
 describe("appendModePathname", () => {
   test("should work with base set to ''", async () => {
     mockAstroConfigBase();
+    mockConfig();
 
     const appendModePathname = await importAppendModePathname();
     
@@ -105,6 +123,7 @@ describe("appendModePathname", () => {
   
   test("should work with base set to '/docs'", async () => {
     mockAstroConfigBase("/docs");
+    mockConfig();
 
     const appendModePathname = await importAppendModePathname();
     
@@ -118,6 +137,7 @@ describe("appendModePathname", () => {
   
   test("should work with base set to '', appending 'default' mode returns same pathname", async () => {
     mockAstroConfigBase();
+    mockConfig();
 
     const appendModePathname = await importAppendModePathname();
     
@@ -131,6 +151,7 @@ describe("appendModePathname", () => {
   
   test("should work with base set to '/docs', appending 'default' mode returns same pathname", async () => {
     mockAstroConfigBase("/docs");
+    mockConfig();
 
     const appendModePathname = await importAppendModePathname();
     

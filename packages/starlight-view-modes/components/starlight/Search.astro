@@ -2,7 +2,7 @@
 import "@pagefind/default-ui/css/ui.css";
 import { Icon } from "@astrojs/starlight/components";
 import project from "virtual:starlight/project-context";
-import { getCurrentModeFromPath } from "../../libs/mode";
+import { getCurrentModeFromPath } from "../../libs/server";
 
 const currentPathname = Astro.url.pathname;
 const currentMode = await getCurrentModeFromPath(currentPathname);
@@ -88,8 +88,9 @@ if (project.trailingSlash === "never")
 </script>
 
 <script>
+  // @ts-ignore
   import { pagefindUserConfig } from "virtual:starlight/pagefind-config";
-  import { appendModePathname } from "../../libs/modeClient";
+  import { appendModePathname } from "../../libs/utils";
 
   class SiteSearch extends HTMLElement {
     constructor() {

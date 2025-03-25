@@ -1,5 +1,9 @@
 ---
-import type { GetStaticPaths } from "astro";
+import type {
+  GetStaticPaths,
+  // InferGetStaticParamsType,
+  InferGetStaticPropsType,
+} from "astro";
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import config from "virtual:starlight-view-modes-config";
@@ -10,29 +14,33 @@ import {
 } from "../libs/utils";
 import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
 import isAbsoluteUrl from "is-absolute-url";
-import { getCurrentModeFromPath } from "../libs/mode";
-import { appendModePathname } from "../libs/modeClient";
+import { appendModePathname } from "../libs/utils";
+import Renderer from "../components/Renderer.astro";
 
 export const getStaticPaths = (async () => {
   const pages = await getCollection("docs");
 
-  const paths = pages.map((page: CollectionEntry<"docs">) => {
-    if (isExcludedPage(page.id, config.zenModeSettings.exclude)) return;
-    return {
-      params: { path: handleIndexSlug(page.id) },
-      props: { entry: page },
-    };
-  });
+  const paths = pages
+    .map((page: CollectionEntry<"docs">) => {
+      if (isExcludedPage(page.id, config.zenModeSettings.exclude)) return;
+      return {
+        params: { path: handleIndexSlug(page.id) },
+        props: { entry: page },
+      };
+    })
+    .filter(Boolean);
 
   return paths;
+  // @ts-ignore
 }) satisfies GetStaticPaths;
+
+// type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export const prerender = true;
 
-const { entry } = Astro.props;
-const { Content, headings, remarkPluginFrontmatter } = await render(entry);
-
-await getCurrentModeFromPath(Astro.url.pathname);
+const { entry } = Astro.props as Props;
+const { headings, remarkPluginFrontmatter } = await render(entry);
 
 const { hasSidebar } = remarkPluginFrontmatter;
 
@@ -90,7 +98,7 @@ if (image) {
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
-          <Content />
+          <Renderer {entry} />
         </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
@@ -115,7 +123,7 @@ if (image) {
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
-          <Content />
+          <Renderer {entry} />
         </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
@@ -139,7 +147,7 @@ if (image) {
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
-          <Content />
+          <Renderer {entry} />
         </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
@@ -163,7 +171,7 @@ if (image) {
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
-          <Content />
+          <Renderer {entry} />
         </RenderHtmlWithRehype>
       </div>
     </StarlightPage>
