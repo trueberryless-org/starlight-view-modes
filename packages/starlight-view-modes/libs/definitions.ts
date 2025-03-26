@@ -19,6 +19,9 @@ export const AvailableModes: AvailableMode[] = [
   },
 ];
 
+export const AdditionalModes: AdditionalMode[] =
+  AvailableModes.filter(isAdditionalMode);
+
 export type AvailableMode =
   | {
       name: "default";
@@ -32,3 +35,9 @@ export type AvailableMode =
       enableIcon: string;
       disableIcon: string;
     };
+
+export type AdditionalMode = Exclude<AvailableMode, { name: "default" }>;
+
+export function isAdditionalMode(mode: AvailableMode): mode is AdditionalMode {
+  return mode.name !== "default";
+}

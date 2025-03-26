@@ -4,33 +4,21 @@ import type {
   // InferGetStaticParamsType,
   InferGetStaticPropsType,
 } from "astro";
-import { getCollection, render, type CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import config from "virtual:starlight-view-modes-config";
-import {
-  getClassNameZenMode,
-  handleIndexSlug,
-  isExcludedPage,
-} from "../libs/utils";
+import { getClassNameZenMode } from "../libs/utils";
 import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
 import isAbsoluteUrl from "is-absolute-url";
 import { appendModePathname } from "../libs/utils";
 import Renderer from "../components/Renderer.astro";
+import { generateStaticPaths } from "../libs/server";
+import { AdditionalModes } from "../libs/definitions";
 
 export const getStaticPaths = (async () => {
-  const pages = await getCollection("docs");
-
-  const paths = pages
-    .map((page: CollectionEntry<"docs">) => {
-      if (isExcludedPage(page.id, config.zenModeSettings.exclude)) return;
-      return {
-        params: { path: handleIndexSlug(page.id) },
-        props: { entry: page },
-      };
-    })
-    .filter(Boolean);
-
-  return paths;
+  return await generateStaticPaths(
+    AdditionalModes.find((mode) => mode.name === "zen-mode")!
+  );
   // @ts-ignore
 }) satisfies GetStaticPaths;
 

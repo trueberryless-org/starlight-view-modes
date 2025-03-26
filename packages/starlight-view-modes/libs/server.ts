@@ -1,6 +1,7 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 
-import type { AvailableMode } from "./definitions";
+import { handleIndexSlug, isExcludedPage } from "../libs/utils";
+import type { AdditionalMode, AvailableMode } from "./definitions";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import { getCurrentModeFromPath as getCurrentModeFromPathWithoutDocs } from "./utils";
 
@@ -22,4 +23,20 @@ export async function getCurrentModeFromPath(
   if (allSlugs.includes(slug)) return "default";
 
   return getCurrentModeFromPathWithoutDocs(slug);
+}
+
+export async function generateStaticPaths(mode: AdditionalMode) {
+  const pages = await getCollection("docs");
+
+  const paths = pages
+    .map((page: CollectionEntry<"docs">) => {
+      if (isExcludedPage(page.id, mode.exclude)) return;
+      return {
+        params: { path: handleIndexSlug(page.id) },
+        props: { entry: page },
+      };
+    })
+    .filter(Boolean);
+
+  return paths;
 }
