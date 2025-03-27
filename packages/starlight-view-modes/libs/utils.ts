@@ -36,6 +36,7 @@ export function isExcludedPage(path: string, exclude: string[]): boolean {
  * @returns Undefined if the slug is an index page, otherwise the slug
  */
 export function handleIndexSlug(slug: string): string | undefined {
+  if (slug === "") return undefined;
   if (["index", "/"].some((indexSlug) => slug.startsWith(indexSlug))) {
     return undefined;
   }

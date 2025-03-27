@@ -27,7 +27,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export const prerender = true;
 
-const { entry } = Astro.props as Props;
+const { entry, isFallback } = Astro.props as Props;
 const { headings, remarkPluginFrontmatter } = await render(entry);
 
 const { hasSidebar } = remarkPluginFrontmatter;
@@ -83,6 +83,7 @@ if (image) {
       }}
       headings={headings}
       hasSidebar={hasSidebar}
+      {isFallback}
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
@@ -108,6 +109,7 @@ if (image) {
       }}
       headings={headings}
       hasSidebar={hasSidebar}
+      {isFallback}
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
@@ -132,6 +134,7 @@ if (image) {
       }}
       headings={headings}
       hasSidebar={hasSidebar}
+      {isFallback}
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
@@ -156,6 +159,7 @@ if (image) {
       }}
       headings={headings}
       hasSidebar={hasSidebar}
+      {isFallback}
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>

@@ -9,6 +9,8 @@ const defaultLang =
   starlightConfig.defaultLocale.locale ??
   "en";
 
+export const defaultLocale = starlightConfig.defaultLocale.locale ?? "en";
+
 export function getLocalizedSlug(
   slug: string,
   locale: string | undefined
@@ -25,6 +27,15 @@ export function getLocalizedSlug(
   }
 
   return slug ? `${locale}/${slug}` : locale;
+}
+
+export function removeLocaleFromSlug(slug: string): string {
+  const slugLocale = getLocaleFromSlug(slug);
+  return slugLocale
+    ? slug.includes(`${slugLocale}/`)
+      ? slug.replace(`${slugLocale}/`, "")
+      : slug.replace(`${slugLocale}`, "")
+    : slug;
 }
 
 export function getLocaleFromSlug(slug: string): string | undefined {
@@ -55,4 +66,14 @@ export function getTranslation(
   }
 
   return translation;
+}
+
+export function getLocales(): (string | undefined)[] {
+  const { locales = {}, defaultLocale } = starlightConfig;
+  return [
+    locales === undefined || locales.root ? undefined : defaultLocale.locale,
+    ...Object.keys(locales).filter(
+      (locale) => locale !== defaultLocale.locale && locale !== "root"
+    ),
+  ];
 }

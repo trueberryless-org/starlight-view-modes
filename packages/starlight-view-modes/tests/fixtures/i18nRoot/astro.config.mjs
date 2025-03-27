@@ -22,9 +22,8 @@ export default defineConfig({
         baseUrl:
           "https://github.com/trueberryless/starlight-view-modes/edit/main/docs/",
       },
-      defaultLocale: "en",
       locales: {
-        en: {
+        root: {
           label: "English",
           lang: "en",
         },
