@@ -14,6 +14,8 @@ if (isTemplateSplash) return;
 <style>
   .starlight-view-modes-page-title-switcher {
     display: none;
+    grid-column: 2;
+    justify-self: end;
   }
   body:has(.starlight-view-modes-zen-mode-no-header):has(
       .starlight-view-modes-zen-mode-no-table-of-contents
@@ -24,9 +26,12 @@ if (isTemplateSplash) return;
 </style>
 
 <style is:global>
-  .sl-container:has(.starlight-view-modes-page-title-switcher) {
-    display: flex;
+  body:has(.starlight-view-modes-zen-mode-no-header):has(
+      .starlight-view-modes-zen-mode-no-table-of-contents
+    )
+    .sl-container:has(.starlight-view-modes-page-title-switcher) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
-    justify-content: space-between;
   }
 </style>
