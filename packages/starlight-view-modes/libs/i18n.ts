@@ -26,7 +26,7 @@ export function getLocalizedSlug(
     return stripTrailingSlash(
       `${hasLeadingSlash ? "/" : ""}${slug
         .replace(`${slugLocale}/`, locale ? `${locale}/` : "")
-        .replace(/^\/+/, "")}` // Ensure no double slashes
+        .replace(/^\/+/, "")}`
     );
   }
 

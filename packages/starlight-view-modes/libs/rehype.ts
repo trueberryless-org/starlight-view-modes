@@ -4,7 +4,7 @@ import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 
-import { insertModePathname } from "./utils";
+import { getCurrentModeFromPath, insertModePathname } from "./utils";
 
 export function rehypePrefixInternalLinks() {
   /**
@@ -23,9 +23,7 @@ export function rehypePrefixInternalLinks() {
         }
 
         const href = node.properties.href;
-        // Check if the link is internal
-        if (!isAbsoluteUrl(href)) {
-          // Prefix the internal link with '/mode'
+        if (!isAbsoluteUrl(href) && !href.startsWith("#")) {
           node.properties.href = insertModePathname(href, "zen-mode");
         }
       }

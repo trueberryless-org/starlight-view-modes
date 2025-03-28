@@ -29,7 +29,6 @@ export async function getRouteData(
       continue;
     }
     if (isAdditionalMode(mode)) {
-      console.log(mode.exclude);
       if (mode.enabled === false) continue;
       if (isExcludedPage(stripLeadingSlash(id), mode.exclude)) continue;
     }
