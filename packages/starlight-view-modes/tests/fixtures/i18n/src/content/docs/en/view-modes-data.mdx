@@ -1,0 +1,108 @@
+---
+title: View Modes Data
+description: Learn how to use Starlight View Modes’ data to access information about view modes.
+tableOfContents:
+  maxHeadingLevel: 4
+---
+
+Starlight View Modes exposes information about the view modes in your project.
+This guide explains how to use Starlight View Modes’ data.
+
+## What is view modes data?
+
+Similar to [Starlight route data](https://starlight.astro.build/guides/route-data/), the route data provided by the Starlight View Modes is an object containing the information about all the view modes available for the current page.
+It includes information like a list of all the modes, the name of each mode, and in which mode the current page is.
+
+To learn more about all the available properties in the route data object, check the [`starlightViewModes`](#starlightviewmodes) section.
+
+## Using view modes data
+
+You can access the route data object provided by the Starlight View Modes plugin from the `Astro.locals.starlightViewModes` global in Astro components:
+
+```astro
+---
+// example.astro
+const { modes } = Astro.locals.starlightViewModes
+//        ^ The list of all the modes in your project.
+---
+```
+
+This can be useful for example to render a list of all view modes that link to the same page in that mode:
+
+import { Preview } from '@hideoo/starlight-plugins-docs-components'
+import ViewModesDataExample from '../../../components/ViewModesDataExample.astro'
+
+<Preview>
+
+```astro title="ViewModes.astro" "Astro.locals.starlightViewModes.modes" "view-modes-ignore"
+<ul>
+  {
+    Astro.locals.starlightViewModes.modes.map((mode) => (
+      <li>
+        <a href={mode.href} view-modes-ignore>
+          {mode.title}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+```
+
+<Fragment slot="preview">
+
+<ViewModesDataExample />
+
+</Fragment>
+
+</Preview>
+
+:::note[Good to know]
+The `view-modes-ignore` attribute on the `<a>` tag is used to prevent the Starlight View Modes plugin from appending the active mode to that specific link.
+This is useful when you want a link to switch modes instead of preserving the current one, allowing users to navigate freely between different views.
+:::
+
+## `starlightViewModes`
+
+The `starlightViewModes` object has the following properties:
+
+### `modes`
+
+A list of all the available view modes of the current page.
+
+Each modes object has the following properties:
+
+#### `name`
+
+**type:** `string`
+
+The name of the view mode.
+
+#### `title`
+
+**type:** `string`
+
+The name of the view mode in readable form.
+
+#### `href`
+
+**type:** `string`
+
+The link to the same page in this view mode.
+
+#### `isCurrent`
+
+**type:** `boolean`
+
+Indicates if the current page is in this view mode right now.
+
+#### `icon`
+
+**type:** `string`
+
+The activation or deactivation SVG path of the view mode, depending on the current mode.
+The default mode has no icon (`undefined`).
+
+:::note[Example]
+If you are currently in the `zen-mode`, the `icon` property of the `zen-mode` will be the SVG path, rendering a symbol for "exit Zen Mode" (an alarm clock with a cross in it).
+:::
+

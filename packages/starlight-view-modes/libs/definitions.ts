@@ -1,6 +1,6 @@
 import config from "virtual:starlight-view-modes-config";
 
-import { stripLeadingSlash } from "./path";
+import { getLocalizedExclude } from "./i18n";
 
 export const AvailableModes: AvailableMode[] = [
   {
@@ -11,7 +11,7 @@ export const AvailableModes: AvailableMode[] = [
     name: "zen-mode",
     title: "Zen Mode",
     enabled: config.zenModeSettings.enabled,
-    exclude: config.zenModeSettings.exclude.map(stripLeadingSlash),
+    exclude: getLocalizedExclude(config.zenModeSettings.exclude),
     enableIcon:
       '<path d="M22 13a10 10 0 1 0-20 0c0 4.32 3.09 10 10 10 6.93 0 10-5.7 10-10zm-10 8a8.01 8.01 0 0 1 0-16 8.01 8.01 0 0 1 0 16zm3-4H9v-1.57l3.82-4.83H9V9h6v1.58l-3.79 4.84H15V17zM.8 8.71a4.99 4.99 0 0 1 6.91-6.9 12.04 12.04 0 0 0-6.9 6.9zM19 1a5 5 0 0 0-2.72.8 12.06 12.06 0 0 1 6.92 6.91A4.99 4.99 0 0 0 19 1z" />',
     disableIcon:

@@ -19,7 +19,7 @@ function mockConfig() {
 
 // Import the function AFTER mocking
 async function importAppendModePathname() {
-  return (await import("../libs/utils")).appendModePathname;
+  return (await import("../libs/utils")).insertModePathname;
 }
 async function importGetCurrentModeFromPath() {
   return (await import("../libs/utils")).getCurrentModeFromPath;
@@ -106,60 +106,60 @@ describe("getCurrentModeFromPath", () => {
   });
 });
 
-describe("appendModePathname", () => {
+describe("insertModePathname", () => {
   test("should work with base set to ''", async () => {
     mockAstroConfigBase();
     mockConfig();
 
-    const appendModePathname = await importAppendModePathname();
+    const insertModePathname = await importAppendModePathname();
     
-    expect(appendModePathname("/page/", "dark")).toBe("/dark/page/");
-    expect(appendModePathname("/page", "dark")).toBe("/dark/page");
-    expect(appendModePathname("page/", "dark")).toBe("dark/page/");
-    expect(appendModePathname("page", "dark")).toBe("dark/page");
-    expect(appendModePathname("/", "dark")).toBe("/dark/");
-    expect(appendModePathname("", "dark")).toBe("dark/");
+    expect(insertModePathname("/page/", "dark")).toBe("/dark/page/");
+    expect(insertModePathname("/page", "dark")).toBe("/dark/page");
+    expect(insertModePathname("page/", "dark")).toBe("dark/page/");
+    expect(insertModePathname("page", "dark")).toBe("dark/page");
+    expect(insertModePathname("/", "dark")).toBe("/dark/");
+    expect(insertModePathname("", "dark")).toBe("dark/");
   });
   
   test("should work with base set to '/docs'", async () => {
     mockAstroConfigBase("/docs");
     mockConfig();
 
-    const appendModePathname = await importAppendModePathname();
+    const insertModePathname = await importAppendModePathname();
     
-    expect(appendModePathname("/docs/page/", "dark")).toBe("/docs/dark/page/");
-    expect(appendModePathname("/docs/page", "dark")).toBe("/docs/dark/page");
-    expect(appendModePathname("docs/page/", "dark")).toBe("docs/dark/page/");
-    expect(appendModePathname("docs/page", "dark")).toBe("docs/dark/page");
-    expect(appendModePathname("docs/", "dark")).toBe("docs/dark/");
-    expect(appendModePathname("docs", "dark")).toBe("docs/dark");
+    expect(insertModePathname("/docs/page/", "dark")).toBe("/docs/dark/page/");
+    expect(insertModePathname("/docs/page", "dark")).toBe("/docs/dark/page");
+    expect(insertModePathname("docs/page/", "dark")).toBe("docs/dark/page/");
+    expect(insertModePathname("docs/page", "dark")).toBe("docs/dark/page");
+    expect(insertModePathname("docs/", "dark")).toBe("docs/dark/");
+    expect(insertModePathname("docs", "dark")).toBe("docs/dark");
   });
   
   test("should work with base set to '', appending 'default' mode returns same pathname", async () => {
     mockAstroConfigBase();
     mockConfig();
 
-    const appendModePathname = await importAppendModePathname();
+    const insertModePathname = await importAppendModePathname();
     
-    expect(appendModePathname("/page/", "default")).toBe("/page/");
-    expect(appendModePathname("/page", "default")).toBe("/page");
-    expect(appendModePathname("page/", "default")).toBe("page/");
-    expect(appendModePathname("page", "default")).toBe("page");
-    expect(appendModePathname("/", "default")).toBe("/");
-    expect(appendModePathname("", "default")).toBe("");
+    expect(insertModePathname("/page/", "default")).toBe("/page/");
+    expect(insertModePathname("/page", "default")).toBe("/page");
+    expect(insertModePathname("page/", "default")).toBe("page/");
+    expect(insertModePathname("page", "default")).toBe("page");
+    expect(insertModePathname("/", "default")).toBe("/");
+    expect(insertModePathname("", "default")).toBe("");
   });
   
   test("should work with base set to '/docs', appending 'default' mode returns same pathname", async () => {
     mockAstroConfigBase("/docs");
     mockConfig();
 
-    const appendModePathname = await importAppendModePathname();
+    const insertModePathname = await importAppendModePathname();
     
-    expect(appendModePathname("/docs/page/", "default")).toBe("/docs/page/");
-    expect(appendModePathname("/docs/page", "default")).toBe("/docs/page");
-    expect(appendModePathname("docs/page/", "default")).toBe("docs/page/");
-    expect(appendModePathname("docs/page", "default")).toBe("docs/page");
-    expect(appendModePathname("docs/", "default")).toBe("docs/");
-    expect(appendModePathname("docs", "default")).toBe("docs");
+    expect(insertModePathname("/docs/page/", "default")).toBe("/docs/page/");
+    expect(insertModePathname("/docs/page", "default")).toBe("/docs/page");
+    expect(insertModePathname("docs/page/", "default")).toBe("docs/page/");
+    expect(insertModePathname("docs/page", "default")).toBe("docs/page");
+    expect(insertModePathname("docs/", "default")).toBe("docs/");
+    expect(insertModePathname("docs", "default")).toBe("docs");
   });
 });

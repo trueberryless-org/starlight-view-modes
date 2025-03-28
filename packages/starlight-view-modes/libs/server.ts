@@ -69,10 +69,5 @@ export async function generateStaticPaths(mode: AdditionalMode) {
     .flat()
     .filter((p) => p?.params !== undefined);
 
-  console.log(
-    "paths",
-    paths.map((p) => p?.params)
-  );
-
   return paths.flat();
 }

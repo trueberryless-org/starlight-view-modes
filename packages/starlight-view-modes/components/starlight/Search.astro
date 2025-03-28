@@ -90,7 +90,7 @@ if (project.trailingSlash === "never")
 <script>
   // @ts-ignore
   import { pagefindUserConfig } from "virtual:starlight/pagefind-config";
-  import { appendModePathname } from "../../libs/utils";
+  import { insertModePathname } from "../../libs/utils";
 
   class SiteSearch extends HTMLElement {
     constructor() {
@@ -175,13 +175,13 @@ if (project.trailingSlash === "never")
               url: string;
               sub_results: Array<{ url: string }>;
             }) => {
-              result.url = await appendModePathname(
+              result.url = await insertModePathname(
                 formatURL(result.url),
                 this.dataset.mode ?? "default"
               );
               result.sub_results = await Promise.all(
                 result.sub_results.map(async (sub_result) => {
-                  sub_result.url = await appendModePathname(
+                  sub_result.url = await insertModePathname(
                     formatURL(sub_result.url),
                     this.dataset.mode ?? "default"
                   );

@@ -65,7 +65,7 @@ export default defineConfig({
               showTableOfContents: true,
               showFooter: true,
             },
-            exclude: ["/resources/*"],
+            exclude: ["/en/resources/*"],
           },
         }),
         starlightImageZoom(),
@@ -76,6 +76,7 @@ export default defineConfig({
           items: [
             { label: "Getting Started", link: "/getting-started/" },
             { label: "Configuration", link: "/configuration/" },
+            { label: "View Modes Data", link: "/view-modes-data/" },
           ],
         },
       ],

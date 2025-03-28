@@ -10,7 +10,7 @@ import config from "virtual:starlight-view-modes-config";
 import { getClassNameZenMode } from "../libs/utils";
 import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
 import isAbsoluteUrl from "is-absolute-url";
-import { appendModePathname } from "../libs/utils";
+import { insertModePathname } from "../libs/utils";
 import Renderer from "../components/Renderer.astro";
 import { generateStaticPaths } from "../libs/server";
 import { AdditionalModes } from "../libs/definitions";
@@ -35,7 +35,7 @@ const { hasSidebar } = remarkPluginFrontmatter;
 if (remarkPluginFrontmatter.hero?.actions) {
   for (const action of remarkPluginFrontmatter.hero.actions) {
     if (!isAbsoluteUrl(action.link)) {
-      action.link = appendModePathname(action.link, "zen-mode");
+      action.link = insertModePathname(action.link, "zen-mode");
     }
   }
 }

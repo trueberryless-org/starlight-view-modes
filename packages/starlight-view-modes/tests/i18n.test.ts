@@ -59,6 +59,7 @@ describe("getLocalizedSlug", () => {
   test("adds locale when slug has none", async () => {
     const { getLocalizedSlug } = await importI18n();
     expect(getLocalizedSlug("home", "fr")).toBe("fr/home");
+    expect(getLocalizedSlug("/home", "fr")).toBe("/fr/home");
   });
 
   test("removes locale when set to empty", async () => {

@@ -3,7 +3,7 @@ import config from "virtual:starlight-view-modes-config";
 
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import { getCurrentModeFromPath } from "./server";
-import { appendModePathname } from "./utils";
+import { insertModePathname } from "./utils";
 import { isExcludedPage } from "./utils";
 
 export async function isSpecificMode(
@@ -56,7 +56,7 @@ function modifySidebar(
 
         // Skip modification if currentSlug matches the stripped prefix
         if (currentSlug !== stripLeadingSlash(stripTrailingSlash(prefix))) {
-          entry.href = appendModePathname(entry.href, prefix);
+          entry.href = insertModePathname(entry.href, prefix);
           entry.isCurrent = entry.href.includes(currentSlug);
         }
       }
@@ -123,7 +123,7 @@ function excludeLink(
   return isExcludedPage(
     stripLeadingSlash(stripTrailingSlash(link?.href || "")),
     exclude.map((e) =>
-      stripLeadingSlash(appendModePathname(stripTrailingSlash(e), prefix))
+      stripLeadingSlash(insertModePathname(stripTrailingSlash(e), prefix))
     )
   );
 }

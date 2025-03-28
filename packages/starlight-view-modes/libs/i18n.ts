@@ -2,7 +2,7 @@ import type { APIContext } from "astro";
 import { AstroError } from "astro/errors";
 import starlightConfig from "virtual:starlight/user-config";
 
-import { stripTrailingSlash } from "./path";
+import { stripLeadingSlash, stripTrailingSlash } from "./path";
 
 const defaultLang =
   starlightConfig.defaultLocale.lang ??
@@ -20,13 +20,19 @@ export function getLocalizedSlug(
   locale ??= "";
   if (slugLocale === slug) return locale;
 
+  const hasLeadingSlash = slug.startsWith("/");
+
   if (slugLocale) {
     return stripTrailingSlash(
-      slug.replace(`${slugLocale}/`, locale ? `${locale}/` : "")
+      `${hasLeadingSlash ? "/" : ""}${slug
+        .replace(`${slugLocale}/`, locale ? `${locale}/` : "")
+        .replace(/^\/+/, "")}` // Ensure no double slashes
     );
   }
 
-  return slug ? `${locale}/${slug}` : locale;
+  return hasLeadingSlash
+    ? `/${locale}${slug}`
+    : `${locale}${slug ? `/${slug}` : ""}`;
 }
 
 export function removeLocaleFromSlug(slug: string): string {
@@ -40,7 +46,7 @@ export function removeLocaleFromSlug(slug: string): string {
 
 export function getLocaleFromSlug(slug: string): string | undefined {
   const locales = Object.keys(starlightConfig.locales ?? {});
-  const baseSegment = slug.split("/")[0];
+  const baseSegment = stripLeadingSlash(slug).split("/")[0];
   return baseSegment && locales.includes(baseSegment) ? baseSegment : undefined;
 }
 
@@ -76,4 +82,14 @@ export function getLocales(): (string | undefined)[] {
       (locale) => locale !== defaultLocale.locale && locale !== "root"
     ),
   ];
+}
+
+export function getLocalizedExclude(exclude: string[]): string[] {
+  exclude.map(removeLocaleFromSlug);
+  const locales = getLocales();
+  return locales
+    .map((locale) =>
+      exclude.map((e) => getLocalizedSlug(e, locale)).map(stripLeadingSlash)
+    )
+    .flat();
 }
