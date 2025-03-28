@@ -1,6 +1,14 @@
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, getEntry } from "astro:content";
 
-import type { AvailableMode } from "./definitions";
+import { handleIndexSlug, isExcludedPage } from "../libs/utils";
+import type { AdditionalMode, AvailableMode } from "./definitions";
+import {
+  defaultLocale,
+  getLocaleFromSlug,
+  getLocales,
+  getLocalizedSlug,
+  removeLocaleFromSlug,
+} from "./i18n";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import { getCurrentModeFromPath as getCurrentModeFromPathWithoutDocs } from "./utils";
 
@@ -22,4 +30,44 @@ export async function getCurrentModeFromPath(
   if (allSlugs.includes(slug)) return "default";
 
   return getCurrentModeFromPathWithoutDocs(slug);
+}
+
+export async function generateStaticPaths(mode: AdditionalMode) {
+  const pages = await getCollection("docs");
+  const locales = getLocales();
+
+  const paths = (
+    await Promise.all(
+      pages
+        .flatMap(async (page: CollectionEntry<"docs">) => {
+          if (isExcludedPage(page.id, mode.exclude)) return;
+          if (
+            getLocaleFromSlug(page.id) &&
+            getLocaleFromSlug(page.id) !== defaultLocale
+          )
+            return;
+
+          const slugWithoutLocale = removeLocaleFromSlug(page.id);
+
+          return Promise.all(
+            locales.map(async (locale) => {
+              const localizedSlug = getLocalizedSlug(page.id, locale);
+              let translationPage = await getEntry("docs", localizedSlug);
+              return {
+                params: { locale, path: handleIndexSlug(slugWithoutLocale) },
+                props: {
+                  entry: translationPage ?? page,
+                  isFallback: translationPage === undefined,
+                },
+              };
+            })
+          );
+        })
+        .filter(Boolean)
+    )
+  )
+    .flat()
+    .filter((p) => p?.params !== undefined);
+
+  return paths.flat();
 }

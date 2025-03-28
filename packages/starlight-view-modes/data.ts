@@ -12,7 +12,7 @@ export interface StarlightViewModesRouteData {
     /**
      * The name of the view mode in readable form.
      */
-    title: string;
+    title: AvailableMode["title"];
     /**
      * The link to the same page in this view mode.
      */

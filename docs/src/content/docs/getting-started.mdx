@@ -52,7 +52,7 @@ The Starlight View Modes plugin behavior can be tweaked using various [configura
 
 ## Component overrides
 
-The Starlight View Modes plugin uses a Starlight [component override](https://starlight.astro.build/guides/overriding-components/) for the [`PageTitle`](https://starlight.astro.build/reference/overrides/#pagetitle), [`SocialIcons`](https://starlight.astro.build/reference/overrides/#socialicons), and [`TableOfContents`](https://starlight.astro.build/reference/overrides/#tableofcontents) components.
+The Starlight View Modes plugin uses a Starlight [component override](https://starlight.astro.build/guides/overriding-components/) for the [`PageTitle`](https://starlight.astro.build/reference/overrides/#pagetitle), [`Search`](https://starlight.astro.build/reference/overrides/#search), [`SocialIcons`](https://starlight.astro.build/reference/overrides/#socialicons), and [`TableOfContents`](https://starlight.astro.build/reference/overrides/#tableofcontents) components.
 
 If you have a custom `PageTitle` component override in your Starlight project, you will need to manually render the `PageTitle` component from the Starlight View Modes plugin in your custom component:
 
@@ -68,4 +68,4 @@ import Default from '@astrojs/starlight/components/PageTitle.astro'
 +<StarlightViewModesPageTitle />
 ```
 
-The same logic applies to the `SocialIcons` and `TableOfContents` components.
+The same logic applies to the `Search`, `SocialIcons` and `TableOfContents` components.
