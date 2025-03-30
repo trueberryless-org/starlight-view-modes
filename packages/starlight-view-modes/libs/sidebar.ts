@@ -57,18 +57,16 @@ function modifySidebar(
       if (entry.type === "link") {
         if (
           isExcludedPage(
-            entry.href,
+            stripLeadingSlash(entry.href),
             getLocalizedExclude(config.zenModeSettings.exclude)
           )
         ) {
           return null; // Remove excluded entry
         }
 
-        // Skip modification if currentSlug matches the stripped prefix
-        if (currentSlug !== stripLeadingSlash(stripTrailingSlash(prefix))) {
-          entry.href = insertModePathname(entry.href, prefix);
-          entry.isCurrent = entry.href.includes(currentSlug);
-        }
+        entry.href = insertModePathname(entry.href, prefix);
+        entry.isCurrent =
+          stripLeadingSlash(stripTrailingSlash(entry.href)) === currentSlug;
       }
 
       if (entry.type === "group") {
@@ -141,7 +139,7 @@ function excludeLink(
   return isExcludedPage(
     stripLeadingSlash(stripTrailingSlash(link?.href || "")),
     exclude.map((e) =>
-      stripLeadingSlash(insertModePathname(stripTrailingSlash(e), prefix))
+      insertModePathname(stripLeadingSlash(stripTrailingSlash(e)), prefix)
     )
   );
 }
