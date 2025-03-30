@@ -1,8 +1,14 @@
 import { describe, expect, vi, afterEach, test } from "vitest";
 
-function mockConfig(config: any) {
+function mockStarlightConfig(config: any) {
   vi.doMock("virtual:starlight/user-config", () => ({
     default: config,
+  }));
+}
+
+function mockAstroConfigBase(base: string = "", trailingSlash: "never" | "always" | "ignore" = "ignore") {
+  vi.doMock("virtual:starlight-view-modes-context", () => ({
+    default: { base, trailingSlash: trailingSlash },
   }));
 }
 
@@ -16,7 +22,8 @@ afterEach(() => {
 
 describe("getLocales", () => {
   test("returns default locale when no mode is present", async () => {
-    mockConfig({
+    mockAstroConfigBase();
+    mockStarlightConfig({
       defaultLocale: { locale: "en", lang: "en" },
       locales: { en: {} },
     });
@@ -24,8 +31,10 @@ describe("getLocales", () => {
     const { getLocales } = await importI18n();
     expect(getLocales()).toEqual(["en"]);
   });
+
   test("returns undefined when default locale is root", async () => {
-    mockConfig({
+    mockAstroConfigBase();
+    mockStarlightConfig({
       defaultLocale: { locale: "root", lang: "en" },
       locales: {root: {}},
     });
@@ -35,7 +44,8 @@ describe("getLocales", () => {
   });
 
   test("returns available locales excluding default", async () => {
-    mockConfig({
+    mockAstroConfigBase();
+    mockStarlightConfig({
       defaultLocale: { locale: "en", lang: "en" },
       locales: { en: {}, de: {}, fr: {} },
     });
@@ -47,30 +57,66 @@ describe("getLocales", () => {
 
 describe("getLocalizedSlug", () => {
   test("returns same slug when locale matches", async () => {
+    mockAstroConfigBase();
+    mockStarlightConfig({
+      defaultLocale: { locale: "en", lang: "en" },
+      locales: { en: {}, de: {}, fr: {} },
+    });
+
     const { getLocalizedSlug } = await importI18n();
     expect(getLocalizedSlug("de/home", "de")).toBe("de/home");
   });
 
   test("removes old locale and replaces with new one", async () => {
+    mockAstroConfigBase();
+    mockStarlightConfig({
+      defaultLocale: { locale: "en", lang: "en" },
+      locales: { en: {}, de: {}, fr: {} },
+    });
+
     const { getLocalizedSlug } = await importI18n();
     expect(getLocalizedSlug("de/home", "fr")).toBe("fr/home");
   });
 
+  test("returns same slug when locale does not exist", async () => {
+    mockAstroConfigBase();
+    mockStarlightConfig({
+      defaultLocale: { locale: "en", lang: "en" },
+      locales: { en: {}, de: {}, fr: {} },
+    });
+
+    const { getLocalizedSlug } = await importI18n();
+    expect(getLocalizedSlug("de/home", "ru")).toBe("de/home");
+  });
+
   test("adds locale when slug has none", async () => {
+    mockAstroConfigBase();
+    mockStarlightConfig({
+      defaultLocale: { locale: "en", lang: "en" },
+      locales: { en: {}, de: {}, fr: {} },
+    });
+
     const { getLocalizedSlug } = await importI18n();
     expect(getLocalizedSlug("home", "fr")).toBe("fr/home");
     expect(getLocalizedSlug("/home", "fr")).toBe("/fr/home");
   });
 
   test("removes locale when set to empty", async () => {
+    mockAstroConfigBase();
+    mockStarlightConfig({
+      defaultLocale: { locale: "en", lang: "en" },
+      locales: { en: {}, de: {}, fr: {} },
+    });
+    
     const { getLocalizedSlug } = await importI18n();
-    expect(getLocalizedSlug("de/home", "")).toBe("home");
+    expect(getLocalizedSlug("de/home", undefined)).toBe("home");
   });
 });
 
 describe("getLocaleFromSlug", () => {
   test("returns locale if present in config", async () => {
-    mockConfig({
+    mockAstroConfigBase();
+    mockStarlightConfig({
       defaultLocale: { locale: "en", lang: "en" },
       locales: { en: {}, de: {}, fr: {} },
     });
@@ -80,7 +126,8 @@ describe("getLocaleFromSlug", () => {
   });
 
   test("returns undefined if locale is not present", async () => {
-    mockConfig({
+    mockAstroConfigBase();
+    mockStarlightConfig({
       defaultLocale: { locale: "en", lang: "en" },
       locales: { en: {}, de: {}, fr: {} },
     });
@@ -92,7 +139,8 @@ describe("getLocaleFromSlug", () => {
 
 describe("getTranslation", () => {
   test("returns translation for current locale", async () => {
-    mockConfig({
+    mockAstroConfigBase();
+    mockStarlightConfig({
       defaultLocale: { locale: "en", lang: "en" },
     });
 
@@ -103,7 +151,8 @@ describe("getTranslation", () => {
   });
 
   test("returns default translation if current locale is missing", async () => {
-    mockConfig({
+    mockAstroConfigBase();
+    mockStarlightConfig({
       defaultLocale: { locale: "en", lang: "en" },
     });
 
@@ -114,7 +163,8 @@ describe("getTranslation", () => {
   });
 
   test("throws error if default translation is missing", async () => {
-    mockConfig({
+    mockAstroConfigBase();
+    mockStarlightConfig({
       defaultLocale: { locale: "en", lang: "en" },
     });
 

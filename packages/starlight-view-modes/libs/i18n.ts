@@ -1,5 +1,6 @@
 import type { APIContext } from "astro";
 import { AstroError } from "astro/errors";
+import astroConfig from "virtual:starlight-view-modes-context";
 import starlightConfig from "virtual:starlight/user-config";
 
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
@@ -16,7 +17,12 @@ export function getLocalizedSlug(
   locale: string | undefined
 ): string {
   const slugLocale = getLocaleFromSlug(slug);
-  if (slugLocale === locale) return slug;
+  const allLocales = getLocales();
+  if (
+    slugLocale === locale ||
+    (!allLocales.includes(locale) && locale !== undefined)
+  )
+    return slug;
   locale ??= "";
   if (slugLocale === slug) return locale;
 
@@ -46,8 +52,15 @@ export function removeLocaleFromSlug(slug: string): string {
 
 export function getLocaleFromSlug(slug: string): string | undefined {
   const locales = Object.keys(starlightConfig.locales ?? {});
-  const baseSegment = stripLeadingSlash(slug).split("/")[0];
-  return baseSegment && locales.includes(baseSegment) ? baseSegment : undefined;
+  const baseSegments = (astroConfig?.base || "").split("/").filter(Boolean);
+  const slugSegments = stripLeadingSlash(slug).split("/");
+
+  const possibleLocaleIndex = baseSegments.length;
+  const possibleLocale = slugSegments[possibleLocaleIndex];
+
+  return possibleLocale && locales.includes(possibleLocale)
+    ? possibleLocale
+    : undefined;
 }
 
 export function getTranslation(
