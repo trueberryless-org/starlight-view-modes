@@ -75,9 +75,6 @@ export default function starlightViewModes(
                     }),
                   ],
                 },
-                // markdown: {
-                //   rehypePlugins: [rehypePrefixInternalLinks],
-                // },
               });
 
               if (config.zenModeSettings.enabled) {

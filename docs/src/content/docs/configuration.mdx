@@ -119,4 +119,12 @@ We recommend disabling this option if you either want your users to have the ful
 **Type:** `string[]`  
 **Default:** `[]`
 
-A list of pages or [glob patterns](https://github.com/micromatch/picomatch#globbing-features) that are not viewable in Zen mode.
+A list of pages or [glob patterns](https://github.com/micromatch/picomatch#globbing-features) that cannot be switched to Zen mode.
+
+If your site is multilingual, your glob patterns need **not** to start with the [locale prefix](https://starlight.astro.build/reference/configuration/#locales).  
+E.g. `["/resources/**/*"]` instead of `["/en/resources/**/*"]` will also work for all locales.
+A page cannot be excluded in only one language.
+
+:::tip
+You can use this [webpage](https://www.digitalocean.com/community/tools/glob) to generate and test glob patterns.
+:::

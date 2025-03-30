@@ -9,5 +9,3 @@ declare namespace App {
     starlightViewModes: import("./data").StarlightViewModesRouteData;
   }
 }
-
-declare module "picomatch";
