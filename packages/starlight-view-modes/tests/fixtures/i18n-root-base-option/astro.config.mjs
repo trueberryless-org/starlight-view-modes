@@ -5,12 +5,12 @@ import starlightViewModes from "starlight-view-modes";
 
 // https://astro.build/config
 export default defineConfig({
+  base: "/base-option/",
   integrations: [
     starlight({
       title: "Starlight View Modes",
-      defaultLocale: "en",
       locales: {
-        en: {
+        root: {
           label: "English",
           lang: "en",
         },

@@ -8,9 +8,8 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Starlight View Modes",
-      defaultLocale: "en",
       locales: {
-        en: {
+        root: {
           label: "English",
           lang: "en",
         },
