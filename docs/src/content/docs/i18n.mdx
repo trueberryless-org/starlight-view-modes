@@ -1,0 +1,29 @@
+---
+title: Internationalization (i18n)
+description: Learn how to configure your website with view modes to support multiple languages.
+---
+
+Starlight View Modes relies on Starlight's built-in support for [internationalization](https://starlight.astro.build/guides/i18n/) to provide multilingual support for your website with view modes with features like routing or fallback content.
+
+See the [Starlight internationalization documentation](https://starlight.astro.build/guides/i18n/) for more information on how to configure i18n in your Starlight website.
+
+## Configure i18n
+
+Configure internationalization in your Starlight project by following the Starlight [“Configure i18n”](https://starlight.astro.build/guides/i18n/#configure-i18n) guide.
+Internationalization is automatically configured for all view modes.
+
+## Fallback content
+
+Similar to Starlight, Starlight View Modes expects you to create equivalent pages in all your languages.
+For example, if you have an `en/guide/hello.md` file, create an `hello.md` for each other language you support.
+This allows Starlight and the Starlight View Modes plugin to provide automatic fallback content for pages that have not yet been translated.
+
+Read more about fallback content in the Starlight [“Internationalization”](https://starlight.astro.build/guides/i18n/#fallback-content) guide.
+
+## Translate the view modes UI
+
+The Starlight View Modes plugin allows you to translate the default UI strings used in the view modes so that your website can be fully localized and readers can enjoy a seamless experience in their preferred language.
+
+import { I18n } from '@hideoo/starlight-plugins-docs-components'
+
+<I18n label="Starlight View Modes" translations={import('../../../../packages/starlight-view-modes/translations')} />

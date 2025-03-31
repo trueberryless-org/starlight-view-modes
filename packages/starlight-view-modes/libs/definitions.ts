@@ -5,11 +5,11 @@ import { getLocalizedExclude } from "./i18n";
 export const AvailableModes: AvailableMode[] = [
   {
     name: "default",
-    title: "Normal Mode",
+    title: "starlightViewModes.defaultMode.title",
   },
   {
     name: "zen-mode",
-    title: "Zen Mode",
+    title: "starlightViewModes.zenMode.title",
     enabled: config.zenModeSettings.enabled,
     exclude: getLocalizedExclude(config.zenModeSettings.exclude),
     enableIcon:
@@ -25,11 +25,11 @@ export const AdditionalModes: AdditionalMode[] =
 export type AvailableMode =
   | {
       name: "default";
-      title: "Normal Mode";
+      title: keyof StarlightApp.I18n;
     }
   | {
       name: string;
-      title: string;
+      title: keyof StarlightApp.I18n;
       enabled: boolean;
       exclude: string[];
       enableIcon: string;

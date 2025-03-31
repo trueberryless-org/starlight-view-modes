@@ -68,6 +68,7 @@ export default defineConfig({
             { label: "Getting Started", link: "/getting-started/" },
             { label: "Configuration", link: "/configuration/" },
             { label: "View Modes Data", link: "/view-modes-data/" },
+            { label: "Internationalization (i18n)", link: "/i18n/" },
           ],
         },
       ],

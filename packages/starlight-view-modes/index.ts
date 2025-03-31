@@ -8,6 +8,7 @@ import {
 } from "./libs/config";
 import { overrideStarlightComponent } from "./libs/starlight";
 import { vitePluginStarlightViewModesConfig } from "./libs/vite";
+import { Translations } from "./translations";
 
 export type { StarlightViewModesConfig, StarlightViewModesUserConfig };
 
@@ -19,6 +20,9 @@ export default function starlightViewModes(
   return {
     name: "starlight-view-modes",
     hooks: {
+      "i18n:setup"({ injectTranslations }) {
+        injectTranslations(Translations);
+      },
       "config:setup"({
         addIntegration,
         addRouteMiddleware,

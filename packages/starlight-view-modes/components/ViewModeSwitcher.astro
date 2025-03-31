@@ -23,10 +23,13 @@ const { type } = Astro.props;
             class={`sl-flex starlight-view-modes-social-link-a starlight-view-modes-switcher-a`}
           >
             <span class="sr-only">
-              Switch to{" "}
-              {mode.isCurrent
-                ? modes.find((mode) => mode.name === "default")?.title
-                : mode.title}
+              {Astro.locals.t("starlightViewModes.switchTo", {
+                text: Astro.locals.t(
+                  mode.isCurrent
+                    ? modes.find((mode) => mode.name === "default")?.title!
+                    : mode.title
+                ),
+              })}
             </span>
             <Icon set:html={mode.icon} />
           </a>
@@ -41,7 +44,7 @@ const { type } = Astro.props;
       <div class="starlight-view-modes-table-of-contents-container">
         {modes.length > 1 && (
           <>
-            <h2>View Modes</h2>
+            <h2>{Astro.locals.t("starlightViewModes.switchesHeading")}</h2>
             <ul>
               {modes.map((mode) => {
                 if (mode.name === "default") return;
@@ -51,10 +54,14 @@ const { type } = Astro.props;
                 return (
                   <li>
                     <a {href} class={`starlight-view-modes-switcher-a`}>
-                      Switch to{" "}
-                      {mode.isCurrent
-                        ? modes.find((mode) => mode.name === "default")?.title
-                        : mode.title}
+                      {Astro.locals.t("starlightViewModes.switchTo", {
+                        text: Astro.locals.t(
+                          mode.isCurrent
+                            ? modes.find((mode) => mode.name === "default")
+                                ?.title!
+                            : mode.title
+                        ),
+                      })}
                     </a>
                   </li>
                 );
