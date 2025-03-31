@@ -7,7 +7,11 @@ import {
   AvailableModes,
   isAdditionalMode,
 } from "./definitions";
-import { stripLeadingSlash, trimToExactlyOneLeadingSlash } from "./path";
+import {
+  stripLeadingSlash,
+  stripTrailingSlash,
+  trimToExactlyOneLeadingSlash,
+} from "./path";
 import { getCurrentModeFromPath } from "./server";
 import { getUpdatedModePathname, isExcludedPage } from "./utils";
 
@@ -16,7 +20,7 @@ export async function getRouteData(
 ): Promise<StarlightViewModesRouteData> {
   let { id } = context.locals.starlightRoute;
   const currentMode = await getCurrentModeFromPath(id);
-  const base = astroConfig?.base || "";
+  const base = stripTrailingSlash(astroConfig?.base || "");
   if (base !== "" && base !== "/") {
     id = `${base}/${id}`;
   }
