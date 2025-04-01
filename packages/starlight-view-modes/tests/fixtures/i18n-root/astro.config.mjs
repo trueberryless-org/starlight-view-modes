@@ -28,7 +28,14 @@ export default defineConfig({
       sidebar: [
         {
           label: "Start Here",
-          items: [{ label: "Demo", link: "/demo/" }],
+          translations: { "zh-CN": "从这里开始" },
+          items: [
+            {
+              label: "Demo",
+              translations: { "zh-CN": "演示" },
+              link: "/demo/",
+            },
+          ],
         },
       ],
     }),
