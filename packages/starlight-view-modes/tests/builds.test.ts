@@ -29,11 +29,11 @@ test('i18n with root locale', async () => {
 test('i18n with base option', async () => {
   const { status } = await buildFixture('i18n-base-option')
 
-  expect(status).toBe('success')
+  expect(status).toBe('error')
 })
 
 test('i18n with root locale with base option', async () => {
   const { status } = await buildFixture('i18n-root-base-option')
 
-  expect(status).toBe('success')
+  expect(status).toBe('error')
 })

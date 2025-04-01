@@ -7,7 +7,6 @@ import {
   getLocaleFromSlug,
   getLocales,
   getLocalizedSlug,
-  removeLocaleFromSlug,
 } from "./i18n";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import { getCurrentModeFromPath as getCurrentModeFromPathWithoutDocs } from "./utils";
@@ -47,7 +46,7 @@ export async function generateStaticPaths(mode: AdditionalMode) {
           )
             return;
 
-          const slugWithoutLocale = removeLocaleFromSlug(page.id);
+          const slugWithoutLocale = getLocalizedSlug(page.id, undefined);
 
           return Promise.all(
             locales.map(async (locale) => {

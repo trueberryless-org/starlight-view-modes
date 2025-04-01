@@ -1,14 +1,7 @@
-import type { APIContext } from "astro";
-import { AstroError } from "astro/errors";
 import astroConfig from "virtual:starlight-view-modes-context";
 import starlightConfig from "virtual:starlight/user-config";
 
-import { stripLeadingSlash, stripTrailingSlash } from "./path";
-
-const defaultLang =
-  starlightConfig.defaultLocale.lang ??
-  starlightConfig.defaultLocale.locale ??
-  "en";
+import { insertSegment, stripLeadingSlash } from "./path";
 
 export const defaultLocale = starlightConfig.defaultLocale.locale ?? "en";
 
@@ -29,25 +22,14 @@ export function getLocalizedSlug(
   const hasLeadingSlash = slug.startsWith("/");
 
   if (slugLocale) {
-    return stripTrailingSlash(
-      `${hasLeadingSlash ? "/" : ""}${slug
-        .replace(`${slugLocale}/`, locale ? `${locale}/` : "")
-        .replace(/^\/+/, "")}`
-    );
+    return `${hasLeadingSlash ? "/" : ""}${slug
+      .replace(`${slugLocale}/`, locale ? `${locale}/` : "")
+      .replace(/^\/+/, "")}`;
   }
 
-  return hasLeadingSlash
-    ? `/${locale}${slug}`
-    : `${locale}${slug ? `/${slug}` : ""}`;
-}
-
-export function removeLocaleFromSlug(slug: string): string {
-  const slugLocale = getLocaleFromSlug(slug);
-  return slugLocale
-    ? slug.includes(`${slugLocale}/`)
-      ? slug.replace(`${slugLocale}/`, "")
-      : slug.replace(`${slugLocale}`, "")
-    : slug;
+  const base = astroConfig?.base || "";
+  const insertionPosition = base.split("/").filter(Boolean).length;
+  return insertSegment(slug, locale, insertionPosition);
 }
 
 export function getLocaleFromSlug(slug: string): string | undefined {
@@ -63,30 +45,6 @@ export function getLocaleFromSlug(slug: string): string | undefined {
     : undefined;
 }
 
-export function getTranslation(
-  currentLocale: APIContext["currentLocale"],
-  translations: Record<string, string>,
-  link: string,
-  description: string
-) {
-  const defaultTranslation = translations[defaultLang];
-
-  if (!defaultTranslation) {
-    throw new AstroError(
-      `The ${description} for "${link}" must have a key for the default language "${defaultLang}".`,
-      "Update the Starlight config to include a topic label for the default language."
-    );
-  }
-
-  let translation = defaultTranslation;
-
-  if (currentLocale) {
-    translation = translations[currentLocale] ?? defaultTranslation;
-  }
-
-  return translation;
-}
-
 export function getLocales(): (string | undefined)[] {
   const { locales = {}, defaultLocale } = starlightConfig;
   return [
@@ -98,11 +56,9 @@ export function getLocales(): (string | undefined)[] {
 }
 
 export function getLocalizedExclude(exclude: string[]): string[] {
-  exclude.map(removeLocaleFromSlug);
+  exclude.map((e) => getLocalizedSlug(e, undefined));
   const locales = getLocales();
   return locales
-    .map((locale) =>
-      exclude.map((e) => getLocalizedSlug(e, locale)).map(stripLeadingSlash)
-    )
+    .map((locale) => exclude.map((e) => getLocalizedSlug(e, locale)))
     .flat();
 }

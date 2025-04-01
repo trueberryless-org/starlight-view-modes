@@ -56,7 +56,7 @@ export default defineConfig({
               showTableOfContents: true,
               showFooter: true,
             },
-            exclude: ["/resources/*"],
+            exclude: ["resources/*"],
           },
         }),
         starlightImageZoom(),
