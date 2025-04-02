@@ -52,7 +52,10 @@ export async function generateStaticPaths(mode: AdditionalMode) {
 
           return Promise.all(
             locales.map(async (locale) => {
-              const localizedSlug = getLocalizedSlug(page.id, locale);
+              let localizedSlug = stripTrailingSlash(
+                getLocalizedSlug(path || "", locale)
+              );
+              if (localizedSlug == "") localizedSlug = "index";
               let translationPage = await getEntry("docs", localizedSlug);
               return {
                 params: { locale, path },
