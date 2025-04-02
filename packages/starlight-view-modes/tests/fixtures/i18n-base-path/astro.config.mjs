@@ -25,13 +25,7 @@ export default defineConfig({
           errorOnFallbackPages: false,
           errorOnInconsistentLocale: true,
         }),
-        starlightViewModes({
-          zenModeSettings: {
-            displayOptions: {
-              showSidebar: true,
-            },
-          },
-        }),
+        starlightViewModes(),
       ],
       sidebar: [
         {

@@ -4,7 +4,12 @@ import astroConfig from "virtual:starlight-view-modes-context";
 import type { StarlightViewModesConfig } from "./config";
 import { AvailableModes } from "./definitions";
 import { getLocaleFromSlug } from "./i18n";
-import { insertSegment, stripLeadingSlash, stripTrailingSlash } from "./path";
+import {
+  ensureTrailingSlash,
+  insertSegment,
+  stripLeadingSlash,
+  stripTrailingSlash,
+} from "./path";
 
 export function getClassNameZenMode(
   displayOptions: StarlightViewModesConfig["zenModeSettings"]["displayOptions"]
@@ -42,6 +47,12 @@ export function handleIndexSlug(slug: string): string | undefined {
     return undefined;
   }
   return slug;
+}
+
+export function handleAstroTrailingSlash(path: string): string {
+  if (astroConfig.trailingSlash === "always") return ensureTrailingSlash(path);
+  if (astroConfig.trailingSlash === "never") return stripTrailingSlash(path);
+  return path;
 }
 
 /**

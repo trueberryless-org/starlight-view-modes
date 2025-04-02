@@ -47,13 +47,15 @@ export async function generateStaticPaths(mode: AdditionalMode) {
             return;
 
           const slugWithoutLocale = getLocalizedSlug(page.id, undefined);
+          let path = handleIndexSlug(slugWithoutLocale);
+          // if (path != undefined) path = handleAstroTrailingSlash(path); // trailingSlash: "never" not supported if path is undefined (#67)
 
           return Promise.all(
             locales.map(async (locale) => {
               const localizedSlug = getLocalizedSlug(page.id, locale);
               let translationPage = await getEntry("docs", localizedSlug);
               return {
-                params: { locale, path: handleIndexSlug(slugWithoutLocale) },
+                params: { locale, path },
                 props: {
                   entry: translationPage ?? page,
                   isFallback: translationPage === undefined,

@@ -37,3 +37,21 @@ test('i18n with root locale with base option', async () => {
 
   expect(status).toBe('error')
 })
+
+test('trailing slash ignore', async () => {
+  const { status } = await buildFixture('trailing-slash-ignore')
+
+  expect(status).toBe('success')
+})
+
+test('trailing slash always', async () => {
+  const { status } = await buildFixture('trailing-slash-always')
+
+  expect(status).toBe('success')
+})
+
+test('trailing slash never', async () => {
+  const { status } = await buildFixture('trailing-slash-never')
+
+  expect(status).toBe('success')
+})
