@@ -83,7 +83,7 @@ if (image) {
       }}
       headings={headings}
       hasSidebar={hasSidebar}
-      {isFallback}
+      {...(isFallback ? { isFallback: true } : {})}
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
@@ -109,7 +109,7 @@ if (image) {
       }}
       headings={headings}
       hasSidebar={hasSidebar}
-      {isFallback}
+      {...(isFallback ? { isFallback: true } : {})}
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
@@ -134,7 +134,7 @@ if (image) {
       }}
       headings={headings}
       hasSidebar={hasSidebar}
-      {isFallback}
+      {...(isFallback ? { isFallback: true } : {})}
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
@@ -159,7 +159,7 @@ if (image) {
       }}
       headings={headings}
       hasSidebar={hasSidebar}
-      {isFallback}
+      {...(isFallback ? { isFallback: true } : {})}
     >
       <div class:list={classes}>
         <RenderHtmlWithRehype>
