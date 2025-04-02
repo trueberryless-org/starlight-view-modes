@@ -4,7 +4,7 @@ import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 
-import { appendModePathname } from "./utils";
+import { insertModePathname } from "./utils";
 
 export function rehypePrefixInternalLinks() {
   /**
@@ -23,10 +23,8 @@ export function rehypePrefixInternalLinks() {
         }
 
         const href = node.properties.href;
-        // Check if the link is internal
-        if (!isAbsoluteUrl(href)) {
-          // Prefix the internal link with '/mode'
-          node.properties.href = appendModePathname(href, "zen-mode");
+        if (!isAbsoluteUrl(href) && !href.startsWith("#")) {
+          node.properties.href = insertModePathname(href, "zen-mode");
         }
       }
     });

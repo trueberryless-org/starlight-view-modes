@@ -3,7 +3,13 @@ import astroConfig from "virtual:starlight-view-modes-context";
 
 import type { StarlightViewModesConfig } from "./config";
 import { AvailableModes } from "./definitions";
-import { insertSegment, stripLeadingSlash, stripTrailingSlash } from "./path";
+import { getLocaleFromSlug } from "./i18n";
+import {
+  ensureTrailingSlash,
+  insertSegment,
+  stripLeadingSlash,
+  stripTrailingSlash,
+} from "./path";
 
 export function getClassNameZenMode(
   displayOptions: StarlightViewModesConfig["zenModeSettings"]["displayOptions"]
@@ -36,28 +42,38 @@ export function isExcludedPage(path: string, exclude: string[]): boolean {
  * @returns Undefined if the slug is an index page, otherwise the slug
  */
 export function handleIndexSlug(slug: string): string | undefined {
+  if (slug === "") return undefined;
   if (["index", "/"].some((indexSlug) => slug.startsWith(indexSlug))) {
     return undefined;
   }
   return slug;
 }
 
+export function handleAstroTrailingSlash(path: string): string {
+  if (astroConfig.trailingSlash === "always") return ensureTrailingSlash(path);
+  if (astroConfig.trailingSlash === "never") return stripTrailingSlash(path);
+  return path;
+}
+
 /**
- * Appends a mode to a pathname, respecting the base path configuration.
+ * Insert a mode to a pathname, respecting the base path configuration and i18n.
  * If the mode is 'default', the pathname is returned unchanged.
  *
- * @param {string} pathname - The pathname to append the mode to
- * @param {string} mode - The mode to append (e.g., 'dark', 'default')
- * @returns {string} - The pathname with the mode appended
+ * @param {string} pathname - The pathname to append the mode to including the base and locale
+ * @param {string} mode - The mode to append (e.g., 'zen-mode', 'default')
+ * @returns {string} - The pathname with the mode correctly inserted
  */
-export function appendModePathname(pathname: string, mode: string) {
+export function insertModePathname(pathname: string, mode: string) {
   // If the mode is default, return the pathname unchanged
   if (mode === "default") {
     return pathname;
   }
 
   const base = astroConfig?.base || "";
-  return insertSegment(pathname, mode, base.split("/").filter(Boolean).length);
+  const locale = getLocaleFromSlug(pathname);
+  const insertionPosition =
+    base.split("/").filter(Boolean).length + (locale ? 1 : 0);
+  return insertSegment(pathname, mode, insertionPosition);
 }
 
 /**
@@ -70,9 +86,22 @@ export async function getCurrentModeFromPath(
 ): Promise<string> {
   let slug = stripLeadingSlash(stripTrailingSlash(pathname));
   const base = stripLeadingSlash(stripTrailingSlash(astroConfig.base));
+  const locale = getLocaleFromSlug(slug);
 
-  if (base && slug.startsWith(`${base}/`)) {
-    slug = slug.slice(base.length + 1);
+  if (base) {
+    slug = slug.startsWith(`${base}/`)
+      ? slug.slice(base.length + 1)
+      : slug.startsWith(`${base}`)
+        ? slug.slice(base.length)
+        : slug;
+  }
+
+  if (locale) {
+    slug = slug.startsWith(`${locale}/`)
+      ? slug.slice(locale.length + 1)
+      : slug.startsWith(`${locale}`)
+        ? slug.slice(locale.length)
+        : slug;
   }
 
   return (
@@ -111,5 +140,5 @@ export async function getUpdatedModePathname(
       : pathname.replace(`${currentMode}`, "");
   }
 
-  return appendModePathname(cleanedPath, targetMode);
+  return insertModePathname(cleanedPath, targetMode);
 }

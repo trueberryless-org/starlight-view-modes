@@ -10,5 +10,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@starlight-view-modes-tests/*"]
+  "ignore": ["starlight-view-modes-docs", "@starlight-view-modes-tests/*"]
 }

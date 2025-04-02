@@ -3,7 +3,7 @@ import type { APIContext } from "astro";
 
 import { getRouteData } from "./libs/routeData";
 import { modifySidebarAndPagination } from "./libs/sidebar";
-import { appendModePathname } from "./libs/utils";
+import { insertModePathname } from "./libs/utils";
 
 export const onRequest = defineRouteMiddleware(async (context) => {
   const { starlightRoute } = context.locals;
@@ -17,7 +17,7 @@ export const onRequest = defineRouteMiddleware(async (context) => {
   );
 
   if (currentMode && currentMode.name !== "default")
-    starlightRoute.siteTitleHref = appendModePathname(
+    starlightRoute.siteTitleHref = insertModePathname(
       siteTitleHref,
       currentMode.name
     );

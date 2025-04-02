@@ -7,3 +7,5 @@ declare module "virtual:starlight-view-modes-context" {
   const StarlightViewModesContext: import("./libs/vite").StarlightViewModesContext;
   export default StarlightViewModesContext;
 }
+
+declare module "picomatch";
