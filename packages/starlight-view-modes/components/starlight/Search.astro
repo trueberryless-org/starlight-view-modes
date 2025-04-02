@@ -3,6 +3,7 @@ import "@pagefind/default-ui/css/ui.css";
 import { Icon } from "@astrojs/starlight/components";
 import project from "virtual:starlight/project-context";
 import { getCurrentModeFromPath } from "../../libs/server";
+import config from "virtual:starlight-view-modes-config";
 
 const currentPathname = Astro.url.pathname;
 const currentMode = await getCurrentModeFromPath(currentPathname);
@@ -19,6 +20,7 @@ const pagefindTranslations = {
 const dataAttributes: DOMStringMap = {
   "data-translations": JSON.stringify(pagefindTranslations),
   "data-mode": currentMode,
+  "data-shortcuts": JSON.stringify(config.zenModeSettings.keyboardShortcut),
 };
 if (project.trailingSlash === "never")
   dataAttributes["data-strip-trailing-slash"] = "";
@@ -90,7 +92,16 @@ if (project.trailingSlash === "never")
 <script>
   // @ts-ignore
   import { pagefindUserConfig } from "virtual:starlight/pagefind-config";
-  import { appendModePathname } from "../../libs/utils";
+  import {
+    insertModePathname,
+    getCurrentModeFromPath,
+    getUpdatedModePathname,
+  } from "../../libs/utils";
+  import {
+    isShortcutPressed,
+    parseShortcut,
+    type Shortcut,
+  } from "../../libs/shortcuts";
 
   class SiteSearch extends HTMLElement {
     constructor() {
@@ -135,11 +146,32 @@ if (project.trailingSlash === "never")
         window.removeEventListener("click", onClick);
       });
 
+      let keyboardShortcuts: Shortcut[] = [];
+      try {
+        const shortcuts = JSON.parse(this.dataset.shortcuts || "[]");
+        keyboardShortcuts = shortcuts.map(parseShortcut);
+      } catch {}
+
       // Listen for `ctrl + k` and `cmd + k` keyboard shortcuts.
-      window.addEventListener("keydown", (e) => {
+      window.addEventListener("keydown", async (e) => {
         if ((e.metaKey === true || e.ctrlKey === true) && e.key === "k") {
           dialog.open ? closeModal() : openModal();
           e.preventDefault();
+        }
+
+        // Handle view modes keyboard shortcuts
+        for (const shortcut of keyboardShortcuts) {
+          if (isShortcutPressed(e, shortcut)) {
+            const updatedPathname = await getUpdatedModePathname(
+              window.location.pathname,
+              (await getCurrentModeFromPath(window.location.pathname)) ===
+                "default"
+                ? "zen-mode"
+                : "default"
+            );
+            window.location.pathname = updatedPathname;
+            e.preventDefault();
+          }
         }
       });
 
@@ -175,13 +207,13 @@ if (project.trailingSlash === "never")
               url: string;
               sub_results: Array<{ url: string }>;
             }) => {
-              result.url = await appendModePathname(
+              result.url = await insertModePathname(
                 formatURL(result.url),
                 this.dataset.mode ?? "default"
               );
               result.sub_results = await Promise.all(
                 result.sub_results.map(async (sub_result) => {
-                  sub_result.url = await appendModePathname(
+                  sub_result.url = await insertModePathname(
                     formatURL(sub_result.url),
                     this.dataset.mode ?? "default"
                   );

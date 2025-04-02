@@ -13,7 +13,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/starlight": "^0.32.1",
     "@hideoo/starlight-plugins-docs-components": "^0.4.0",
-    "@trueberryless-org/starlight-plugins-docs-components": "^0.4.1",
+    "@trueberryless-org/starlight-plugins-docs-components": "^0.4.2",
     "astro": "^5.3.1",
     "sharp": "^0.32.5",
     "starlight-contributor-list": "^0.3.0",

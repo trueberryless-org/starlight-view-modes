@@ -1,4 +1,3 @@
-import type { StarlightUserConfig } from "@astrojs/starlight/types";
 import { AstroError } from "astro/errors";
 import { z } from "astro/zod";
 
@@ -19,15 +18,6 @@ const configSchema = z
          * @default true
          */
         enabled: z.boolean().default(true),
-
-        // /**
-        //  * Choose the position of the close button for Zen mode. It is only visible when Zen mode
-        //  * is active and can be in one of four corners: top left, top right, bottom left, or bottom right.
-        //  *
-        //  * @type {enum}
-        //  * @default "top-right"
-        //  */
-        // closeButtonPosition: z.enum(["top-left", "top-right", "bottom-left", "bottom-right"]).default("top-right"),
 
         /**
          * Choose what elements should be hidden when Zen mode is active.
@@ -60,43 +50,35 @@ const configSchema = z
          */
         exclude: z.array(z.string()).default([]),
 
-        // /**
-        //  * Controls the visibility of Zen mode switches in various parts of the interface.
-        //  *
-        //  * @type {object}
-        //  */
-        // switchVisibility: z
-        //   .object({
-        //     /**
-        //      * Locations where the Zen mode switch should appear. Possible values are:
-        //      * - "tableOfContents" for the table of contents sidebar
-        //      * - "header" for the main header
-        //      * - "headerMobile" for the header on mobile devices.
-        //      *
-        //      * @type {array}
-        //      * @default ["tableOfContents", "header", "headerMobile"]
-        //      */
-        //     location: z
-        //       .array(z.enum(["tableOfContents", "header", "headerMobile"]))
-        //       .default(["tableOfContents", "header", "headerMobile"]),
-        //   })
-        //   .default({
-        //     location: ["tableOfContents", "header", "headerMobile"],
-        //   }),
+        /**
+         * Defines a list of keyboard shortcuts which will activate and deactivate Zen mode.
+         *
+         * @default []
+         */
+        keyboardShortcut: z
+          .string()
+          .transform((string) => [string])
+          .or(z.string().array())
+          .default([])
+          .superRefine((shortcuts, ctx) => {
+            // Regex pattern to match invalid keyboard shortcuts: https://regex101.com/r/fgyKoV/1
+            const invalidShortcutRegex =
+              /^(?:(?:Ctrl|Shift|Alt)\+)*[a-zA-Z0-9]$/;
+            const invalidShortcuts = shortcuts.filter(
+              (shortcut) => !invalidShortcutRegex.test(shortcut)
+            );
+            for (const invalidShortcut of invalidShortcuts) {
+              ctx.addIssue({
+                code: "custom",
+                message:
+                  "A `keyboardShortcut` in your Starlight View Modes config does not match the expected string format.\n\n" +
+                  `You should correctly pass a valid keyboard shortcut, like \`Ctrl+K\` or \`Ctrl+Shift+K\`, but you passed \`${invalidShortcut}\`.\n\n` +
+                  "- More about Starlight View Modes' keyboard shortcuts: https://starlight-view-modes.trueberryless.org/configuration/#keyboardshortcut",
+              });
+            }
+          }),
       })
-      .default({
-        // enabled: true,
-        // closeButtonPosition: "top-right",
-        // displayOptions: {
-        //   showHeader: false,
-        //   showSidebar: false,
-        //   showTableOfContents: true,
-        //   showFooter: true,
-        // },
-        // switchVisibility: {
-        //   location: ["tableOfContents", "header", "headerMobile"],
-        // },
-      }),
+      .default({}),
   })
   .default({});
 
