@@ -1,5 +1,13 @@
 # starlight-view-modes
 
+## 0.10.0
+
+### Minor Changes
+
+- [#69](https://github.com/trueberryless-org/starlight-view-modes/pull/69) [`935ead3`](https://github.com/trueberryless-org/starlight-view-modes/commit/935ead36c5b5212bdc1bcbb058d1d2fbdbed4bf0) Thanks [@trueberryless](https://github.com/trueberryless)! - Add support for keyboard shortcuts to switch between modes
+
+- [#64](https://github.com/trueberryless-org/starlight-view-modes/pull/64) [`71ae703`](https://github.com/trueberryless-org/starlight-view-modes/commit/71ae703f88d9e1a65e02822e67f68ce9b34e157a) Thanks [@trueberryless](https://github.com/trueberryless)! - Add support for [multilingual sites](https://starlight.astro.build/guides/i18n/).
+
 ## 0.9.0
 
 ### Minor Changes
