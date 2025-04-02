@@ -128,3 +128,24 @@ A page cannot be excluded in only one language.
 :::tip
 You can use this [webpage](https://www.digitalocean.com/community/tools/glob) to generate and test glob patterns.
 :::
+
+#### `keyboardShortcut`
+
+**Type:** `string | string[]`
+
+A list of keyboard shortcuts that will enable the user to enter and exit the Zen Mode.
+Keyboard shortcuts are disabled by default.
+
+A basic shortcut consists of one or more modifier keys followed by a regular key, all connected with `+` signs.
+The Starlight View Modes plugin accepts the following modifier keys: `Ctrl`, `Shift`, `Alt`.
+
+As an example, this website uses the following keyboard shortcut configuration:
+
+```js
+starlightViewModes({
+  zenModeSettings: {
+    keyboardShortcut: ["Ctrl+Shift+Z"],
+  },
+}),
+```
+

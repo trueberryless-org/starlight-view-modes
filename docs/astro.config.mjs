@@ -57,7 +57,7 @@ export default defineConfig({
               showFooter: true,
             },
             exclude: ["resources/*"],
-            keyboardShortcut: ["Ctrl+Z"],
+            keyboardShortcut: ["Ctrl+Shift+Z"],
           },
         }),
         starlightImageZoom(),

@@ -13,7 +13,7 @@ const { shortcuts } = Astro.props;
     <>
       <kbd class="sl-hidden md:sl-flex" style="display: none;">
         {shortcut.ctrl && <kbd>Ctrl</kbd>}
-        {shortcut.shift && <kbd>⇧</kbd>}
+        {shortcut.shift && <kbd>Shift</kbd>}
         {shortcut.alt && <kbd>Alt</kbd>}
         <kbd>{shortcut.keys.map((k) => k.toUpperCase()).join("+")}</kbd>
       </kbd>
@@ -38,6 +38,7 @@ const { shortcuts } = Astro.props;
         if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
           platformKey.textContent = platformKey.textContent
             .replace("Ctrl", "⌘")
+            .replace("Shift", "⇧")
             .replace("Alt", "⌥");
         }
       }
