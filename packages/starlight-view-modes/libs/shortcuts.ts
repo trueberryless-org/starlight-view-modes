@@ -1,10 +1,11 @@
-export const parseShortcut = (shortcut: string): Shortcut => {
+export const parseShortcut = (shortcut: string, mode: string): Shortcut => {
   const keys = shortcut.toLowerCase().split("+");
   return {
     keys: keys.filter((k) => !["ctrl", "shift", "alt"].includes(k)),
     ctrl: keys.includes("ctrl"),
     shift: keys.includes("shift"),
     alt: keys.includes("alt"),
+    mode,
   };
 };
 
@@ -22,4 +23,5 @@ export type Shortcut = {
   ctrl?: boolean;
   shift?: boolean;
   alt?: boolean;
+  mode: string;
 };
