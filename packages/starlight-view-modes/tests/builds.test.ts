@@ -9,7 +9,7 @@ test('basic', async () => {
 })
 
 test('base option', async () => {
-  const { status } = await buildFixture('base-option')
+  const { status } = await buildFixture('base-path')
 
   expect(status).toBe('success')
 })
@@ -27,13 +27,13 @@ test('i18n with root locale', async () => {
 })
 
 test('i18n with base option', async () => {
-  const { status } = await buildFixture('i18n-base-option')
+  const { status } = await buildFixture('i18n-base-path')
 
   expect(status).toBe('error')
 })
 
 test('i18n with root locale with base option', async () => {
-  const { status } = await buildFixture('i18n-root-base-option')
+  const { status } = await buildFixture('i18n-root-base-path')
 
   expect(status).toBe('error')
 })

@@ -1,5 +1,5 @@
 {
-  "name": "@starlight-view-modes-tests/i18n-base-option",
+  "name": "@starlight-view-modes-tests/i18n-root-base-path",
   "version": "0.1.0",
   "dependencies": {
     "@astrojs/starlight": "^0.32.1",
