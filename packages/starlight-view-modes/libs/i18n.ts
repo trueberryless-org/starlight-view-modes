@@ -1,7 +1,7 @@
 import astroConfig from "virtual:starlight-view-modes-context";
 import starlightConfig from "virtual:starlight/user-config";
 
-import { insertSegment, stripLeadingSlash } from "./path";
+import { insertSegment, isSamePathStart, stripLeadingSlash } from "./path";
 
 export const defaultLocale = starlightConfig.defaultLocale.locale ?? "en";
 
@@ -28,16 +28,21 @@ export function getLocalizedSlug(
   }
 
   const base = astroConfig?.base || "";
-  const insertionPosition = base.split("/").filter(Boolean).length;
+  const insertionPosition = isSamePathStart(slug, base)
+    ? base.split("/").filter(Boolean).length
+    : 0;
   return insertSegment(slug, locale, insertionPosition);
 }
 
 export function getLocaleFromSlug(slug: string): string | undefined {
   const locales = Object.keys(starlightConfig.locales ?? {});
-  const baseSegments = (astroConfig?.base || "").split("/").filter(Boolean);
+  const base = astroConfig?.base || "";
+  const baseSegments = base.split("/").filter(Boolean);
   const slugSegments = stripLeadingSlash(slug).split("/");
 
-  const possibleLocaleIndex = baseSegments.length;
+  const possibleLocaleIndex = isSamePathStart(slug, base)
+    ? baseSegments.length
+    : 0;
   const possibleLocale = slugSegments[possibleLocaleIndex];
 
   return possibleLocale && locales.includes(possibleLocale)

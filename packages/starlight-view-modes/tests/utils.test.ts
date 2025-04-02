@@ -22,16 +22,13 @@ function mockConfig() {
   }));
 }
 
-// Import the function AFTER mocking
-async function importInsertModePathname() {
-  return (await import("../libs/utils")).insertModePathname;
-}
-async function importGetCurrentModeFromPath() {
-  return (await import("../libs/utils")).getCurrentModeFromPath;
+async function importUtils() {
+  return (await import("../libs/utils"));
 }
 
 afterEach(() => {
   vi.resetModules();
+  vi.resetAllMocks();
 });
 
 describe("getCurrentModeFromPath", () => {
@@ -43,7 +40,7 @@ describe("getCurrentModeFromPath", () => {
       locales: {root: {}},
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/docs")).toBe("default");
     expect(await getCurrentModeFromPath("/docs/intro")).toBe("default");
@@ -58,7 +55,7 @@ describe("getCurrentModeFromPath", () => {
       locales: { en: {}, de: {}, fr: {} },
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/docs")).toBe("default");
     expect(await getCurrentModeFromPath("/en/docs")).toBe("default");
@@ -85,7 +82,7 @@ describe("getCurrentModeFromPath", () => {
       locales: {root: {}},
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/zen-mode/intro")).toBe("zen-mode");
   });
@@ -98,7 +95,7 @@ describe("getCurrentModeFromPath", () => {
       locales: { en: {}, de: {}, fr: {} },
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/zen-mode/intro")).toBe("zen-mode");
     expect(await getCurrentModeFromPath("/en/zen-mode/intro")).toBe("zen-mode");
@@ -115,7 +112,7 @@ describe("getCurrentModeFromPath", () => {
       locales: {root: {}},
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/invalid-mode/intro")).toBe("default");
   });
@@ -128,7 +125,7 @@ describe("getCurrentModeFromPath", () => {
       locales: { en: {}, de: {}, fr: {} },
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/invalid-mode/intro")).toBe("default");
     expect(await getCurrentModeFromPath("/en/invalid-mode/intro")).toBe("default");
@@ -145,7 +142,7 @@ describe("getCurrentModeFromPath", () => {
       locales: {root: {}},
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/docs/intro")).toBe("default");
     expect(await getCurrentModeFromPath("/docs/zen-mode/intro")).toBe(
@@ -161,7 +158,7 @@ describe("getCurrentModeFromPath", () => {
       locales: { en: {}, de: {}, fr: {} },
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/docs/intro")).toBe("default");
     expect(await getCurrentModeFromPath("/docs/en/intro")).toBe("default");
@@ -193,7 +190,7 @@ describe("getCurrentModeFromPath", () => {
       locales: {root: {}},
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/notdocs/zen-mode/intro")).toBe(
       "default"
@@ -208,7 +205,7 @@ describe("getCurrentModeFromPath", () => {
       locales: { en: {}, de: {}, fr: {} },
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/notdocs/zen-mode/intro")).toBe(
       "default"
@@ -235,7 +232,7 @@ describe("getCurrentModeFromPath", () => {
       locales: {root: {}},
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/docs/zen-mode/")).toBe("zen-mode");
     expect(await getCurrentModeFromPath("/docs/zen-mode")).toBe("zen-mode");
@@ -249,7 +246,7 @@ describe("getCurrentModeFromPath", () => {
       locales: { en: {}, de: {}, fr: {} },
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/docs/zen-mode/")).toBe("zen-mode");
     expect(await getCurrentModeFromPath("/docs/en/zen-mode/")).toBe("zen-mode");
@@ -271,7 +268,7 @@ describe("getCurrentModeFromPath", () => {
       locales: {root: {}},
     });
 
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
 
     expect(await getCurrentModeFromPath("/docs/intro/zen-mode")).toBe(
       "default"
@@ -287,7 +284,7 @@ describe("getCurrentModeFromPath", () => {
     });
   
   
-    const getCurrentModeFromPath = await importGetCurrentModeFromPath();
+    const getCurrentModeFromPath = (await importUtils()).getCurrentModeFromPath;
   
     expect(await getCurrentModeFromPath("/docs/intro/zen-mode")).toBe(
       "default"
@@ -317,7 +314,7 @@ describe("insertModePathname", () => {
       locales: {root: {}},
     });
 
-    const insertModePathname = await importInsertModePathname();
+    const insertModePathname = (await importUtils()).insertModePathname;
     
     expect(insertModePathname("/page/", "dark")).toBe("/dark/page/");
     expect(insertModePathname("/page", "dark")).toBe("/dark/page");
@@ -335,7 +332,7 @@ describe("insertModePathname", () => {
       locales: { en: {}, de: {}, fr: {} },
     });
 
-    const insertModePathname = await importInsertModePathname();
+    const insertModePathname = (await importUtils()).insertModePathname;
     
     expect(insertModePathname("/page/", "dark")).toBe("/dark/page/");
     expect(insertModePathname("/en/page/", "dark")).toBe("/en/dark/page/");
@@ -381,7 +378,7 @@ describe("insertModePathname", () => {
       locales: {root: {}},
     });
 
-    const insertModePathname = await importInsertModePathname();
+    const insertModePathname = (await importUtils()).insertModePathname;
     
     expect(insertModePathname("/docs/page/", "dark")).toBe("/docs/dark/page/");
     expect(insertModePathname("/docs/page", "dark")).toBe("/docs/dark/page");
@@ -399,7 +396,7 @@ describe("insertModePathname", () => {
       locales: { en: {}, de: {}, fr: {} },
     });
 
-    const insertModePathname = await importInsertModePathname();
+    const insertModePathname = (await importUtils()).insertModePathname;
     
     expect(insertModePathname("/docs/page/", "dark")).toBe("/docs/dark/page/");
     expect(insertModePathname("/docs/en/page/", "dark")).toBe("/docs/en/dark/page/");
@@ -441,7 +438,7 @@ describe("insertModePathname", () => {
       locales: {root: {}},
     });
 
-    const insertModePathname = await importInsertModePathname();
+    const insertModePathname = (await importUtils()).insertModePathname;
     
     expect(insertModePathname("/page/", "default")).toBe("/page/");
     expect(insertModePathname("/page", "default")).toBe("/page");
@@ -459,7 +456,7 @@ describe("insertModePathname", () => {
       locales: { en: {}, de: {}, fr: {} },
     });
 
-    const insertModePathname = await importInsertModePathname();
+    const insertModePathname = (await importUtils()).insertModePathname;
     
     expect(insertModePathname("/page/", "default")).toBe("/page/");
     expect(insertModePathname("/en/page/", "default")).toBe("/en/page/");
@@ -505,7 +502,7 @@ describe("insertModePathname", () => {
       locales: {root: {}},
     });
 
-    const insertModePathname = await importInsertModePathname();
+    const insertModePathname = (await importUtils()).insertModePathname;
     
     expect(insertModePathname("/docs/page/", "default")).toBe("/docs/page/");
     expect(insertModePathname("/docs/page", "default")).toBe("/docs/page");
@@ -523,7 +520,7 @@ describe("insertModePathname", () => {
       locales: { en: {}, de: {}, fr: {} },
     });
 
-    const insertModePathname = await importInsertModePathname();
+    const insertModePathname = (await importUtils()).insertModePathname;
     
     expect(insertModePathname("/docs/page/", "default")).toBe("/docs/page/");
     expect(insertModePathname("/docs/en/page/", "default")).toBe("/docs/en/page/");

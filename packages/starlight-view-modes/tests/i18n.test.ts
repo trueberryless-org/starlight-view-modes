@@ -18,8 +18,8 @@ async function importI18n() {
 
 afterEach(() => {
   vi.resetModules();
+  vi.resetAllMocks();
 });
-
 
 describe("getLocalizedSlug", () => {
   test("returns same slug when locale matches", async () => {
@@ -49,6 +49,15 @@ describe("getLocalizedSlug", () => {
     });
 
     const { getLocalizedSlug } = await importI18n();
+    expect(getLocalizedSlug("de/home", "de")).toBe("de/home");
+    expect(getLocalizedSlug("fr/home", "fr")).toBe("fr/home");
+    expect(getLocalizedSlug("fr/home", "ru")).toBe("fr/home");
+    expect(getLocalizedSlug("ru/home", "fr")).toBe("fr/ru/home");
+    expect(getLocalizedSlug("ru/home", "ru")).toBe("ru/home");
+    expect(getLocalizedSlug("/de/home", "de")).toBe("/de/home");
+    expect(getLocalizedSlug("de/home/", "de")).toBe("de/home/");
+    expect(getLocalizedSlug("/de/home/", "de")).toBe("/de/home/");
+    expect(getLocalizedSlug("/de/some/long/path/", "de")).toBe("/de/some/long/path/");
     expect(getLocalizedSlug("docs/de/home", "de")).toBe("docs/de/home");
     expect(getLocalizedSlug("docs/fr/home", "fr")).toBe("docs/fr/home");
     expect(getLocalizedSlug("docs/fr/home", "ru")).toBe("docs/fr/home");
@@ -87,6 +96,15 @@ describe("getLocalizedSlug", () => {
     });
 
     const { getLocalizedSlug } = await importI18n();
+    expect(getLocalizedSlug("de/home", "fr")).toBe("fr/home");
+    expect(getLocalizedSlug("fr/home", "en")).toBe("en/home");
+    expect(getLocalizedSlug("fr/home", "ru")).toBe("fr/home");
+    expect(getLocalizedSlug("ru/home", "fr")).toBe("fr/ru/home");
+    expect(getLocalizedSlug("ru/home", "ru")).toBe("ru/home");
+    expect(getLocalizedSlug("de/home/", "fr")).toBe("fr/home/");
+    expect(getLocalizedSlug("/de/home", "fr")).toBe("/fr/home");
+    expect(getLocalizedSlug("/de/home/", "fr")).toBe("/fr/home/");
+    expect(getLocalizedSlug("/de/some/long/path/", "fr")).toBe("/fr/some/long/path/");
     expect(getLocalizedSlug("docs/de/home", "fr")).toBe("docs/fr/home");
     expect(getLocalizedSlug("docs/fr/home", "en")).toBe("docs/en/home");
     expect(getLocalizedSlug("docs/fr/home", "ru")).toBe("docs/fr/home");
@@ -123,6 +141,13 @@ describe("getLocalizedSlug", () => {
     });
 
     const { getLocalizedSlug } = await importI18n();
+    expect(getLocalizedSlug("home", "de")).toBe("de/home");
+    expect(getLocalizedSlug("home", "fr")).toBe("fr/home");
+    expect(getLocalizedSlug("home", "ru")).toBe("home");
+    expect(getLocalizedSlug("/home", "de")).toBe("/de/home");
+    expect(getLocalizedSlug("home/", "de")).toBe("de/home/");
+    expect(getLocalizedSlug("/home/", "de")).toBe("/de/home/");
+    expect(getLocalizedSlug("/some/long/path/", "de")).toBe("/de/some/long/path/");
     expect(getLocalizedSlug("docs/home", "de")).toBe("docs/de/home");
     expect(getLocalizedSlug("docs/home", "fr")).toBe("docs/fr/home");
     expect(getLocalizedSlug("docs/home", "ru")).toBe("docs/home");
@@ -157,6 +182,13 @@ describe("getLocalizedSlug", () => {
     });
     
     const { getLocalizedSlug } = await importI18n();
+    expect(getLocalizedSlug("de/home", undefined)).toBe("home");
+    expect(getLocalizedSlug("fr/home", undefined)).toBe("home");
+    expect(getLocalizedSlug("ru/home", undefined)).toBe("ru/home");
+    expect(getLocalizedSlug("de/home/", undefined)).toBe("home/");
+    expect(getLocalizedSlug("/de/home", undefined)).toBe("/home");
+    expect(getLocalizedSlug("/de/home/", undefined)).toBe("/home/");
+    expect(getLocalizedSlug("/de/some/long/path/", undefined)).toBe("/some/long/path/");
     expect(getLocalizedSlug("docs/de/home", undefined)).toBe("docs/home");
     expect(getLocalizedSlug("docs/fr/home", undefined)).toBe("docs/home");
     expect(getLocalizedSlug("docs/ru/home", undefined)).toBe("docs/ru/home");
@@ -192,6 +224,12 @@ describe("getLocaleFromSlug", () => {
     });
 
     const { getLocaleFromSlug } = await importI18n();
+    expect(getLocaleFromSlug("de/home")).toBe("de");
+    expect(getLocaleFromSlug("fr/home")).toBe("fr");
+    expect(getLocaleFromSlug("de/home/")).toBe("de");
+    expect(getLocaleFromSlug("/de/home")).toBe("de");
+    expect(getLocaleFromSlug("/de/home/")).toBe("de");
+    expect(getLocaleFromSlug("/de/some/long/path/")).toBe("de");
     expect(getLocaleFromSlug("docs/de/home")).toBe("de");
     expect(getLocaleFromSlug("docs/fr/home")).toBe("fr");
     expect(getLocaleFromSlug("docs/de/home/")).toBe("de");
@@ -224,6 +262,12 @@ describe("getLocaleFromSlug", () => {
     });
 
     const { getLocaleFromSlug } = await importI18n();
+    expect(getLocaleFromSlug("home")).toBeUndefined();
+    expect(getLocaleFromSlug("ru/home")).toBeUndefined();
+    expect(getLocaleFromSlug("home/en")).toBeUndefined();
+    expect(getLocaleFromSlug("home/fr")).toBeUndefined();
+    expect(getLocaleFromSlug("home/en/")).toBeUndefined();
+    expect(getLocaleFromSlug("home/fr/")).toBeUndefined();
     expect(getLocaleFromSlug("docs/home")).toBeUndefined();
     expect(getLocaleFromSlug("docs/ru/home")).toBeUndefined();
     expect(getLocaleFromSlug("docs/home/en")).toBeUndefined();

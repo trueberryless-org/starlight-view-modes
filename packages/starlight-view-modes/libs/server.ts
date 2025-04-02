@@ -46,9 +46,7 @@ export async function generateStaticPaths(mode: AdditionalMode) {
           )
             return;
 
-          const slugWithoutLocale = stripTrailingSlash(
-            getLocalizedSlug(page.id, undefined)
-          );
+          const slugWithoutLocale = getLocalizedSlug(page.id, undefined);
 
           return Promise.all(
             locales.map(async (locale) => {
