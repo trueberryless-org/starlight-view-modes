@@ -17,6 +17,7 @@ function mockConfig() {
     default: {
       zenModeSettings: {
         exclude: [],
+        keyboardShortcut: [],
       },
     },
   }));

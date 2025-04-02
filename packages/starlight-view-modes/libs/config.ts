@@ -49,6 +49,34 @@ const configSchema = z
          * @default []
          */
         exclude: z.array(z.string()).default([]),
+
+        /**
+         * Defines a list of keyboard shortcuts which will activate and deactivate Zen mode.
+         *
+         * @default []
+         */
+        keyboardShortcut: z
+          .string()
+          .transform((string) => [string])
+          .or(z.string().array())
+          .default([])
+          .superRefine((shortcuts, ctx) => {
+            // Regex pattern to match invalid keyboard shortcuts: https://regex101.com/r/fgyKoV/1
+            const invalidShortcutRegex =
+              /^(?:(?:Ctrl|Shift|Alt)\+)*[a-zA-Z0-9]$/;
+            const invalidShortcuts = shortcuts.filter(
+              (shortcut) => !invalidShortcutRegex.test(shortcut)
+            );
+            for (const invalidShortcut of invalidShortcuts) {
+              ctx.addIssue({
+                code: "custom",
+                message:
+                  "A `keyboardShortcut` in your Starlight View Modes config does not match the expected string format.\n\n" +
+                  `You should correctly pass a valid keyboard shortcut, like \`Ctrl+K\` or \`Meta+K\`, but you passed \`${invalidShortcut}\`.\n\n` +
+                  "- More about Starlight View Modes' keyboard shortcuts: https://starlight.astro.build/guides/route-data/#how-to-customize-route-data\n",
+              });
+            }
+          }),
       })
       .default({}),
   })

@@ -57,6 +57,7 @@ function addMode(
       icon: isCurrent ? mode.disableIcon : mode.enableIcon,
       href: trimToExactlyOneLeadingSlash(link),
       isCurrent,
+      keyboardShortcuts: mode.keyboardShortcut,
     });
   } else {
     modes.push({
