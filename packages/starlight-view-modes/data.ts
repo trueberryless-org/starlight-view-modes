@@ -1,4 +1,4 @@
-import type { AvailableMode } from "./libs/definitions";
+import type { AdditionalMode, AvailableMode } from "./libs/definitions";
 
 export interface StarlightViewModesRouteData {
   /**
@@ -26,5 +26,9 @@ export interface StarlightViewModesRouteData {
      * Indicates if the current page is in this view mode right now.
      */
     isCurrent: boolean;
+    /**
+     * The keyboard shortcuts to switch to and from this view mode.
+     */
+    keyboardShortcuts?: AdditionalMode["keyboardShortcut"];
   }[];
 }
