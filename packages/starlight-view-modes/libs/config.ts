@@ -72,8 +72,8 @@ const configSchema = z
                 code: "custom",
                 message:
                   "A `keyboardShortcut` in your Starlight View Modes config does not match the expected string format.\n\n" +
-                  `You should correctly pass a valid keyboard shortcut, like \`Ctrl+K\` or \`Meta+K\`, but you passed \`${invalidShortcut}\`.\n\n` +
-                  "- More about Starlight View Modes' keyboard shortcuts: https://starlight.astro.build/guides/route-data/#how-to-customize-route-data\n",
+                  `You should correctly pass a valid keyboard shortcut, like \`Ctrl+K\` or \`Ctrl+Shift+K\`, but you passed \`${invalidShortcut}\`.\n\n` +
+                  "- More about Starlight View Modes' keyboard shortcuts: https://starlight-view-modes.trueberryless.org/configuration/#keyboardshortcut",
               });
             }
           }),
