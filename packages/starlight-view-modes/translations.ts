@@ -15,8 +15,9 @@ export const Translations = {
   },
   fr: {
     "starlightViewModes.switchesHeading": "Modes de visualisation",
-    "starlightViewModes.switchTo": "Basculer vers {{ text }}",
     "starlightViewModes.defaultMode.title": "Mode par défaut",
     "starlightViewModes.zenMode.title": "Mode zen",
+    "starlightViewModes.switchToDefaultMode": "Basculer vers {{ text }}",
+    "starlightViewModes.switchToZenMode": "Basculer vers {{ text }}",
   },
 };

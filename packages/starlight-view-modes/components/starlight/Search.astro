@@ -4,9 +4,14 @@ import { Icon } from "@astrojs/starlight/components";
 import project from "virtual:starlight/project-context";
 import { getCurrentModeFromPath } from "../../libs/server";
 import config from "virtual:starlight-view-modes-config";
+import { parseShortcut } from "../../libs/shortcuts";
 
 const currentPathname = Astro.url.pathname;
 const currentMode = await getCurrentModeFromPath(currentPathname);
+
+const zenModeKeyboardShortcut = config.zenModeSettings.keyboardShortcut.map(
+  (k) => parseShortcut(k, "zen-mode")
+);
 
 const pagefindTranslations = {
   placeholder: Astro.locals.t("search.label"),
@@ -20,7 +25,7 @@ const pagefindTranslations = {
 const dataAttributes: DOMStringMap = {
   "data-translations": JSON.stringify(pagefindTranslations),
   "data-mode": currentMode,
-  "data-shortcuts": JSON.stringify(config.zenModeSettings.keyboardShortcut),
+  "data-shortcuts": JSON.stringify(zenModeKeyboardShortcut),
 };
 if (project.trailingSlash === "never")
   dataAttributes["data-strip-trailing-slash"] = "";
@@ -97,11 +102,7 @@ if (project.trailingSlash === "never")
     getCurrentModeFromPath,
     getUpdatedModePathname,
   } from "../../libs/utils";
-  import {
-    isShortcutPressed,
-    parseShortcut,
-    type Shortcut,
-  } from "../../libs/shortcuts";
+  import { isShortcutPressed, type Shortcut } from "../../libs/shortcuts";
 
   class SiteSearch extends HTMLElement {
     constructor() {
@@ -148,8 +149,7 @@ if (project.trailingSlash === "never")
 
       let keyboardShortcuts: Shortcut[] = [];
       try {
-        const shortcuts = JSON.parse(this.dataset.shortcuts || "[]");
-        keyboardShortcuts = shortcuts.map(parseShortcut);
+        keyboardShortcuts = JSON.parse(this.dataset.shortcuts || "[]");
       } catch {}
 
       // Listen for `ctrl + k` and `cmd + k` keyboard shortcuts.
@@ -166,7 +166,7 @@ if (project.trailingSlash === "never")
               window.location.pathname,
               (await getCurrentModeFromPath(window.location.pathname)) ===
                 "default"
-                ? "zen-mode"
+                ? shortcut.mode
                 : "default"
             );
             window.location.pathname = updatedPathname;
