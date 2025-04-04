@@ -2,4 +2,4 @@
 "starlight-view-modes": patch
 ---
 
-Adds French translation.
+Adds French UI translation.
