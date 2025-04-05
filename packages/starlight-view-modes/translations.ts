@@ -21,4 +21,11 @@ export const Translations = {
       "Basculer vers le mode par défaut",
     "starlightViewModes.switchToZenMode": "Basculer vers le mode zen",
   },
+  es: {
+    "starlightViewModes.switchesHeading": "Ver Modos",
+    "starlightViewModes.defaultMode.title": "Modo normal",
+    "starlightViewModes.zenMode.title": "Modo zen",
+    "starlightViewModes.switchToDefaultMode": "Cambiar a modo normal",
+    "starlightViewModes.switchToZenMode": "Cambiar a modo zen",
+  }
 };
