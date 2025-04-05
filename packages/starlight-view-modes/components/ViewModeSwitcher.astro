@@ -55,14 +55,12 @@ const { type } = Astro.props;
                 return (
                   <li class="starlight-view-modes-table-of-contents-item">
                     <a {href} class={`starlight-view-modes-switcher-a`}>
-                      {Astro.locals.t("starlightViewModes.switchTo", {
-                        text: Astro.locals.t(
-                          mode.isCurrent
-                            ? modes.find((mode) => mode.name === "default")
-                                ?.title!
-                            : mode.title
-                        ),
-                      })}
+                      {Astro.locals.t(
+                        mode.isCurrent
+                          ? modes.find((mode) => mode.name === "default")
+                              ?.switchToText!
+                          : mode.switchToText
+                      )}
                     </a>
                     {mode.keyboardShortcuts && (
                       <KeyboardShortcuts shortcuts={mode.keyboardShortcuts} />
