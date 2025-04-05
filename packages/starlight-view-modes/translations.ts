@@ -34,5 +34,5 @@ export const Translations = {
     "starlightViewModes.zenMode.title": "Modo Zen",
     "starlightViewModes.switchToDefaultMode": "Trocar para o modo normal",
     "starlightViewModes.switchToZenMode": "Trocar para o modo zen",
-  }
+  },
 };
