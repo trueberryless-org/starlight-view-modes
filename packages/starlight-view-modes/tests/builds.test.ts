@@ -29,13 +29,13 @@ test('i18n with root locale', async () => {
 test('i18n with base option', async () => {
   const { status } = await buildFixture('i18n-base-path')
 
-  expect(status).toBe('error')
+  expect(status).toBe('success')
 })
 
 test('i18n with root locale with base option', async () => {
   const { status } = await buildFixture('i18n-root-base-path')
 
-  expect(status).toBe('error')
+  expect(status).toBe('success')
 })
 
 test('trailing slash ignore', async () => {
