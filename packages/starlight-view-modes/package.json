@@ -38,7 +38,7 @@
     "@astrojs/starlight": ">=0.32"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18.20.8"
   },
   "keywords": [
     "starlight",
