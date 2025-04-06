@@ -2,4 +2,4 @@
 "starlight-view-modes": patch
 ---
 
-Adds Spanish UI translation
+Add Spanish UI translation
