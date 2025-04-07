@@ -203,23 +203,21 @@ if (project.trailingSlash === "never")
             showImages: false,
             translations,
             showSubResults: true,
-            processResult: async (result: {
+            processResult: (result: {
               url: string;
               sub_results: Array<{ url: string }>;
             }) => {
-              result.url = await insertModePathname(
+              result.url = insertModePathname(
                 formatURL(result.url),
                 this.dataset.mode ?? "default"
               );
-              result.sub_results = await Promise.all(
-                result.sub_results.map(async (sub_result) => {
-                  sub_result.url = await insertModePathname(
-                    formatURL(sub_result.url),
-                    this.dataset.mode ?? "default"
-                  );
-                  return sub_result;
-                })
-              );
+              result.sub_results.map(async (sub_result) => {
+                sub_result.url = insertModePathname(
+                  formatURL(sub_result.url),
+                  this.dataset.mode ?? "default"
+                );
+                return sub_result;
+              });
             },
           });
         });
