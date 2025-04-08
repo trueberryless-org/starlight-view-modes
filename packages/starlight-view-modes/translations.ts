@@ -42,4 +42,11 @@ export const Translations = {
     "starlightViewModes.switchToDefaultMode": "기본 모드로 전환",
     "starlightViewModes.switchToZenMode": "Zen 모드로 전환",
   },
+  zh: {
+    "starlightViewModes.switchesHeading": "视图模式",
+    "starlightViewModes.defaultMode.title": "普通模式",
+    "starlightViewModes.zenMode.title": "禅意模式",
+    "starlightViewModes.switchToDefaultMode": "切换到普通模式",
+    "starlightViewModes.switchToZenMode": "切换到禅意模式",
+  },
 };
