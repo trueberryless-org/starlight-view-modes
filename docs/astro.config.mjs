@@ -16,12 +16,16 @@ export default defineConfig({
         replacesTitle: true,
       },
       customCss: ["./src/styles/custom.css"],
-      social: {
-        github: "https://github.com/trueberryless/starlight-view-modes",
-      },
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/trueberryless-org/starlight-view-modes",
+        },
+      ],
       editLink: {
         baseUrl:
-          "https://github.com/trueberryless/starlight-view-modes/edit/main/docs/",
+          "https://github.com/trueberryless-org/starlight-view-modes/edit/main/docs/",
       },
       plugins: [
         starlightLinksValidator(),

@@ -1,5 +1,11 @@
 # starlight-view-modes
 
+## 0.10.1
+
+### Patch Changes
+
+- [#82](https://github.com/trueberryless-org/starlight-view-modes/pull/82) [`5ff48fa`](https://github.com/trueberryless-org/starlight-view-modes/commit/5ff48fac8c6ac5ef4c717b2c8ee1d77bf6179f52) Thanks [@trueberryless](https://github.com/trueberryless)! - Fix search results being undefined
+
 ## 0.10.0
 
 ### Minor Changes
