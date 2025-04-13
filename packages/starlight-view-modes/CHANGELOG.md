@@ -4,21 +4,21 @@
 
 ### Patch Changes
 
-- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`02fd185`](https://github.com/trueberryless-org/starlight-view-modes/commit/02fd18535bba2c3b1021ff9579ff42e08cd589ab) Thanks [@trueberryless](https://github.com/trueberryless)! - Make translations more flexible with specific switchTo fields for each mode
+- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`02fd185`](https://github.com/trueberryless-org/starlight-view-modes/commit/02fd18535bba2c3b1021ff9579ff42e08cd589ab) Thanks [@trueberryless](https://github.com/trueberryless) and [@HiDeoo](https://github.com/HiDeoo)! - Make translations more flexible with specific switchTo fields for each mode
 
-- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`a5dd659`](https://github.com/trueberryless-org/starlight-view-modes/commit/a5dd659832e9dd0e2b53c167729aac969eeace01) Thanks [@trueberryless](https://github.com/trueberryless)! - Add Russian UI translation
+- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`a5dd659`](https://github.com/trueberryless-org/starlight-view-modes/commit/a5dd659832e9dd0e2b53c167729aac969eeace01) Thanks [@ztxone](https://github.com/ztxone)! - Add Russian UI translation
 
 - [#74](https://github.com/trueberryless-org/starlight-view-modes/pull/74) [`3afd0ae`](https://github.com/trueberryless-org/starlight-view-modes/commit/3afd0ae4d12c33f64a478fd72fbc7af4c8601d62) Thanks [@ArmandPhilippot](https://github.com/ArmandPhilippot)! - Add French UI translation
 
-- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`ed54f20`](https://github.com/trueberryless-org/starlight-view-modes/commit/ed54f20df8dd17e7f1bb8cea430da3727522ee1f) Thanks [@trueberryless](https://github.com/trueberryless)! - Add Spanish UI translation
+- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`ed54f20`](https://github.com/trueberryless-org/starlight-view-modes/commit/ed54f20df8dd17e7f1bb8cea430da3727522ee1f) Thanks [@Waxer59](https://github.com/Waxer59)! - Add Spanish UI translation
 
-- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`a5dd659`](https://github.com/trueberryless-org/starlight-view-modes/commit/a5dd659832e9dd0e2b53c167729aac969eeace01) Thanks [@trueberryless](https://github.com/trueberryless)! - Add Italien UI translation
+- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`a5dd659`](https://github.com/trueberryless-org/starlight-view-modes/commit/a5dd659832e9dd0e2b53c167729aac969eeace01) Thanks [@NinuzIBZ](https://github.com/NinuzIBZ)! - Add Italien UI translation
 
-- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`ed54f20`](https://github.com/trueberryless-org/starlight-view-modes/commit/ed54f20df8dd17e7f1bb8cea430da3727522ee1f) Thanks [@trueberryless](https://github.com/trueberryless)! - Add Portuguese UI translation
+- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`ed54f20`](https://github.com/trueberryless-org/starlight-view-modes/commit/ed54f20df8dd17e7f1bb8cea430da3727522ee1f) Thanks [@yanthomasdev](https://github.com/yanthomasdev)! - Add Portuguese UI translation
 
-- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`aa3b925`](https://github.com/trueberryless-org/starlight-view-modes/commit/aa3b9252d941fe48d02636f73eb1390795203f86) Thanks [@trueberryless](https://github.com/trueberryless)! - Add Korean UI translation
+- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`aa3b925`](https://github.com/trueberryless-org/starlight-view-modes/commit/aa3b9252d941fe48d02636f73eb1390795203f86) Thanks [@jsparkdev](https://github.com/jsparkdev)! - Add Korean UI translation
 
-- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`163d0d0`](https://github.com/trueberryless-org/starlight-view-modes/commit/163d0d0009ae28700bfd7c4410ad7a0abd9795d8) Thanks [@trueberryless](https://github.com/trueberryless)! - Add Chinese UI translation
+- [#76](https://github.com/trueberryless-org/starlight-view-modes/pull/76) [`163d0d0`](https://github.com/trueberryless-org/starlight-view-modes/commit/163d0d0009ae28700bfd7c4410ad7a0abd9795d8) Thanks [@Nin3lee](https://github.com/Nin3lee)! - Add Chinese UI translation
 
 ## 0.10.1
 
