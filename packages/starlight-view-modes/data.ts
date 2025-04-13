@@ -14,6 +14,10 @@ export interface StarlightViewModesRouteData {
      */
     title: AvailableMode["title"];
     /**
+     * The name of the view mode in readable form.
+     */
+    switchToText: AvailableMode["switchToText"];
+    /**
      * The link to the same page in this view mode.
      */
     href: string;

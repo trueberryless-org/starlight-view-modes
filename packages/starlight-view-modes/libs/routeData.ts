@@ -54,6 +54,7 @@ function addMode(
     modes.push({
       name: mode.name,
       title: mode.title,
+      switchToText: mode.switchToText,
       icon: isCurrent ? mode.disableIcon : mode.enableIcon,
       href: trimToExactlyOneLeadingSlash(link),
       isCurrent,
@@ -63,6 +64,7 @@ function addMode(
     modes.push({
       name: mode.name,
       title: mode.title,
+      switchToText: mode.switchToText,
       href: trimToExactlyOneLeadingSlash(link),
       isCurrent,
     });
