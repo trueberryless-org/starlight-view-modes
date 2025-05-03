@@ -23,5 +23,5 @@
     "starlight-view-modes": "workspace:*",
     "typescript": "^5.4.5"
   },
-  "packageManager": "pnpm@9.6.0"
+  "packageManager": "pnpm@10.10.0"
 }
