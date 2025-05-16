@@ -1,41 +1,44 @@
-body:has(.starlight-view-modes-zen-mode-footer) {
-  --sl-mobile-toc-height: 0rem;
-  /* --sl-content-width: 67.5rem; */
-}
-body:has(.starlight-view-modes-zen-mode-footer) header.header {
-  display: none;
-}
-body:has(.starlight-view-modes-zen-mode-footer) nav {
-  top: 0;
-  inset-inline-start: 0;
-}
-@media (min-width: 50rem) {
-  body:has(.starlight-view-modes-zen-mode-footer) #starlight__sidebar {
+@layer zen-mode-footer {
+  body:has(.starlight-view-modes-zen-mode-footer) {
+    --sl-mobile-toc-height: 0rem;
+    /* --sl-content-width: 67.5rem; */
+  }
+  body:has(.starlight-view-modes-zen-mode-footer) header.header {
     display: none;
   }
-}
-body:has(.starlight-view-modes-zen-mode-footer) main {
-  width: calc(100vw - var(--sl-sidebar-pad-x));
-}
-body:has(.starlight-view-modes-zen-mode-footer) .right-sidebar-container {
-  display: none;
-}
-body:has(.starlight-view-modes-zen-mode-footer) main .sl-container {
-  margin: 0 auto;
-}
-body:has(.starlight-view-modes-zen-mode-footer) .main-frame {
-  padding-inline: 0;
-}
+  body:has(.starlight-view-modes-zen-mode-footer) nav {
+    top: 0;
+    inset-inline-start: 0;
+  }
+  @media (min-width: 50rem) {
+    body:has(.starlight-view-modes-zen-mode-footer) #starlight__sidebar {
+      display: none;
+    }
+  }
+  body:has(.starlight-view-modes-zen-mode-footer) main {
+    width: calc(100vw - var(--sl-sidebar-pad-x));
+  }
+  body:has(.starlight-view-modes-zen-mode-footer) .right-sidebar-container {
+    display: none;
+  }
+  body:has(.starlight-view-modes-zen-mode-footer) main .sl-container {
+    margin: 0 auto;
+  }
+  body:has(.starlight-view-modes-zen-mode-footer) .main-frame {
+    padding-inline: 0;
+  }
 
-body:has(.starlight-view-modes-zen-mode-footer):has(#starlight__sidebar) main {
-  width: calc(100vw);
-}
-body:has(.starlight-view-modes-zen-mode-footer):has(#starlight__sidebar)
-  main
-  .sl-container {
-  margin: 0 auto;
-}
-body:has(.starlight-view-modes-zen-mode-footer):has(#starlight__sidebar)
-  .main-frame {
-  padding-inline: 0;
+  body:has(.starlight-view-modes-zen-mode-footer):has(#starlight__sidebar)
+    main {
+    width: calc(100vw);
+  }
+  body:has(.starlight-view-modes-zen-mode-footer):has(#starlight__sidebar)
+    main
+    .sl-container {
+    margin: 0 auto;
+  }
+  body:has(.starlight-view-modes-zen-mode-footer):has(#starlight__sidebar)
+    .main-frame {
+    padding-inline: 0;
+  }
 }

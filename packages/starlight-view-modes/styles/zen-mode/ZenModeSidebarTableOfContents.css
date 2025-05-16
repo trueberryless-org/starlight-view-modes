@@ -1,14 +1,16 @@
-body:has(.starlight-view-modes-zen-mode-sidebar-table-of-contents)
-  header.header {
-  display: none;
-}
-body:has(.starlight-view-modes-zen-mode-sidebar-table-of-contents) nav {
-  top: 0;
-}
-body:has(.starlight-view-modes-zen-mode-sidebar-table-of-contents)
-  .sidebar-pane {
-  inset-block-start: 0;
-}
-body:has(.starlight-view-modes-zen-mode-sidebar-table-of-contents) footer {
-  display: none !important;
+@layer zen-mode-sidebar-table-of-contents {
+  body:has(.starlight-view-modes-zen-mode-sidebar-table-of-contents)
+    header.header {
+    display: none;
+  }
+  body:has(.starlight-view-modes-zen-mode-sidebar-table-of-contents) nav {
+    top: 0;
+  }
+  body:has(.starlight-view-modes-zen-mode-sidebar-table-of-contents)
+    .sidebar-pane {
+    inset-block-start: 0;
+  }
+  body:has(.starlight-view-modes-zen-mode-sidebar-table-of-contents) footer {
+    display: none !important;
+  }
 }
