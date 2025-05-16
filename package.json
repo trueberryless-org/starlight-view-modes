@@ -37,7 +37,7 @@
     "prettier-plugin-astro": "0.14.1",
     "typescript": "5.4.2"
   },
-  "packageManager": "pnpm@9.6.0",
+  "packageManager": "pnpm@10.10.0",
   "engines": {
     "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
   }
