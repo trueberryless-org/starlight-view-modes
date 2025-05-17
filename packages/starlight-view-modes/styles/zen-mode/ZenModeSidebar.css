@@ -17,7 +17,7 @@
     display: none;
   }
   body:has(.starlight-view-modes-zen-mode-sidebar) footer {
-    display: none !important;
+    display: none;
   }
 
   body:has(.starlight-view-modes-zen-mode-sidebar):has(#starlight__sidebar)

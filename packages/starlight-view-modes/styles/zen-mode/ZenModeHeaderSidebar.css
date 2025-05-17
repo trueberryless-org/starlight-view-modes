@@ -9,7 +9,7 @@
     display: none;
   }
   body:has(.starlight-view-modes-zen-mode-header-sidebar) footer {
-    display: none !important;
+    display: none;
   }
 
   body:has(.starlight-view-modes-zen-mode-header-sidebar):has(
