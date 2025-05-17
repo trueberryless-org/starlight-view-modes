@@ -24,13 +24,11 @@ const { type } = Astro.props;
             class={`sl-flex starlight-view-modes-social-link-a starlight-view-modes-switcher-a`}
           >
             <span class="sr-only">
-              {Astro.locals.t("starlightViewModes.switchTo", {
-                text: Astro.locals.t(
-                  mode.isCurrent
-                    ? modes.find((mode) => mode.name === "default")?.title!
-                    : mode.title
-                ),
-              })}
+              {Astro.locals.t(
+                mode.isCurrent
+                  ? modes.find((mode) => mode.name === "default")?.switchToText!
+                  : mode.switchToText
+              )}
             </span>
             <Icon set:html={mode.icon} />
           </a>
