@@ -1,5 +1,29 @@
 # starlight-view-modes
 
+## 0.11.0
+
+### Minor Changes
+
+- [#94](https://github.com/trueberryless-org/starlight-view-modes/pull/94) [`b29302d`](https://github.com/trueberryless-org/starlight-view-modes/commit/b29302dc5f40de8c5aa6582ea7b0c5b7da2075ab) Thanks [@trueberryless](https://github.com/trueberryless)! - ⚠️ **BREAKING CHANGE:** The minimum supported version of Starlight is now version `0.34.0`.
+
+  Please use the `@astrojs/upgrade` command to upgrade your project:
+
+  ```sh
+  npx @astrojs/upgrade
+  ```
+
+- [#94](https://github.com/trueberryless-org/starlight-view-modes/pull/94) [`b29302d`](https://github.com/trueberryless-org/starlight-view-modes/commit/b29302dc5f40de8c5aa6582ea7b0c5b7da2075ab) Thanks [@trueberryless](https://github.com/trueberryless)! - Groups all of the Starlight View Modes plugin CSS declarations into a single `view-modes` [cascade layer](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Cascade_layers).
+
+  This change aligns with the Starlight CSS architecture and allows for easier customization of the Starlight View Modes plugin CSS as any custom unlayered CSS will override the default styles. If you are using cascade layers in your custom CSS, you can use the [`@layer`](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) CSS at-rule to define the order of precedence for different layers including the ones used by Starlight and the Starlight View Modes plugin.
+
+  Make sure to check your site’s appearance when upgrading to make sure there are no style regressions caused by this change.
+
+### Patch Changes
+
+- [#94](https://github.com/trueberryless-org/starlight-view-modes/pull/94) [`47604f7`](https://github.com/trueberryless-org/starlight-view-modes/commit/47604f7942e050a141502d74617a151118ae8404) Thanks [@trueberryless](https://github.com/trueberryless)! - Fix accessibility text for switch icons in the social icons and page title
+
+- [#94](https://github.com/trueberryless-org/starlight-view-modes/pull/94) [`893b05b`](https://github.com/trueberryless-org/starlight-view-modes/commit/893b05bfc9fa6edd6d9cedb175f134e4884cc511) Thanks [@trueberryless](https://github.com/trueberryless)! - Fix Page Title grid column width for switching back to normal mode.
+
 ## 0.10.2
 
 ### Patch Changes
