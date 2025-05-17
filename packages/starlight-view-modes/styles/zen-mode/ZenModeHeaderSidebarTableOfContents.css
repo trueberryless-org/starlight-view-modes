@@ -1,4 +1,8 @@
-body:has(.starlight-view-modes-zen-mode-header-sidebar-table-of-contents)
-  footer {
-  display: none !important;
+@layer starlight, zen-mode;
+
+@layer zen-mode {
+  body:has(.starlight-view-modes-zen-mode-header-sidebar-table-of-contents)
+    footer {
+    display: none;
+  }
 }

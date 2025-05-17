@@ -1,39 +1,44 @@
-body:has(.starlight-view-modes-zen-mode) {
-  --sl-mobile-toc-height: 0rem;
-}
-body:has(.starlight-view-modes-zen-mode) header.header {
-  display: none;
-}
-body:has(.starlight-view-modes-zen-mode) nav {
-  top: 0;
-  inset-inline-start: 0;
-}
-@media (min-width: 50rem) {
-  body:has(.starlight-view-modes-zen-mode) #starlight__sidebar {
+@layer starlight, zen-mode;
+
+@layer zen-mode {
+  body:has(.starlight-view-modes-zen-mode) {
+    --sl-mobile-toc-height: 0rem;
+  }
+  body:has(.starlight-view-modes-zen-mode) header.header {
     display: none;
   }
-}
-body:has(.starlight-view-modes-zen-mode) .right-sidebar-container {
-  display: none;
-}
-body:has(.starlight-view-modes-zen-mode) main .sl-container {
-  margin: 0 auto;
-}
-body:has(.starlight-view-modes-zen-mode) .main-frame {
-  padding-inline: 0;
-}
-body:has(.starlight-view-modes-zen-mode) footer {
-  display: none !important;
-}
+  body:has(.starlight-view-modes-zen-mode) nav {
+    top: 0;
+    inset-inline-start: 0;
+  }
+  @media (min-width: 50rem) {
+    body:has(.starlight-view-modes-zen-mode) #starlight__sidebar {
+      display: none;
+    }
+  }
+  body:has(.starlight-view-modes-zen-mode) .right-sidebar-container {
+    display: none;
+  }
+  body:has(.starlight-view-modes-zen-mode) main .sl-container {
+    margin: 0 auto;
+  }
+  body:has(.starlight-view-modes-zen-mode) .main-frame {
+    padding-inline: 0;
+  }
+  body:has(.starlight-view-modes-zen-mode) footer {
+    display: none;
+  }
 
-body:has(.starlight-view-modes-zen-mode):has(#starlight__sidebar) main {
-  width: calc(100vw);
-}
-body:has(.starlight-view-modes-zen-mode):has(#starlight__sidebar)
-  main
-  .sl-container {
-  margin: 0 auto;
-}
-body:has(.starlight-view-modes-zen-mode):has(#starlight__sidebar) .main-frame {
-  padding-inline: 0;
+  body:has(.starlight-view-modes-zen-mode):has(#starlight__sidebar) main {
+    width: calc(100vw);
+  }
+  body:has(.starlight-view-modes-zen-mode):has(#starlight__sidebar)
+    main
+    .sl-container {
+    margin: 0 auto;
+  }
+  body:has(.starlight-view-modes-zen-mode):has(#starlight__sidebar)
+    .main-frame {
+    padding-inline: 0;
+  }
 }
