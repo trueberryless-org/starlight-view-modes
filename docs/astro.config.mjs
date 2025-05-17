@@ -70,10 +70,11 @@ export default defineConfig({
         {
           label: "Start Here",
           items: [
-            { label: "Getting Started", link: "/getting-started/" },
-            { label: "Configuration", link: "/configuration/" },
-            { label: "View Modes Data", link: "/view-modes-data/" },
-            { label: "Internationalization (i18n)", link: "/i18n/" },
+            "getting-started",
+            "configuration",
+            "view-modes-data",
+            "css-customization",
+            "i18n",
           ],
         },
       ],

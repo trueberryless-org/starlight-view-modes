@@ -1,6 +1,6 @@
-@layer starlight, zen-mode-sidebar-table-of-contents;
+@layer starlight, zen-mode;
 
-@layer zen-mode-sidebar-table-of-contents {
+@layer zen-mode {
   body:has(.starlight-view-modes-zen-mode-sidebar-table-of-contents)
     header.header {
     display: none;
