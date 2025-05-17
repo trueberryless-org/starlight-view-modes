@@ -1,3 +1,5 @@
+@layer starlight, zen-mode-header-table-of-contents-footer;
+
 @layer zen-mode-header-table-of-contents-footer {
   body:has(.starlight-view-modes-zen-mode-header-table-of-contents-footer) nav {
     inset-inline-start: 0;

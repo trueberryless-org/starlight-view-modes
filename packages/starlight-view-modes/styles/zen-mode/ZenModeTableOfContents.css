@@ -1,3 +1,5 @@
+@layer starlight, zen-mode-table-of-contents;
+
 @layer zen-mode-table-of-contents {
   body:has(.starlight-view-modes-zen-mode-table-of-contents) header.header {
     display: none;

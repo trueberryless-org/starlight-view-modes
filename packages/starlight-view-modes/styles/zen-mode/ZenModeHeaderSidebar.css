@@ -1,3 +1,5 @@
+@layer starlight, zen-mode-header-sidebar;
+
 @layer zen-mode-header-sidebar {
   body:has(.starlight-view-modes-zen-mode-header-sidebar) {
     --sl-mobile-toc-height: 0rem;
