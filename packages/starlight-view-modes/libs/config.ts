@@ -79,6 +79,59 @@ const configSchema = z
           }),
       })
       .default({}),
+
+    /**
+     * All options related to Presentation mode.
+     *
+     * @type {object}
+     */
+    presentationModeSettings: z
+      .object({
+        /**
+         * Indicates if Presentation mode is enabled. When enabled, the user is able to activate Presentation mode which
+         * provides a distraction-free interface by hiding everything except the main content.
+         *
+         * @type {boolean}
+         * @default true
+         */
+        enabled: z.boolean().default(true),
+
+        /**
+         * Defines a list of pages or glob patterns that are not viewable in Presentation mode.
+         *
+         * @default []
+         */
+        exclude: z.array(z.string()).default([]),
+
+        /**
+         * Defines a list of keyboard shortcuts which will activate and deactivate Presentation mode.
+         *
+         * @default []
+         */
+        keyboardShortcut: z
+          .string()
+          .transform((string) => [string])
+          .or(z.string().array())
+          .default([])
+          .superRefine((shortcuts, ctx) => {
+            // Regex pattern to match invalid keyboard shortcuts: https://regex101.com/r/fgyKoV/1
+            const invalidShortcutRegex =
+              /^(?:(?:Ctrl|Shift|Alt)\+)*[a-zA-Z0-9]$/;
+            const invalidShortcuts = shortcuts.filter(
+              (shortcut) => !invalidShortcutRegex.test(shortcut)
+            );
+            for (const invalidShortcut of invalidShortcuts) {
+              ctx.addIssue({
+                code: "custom",
+                message:
+                  "A `keyboardShortcut` in your Starlight View Modes config does not match the expected string format.\n\n" +
+                  `You should correctly pass a valid keyboard shortcut, like \`Ctrl+K\` or \`Ctrl+Shift+K\`, but you passed \`${invalidShortcut}\`.\n\n` +
+                  "- More about Starlight View Modes' keyboard shortcuts: https://starlight-view-modes.trueberryless.org/configuration/#keyboardshortcut-1",
+              });
+            }
+          }),
+      })
+      .default({}),
   })
   .default({});
 

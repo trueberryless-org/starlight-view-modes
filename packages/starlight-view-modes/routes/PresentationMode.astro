@@ -1,0 +1,26 @@
+---
+import type {
+  GetStaticPaths,
+  // InferGetStaticParamsType,
+  InferGetStaticPropsType,
+} from "astro";
+import { generateStaticPaths } from "../libs/server";
+import { AdditionalModes } from "../libs/definitions";
+import RevealPresentation from "../components/RevealPresentation.astro";
+
+export const getStaticPaths = (async () => {
+  return await generateStaticPaths(
+    AdditionalModes.find((mode) => mode.name === "presentation-mode")!
+  );
+  // @ts-ignore
+}) satisfies GetStaticPaths;
+
+// type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+export const prerender = true;
+
+const { entry } = Astro.props as Props;
+---
+
+<RevealPresentation entry={entry} server:defer />

@@ -38,9 +38,11 @@
     "./components/Icon.astro": "./components/Icon.astro",
     "./components/Renderer.astro": "./components/Renderer.astro",
     "./components/RenderHtmlWithRehype.astro": "./components/RenderHtmlWithRehype.astro",
+    "./components/RevealPresentation.astro": "./components/RevealPresentation.astro",
     "./components/ViewModeSwitcher.astro": "./components/ViewModeSwitcher.astro",
     "./libs/keyboard.js": "./libs/keyboard.js",
     "./routes/ZenMode.astro": "./routes/ZenMode.astro",
+    "./routes/PresentationMode.astro": "./routes/PresentationMode.astro",
     "./styles/**/*.css": "./styles/**/*.css",
     "./package.json": "./package.json"
   },
@@ -56,7 +58,8 @@
     "rehype-parse": "^9.0.1",
     "rehype-stringify": "^10.0.1",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.0.0",
+    "reveal.js": "^5.2.1"
   },
   "devDependencies": {
     "@astrojs/starlight": "^0.34.3",

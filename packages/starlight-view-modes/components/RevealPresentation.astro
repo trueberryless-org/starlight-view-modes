@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from "astro:content";
+// import { render } from "astro:content";
+import "reveal.js/dist/reveal.css";
+import "reveal.js/plugin/highlight/monokai.css";
+
+interface Props {
+  entry: CollectionEntry<"docs">;
+}
+
+// const { Content } = await render(Astro.props.entry);
+---
+
+<div class="reveal">
+  <div class="slides">
+    <section>Horizontal Slide</section>
+    <section>
+      <section>Vertical Slide 1</section>
+      <section>Vertical Slide 2</section>
+    </section>
+  </div>
+</div>
+
+<script is:inline>
+  import Reveal from "reveal.js";
+  Reveal.initialize();
+</script>
