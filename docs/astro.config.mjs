@@ -5,6 +5,8 @@ import starlightImageZoom from "starlight-image-zoom";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightViewModes from "starlight-view-modes";
 
+import netlify from "@astrojs/netlify";
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -81,4 +83,6 @@ export default defineConfig({
       credits: true,
     }),
   ],
+
+  adapter: netlify(),
 });
