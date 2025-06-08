@@ -12,6 +12,10 @@ If you are looking for the Starlight plugin package, you can find it in the [`pa
 
 This project uses pnpm workspaces to develop a single Starlight plugin from the `packages/starlight-view-modes/` directory. A Starlight documentation site is also available in the `docs/` directory that is also used for testing and demonstrating the Starlight plugin.
 
+## Icons
+
+The icons used in the package are from https://iconmonstr.com.
+
 ## License
 
 Licensed under the MIT License, Copyright © trueberryless-org.

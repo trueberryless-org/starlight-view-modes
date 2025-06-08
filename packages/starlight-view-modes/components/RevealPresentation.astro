@@ -1,27 +1,45 @@
 ---
-import type { CollectionEntry } from "astro:content";
-// import { render } from "astro:content";
+import "reveal.js/dist/reset.css";
 import "reveal.js/dist/reveal.css";
+import "reveal.js/dist/theme/black.css";
 import "reveal.js/plugin/highlight/monokai.css";
+
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 
 interface Props {
   entry: CollectionEntry<"docs">;
 }
 
-// const { Content } = await render(Astro.props.entry);
+const { Content } = await render(Astro.props.entry);
 ---
 
-<div class="reveal">
-  <div class="slides">
-    <section>Horizontal Slide</section>
-    <section>
-      <section>Vertical Slide 1</section>
-      <section>Vertical Slide 2</section>
-    </section>
-  </div>
-</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>reveal.js - Barebones</title>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>Barebones Presentation</h2>
+          <p>
+            This example contains the bare minimum includes and markup required
+            to run a reveal.js presentation.
+          </p>
+        </section>
 
-<script is:inline>
-  import Reveal from "reveal.js";
-  Reveal.initialize();
-</script>
+        <section>
+          <Content />
+        </section>
+      </div>
+    </div>
+
+    <script>
+      import Reveal from "reveal.js/dist/reveal.js";
+      Reveal.initialize();
+    </script>
+  </body>
+</html>
