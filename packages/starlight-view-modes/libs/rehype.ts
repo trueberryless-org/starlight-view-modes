@@ -1,3 +1,4 @@
+import type { Root } from "hast";
 import isAbsoluteUrl from "is-absolute-url";
 import rehypeParse from "rehype-parse";
 import rehypeStringify from "rehype-stringify";
@@ -25,6 +26,40 @@ export function rehypePrefixInternalLinks() {
         const href = node.properties.href;
         if (!isAbsoluteUrl(href) && !href.startsWith("#")) {
           node.properties.href = insertModePathname(href, "zen-mode");
+        }
+      }
+    });
+  };
+}
+
+export default function rehypeCleanHtml() {
+  return (tree: Root) => {
+    visit(tree, (node, index, parent) => {
+      // Remove <script> elements
+      if (node.type === "element" && node.tagName === "script") {
+        parent?.children.splice(index!, 1);
+        return [visit.SKIP, index];
+      }
+
+      // Remove custom components like <starlight-tabs>
+      if (
+        node.type === "element" &&
+        /^[a-z]*-/.test(node.tagName) // custom element check
+      ) {
+        parent?.children.splice(index!, 1);
+        return [visit.SKIP, index];
+      }
+
+      // Strip Astro-related attributes and excessive classes
+      if (node.type === "element") {
+        // Remove known attributes
+        if (node.properties) {
+          delete node.properties["data-astro-source-file"];
+          delete node.properties["data-astro-source-loc"];
+          delete node.properties["data-astro-id"];
+          delete node.properties["data-astro-source"];
+          delete node.properties["data-astro-source-loc"];
+          delete node.properties["class"]; // optionally preserve if needed
         }
       }
     });

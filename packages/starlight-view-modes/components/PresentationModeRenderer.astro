@@ -1,0 +1,18 @@
+---
+import rehypeCleanHtml, {
+  processedHtml,
+  rehypePrefixInternalLinks,
+} from "../libs/rehype";
+import { rehypeRevealSections } from "../libs/reveal-sections";
+
+const html = await Astro.slots.render("default");
+
+const contentHtml = await processedHtml(
+  html,
+  rehypePrefixInternalLinks,
+  rehypeCleanHtml,
+  rehypeRevealSections
+);
+---
+
+<Fragment set:html={contentHtml} />

@@ -8,7 +8,7 @@ import { render } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import config from "virtual:starlight-view-modes-config";
 import { getClassNameZenMode } from "../libs/utils";
-import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
+import ZenModeRenderer from "../components/ZenModeRenderer.astro";
 import isAbsoluteUrl from "is-absolute-url";
 import { insertModePathname } from "../libs/utils";
 import Renderer from "../components/Renderer.astro";
@@ -86,9 +86,9 @@ if (image) {
       {...(isFallback ? { isFallback: true } : {})}
     >
       <div class:list={classes}>
-        <RenderHtmlWithRehype>
+        <ZenModeRenderer>
           <Renderer {entry} />
-        </RenderHtmlWithRehype>
+        </ZenModeRenderer>
       </div>
     </StarlightPage>
   )
@@ -112,9 +112,9 @@ if (image) {
       {...(isFallback ? { isFallback: true } : {})}
     >
       <div class:list={classes}>
-        <RenderHtmlWithRehype>
+        <ZenModeRenderer>
           <Renderer {entry} />
-        </RenderHtmlWithRehype>
+        </ZenModeRenderer>
       </div>
     </StarlightPage>
   )
@@ -137,9 +137,9 @@ if (image) {
       {...(isFallback ? { isFallback: true } : {})}
     >
       <div class:list={classes}>
-        <RenderHtmlWithRehype>
+        <ZenModeRenderer>
           <Renderer {entry} />
-        </RenderHtmlWithRehype>
+        </ZenModeRenderer>
       </div>
     </StarlightPage>
   )
@@ -162,9 +162,9 @@ if (image) {
       {...(isFallback ? { isFallback: true } : {})}
     >
       <div class:list={classes}>
-        <RenderHtmlWithRehype>
+        <ZenModeRenderer>
           <Renderer {entry} />
-        </RenderHtmlWithRehype>
+        </ZenModeRenderer>
       </div>
     </StarlightPage>
   )

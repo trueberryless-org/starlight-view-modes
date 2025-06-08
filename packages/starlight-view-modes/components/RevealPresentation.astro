@@ -5,13 +5,14 @@ import "reveal.js/dist/theme/black.css";
 import "reveal.js/plugin/highlight/monokai.css";
 
 import type { CollectionEntry } from "astro:content";
-import { render } from "astro:content";
+import PresentationModeRenderer from "./PresentationModeRenderer.astro";
+import Renderer from "./Renderer.astro";
 
 interface Props {
   entry: CollectionEntry<"docs">;
 }
 
-const { Content } = await render(Astro.props.entry);
+const { entry } = Astro.props as Props;
 ---
 
 <!doctype html>
@@ -23,23 +24,20 @@ const { Content } = await render(Astro.props.entry);
   <body>
     <div class="reveal">
       <div class="slides">
-        <section>
-          <h2>Barebones Presentation</h2>
-          <p>
-            This example contains the bare minimum includes and markup required
-            to run a reveal.js presentation.
-          </p>
-        </section>
-
-        <section>
-          <Content />
-        </section>
+        <PresentationModeRenderer>
+          <Renderer {entry} />
+        </PresentationModeRenderer>
       </div>
     </div>
 
     <script>
       import Reveal from "reveal.js/dist/reveal.js";
-      Reveal.initialize();
+      import RevealSpeakerNotes from "reveal.js/plugin/notes/notes.js";
+      Reveal.initialize({
+        hash: true,
+        history: true,
+        plugins: [RevealSpeakerNotes],
+      });
     </script>
   </body>
 </html>
