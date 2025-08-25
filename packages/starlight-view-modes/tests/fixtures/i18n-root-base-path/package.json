@@ -2,9 +2,9 @@
   "name": "@starlight-view-modes-tests/i18n-root-base-path",
   "version": "0.1.0",
   "dependencies": {
-    "@astrojs/starlight": "^0.34.3",
-    "astro": "^5.7.13",
-    "starlight-links-validator": "^0.15.1",
+    "@astrojs/starlight": "^0.35.2",
+    "astro": "^5.13.3",
+    "starlight-links-validator": "^0.17.1",
     "starlight-view-modes": "workspace:*"
   },
   "private": true

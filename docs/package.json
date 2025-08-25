@@ -11,17 +11,17 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/starlight": "^0.34.3",
+    "@astrojs/starlight": "^0.35.2",
     "@hideoo/starlight-plugins-docs-components": "^0.4.0",
     "@trueberryless-org/starlight-plugins-docs-components": "^0.4.2",
-    "astro": "^5.7.13",
-    "sharp": "^0.32.5",
+    "astro": "^5.13.3",
+    "sharp": "^0.34.3",
     "starlight-contributor-list": "^0.3.0",
-    "starlight-image-zoom": "^0.5.0",
-    "starlight-links-validator": "^0.15.1",
-    "starlight-package-managers": "^0.6.0",
+    "starlight-image-zoom": "^0.13.0",
+    "starlight-links-validator": "^0.17.1",
+    "starlight-package-managers": "^0.11.0",
     "starlight-view-modes": "workspace:*",
-    "typescript": "^5.4.5"
+    "typescript": "^5.9.2"
   },
   "packageManager": "pnpm@10.10.0"
 }
