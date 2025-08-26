@@ -11,17 +11,15 @@
   ],
   "rangeStrategy": "bump",
   "ignorePaths": ["**/node_modules/**"],
-  "commitMessageSuffix": "[skip netlify]",
+  "commitMessageSuffix": "[skip ci]",
   "packageRules": [
     {
       "groupName": "github-actions",
       "matchManagers": ["github-actions"]
     },
     {
-      "groupName": "npm-packages",
-      "description": "Group patch+minor updates, keep majors separate",
       "matchManagers": ["npm"],
-      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies"],
       "separateMajorMinor": true
     },
     {
