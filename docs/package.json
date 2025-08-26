@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/starlight": "^0.34.3",
+    "@astrojs/starlight": "^0.35.2",
     "@hideoo/starlight-plugins-docs-components": "^0.4.0",
     "@trueberryless-org/starlight-plugins-docs-components": "^0.4.2",
     "astro": "^5.7.13",
