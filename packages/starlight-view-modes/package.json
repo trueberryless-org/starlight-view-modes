@@ -59,7 +59,7 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@astrojs/starlight": "^0.34.3",
+    "@astrojs/starlight": "^0.35.2",
     "astro": "^5.7.13",
     "vitest": "^3.0.9"
   },
