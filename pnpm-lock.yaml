@@ -57,8 +57,8 @@ importers:
         specifier: ^0.15.1
         version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-package-managers:
-        specifier: ^0.6.0
-        version: 0.6.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))
+        specifier: ^0.11.0
+        version: 0.11.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../packages/starlight-view-modes
@@ -2895,12 +2895,11 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.32.0'
 
-  starlight-package-managers@0.6.0:
-    resolution: {integrity: sha512-2tE0B4ZVEZXZ1LJjcSvVXLfJP8SB2nE+nhiFgSa3fuHUPtnbzmFxLVp7jEKD8jaMXKWPYtlNTy95gJSK9W1sbQ==}
-    engines: {node: '>=18.14.1'}
+  starlight-package-managers@0.11.0:
+    resolution: {integrity: sha512-ItOgeF4YYI4lKaeqGBuRBNsmPTXQv16Pc7U+hzkvJoR9HzOxhk2wSNkRzxSnqX5OZmmsAwDy49NYqpFyzkO8Bw==}
+    engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.22.0'
-      astro: '>=4.2.7'
 
   starlight-package-managers@0.8.1:
     resolution: {integrity: sha512-a+zGIOdbN7B4T/VaszuvW8585Aau4LSU8HlVCmBCJJwxkrGAUC9lRya4y0md5tOAFyW/gfhUNJZM8qqyMNTe7Q==}
@@ -6823,10 +6822,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  starlight-package-managers@0.6.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)):
+  starlight-package-managers@0.11.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))):
     dependencies:
       '@astrojs/starlight': 0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))
-      astro: 5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)
 
   starlight-package-managers@0.8.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))):
     dependencies:
