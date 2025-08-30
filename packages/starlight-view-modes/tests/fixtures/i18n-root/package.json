@@ -4,7 +4,7 @@
   "dependencies": {
     "@astrojs/starlight": "^0.34.3",
     "astro": "^5.7.13",
-    "starlight-links-validator": "^0.15.1",
+    "starlight-links-validator": "^0.17.2",
     "starlight-view-modes": "workspace:*"
   },
   "private": true

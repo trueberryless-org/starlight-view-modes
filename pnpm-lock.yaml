@@ -54,8 +54,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-links-validator:
-        specifier: ^0.15.1
-        version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.17.2
+        version: 0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-package-managers:
         specifier: ^0.6.0
         version: 0.6.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))
@@ -112,8 +112,8 @@ importers:
         specifier: ^5.7.13
         version: 5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)
       starlight-links-validator:
-        specifier: ^0.15.1
-        version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.17.2
+        version: 0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -127,8 +127,8 @@ importers:
         specifier: ^5.7.13
         version: 5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)
       starlight-links-validator:
-        specifier: ^0.15.1
-        version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.17.2
+        version: 0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -142,8 +142,8 @@ importers:
         specifier: ^5.7.13
         version: 5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)
       starlight-links-validator:
-        specifier: ^0.15.1
-        version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.17.2
+        version: 0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -157,8 +157,8 @@ importers:
         specifier: ^5.7.13
         version: 5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)
       starlight-links-validator:
-        specifier: ^0.15.1
-        version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.17.2
+        version: 0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -172,8 +172,8 @@ importers:
         specifier: ^5.7.13
         version: 5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)
       starlight-links-validator:
-        specifier: ^0.15.1
-        version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.17.2
+        version: 0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -187,8 +187,8 @@ importers:
         specifier: ^5.7.13
         version: 5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)
       starlight-links-validator:
-        specifier: ^0.15.1
-        version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.17.2
+        version: 0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -202,8 +202,8 @@ importers:
         specifier: ^5.7.13
         version: 5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)
       starlight-links-validator:
-        specifier: ^0.15.1
-        version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.17.2
+        version: 0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -217,8 +217,8 @@ importers:
         specifier: ^5.7.13
         version: 5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)
       starlight-links-validator:
-        specifier: ^0.15.1
-        version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.17.2
+        version: 0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -232,8 +232,8 @@ importers:
         specifier: ^5.7.13
         version: 5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)
       starlight-links-validator:
-        specifier: ^0.15.1
-        version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.17.2
+        version: 0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -2889,8 +2889,8 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.22.0'
 
-  starlight-links-validator@0.15.1:
-    resolution: {integrity: sha512-RlrP7mg+t0mPSHre+WFzPKeNdzyrKezMIRWwHygRivyKWv+OCN+3jildryJSC+3mXjHWsNYrGpZSvy0m99mXDw==}
+  starlight-links-validator@0.17.2:
+    resolution: {integrity: sha512-d2SRWu04HPiUzrzntuv/uzuXnIu4reJwzX1c+7uvcnqOCuzgpv+tmlUC+dp3VYpmfxQy8RX+xcWtfcEkx905VA==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.32.0'
@@ -6807,7 +6807,7 @@ snapshots:
       unist-util-visit: 5.0.0
       unist-util-visit-parents: 6.0.1
 
-  starlight-links-validator@0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))):
+  starlight-links-validator@0.17.2(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))):
     dependencies:
       '@astrojs/starlight': 0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))
       '@types/picomatch': 3.0.2
