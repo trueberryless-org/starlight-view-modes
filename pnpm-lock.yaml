@@ -51,8 +51,8 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-image-zoom:
-        specifier: ^0.5.0
-        version: 0.5.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
+        specifier: ^0.13.0
+        version: 0.13.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
       starlight-links-validator:
         specifier: ^0.15.1
         version: 0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1)))
@@ -2531,9 +2531,6 @@ packages:
   parse-latin@7.0.0:
     resolution: {integrity: sha512-mhHgobPPua5kZ98EF4HWiH167JWBfl4pvAIXXdbaVohtK7a6YBOy56kvhCqduqyo/f3yrHFWmqmiMg/BkBkYYQ==}
 
-  parse5@7.2.1:
-    resolution: {integrity: sha512-BuBYQYlv1ckiPdQi/ohiivi9Sagc9JG+Ozs0r7b/0iK3sKmrb0b9FdWdBbOdx6hBCM/F9Ir82ofnBhtZOjCRPQ==}
-
   parse5@7.3.0:
     resolution: {integrity: sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==}
 
@@ -2883,11 +2880,11 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.30'
 
-  starlight-image-zoom@0.5.0:
-    resolution: {integrity: sha512-qlyYq0N+15H6qe1wouK1HWCnHSjoyzad4TsufilDHvsk6d3t+TSxpvAk6rYONPu4AMe4aMn7HQPGCridwZZhfw==}
+  starlight-image-zoom@0.13.0:
+    resolution: {integrity: sha512-7K/7gshnKooYd4ePy5vtyv1jFoFVNUb8IoXWDcnY69+nxvmLATNrmOzD2M4TJ/aKynPSBSM6j9ia4s/PPy/JGA==}
     engines: {node: '>=18'}
     peerDependencies:
-      '@astrojs/starlight': '>=0.22.0'
+      '@astrojs/starlight': '>=0.32.0'
 
   starlight-links-validator@0.15.1:
     resolution: {integrity: sha512-RlrP7mg+t0mPSHre+WFzPKeNdzyrKezMIRWwHygRivyKWv+OCN+3jildryJSC+3mXjHWsNYrGpZSvy0m99mXDw==}
@@ -5434,7 +5431,7 @@ snapshots:
       hast-util-to-parse5: 8.0.0
       html-void-elements: 3.0.0
       mdast-util-to-hast: 13.2.0
-      parse5: 7.2.1
+      parse5: 7.3.0
       unist-util-position: 5.0.0
       unist-util-visit: 5.0.0
       vfile: 6.0.3
@@ -6318,10 +6315,6 @@ snapshots:
       unist-util-visit-children: 3.0.0
       vfile: 6.0.3
 
-  parse5@7.2.1:
-    dependencies:
-      entities: 4.5.0
-
   parse5@7.3.0:
     dependencies:
       entities: 6.0.0
@@ -6800,12 +6793,15 @@ snapshots:
       - encoding
       - supports-color
 
-  starlight-image-zoom@0.5.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))):
+  starlight-image-zoom@0.13.0(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))):
     dependencies:
       '@astrojs/starlight': 0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))
+      mdast-util-mdx-jsx: 3.2.0
       rehype-raw: 7.0.0
       unist-util-visit: 5.0.0
       unist-util-visit-parents: 6.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   starlight-links-validator@0.15.1(@astrojs/starlight@0.34.3(astro@5.7.13(@types/node@22.15.18)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.5.1))):
     dependencies:
