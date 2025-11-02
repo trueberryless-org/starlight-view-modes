@@ -1,5 +1,11 @@
 # starlight-view-modes
 
+## 0.11.1
+
+### Patch Changes
+
+- [#122](https://github.com/trueberryless-org/starlight-view-modes/pull/122) [`2490bd7`](https://github.com/trueberryless-org/starlight-view-modes/commit/2490bd79bff5ec9dd08d6596ea5366af4db66568) Thanks [@trueberryless-org](https://github.com/apps/trueberryless-org)! - Setups trusted publishing using OpenID Connect (OIDC) authentication — no code changes.
+
 ## 0.11.0
 
 ### Minor Changes
