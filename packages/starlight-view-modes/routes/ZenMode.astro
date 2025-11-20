@@ -80,7 +80,7 @@ if (image) {
       frontmatter={{
         ...(remarkPluginFrontmatter as any),
         pagefind: false,
-        title: entry.data.title
+        title: entry.data.title,
       }}
       headings={headings}
       hasSidebar={hasSidebar}
@@ -99,7 +99,7 @@ if (image) {
     <StarlightPage
       frontmatter={{
         ...(remarkPluginFrontmatter as any),
-        
+
         hero: {
           ...remarkPluginFrontmatter.hero,
           image: {
