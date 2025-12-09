@@ -22,15 +22,16 @@ You can access the route data object provided by the Starlight View Modes plugin
 ```astro
 ---
 // example.astro
-const { modes } = Astro.locals.starlightViewModes
+const { modes } = Astro.locals.starlightViewModes;
 //        ^ The list of all the modes in your project.
 ---
 ```
 
 This can be useful for example to render a list of all view modes that link to the same page in that mode:
 
-import { Preview } from '@hideoo/starlight-plugins-docs-components'
-import ViewModesDataExample from '../../components/ViewModesDataExample.astro'
+import { Preview } from "@hideoo/starlight-plugins-docs-components";
+
+import ViewModesDataExample from "../../components/ViewModesDataExample.astro";
 
 <Preview>
 
@@ -105,4 +106,3 @@ The default mode has no icon (`undefined`).
 :::note[Example]
 If you are currently in the `zen-mode`, the `icon` property of the `zen-mode` will be the SVG path, rendering a symbol for "exit Zen Mode" (an alarm clock with a cross in it).
 :::
-

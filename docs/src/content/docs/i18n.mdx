@@ -10,6 +10,11 @@ Follow the Starlight [“Configure i18n”](https://starlight.astro.build/guides
 
 The Starlight View Modes plugin allows you to translate the default UI strings used in the view modes so that your website can be fully localized and readers can enjoy a seamless experience in their preferred language.
 
-import { I18n } from '@hideoo/starlight-plugins-docs-components'
+import { I18n } from "@hideoo/starlight-plugins-docs-components";
 
-<I18n label="Starlight View Modes" translations={import('../../../../packages/starlight-view-modes/translations')} />
+<I18n
+  label="Starlight View Modes"
+  translations={
+    import("../../../../packages/starlight-view-modes/translations")
+  }
+/>

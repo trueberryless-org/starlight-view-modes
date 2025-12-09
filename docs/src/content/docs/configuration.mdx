@@ -15,16 +15,16 @@ import { defineConfig } from "astro/config";
 import starlightViewModes from "starlight-view-modes";
 
 export default defineConfig({
-    integrations: [
-        starlight({
-            plugins: [
-                starlightViewModes({
-                    // Configuration options go here.
-                }),
-            ],
-            title: "My Docs",
+  integrations: [
+    starlight({
+      plugins: [
+        starlightViewModes({
+          // Configuration options go here.
         }),
-    ],
+      ],
+      title: "My Docs",
+    }),
+  ],
 });
 ```
 
@@ -49,14 +49,14 @@ Disabling this options is useful if a Zen Mode doesn't make much sense on your w
 
 #### `displayOptions`
 
-**Type:** 
+**Type:**
 
 ```graphql
-{ 
-	showHeader: boolean, 
-	showSidebar: boolean, 
-	showTableOfContents: boolean, 
-	showFooter: boolean 
+{
+  showHeader: boolean,
+  showSidebar: boolean,
+  showTableOfContents: boolean,
+  showFooter: boolean
 }
 ```
 
@@ -64,10 +64,10 @@ Disabling this options is useful if a Zen Mode doesn't make much sense on your w
 
 ```graphql
 {
-	showHeader: false,
-	showSidebar: false,
-	showTableOfContents: true,
-	showFooter: true,
+  showHeader: false,
+  showSidebar: false,
+  showTableOfContents: true,
+  showFooter: true
 }
 ```
 

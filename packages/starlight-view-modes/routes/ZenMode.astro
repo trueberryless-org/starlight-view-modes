@@ -1,171 +1,116 @@
 ---
 import type {
   GetStaticPaths,
-  // InferGetStaticParamsType,
   InferGetStaticPropsType,
+  ImageMetadata,
 } from "astro";
 import { render } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
-import config from "virtual:starlight-view-modes-config";
-import { getClassNameZenMode } from "../libs/utils";
-import RenderHtmlWithRehype from "../components/RenderHtmlWithRehype.astro";
 import isAbsoluteUrl from "is-absolute-url";
-import { insertModePathname } from "../libs/utils";
-import Renderer from "../components/Renderer.astro";
-import { generateStaticPaths } from "../libs/server";
+import config from "virtual:starlight-view-modes-config";
+
+import Renderer from "../components/content/Renderer.astro";
+import RenderHtmlWithRehype from "../components/content/RenderHtmlWithRehype.astro";
 import { AdditionalModes } from "../libs/definitions";
+import { generateStaticPaths } from "../libs/server";
+import { getClassNameZenMode, insertModePathname } from "../libs/utils";
+import "../styles/zen-mode.css";
 
 export const getStaticPaths = (async () => {
-  return await generateStaticPaths(
+  const paths = await generateStaticPaths(
     AdditionalModes.find((mode) => mode.name === "zen-mode")!
   );
-  // @ts-ignore
+  return paths.filter((p): p is NonNullable<typeof p> => p !== undefined);
 }) satisfies GetStaticPaths;
 
-// type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export const prerender = true;
 
-const { entry, isFallback } = Astro.props as Props;
+const props = Astro.props as Props;
+const { entry, isFallback } = props;
 const { headings, remarkPluginFrontmatter } = await render(entry);
-
+const { displayOptions } = config.zenModeSettings;
 const { hasSidebar } = remarkPluginFrontmatter;
 
-if (remarkPluginFrontmatter.hero?.actions) {
-  for (const action of remarkPluginFrontmatter.hero.actions) {
-    if (!isAbsoluteUrl(action.link)) {
-      action.link = insertModePathname(action.link, "zen-mode");
-    }
-  }
-}
-
-const zenModeFileName = getClassNameZenMode(
-  config.zenModeSettings.displayOptions
-);
-import.meta.glob("../styles/zen-mode/*.css");
-
-let classes = [
-  zenModeFileName,
-  !config.zenModeSettings.displayOptions.showHeader &&
-    "starlight-view-modes-zen-mode-no-header",
-  !config.zenModeSettings.displayOptions.showSidebar &&
-    "starlight-view-modes-zen-mode-no-sidebar",
-  !config.zenModeSettings.displayOptions.showTableOfContents &&
+const classes = [
+  getClassNameZenMode(displayOptions),
+  !displayOptions.showHeader && "starlight-view-modes-zen-mode-no-header",
+  !displayOptions.showSidebar && "starlight-view-modes-zen-mode-no-sidebar",
+  !displayOptions.showTableOfContents &&
     "starlight-view-modes-zen-mode-no-table-of-contents",
-  !config.zenModeSettings.displayOptions.showFooter &&
-    "starlight-view-modes-zen-mode-no-footer",
+  !displayOptions.showFooter && "starlight-view-modes-zen-mode-no-footer",
 ].filter(Boolean);
 
-let darkImage: ImageMetadata | undefined;
-let lightImage: ImageMetadata | undefined;
-let rawImageHtml: string | undefined;
-const image = entry.data.hero?.image;
+type HeroImage =
+  | { file: ImageMetadata }
+  | { dark: ImageMetadata; light: ImageMetadata }
+  | { html: string };
 
-if (image) {
-  if ("file" in image) {
-    darkImage = image.file;
-  } else if ("dark" in image) {
-    darkImage = image.dark;
-    lightImage = image.light;
-  } else {
-    rawImageHtml = image.html;
-  }
+function normalizeHeroActions(hero: Record<string, any> | undefined) {
+  if (!hero?.actions?.length) return hero;
+
+  const actions = hero.actions.map((action: Record<string, any>) => {
+    if (typeof action.link !== "string") return action;
+    if (isAbsoluteUrl(action.link)) return action;
+
+    return {
+      ...action,
+      link: insertModePathname(action.link, "zen-mode"),
+    };
+  });
+
+  return { ...hero, actions };
 }
+
+function normalizeHeroImage(
+  image: Record<string, any> | undefined
+): HeroImage | undefined {
+  if (!image) return undefined;
+
+  if ("dark" in image && "light" in image) {
+    return { dark: image.dark, light: image.light };
+  }
+
+  if ("file" in image) {
+    return { file: image.file };
+  }
+
+  if ("html" in image) {
+    return { html: image.html };
+  }
+
+  return undefined;
+}
+
+const heroImage = normalizeHeroImage(entry.data.hero?.image);
+const hero = normalizeHeroActions(
+  remarkPluginFrontmatter.hero
+    ? {
+        ...remarkPluginFrontmatter.hero,
+        ...(heroImage ? { image: heroImage } : {}),
+      }
+    : heroImage
+      ? { image: heroImage }
+      : undefined
+);
+
+const frontmatter = {
+  ...(remarkPluginFrontmatter as any),
+  ...(hero ? { hero } : {}),
+  pagefind: false,
+};
 ---
 
-{
-  !darkImage && !lightImage && !rawImageHtml && (
-    <StarlightPage
-      frontmatter={{
-        ...(remarkPluginFrontmatter as any),
-        pagefind: false,
-      }}
-      headings={headings}
-      hasSidebar={hasSidebar}
-      {...(isFallback ? { isFallback: true } : {})}
-    >
-      <div class:list={classes}>
-        <RenderHtmlWithRehype>
-          <Renderer {entry} />
-        </RenderHtmlWithRehype>
-      </div>
-    </StarlightPage>
-  )
-}
-{
-  darkImage && lightImage && (
-    <StarlightPage
-      frontmatter={{
-        ...(remarkPluginFrontmatter as any),
-        hero: {
-          ...remarkPluginFrontmatter.hero,
-          image: {
-            dark: darkImage,
-            light: lightImage,
-          },
-        },
-        pagefind: false,
-      }}
-      headings={headings}
-      hasSidebar={hasSidebar}
-      {...(isFallback ? { isFallback: true } : {})}
-    >
-      <div class:list={classes}>
-        <RenderHtmlWithRehype>
-          <Renderer {entry} />
-        </RenderHtmlWithRehype>
-      </div>
-    </StarlightPage>
-  )
-}
-{
-  darkImage && !lightImage && (
-    <StarlightPage
-      frontmatter={{
-        ...(remarkPluginFrontmatter as any),
-        hero: {
-          ...remarkPluginFrontmatter.hero,
-          image: {
-            file: darkImage,
-          },
-        },
-        pagefind: false,
-      }}
-      headings={headings}
-      hasSidebar={hasSidebar}
-      {...(isFallback ? { isFallback: true } : {})}
-    >
-      <div class:list={classes}>
-        <RenderHtmlWithRehype>
-          <Renderer {entry} />
-        </RenderHtmlWithRehype>
-      </div>
-    </StarlightPage>
-  )
-}
-{
-  rawImageHtml && (
-    <StarlightPage
-      frontmatter={{
-        ...(remarkPluginFrontmatter as any),
-        hero: {
-          ...remarkPluginFrontmatter.hero,
-          image: {
-            html: rawImageHtml,
-          },
-        },
-        pagefind: false,
-      }}
-      headings={headings}
-      hasSidebar={hasSidebar}
-      {...(isFallback ? { isFallback: true } : {})}
-    >
-      <div class:list={classes}>
-        <RenderHtmlWithRehype>
-          <Renderer {entry} />
-        </RenderHtmlWithRehype>
-      </div>
-    </StarlightPage>
-  )
-}
+<StarlightPage
+  frontmatter={frontmatter}
+  headings={headings}
+  hasSidebar={hasSidebar}
+  isFallback={isFallback}
+>
+  <div class:list={classes}>
+    <RenderHtmlWithRehype>
+      <Renderer {entry} />
+    </RenderHtmlWithRehype>
+  </div>
+</StarlightPage>

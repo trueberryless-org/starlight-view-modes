@@ -136,6 +136,7 @@ jobs:
 
       - run: |
           cd packages/starlight-view-modes
+          npm run prepublishOnly
           npm publish --access public
 
   release:
