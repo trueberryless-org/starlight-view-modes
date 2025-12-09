@@ -71,11 +71,9 @@ const switchText = (mode: (typeof modes)[number]) =>
   function updateModeLinksWithHash() {
     const hash = window.location.hash;
     document
-      .querySelectorAll(".starlight-view-modes-switcher-a")
+      .querySelectorAll<HTMLAnchorElement>(".starlight-view-modes-switcher-a")
       .forEach((link) => {
-        // @ts-ignore
-        if (link.href) {
-          // @ts-ignore
+        if (link instanceof HTMLAnchorElement) {
           link.href = link.href.split("#")[0] + hash;
         }
       });
