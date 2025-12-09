@@ -12,16 +12,16 @@
   "dependencies": {
     "@astrojs/check": "^0.9.5",
     "@astrojs/starlight": "^0.36.2",
-    "@hideoo/starlight-plugins-docs-components": "^0.4.0",
-    "@trueberryless-org/starlight-plugins-docs-components": "^0.4.2",
+    "@hideoo/starlight-plugins-docs-components": "^0.4.1",
+    "@trueberryless-org/starlight-plugins-docs-components": "^0.4.3",
     "astro": "^5.16.0",
-    "sharp": "^0.34.4",
-    "starlight-contributor-list": "^0.3.0",
-    "starlight-image-zoom": "^0.5.0",
-    "starlight-links-validator": "^0.15.1",
-    "starlight-package-managers": "^0.6.0",
+    "sharp": "^0.34.5",
+    "starlight-contributor-list": "^0.3.1",
+    "starlight-image-zoom": "^0.13.2",
+    "starlight-links-validator": "^0.19.1",
+    "starlight-package-managers": "^0.11.1",
     "starlight-view-modes": "workspace:*",
-    "typescript": "^5.4.5"
+    "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@10.10.0"
 }
