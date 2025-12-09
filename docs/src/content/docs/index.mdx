@@ -2,21 +2,21 @@
 title: Starlight View Modes
 description: Starlight plugin adding view mode capabilities to your documentation website.
 head:
-    - tag: title
-      content: Starlight View Modes
+  - tag: title
+    content: Starlight View Modes
 template: splash
 editUrl: false
 lastUpdated: false
 hero:
-    tagline: Starlight plugin adding view mode capabilities to your documentation website.
-    image:
-        dark: ../../assets/big-logo-dark.png
-        light: ../../assets/big-logo-light.png
-    actions:
-        - text: Getting Started
-          link: /getting-started/
-          icon: rocket
-          variant: primary
+  tagline: Starlight plugin adding view mode capabilities to your documentation website.
+  image:
+    dark: ../../assets/big-logo-dark.png
+    light: ../../assets/big-logo-light.png
+  actions:
+    - text: Getting Started
+      link: /getting-started/
+      icon: rocket
+      variant: primary
 ---
 
 import { Card, CardGrid } from "@astrojs/starlight/components";
@@ -24,17 +24,22 @@ import { Card, CardGrid } from "@astrojs/starlight/components";
 ## Next steps
 
 <CardGrid stagger>
-    <Card title="Install the plugin" icon="puzzle">
-        Check the [getting started guide](/getting-started/) for installation instructions.
-    </Card>
-    <Card title="Report bugs" icon="error">
-        If you find any visual bugs while using the view modes, report them
-        [here](https://github.com/trueberryless-org/starlight-view-modes/issues/new) please!
-    </Card>
+  <Card title="Install the plugin" icon="puzzle">
+    Check the [getting started guide](/getting-started/) for installation
+    instructions.
+  </Card>
+  <Card title="Report bugs" icon="error">
+    If you find any visual bugs while using the view modes, report them
+    [here](https://github.com/trueberryless-org/starlight-view-modes/issues/new)
+    please!
+  </Card>
 </CardGrid>
 
 ## Contributors
 
 import { ContributorList } from "starlight-contributor-list";
 
-<ContributorList githubRepo="trueberryless-org/starlight-view-modes" ignore={["autofix-ci[bot]", "github-actions[bot]", "renovate[bot]"]} />
+<ContributorList
+  githubRepo="trueberryless-org/starlight-view-modes"
+  ignore={["autofix-ci[bot]", "github-actions[bot]", "renovate[bot]"]}
+/>

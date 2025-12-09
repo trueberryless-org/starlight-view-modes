@@ -74,6 +74,27 @@ const { type } = Astro.props;
   )
 }
 
+<script>
+  function updateModeLinksWithHash() {
+    const hash = window.location.hash;
+    document
+      .querySelectorAll(".starlight-view-modes-switcher-a")
+      .forEach((link) => {
+        // @ts-ignore
+        if (link.href) {
+          // @ts-ignore
+          link.href = link.href.split("#")[0] + hash;
+        }
+      });
+  }
+
+  // Run on initial load
+  updateModeLinksWithHash();
+
+  // Update on hash change
+  window.addEventListener("hashchange", updateModeLinksWithHash);
+</script>
+
 <style>
   .starlight-view-modes-social-link-a {
     color: var(--sl-color-text-accent);
@@ -109,24 +130,3 @@ const { type } = Astro.props;
     display: block;
   }
 </style>
-
-<script>
-  function updateModeLinksWithHash() {
-    const hash = window.location.hash;
-    document
-      .querySelectorAll(".starlight-view-modes-switcher-a")
-      .forEach((link) => {
-        // @ts-ignore
-        if (link.href) {
-          // @ts-ignore
-          link.href = link.href.split("#")[0] + hash;
-        }
-      });
-  }
-
-  // Run on initial load
-  updateModeLinksWithHash();
-
-  // Update on hash change
-  window.addEventListener("hashchange", updateModeLinksWithHash);
-</script>
