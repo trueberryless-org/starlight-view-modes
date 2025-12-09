@@ -46,6 +46,7 @@ function normalizeHeroActions(hero: Record<string, any> | undefined) {
   if (!hero?.actions?.length) return hero;
 
   const actions = hero.actions.map((action: Record<string, any>) => {
+    if (typeof action.link !== "string") return action;
     if (isAbsoluteUrl(action.link)) return action;
     return {
       ...action,
