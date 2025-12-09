@@ -23,6 +23,12 @@ if (isTemplateSplash) return;
     .starlight-view-modes-page-title-switcher {
     display: block !important;
   }
+  @media (max-width: 50rem) {
+    body:has(.starlight-view-modes-zen-mode-no-header)
+      .starlight-view-modes-page-title-switcher {
+      display: block !important;
+    }
+  }
 </style>
 
 <style is:global>
@@ -33,5 +39,13 @@ if (isTemplateSplash) return;
     display: grid;
     grid-template-columns: 1fr 2rem; /* 1rem icon width + 1rem margin */
     align-items: center;
+  }
+  @media (max-width: 50rem) {
+    body:has(.starlight-view-modes-zen-mode-no-header)
+      .sl-container:has(.starlight-view-modes-page-title-switcher) {
+      display: grid;
+      grid-template-columns: 1fr 2rem; /* 1rem icon width + 1rem margin */
+      align-items: center;
+    }
   }
 </style>
