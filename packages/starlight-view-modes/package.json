@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "@pagefind/default-ui": "^1.4.0",
-    "is-absolute-url": "^4.0.1",
+    "is-absolute-url": "^5.0.0",
     "pagefind": "^1.4.0",
     "picomatch": "^4.0.3",
     "rehype-parse": "^9.0.1",
@@ -65,7 +65,7 @@
     "@astrojs/starlight": "^0.37.0",
     "astro": "^5.16.4",
     "sass": "^1.95.0",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.15"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.34"
