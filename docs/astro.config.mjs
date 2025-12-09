@@ -55,9 +55,9 @@ export default defineConfig({
           zenModeSettings: {
             enabled: true,
             displayOptions: {
-              showHeader: true,
+              showHeader: false,
               showSidebar: false,
-              showTableOfContents: true,
+              showTableOfContents: false,
               showFooter: true,
             },
             exclude: ["resources/*"],
