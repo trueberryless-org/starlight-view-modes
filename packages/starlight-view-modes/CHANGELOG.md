@@ -1,5 +1,19 @@
 # starlight-view-modes
 
+## 0.12.0
+
+### Minor Changes
+
+- [#129](https://github.com/trueberryless-org/starlight-view-modes/pull/129) [`111a50a`](https://github.com/trueberryless-org/starlight-view-modes/commit/111a50a725b9fbea1d9dcab4935b610e5ed2d0aa) Thanks [@trueberryless](https://github.com/trueberryless)! - **⚠️ BREAKING CHANGE**: The minimum supported version of Starlight is now version `0.34.0`. But this time I really bump the peer dependency 😅
+
+### Patch Changes
+
+- [#131](https://github.com/trueberryless-org/starlight-view-modes/pull/131) [`59679cb`](https://github.com/trueberryless-org/starlight-view-modes/commit/59679cb355bd916c5bbe2339881af73e06254f49) Thanks [@trueberryless](https://github.com/trueberryless)! - Add view mode switcher near site title on mobile when header is disabled to prevent softlocking.
+
+- [#129](https://github.com/trueberryless-org/starlight-view-modes/pull/129) [`111a50a`](https://github.com/trueberryless-org/starlight-view-modes/commit/111a50a725b9fbea1d9dcab4935b610e5ed2d0aa) Thanks [@trueberryless](https://github.com/trueberryless)! - **Internal refactoring**: Migrate to SCSS for better maintainability. Nothing changes for the consumer as the SCSS files are precompiled to CSS before publishing to avoid unnecessary dependencies.
+
+- [#129](https://github.com/trueberryless-org/starlight-view-modes/pull/129) [`111a50a`](https://github.com/trueberryless-org/starlight-view-modes/commit/111a50a725b9fbea1d9dcab4935b610e5ed2d0aa) Thanks [@trueberryless](https://github.com/trueberryless)! - The minimum supported version of Starlight is now version `0.32.6` (surpassed by CSS layers changes anyway a.k.a. `0.34.0`) because internals got refectored to use the [new simplified `isFallback` passing type](https://github.com/withastro/starlight/pull/3030).
+
 ## 0.11.1
 
 ### Patch Changes
