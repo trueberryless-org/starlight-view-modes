@@ -86,9 +86,6 @@ importers:
       rehype-stringify:
         specifier: ^10.0.1
         version: 10.0.1
-      sass:
-        specifier: ^1.82.0
-        version: 1.95.0
       unified:
         specifier: ^11.0.5
         version: 11.0.5
@@ -102,6 +99,9 @@ importers:
       astro:
         specifier: ^5.16.0
         version: 5.16.0(@types/node@22.15.18)(rollup@4.40.2)(sass@1.95.0)(typescript@5.9.3)(yaml@2.5.1)
+      sass:
+        specifier: ^1.82.0
+        version: 1.95.0
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.15.18)(sass@1.95.0)(yaml@2.5.1)

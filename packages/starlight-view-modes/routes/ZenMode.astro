@@ -1,5 +1,5 @@
 ---
-import type { GetStaticPaths, ImageMetadata } from "astro";
+import type { GetStaticPaths, InferGetStaticPropsType, ImageMetadata } from "astro";
 import { render } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import isAbsoluteUrl from "is-absolute-url";
@@ -10,15 +10,16 @@ import RenderHtmlWithRehype from "../components/content/RenderHtmlWithRehype.ast
 import { AdditionalModes } from "../libs/definitions";
 import { generateStaticPaths } from "../libs/server";
 import { getClassNameZenMode, insertModePathname } from "../libs/utils";
-import "../styles/zen-mode.scss";
+import "../styles/zen-mode.css";
 
 export const getStaticPaths = (async () => {
-  return await generateStaticPaths(
+  const paths = await generateStaticPaths(
     AdditionalModes.find((mode) => mode.name === "zen-mode")!
   );
+  return paths.filter((p): p is NonNullable<typeof p> => p !== undefined);
 }) satisfies GetStaticPaths;
 
-type Props = Awaited<ReturnType<typeof getStaticPaths>>[number]["props"];
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export const prerender = true;
 
@@ -48,6 +49,7 @@ function normalizeHeroActions(hero: Record<string, any> | undefined) {
   const actions = hero.actions.map((action: Record<string, any>) => {
     if (typeof action.link !== "string") return action;
     if (isAbsoluteUrl(action.link)) return action;
+
     return {
       ...action,
       link: insertModePathname(action.link, "zen-mode"),
