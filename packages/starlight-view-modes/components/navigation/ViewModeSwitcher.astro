@@ -14,12 +14,12 @@ const defaultMode = modes.find((mode) => mode.name === "default");
 const nonDefaultModes = modes.filter((mode) => mode.name !== "default");
 
 const switchHref = (mode: (typeof modes)[number]) =>
-  mode.isCurrent ? defaultMode?.href ?? mode.href : mode.href;
+  mode.isCurrent ? (defaultMode?.href ?? mode.href) : mode.href;
 
 const switchText = (mode: (typeof modes)[number]) =>
   Astro.locals.t(
     mode.isCurrent
-      ? defaultMode?.switchToText ?? mode.switchToText
+      ? (defaultMode?.switchToText ?? mode.switchToText)
       : mode.switchToText
   );
 ---
@@ -120,4 +120,3 @@ const switchText = (mode: (typeof modes)[number]) =>
     display: block;
   }
 </style>
-
