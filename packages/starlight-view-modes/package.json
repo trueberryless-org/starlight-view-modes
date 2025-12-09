@@ -47,7 +47,7 @@
     "./components/navigation/KeyboardShortcuts.astro": "./components/navigation/KeyboardShortcuts.astro",
     "./libs/keyboard.js": "./libs/keyboard.js",
     "./routes/ZenMode.astro": "./routes/ZenMode.astro",
-    "./styles/**/*.css": "./styles/**/*.css",
+    "./styles/**/*.scss": "./styles/**/*.scss",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -61,6 +61,7 @@
     "picomatch": "^4.0.2",
     "rehype-parse": "^9.0.1",
     "rehype-stringify": "^10.0.1",
+    "sass": "^1.82.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0"
   },

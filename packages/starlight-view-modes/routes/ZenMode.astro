@@ -10,7 +10,7 @@ import RenderHtmlWithRehype from "../components/content/RenderHtmlWithRehype.ast
 import { AdditionalModes } from "../libs/definitions";
 import { generateStaticPaths } from "../libs/server";
 import { getClassNameZenMode, insertModePathname } from "../libs/utils";
-import "../styles/zen-mode.css";
+import "../styles/zen-mode.scss";
 
 export const getStaticPaths = (async () => {
   return await generateStaticPaths(
