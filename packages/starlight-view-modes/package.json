@@ -62,10 +62,10 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@astrojs/starlight": "^0.37.0",
-    "astro": "^5.16.4",
-    "sass": "^1.95.0",
-    "vitest": "^4.0.15"
+    "@astrojs/starlight": "^0.37.1",
+    "astro": "^5.16.6",
+    "sass": "^1.97.1",
+    "vitest": "^4.0.16"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.34"
