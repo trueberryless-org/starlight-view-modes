@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
-    "@astrojs/starlight": "^0.37.0",
+    "@astrojs/starlight": "^0.37.1",
     "@hideoo/starlight-plugins-docs-components": "^0.4.1",
     "@trueberryless-org/starlight-plugins-docs-components": "^0.4.3",
-    "astro": "^5.16.4",
+    "astro": "^5.16.6",
     "sharp": "^0.34.5",
     "starlight-contributor-list": "^0.3.1",
     "starlight-image-zoom": "^0.13.2",
