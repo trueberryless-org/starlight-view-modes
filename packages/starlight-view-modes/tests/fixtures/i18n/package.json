@@ -2,9 +2,9 @@
   "name": "@starlight-view-modes-tests/i18n",
   "version": "0.1.0",
   "dependencies": {
-    "@astrojs/starlight": "^0.37.0",
-    "astro": "^5.16.4",
-    "starlight-links-validator": "^0.19.2",
+    "@astrojs/starlight": "^0.38.1",
+    "astro": "^5.18.1",
+    "starlight-links-validator": "^0.20.1",
     "starlight-view-modes": "workspace:*"
   },
   "private": true
