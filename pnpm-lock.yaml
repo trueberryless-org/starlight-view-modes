@@ -48,17 +48,17 @@ importers:
         specifier: ^0.34.5
         version: 0.34.5
       starlight-contributor-list:
-        specifier: ^0.3.1
+        specifier: ^0.3.2
         version: 0.3.2(@astrojs/starlight@0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1)))
       starlight-image-zoom:
-        specifier: ^0.13.2
-        version: 0.13.2(@astrojs/starlight@0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1)))
+        specifier: ^0.14.1
+        version: 0.14.1(@astrojs/starlight@0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1)))
       starlight-links-validator:
         specifier: ^0.20.1
         version: 0.20.1(@astrojs/starlight@0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1)))(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1))
       starlight-package-managers:
-        specifier: ^0.11.1
-        version: 0.11.1(@astrojs/starlight@0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1)))
+        specifier: ^0.12.0
+        version: 0.12.0(@astrojs/starlight@0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1)))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../packages/starlight-view-modes
@@ -90,7 +90,7 @@ importers:
         specifier: ^11.0.5
         version: 11.0.5
       unist-util-visit:
-        specifier: ^5.0.0
+        specifier: ^5.1.0
         version: 5.1.0
     devDependencies:
       '@astrojs/starlight':
@@ -100,10 +100,10 @@ importers:
         specifier: ^6.0.4
         version: 6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1)
       sass:
-        specifier: ^1.95.0
+        specifier: ^1.98.0
         version: 1.98.0
       vitest:
-        specifier: ^4.0.18
+        specifier: ^4.1.0
         version: 4.1.0(@types/node@24.12.0)(vite@7.3.1(@types/node@24.12.0)(sass@1.98.0)(yaml@2.7.1))
 
   packages/starlight-view-modes/tests/fixtures/base-path:
@@ -2619,11 +2619,11 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.30'
 
-  starlight-image-zoom@0.13.2:
-    resolution: {integrity: sha512-fDJrx+UZXhkbhEeXKoRogTKAYtrYVJPw6wmSUI3nHUTA0vuRM6EI//2Z8bzv3Ecvz0pHKD1vAxtS01mLyessBA==}
-    engines: {node: '>=18'}
+  starlight-image-zoom@0.14.1:
+    resolution: {integrity: sha512-HFY+/779bq65tiEgiQVk8XIH6HPP34PTxWDmdlIo9pwidLyJUUrSH030/1Iu/r+KjAD7W/jpPWjC8Nkn7+uPhw==}
+    engines: {node: '>=22.12.0'}
     peerDependencies:
-      '@astrojs/starlight': '>=0.32.0'
+      '@astrojs/starlight': '>=0.38.0'
 
   starlight-links-validator@0.20.1:
     resolution: {integrity: sha512-bPfX9tlvkLcygIwo4nszOf7TOj1iqfZEpUss5oxRlaa3/mt7zGBHANSkanVMd0FK6VQa2oUD9MjH1DszykkwPA==}
@@ -2631,12 +2631,6 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.38.0'
       astro: '>=6.0.0'
-
-  starlight-package-managers@0.11.1:
-    resolution: {integrity: sha512-GDGJAozmBvmo8CVrOTnYTtnFO1C0kvMPorQ7CF9Khqt2O5mdRtE9JFj+MYh8hU78TdacXFGlJNJDMfHFl7jxiw==}
-    engines: {node: '>=18.17.1'}
-    peerDependencies:
-      '@astrojs/starlight': '>=0.22.0'
 
   starlight-package-managers@0.12.0:
     resolution: {integrity: sha512-hAIVzOT0/Git+T2Uwckh2rs51fYiDM6/X+Z2f3LtKMSwOwm+nSUAX2Ilp7k+07LDtxYjmvfTCxhfIBt0PgOF5g==}
@@ -2781,9 +2775,6 @@ packages:
   unist-util-find-after@5.0.0:
     resolution: {integrity: sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==}
 
-  unist-util-is@6.0.0:
-    resolution: {integrity: sha512-2qCTHimwdxLfz+YzdGfkqNlH0tLi9xjTnHddPmJwtIG9MGsdbutfTc4P+haPD7l7Cjxf/WZj+we5qfVPvvxfYw==}
-
   unist-util-is@6.0.1:
     resolution: {integrity: sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==}
 
@@ -2804,9 +2795,6 @@ packages:
 
   unist-util-visit-children@3.0.0:
     resolution: {integrity: sha512-RgmdTfSBOg04sdPcpTSD1jzoNBjt9a80/ZCzp5cI9n1qPzLZWF9YdvWGN2zmTumP1HWhXKdUWexjy/Wy/lJ7tA==}
-
-  unist-util-visit-parents@6.0.1:
-    resolution: {integrity: sha512-L/PqWzfTP9lzzEa6CKs0k2nARxTdZduw3zyh8d2NVBnsyvHjSX4TWse388YrrQKbvI8w20fGjGlhgT96WwKykw==}
 
   unist-util-visit-parents@6.0.2:
     resolution: {integrity: sha512-goh1s1TBrqSqukSc8wrjwWhL0hiJxgA8m4kFxGlQ+8FYQ3C/m11FcTs4YYem7V664AhHVvgoQLk890Ssdsr2IQ==}
@@ -6184,7 +6172,7 @@ snapshots:
       - encoding
       - supports-color
 
-  starlight-image-zoom@0.13.2(@astrojs/starlight@0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1))):
+  starlight-image-zoom@0.14.1(@astrojs/starlight@0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1))):
     dependencies:
       '@astrojs/starlight': 0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1))
       mdast-util-mdx-jsx: 3.2.0
@@ -6211,10 +6199,6 @@ snapshots:
       unist-util-visit: 5.1.0
     transitivePeerDependencies:
       - supports-color
-
-  starlight-package-managers@0.11.1(@astrojs/starlight@0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1))):
-    dependencies:
-      '@astrojs/starlight': 0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1))
 
   starlight-package-managers@0.12.0(@astrojs/starlight@0.38.1(astro@6.0.4(@types/node@24.12.0)(rollup@4.59.0)(sass@1.98.0)(typescript@5.9.3)(yaml@2.7.1))):
     dependencies:
@@ -6352,10 +6336,6 @@ snapshots:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.1
 
-  unist-util-is@6.0.0:
-    dependencies:
-      '@types/unist': 3.0.3
-
   unist-util-is@6.0.1:
     dependencies:
       '@types/unist': 3.0.3
@@ -6386,11 +6366,6 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
-  unist-util-visit-parents@6.0.1:
-    dependencies:
-      '@types/unist': 3.0.3
-      unist-util-is: 6.0.0
-
   unist-util-visit-parents@6.0.2:
     dependencies:
       '@types/unist': 3.0.3
@@ -6399,8 +6374,8 @@ snapshots:
   unist-util-visit@5.1.0:
     dependencies:
       '@types/unist': 3.0.3
-      unist-util-is: 6.0.0
-      unist-util-visit-parents: 6.0.1
+      unist-util-is: 6.0.1
+      unist-util-visit-parents: 6.0.2
 
   universalify@0.1.2: {}
 
