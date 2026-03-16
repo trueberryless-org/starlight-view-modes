@@ -1,5 +1,15 @@
 # starlight-view-modes
 
+## 0.13.0
+
+### Minor Changes
+
+- [#139](https://github.com/trueberryless-org/starlight-view-modes/pull/139) [`49999ca`](https://github.com/trueberryless-org/starlight-view-modes/commit/49999ca44a988b964d1883480d7a9a50c1e16656) Thanks [@trueberryless](https://github.com/trueberryless)! - Adds support for Astro v6, drops support for Astro v5.
+
+  ⚠️ **BREAKING CHANGE:** The minimum supported version of Starlight is now `0.38.0`.
+
+  Please follow the [upgrade guide](https://github.com/withastro/starlight/releases/tag/%40astrojs%2Fstarlight%400.38.0) to update your project.
+
 ## 0.12.0
 
 ### Minor Changes
