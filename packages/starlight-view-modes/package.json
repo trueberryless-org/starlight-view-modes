@@ -59,13 +59,13 @@
     "rehype-parse": "^9.0.1",
     "rehype-stringify": "^10.0.1",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
     "@astrojs/starlight": "^0.38.1",
     "astro": "^6.0.4",
-    "sass": "^1.95.0",
-    "vitest": "^4.0.18"
+    "sass": "^1.98.0",
+    "vitest": "^4.1.0"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.38"
