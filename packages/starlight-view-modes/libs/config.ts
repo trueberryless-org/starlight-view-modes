@@ -32,7 +32,7 @@ const configSchema = z
             showTableOfContents: z.boolean().default(true),
             showFooter: z.boolean().default(true),
           })
-          .default({})
+          .prefault({})
           .refine(
             (options) => {
               const values = Object.values(options);
@@ -78,9 +78,9 @@ const configSchema = z
             }
           }),
       })
-      .default({}),
+      .prefault({}),
   })
-  .default({});
+  .prefault({});
 
 export function validateConfig(userConfig: unknown): StarlightViewModesConfig {
   const config = configSchema.safeParse(userConfig);
@@ -89,8 +89,8 @@ export function validateConfig(userConfig: unknown): StarlightViewModesConfig {
     const errors = config.error.flatten();
 
     throw new AstroError(
-      `Invalid @trueberryless-org/starlight-plugins-docs-components configuration:
-      
+      `Invalid starlight-view-modes configuration:
+
       ${errors.formErrors.map((formError) => ` - ${formError}`).join("\n")}
       ${Object.entries(errors.fieldErrors)
         .map(
