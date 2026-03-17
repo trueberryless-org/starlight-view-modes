@@ -4,14 +4,21 @@ description: Starlight plugin adding view mode capabilities to your documentatio
 head:
   - tag: title
     content: Starlight View Modes
+  - tag: style
+    content: |
+      .hero-html {
+        --size: 12rem;
+        font-size: var(--size);
+        justify-content: center;
+        line-height: var(--size);
+      }
 template: splash
 editUrl: false
 lastUpdated: false
 hero:
   tagline: Starlight plugin adding view mode capabilities to your documentation website.
   image:
-    dark: ../../assets/big-logo-dark.png
-    light: ../../assets/big-logo-light.png
+    html: '👀'
   actions:
     - text: Getting Started
       link: /getting-started/
