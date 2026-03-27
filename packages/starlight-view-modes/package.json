@@ -55,17 +55,17 @@
     "@pagefind/default-ui": "^1.4.0",
     "is-absolute-url": "^5.0.0",
     "pagefind": "^1.4.0",
-    "picomatch": "^4.0.3",
+    "picomatch": "^4.0.4",
     "rehype-parse": "^9.0.1",
     "rehype-stringify": "^10.0.1",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
-    "@astrojs/starlight": "^0.38.1",
-    "astro": "^6.0.4",
+    "@astrojs/starlight": "^0.38.2",
+    "astro": "^6.1.1",
     "sass": "^1.98.0",
-    "vitest": "^4.1.0"
+    "vitest": "^4.1.2"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.38"
