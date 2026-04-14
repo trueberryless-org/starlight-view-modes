@@ -16,4 +16,4 @@ This project uses pnpm workspaces to develop a single Starlight plugin from the 
 
 Licensed under the MIT license, Copyright © trueberryless.
 
-See [LICENSE](/LICENSE) for more information.
+See [LICENSE](https://github.com/trueberryless-org/starlight-view-modes/blob/main/LICENSE) for more information.

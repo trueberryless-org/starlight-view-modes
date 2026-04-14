@@ -1,6 +1,16 @@
 {
   "name": "starlight-view-modes-docs",
   "version": "0.1.3",
+  "homepage": "https://starlight-view-modes.trueberryless.org",
+  "bugs": {
+    "url": "https://github.com/trueberryless-org/starlight-view-modes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueberryless-org/starlight-view-modes.git"
+  },
+  "license": "MIT",
+  "author": "trueberryless <trueberryless@gmail.com> (https://trueberryless.org)",
   "type": "module",
   "scripts": {
     "astro": "astro",
