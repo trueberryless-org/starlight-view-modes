@@ -52,20 +52,20 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@pagefind/default-ui": "^1.4.0",
+    "@pagefind/default-ui": "^1.5.2",
     "is-absolute-url": "^5.0.0",
-    "pagefind": "^1.4.0",
-    "picomatch": "^4.0.3",
+    "pagefind": "^1.5.2",
+    "picomatch": "^4.0.4",
     "rehype-parse": "^9.0.1",
     "rehype-stringify": "^10.0.1",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
-    "@astrojs/starlight": "^0.38.1",
-    "astro": "^6.0.4",
-    "sass": "^1.98.0",
-    "vitest": "^4.1.0"
+    "@astrojs/starlight": "^0.38.3",
+    "astro": "^6.1.9",
+    "sass": "^1.99.0",
+    "vitest": "^4.1.5"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.38"

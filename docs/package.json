@@ -20,15 +20,15 @@
     "start": "astro dev"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.7",
-    "@astrojs/starlight": "^0.38.1",
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/starlight": "^0.38.3",
     "@hideoo/starlight-plugins-docs-components": "^0.4.2",
     "@trueberryless-org/starlight-plugins-docs-components": "^0.5.0",
-    "astro": "^6.0.4",
+    "astro": "^6.1.9",
     "sharp": "^0.34.5",
-    "starlight-contributor-list": "^0.3.2",
+    "starlight-contributor-list": "^0.4.0",
     "starlight-image-zoom": "^0.14.1",
-    "starlight-links-validator": "^0.20.1",
+    "starlight-links-validator": "^0.23.0",
     "starlight-package-managers": "^0.12.0",
     "starlight-view-modes": "workspace:*",
     "typescript": "^5.9.3"
