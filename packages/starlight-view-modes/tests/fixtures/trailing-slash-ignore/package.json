@@ -2,9 +2,9 @@
   "name": "@starlight-view-modes-tests/trailing-slash-ignore",
   "version": "0.1.0",
   "dependencies": {
-    "@astrojs/starlight": "^0.38.1",
-    "astro": "^6.0.4",
-    "starlight-links-validator": "^0.20.1",
+    "@astrojs/starlight": "^0.38.3",
+    "astro": "^6.1.9",
+    "starlight-links-validator": "^0.23.0",
     "starlight-view-modes": "workspace:*"
   },
   "private": true
