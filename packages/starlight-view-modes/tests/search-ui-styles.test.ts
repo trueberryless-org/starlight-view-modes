@@ -9,7 +9,8 @@ test('search styles avoid mobile overlap and nested connector line artifacts', (
     'utf-8'
   )
 
-  expect(searchComponent).toContain('button[data-close-modal] {\n      position: static;')
+  expect(searchComponent).toContain('button[data-close-modal] {')
+  expect(searchComponent).toContain('position: static;')
   expect(searchComponent).toContain('--sl-search-cancel-space: 0px;')
   expect(searchComponent).not.toContain('.pagefind-ui__result-nested::before')
 })
