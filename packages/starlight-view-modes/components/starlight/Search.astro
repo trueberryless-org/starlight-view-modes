@@ -520,10 +520,10 @@ if (project.trailingSlash === "never")
       content: unset;
     }
 
-      /* Flip page icons around the vertical axis when in an RTL layout. */
-      [dir="rtl"] .pagefind-ui__result-title::before {
-        transform: matrix(-1, 0, 0, 1, 0, 0);
-      }
+    /* Flip page icons around the vertical axis when in an RTL layout. */
+    [dir="rtl"] .pagefind-ui__result-title::before {
+      transform: matrix(-1, 0, 0, 1, 0, 0);
+    }
 
     #starlight__search .pagefind-ui__result-link::after {
       content: "";
