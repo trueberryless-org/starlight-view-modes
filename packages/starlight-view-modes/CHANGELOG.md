@@ -1,5 +1,11 @@
 # starlight-view-modes
 
+## 0.13.1
+
+### Patch Changes
+
+- [#157](https://github.com/trueberryless-org/starlight-view-modes/pull/157) [`1489f6a`](https://github.com/trueberryless-org/starlight-view-modes/commit/1489f6a784fcb031d250715ddd8aa035b768b0af) Thanks [@trueberryless](https://github.com/trueberryless)! - Downgrade pagefind to 1.3.0 and remove CSS import statement in Search override component to fix Search UI issues
+
 ## 0.13.0
 
 ### Minor Changes
