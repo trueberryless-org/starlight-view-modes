@@ -1,8 +1,12 @@
 name: Tangle
 
 on:
-  push: {}
-  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+  workflow_dispatch:
 
 permissions:
   contents: read
