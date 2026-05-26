@@ -2,7 +2,7 @@
   "name": "@starlight-view-modes-tests/basic",
   "version": "0.1.0",
   "dependencies": {
-    "@astrojs/starlight": "^0.38.4",
+    "@astrojs/starlight": "^0.38.5",
     "astro": "^6.2.2",
     "starlight-links-validator": "^0.24.0",
     "starlight-view-modes": "workspace:*"
