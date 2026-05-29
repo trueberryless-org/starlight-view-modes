@@ -33,7 +33,7 @@ importers:
         specifier: ^0.9.9
         version: 0.9.9(prettier-plugin-astro@0.14.1)(prettier@3.8.3)(typescript@5.9.3)
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       '@hideoo/starlight-plugins-docs-components':
         specifier: ^0.4.2
@@ -94,7 +94,7 @@ importers:
         version: 5.1.0
     devDependencies:
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.3.1
@@ -109,7 +109,7 @@ importers:
   packages/starlight-view-modes/tests/fixtures/base-path:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.3.1
@@ -124,7 +124,7 @@ importers:
   packages/starlight-view-modes/tests/fixtures/basic:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.3.1
@@ -139,7 +139,7 @@ importers:
   packages/starlight-view-modes/tests/fixtures/i18n:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.3.1
@@ -154,7 +154,7 @@ importers:
   packages/starlight-view-modes/tests/fixtures/i18n-base-path:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.3.1
@@ -169,7 +169,7 @@ importers:
   packages/starlight-view-modes/tests/fixtures/i18n-root:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.3.1
@@ -184,7 +184,7 @@ importers:
   packages/starlight-view-modes/tests/fixtures/i18n-root-base-path:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.3.1
@@ -199,7 +199,7 @@ importers:
   packages/starlight-view-modes/tests/fixtures/trailing-slash-always:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.3.1
@@ -214,7 +214,7 @@ importers:
   packages/starlight-view-modes/tests/fixtures/trailing-slash-ignore:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.3.1
@@ -229,7 +229,7 @@ importers:
   packages/starlight-view-modes/tests/fixtures/trailing-slash-never:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.39.1
+        specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.3.1
