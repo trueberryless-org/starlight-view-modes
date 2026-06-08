@@ -42,7 +42,7 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0(@astrojs/starlight@0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       sharp:
         specifier: ^0.34.5
@@ -97,7 +97,7 @@ importers:
         specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       sass:
         specifier: ^1.99.0
@@ -112,7 +112,7 @@ importers:
         specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
@@ -127,7 +127,7 @@ importers:
         specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
@@ -142,7 +142,7 @@ importers:
         specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
@@ -157,7 +157,7 @@ importers:
         specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
@@ -172,7 +172,7 @@ importers:
         specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
@@ -187,7 +187,7 @@ importers:
         specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
@@ -202,7 +202,7 @@ importers:
         specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
@@ -217,7 +217,7 @@ importers:
         specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
@@ -232,7 +232,7 @@ importers:
         specifier: ^0.39.2
         version: 0.39.2(astro@6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
-        specifier: ^6.3.3
+        specifier: ^6.3.5
         version: 6.3.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
