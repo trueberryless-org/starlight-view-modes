@@ -65,7 +65,7 @@
     "@astrojs/starlight": "^0.39.2",
     "astro": "^6.3.5",
     "sass": "^1.99.0",
-    "vitest": "^4.1.6"
+    "vitest": "^4.1.7"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.38"
