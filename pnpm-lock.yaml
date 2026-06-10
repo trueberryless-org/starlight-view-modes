@@ -103,7 +103,7 @@ importers:
         specifier: ^1.99.0
         version: 1.100.0
       vitest:
-        specifier: ^4.1.6
+        specifier: ^4.1.7
         version: 4.1.7(@types/node@24.12.0)(vite@7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0))
 
   packages/starlight-view-modes/tests/fixtures/base-path:
