@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@astrojs/starlight": "^0.39.2",
-    "astro": "^6.3.7",
+    "astro": "^6.3.8",
     "starlight-links-validator": "^0.24.0",
     "starlight-view-modes": "workspace:*"
   },
