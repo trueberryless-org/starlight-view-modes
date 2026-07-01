@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@astrojs/starlight": "^0.40.0",
-    "astro": "^6.4.5",
+    "astro": "^6.4.6",
     "sass": "^1.100.0",
     "vitest": "^4.1.8"
   },
