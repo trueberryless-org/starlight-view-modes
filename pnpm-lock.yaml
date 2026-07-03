@@ -34,31 +34,31 @@ importers:
         version: 0.9.9(prettier-plugin-astro@0.14.1)(prettier@3.8.4)(typescript@5.9.3)
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       '@hideoo/starlight-plugins-docs-components':
         specifier: ^0.4.2
-        version: 0.4.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))
+        version: 0.4.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))
       '@trueberryless-org/starlight-plugins-docs-components':
         specifier: ^0.5.0
-        version: 0.5.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))
+        version: 0.5.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       sharp:
-        specifier: ^0.35.0
+        specifier: ^0.35.1
         version: 0.35.2
       starlight-contributor-list:
         specifier: ^0.4.0
-        version: 0.4.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.4.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-image-zoom:
         specifier: ^0.14.2
-        version: 0.14.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))
+        version: 0.14.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))
       starlight-links-validator:
         specifier: ^0.24.0
-        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-package-managers:
         specifier: ^0.12.0
-        version: 0.12.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))
+        version: 0.12.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../packages/starlight-view-modes
@@ -95,28 +95,28 @@ importers:
     devDependencies:
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       sass:
-        specifier: ^1.100.0
-        version: 1.100.0
+        specifier: ^1.101.0
+        version: 1.101.0
       vitest:
         specifier: ^4.1.8
-        version: 4.1.9(@types/node@24.12.0)(vite@7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 4.1.9(@types/node@24.12.0)(vite@7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0))
 
   packages/starlight-view-modes/tests/fixtures/base-path:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
-        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -125,13 +125,13 @@ importers:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
-        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -140,13 +140,13 @@ importers:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
-        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -155,13 +155,13 @@ importers:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
-        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -170,13 +170,13 @@ importers:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
-        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -185,13 +185,13 @@ importers:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
-        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -200,13 +200,13 @@ importers:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
-        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -215,13 +215,13 @@ importers:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
-        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -230,13 +230,13 @@ importers:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.40.0
-        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+        version: 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       astro:
         specifier: ^6.4.6
-        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+        version: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       starlight-links-validator:
         specifier: ^0.24.0
-        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+        version: 0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       starlight-view-modes:
         specifier: workspace:*
         version: link:../../..
@@ -467,9 +467,6 @@ packages:
   '@emnapi/runtime@1.11.1':
     resolution: {integrity: sha512-vgj7R3y3Wgx24IQaGPA/R6YFXLHVMOZ0uVEyIQPaWs+rd1AzfEMXlAC22FYwO1XkKR6NPsq7mUandH8oIRdZFw==}
 
-  '@emnapi/runtime@1.7.1':
-    resolution: {integrity: sha512-PVtJr5CmLwYAU9PZDMITZoR5iAOShYREoR45EyyLrbntV50mdePTgUn4AmOw90Ifcj+x2kRjdzr1HP3RrNiHGA==}
-
   '@esbuild/aix-ppc64@0.27.3':
     resolution: {integrity: sha512-9fJMTNFTWZMh5qwrBItuziu834eOCUcEqymSH7pY+zoMVEZg3gcPuBNxH1EvfVYe9h0x/Ptw8KBzv7qxb7l8dg==}
     engines: {node: '>=18'}
@@ -643,10 +640,6 @@ packages:
     engines: {node: '>=22'}
     peerDependencies:
       '@astrojs/starlight': '>=0.38.0'
-
-  '@img/colour@1.0.0':
-    resolution: {integrity: sha512-A5P/LfWGFSl6nsckYtjw9da+19jB8hkJ6ACTGcDfEJ0aE+l2n2El7dsVM7UVHZQ9s2lmYMWlrS21YLy2IR1LUw==}
-    engines: {node: '>=18'}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -2682,8 +2675,8 @@ packages:
   sass-formatter@0.7.9:
     resolution: {integrity: sha512-CWZ8XiSim+fJVG0cFLStwDvft1VI7uvXdCNJYXhDvowiv+DsbD1nXLiQ4zrE5UBvj5DWZJ93cwN0NX5PMsr1Pw==}
 
-  sass@1.100.0:
-    resolution: {integrity: sha512-B5j0rYMlinhhOo9tjQebMVVn0TfyXAF+wB3b2ggZUuJ/is/Y+7+JGjirAMxHZ9Z3hIP98NPfamlAkBHa1lAaXQ==}
+  sass@1.101.0:
+    resolution: {integrity: sha512-OL3GoQyoUdDt843DpVmDO6y2k1sc5IhUDSpu8XucEI+35neq5QivZ1iuegnpraEVTJXlQGK1gl27zKcTLEPbQw==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -3367,13 +3360,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@6.0.3(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))':
+  '@astrojs/mdx@6.0.3(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))':
     dependencies:
       '@astrojs/internal-helpers': 0.10.0
       '@astrojs/markdown-remark': 7.2.0
       '@mdx-js/mdx': 3.1.1
       acorn: 8.16.0
-      astro: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+      astro: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       es-module-lexer: 2.0.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -3397,17 +3390,17 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 4.3.6
 
-  '@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)':
+  '@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)':
     dependencies:
       '@astrojs/markdown-remark': 7.2.0
-      '@astrojs/mdx': 6.0.3(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+      '@astrojs/mdx': 6.0.3(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       '@astrojs/sitemap': 3.7.2
       '@pagefind/default-ui': 1.5.2
       '@types/hast': 3.0.4
       '@types/js-yaml': 4.0.9
       '@types/mdast': 4.0.4
-      astro: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
-      astro-expressive-code: 0.43.1(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))
+      astro: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
+      astro-expressive-code: 0.43.1(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.4
@@ -3703,11 +3696,6 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@emnapi/runtime@1.7.1':
-    dependencies:
-      tslib: 2.8.1
-    optional: true
-
   '@esbuild/aix-ppc64@0.27.3':
     optional: true
 
@@ -3811,14 +3799,11 @@ snapshots:
     dependencies:
       '@expressive-code/core': 0.43.1
 
-  '@hideoo/starlight-plugins-docs-components@0.4.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))':
+  '@hideoo/starlight-plugins-docs-components@0.4.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))':
     dependencies:
-      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
-      starlight-package-managers: 0.12.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))
-      starlight-showcases: 0.3.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))
-
-  '@img/colour@1.0.0':
-    optional: true
+      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
+      starlight-package-managers: 0.12.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))
+      starlight-showcases: 0.3.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))
 
   '@img/colour@1.1.0': {}
 
@@ -3989,7 +3974,7 @@ snapshots:
 
   '@img/sharp-wasm32@0.34.5':
     dependencies:
-      '@emnapi/runtime': 1.7.1
+      '@emnapi/runtime': 1.11.1
     optional: true
 
   '@img/sharp-wasm32@0.35.2':
@@ -4324,12 +4309,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@trueberryless-org/starlight-plugins-docs-components@0.5.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))':
+  '@trueberryless-org/starlight-plugins-docs-components@0.5.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))':
     dependencies:
-      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
-      '@hideoo/starlight-plugins-docs-components': 0.4.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))
+      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
+      '@hideoo/starlight-plugins-docs-components': 0.4.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))
       change-case: 5.4.4
-      starlight-showcases: 0.3.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))
+      starlight-showcases: 0.3.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))
 
   '@types/chai@5.2.3':
     dependencies:
@@ -4393,13 +4378,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.0
 
-  '@vitest/mocker@4.1.9(vite@7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0))':
+  '@vitest/mocker@4.1.9(vite@7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0))':
     dependencies:
       '@vitest/spy': 4.1.9
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0)
+      vite: 7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0)
 
   '@vitest/pretty-format@4.1.9':
     dependencies:
@@ -4527,12 +4512,12 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-expressive-code@0.43.1(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)):
+  astro-expressive-code@0.43.1(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)):
     dependencies:
-      astro: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+      astro: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       rehype-expressive-code: 0.43.1
 
-  astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0):
+  astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0):
     dependencies:
       '@astrojs/compiler': 4.0.0
       '@astrojs/internal-helpers': 0.10.0
@@ -4584,8 +4569,8 @@ snapshots:
       unist-util-visit: 5.1.0
       unstorage: 1.17.5
       vfile: 6.0.3
-      vite: 7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0)
-      vitefu: 1.1.2(vite@7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0))
+      vite: 7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0)
+      vitefu: 1.1.2(vite@7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0))
       xxhash-wasm: 1.1.0
       yargs-parser: 22.0.0
       zod: 4.3.6
@@ -6230,7 +6215,7 @@ snapshots:
     dependencies:
       suf-log: 2.5.3
 
-  sass@1.100.0:
+  sass@1.101.0:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.5
@@ -6246,9 +6231,9 @@ snapshots:
 
   sharp@0.34.5:
     dependencies:
-      '@img/colour': 1.0.0
+      '@img/colour': 1.1.0
       detect-libc: 2.1.2
-      semver: 7.7.4
+      semver: 7.8.5
     optionalDependencies:
       '@img/sharp-darwin-arm64': 0.34.5
       '@img/sharp-darwin-x64': 0.34.5
@@ -6357,13 +6342,13 @@ snapshots:
 
   stackback@0.0.2: {}
 
-  starlight-contributor-list@0.4.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)):
+  starlight-contributor-list@0.4.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)):
     dependencies:
-      astro: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+      astro: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
 
-  starlight-image-zoom@0.14.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)):
+  starlight-image-zoom@0.14.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)):
     dependencies:
-      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       mdast-util-mdx-jsx: 3.2.0
       rehype-raw: 7.0.0
       unist-util-visit: 5.1.0
@@ -6371,11 +6356,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  starlight-links-validator@0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)):
+  starlight-links-validator@0.24.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3))(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)):
     dependencies:
-      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
       '@types/picomatch': 4.0.2
-      astro: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0)
+      astro: 6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.3
       is-absolute-url: 5.0.0
@@ -6388,15 +6373,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  starlight-package-managers@0.12.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)):
+  starlight-package-managers@0.12.0(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)):
     dependencies:
-      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
 
-  starlight-showcases@0.3.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)):
+  starlight-showcases@0.3.2(@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)):
     dependencies:
       '@astro-community/astro-embed-twitter': 0.5.11
       '@astro-community/astro-embed-youtube': 0.5.10
-      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.100.0)(yaml@2.9.0))(typescript@5.9.3)
+      '@astrojs/starlight': 0.40.0(astro@6.4.7(@types/node@24.12.0)(rollup@4.59.0)(sass@1.101.0)(yaml@2.9.0))(typescript@5.9.3)
 
   std-env@4.0.0: {}
 
@@ -6487,7 +6472,7 @@ snapshots:
 
   typescript-auto-import-cache@0.3.6:
     dependencies:
-      semver: 7.7.4
+      semver: 7.8.5
 
   typescript@5.9.3: {}
 
@@ -6591,7 +6576,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite@7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0):
+  vite@7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0):
     dependencies:
       esbuild: 0.27.3
       fdir: 6.5.0(picomatch@4.0.4)
@@ -6602,17 +6587,17 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.12.0
       fsevents: 2.3.3
-      sass: 1.100.0
+      sass: 1.101.0
       yaml: 2.9.0
 
-  vitefu@1.1.2(vite@7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0)):
+  vitefu@1.1.2(vite@7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0)):
     optionalDependencies:
-      vite: 7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0)
+      vite: 7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0)
 
-  vitest@4.1.9(@types/node@24.12.0)(vite@7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0)):
+  vitest@4.1.9(@types/node@24.12.0)(vite@7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0)):
     dependencies:
       '@vitest/expect': 4.1.9
-      '@vitest/mocker': 4.1.9(vite@7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0))
+      '@vitest/mocker': 4.1.9(vite@7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0))
       '@vitest/pretty-format': 4.1.9
       '@vitest/runner': 4.1.9
       '@vitest/snapshot': 4.1.9
@@ -6629,7 +6614,7 @@ snapshots:
       tinyexec: 1.2.2
       tinyglobby: 0.2.16
       tinyrainbow: 3.1.0
-      vite: 7.3.3(@types/node@24.12.0)(sass@1.100.0)(yaml@2.9.0)
+      vite: 7.3.3(@types/node@24.12.0)(sass@1.101.0)(yaml@2.9.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 24.12.0
@@ -6677,7 +6662,7 @@ snapshots:
   volar-service-typescript@0.0.70(@volar/language-service@2.4.28):
     dependencies:
       path-browserify: 1.0.1
-      semver: 7.7.4
+      semver: 7.8.5
       typescript-auto-import-cache: 0.3.6
       vscode-languageserver-textdocument: 1.0.12
       vscode-nls: 5.2.0
