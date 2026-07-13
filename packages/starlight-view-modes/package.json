@@ -71,6 +71,6 @@
     "@astrojs/starlight": ">=0.38"
   },
   "engines": {
-    "node": ">=22.23.0"
+    "node": ">=22.23.1"
   }
 }
