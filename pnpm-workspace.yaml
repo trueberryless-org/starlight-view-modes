@@ -7,5 +7,5 @@ allowBuilds:
   "@tailwindcss/oxide": false
   canvas: false
   esbuild: false
-  sharp: false
+  sharp: true
   unrs-resolver: false
