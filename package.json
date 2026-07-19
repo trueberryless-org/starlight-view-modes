@@ -23,7 +23,7 @@
     "directory": "packages/starlight-view-modes"
   },
   "license": "MIT",
-  "author": "trueberryless <trueberryless@gmail.com> (https://trueberryless.org)",
+  "author": "trueberryless <trueberryless@gmail.com> (https://felixs.dev)",
   "sideEffects": false,
   "type": "module",
   "scripts": {

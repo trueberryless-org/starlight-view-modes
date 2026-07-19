@@ -12,7 +12,7 @@
     "view-modes",
     "documentation"
   ],
-  "homepage": "https://starlight-view-modes.trueberryless.org",
+  "homepage": "https://starlight-view-modes.netlify.app/",
   "bugs": {
     "url": "https://github.com/trueberryless-org/starlight-view-modes/issues"
   },
@@ -22,7 +22,7 @@
     "directory": "packages/starlight-view-modes"
   },
   "license": "MIT",
-  "author": "trueberryless <trueberryless@gmail.com> (https://trueberryless.org)",
+  "author": "trueberryless <trueberryless@gmail.com> (https://felixs.dev)",
   "type": "module",
   "exports": {
     ".": "./index.ts",
