@@ -55,14 +55,14 @@
     "@pagefind/default-ui": "1.5.2",
     "is-absolute-url": "^5.0.0",
     "pagefind": "1.5.2",
-    "picomatch": "^4.0.4",
+    "picomatch": "^4.0.5",
     "rehype-parse": "^9.0.1",
     "rehype-stringify": "^10.0.1",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
-    "@astrojs/starlight": "^0.40.0",
+    "@astrojs/starlight": "^0.41.2",
     "astro": "^6.4.8",
     "sass": "^1.101.0",
     "vitest": "^4.1.9"
