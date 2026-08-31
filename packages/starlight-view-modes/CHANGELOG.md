@@ -28,7 +28,7 @@
 
 - [#129](https://github.com/trueberryless-org/starlight-view-modes/pull/129) [`111a50a`](https://github.com/trueberryless-org/starlight-view-modes/commit/111a50a725b9fbea1d9dcab4935b610e5ed2d0aa) Thanks [@trueberryless](https://github.com/trueberryless)! - **Internal refactoring**: Migrate to SCSS for better maintainability. Nothing changes for the consumer as the SCSS files are precompiled to CSS before publishing to avoid unnecessary dependencies.
 
-- [#129](https://github.com/trueberryless-org/starlight-view-modes/pull/129) [`111a50a`](https://github.com/trueberryless-org/starlight-view-modes/commit/111a50a725b9fbea1d9dcab4935b610e5ed2d0aa) Thanks [@trueberryless](https://github.com/trueberryless)! - The minimum supported version of Starlight is now version `0.32.6` (surpassed by CSS layers changes anyway a.k.a. `0.34.0`) because internals got refectored to use the [new simplified `isFallback` passing type](https://github.com/withastro/starlight/pull/3030).
+- [#129](https://github.com/trueberryless-org/starlight-view-modes/pull/129) [`111a50a`](https://github.com/trueberryless-org/starlight-view-modes/commit/111a50a725b9fbea1d9dcab4935b610e5ed2d0aa) Thanks [@trueberryless](https://github.com/trueberryless)! - The minimum supported version of Starlight is now version `0.32.6` (surpassed by CSS layers changes anyway a.k.a. `0.34.0`) because internals got refactored to use the [new simplified `isFallback` passing type](https://github.com/withastro/starlight/pull/3030).
 
 ## 0.11.1
 
@@ -120,7 +120,7 @@ Thanks to [@HiDeoo](https://github.com/HiDeoo) for reviewing the upgrade and ove
 
 - [#19](https://github.com/trueberryless-org/starlight-view-modes/pull/19) [`a16ce2e`](https://github.com/trueberryless-org/starlight-view-modes/commit/a16ce2ecafcdb557402b7390ae2531a84de03554) Thanks [@trueberryless](https://github.com/trueberryless)! - > ⚠️ **DISCLAIMER:** This plugin has been overworked completely and now works very different under the hoods. These has many benefits, like huge performance improvements because there is no more JavaScript, but there are still some things which are not supported in this release, namely **multilingual websites**.
 
-  > If your website somehow configures the [`defaultLocale`](https://starlight.astro.build/reference/configuration/#defaultlocale) or [`locales` object](https://starlight.astro.build/reference/configuration/#locales) in any way, this plugin doesn't guarentee any support yet. This feature will hopefully be added in a future release.
+  > If your website somehow configures the [`defaultLocale`](https://starlight.astro.build/reference/configuration/#defaultlocale) or [`locales` object](https://starlight.astro.build/reference/configuration/#locales) in any way, this plugin doesn't guarantee any support yet. This feature will hopefully be added in a future release.
   >
   > So please don't upgrade or temporarily disable this plugin if your website doesn't use the [`root` locale](https://starlight.astro.build/reference/configuration/#root-locale)!
 

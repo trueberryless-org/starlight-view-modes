@@ -99,7 +99,7 @@ export function validateConfig(userConfig: unknown): StarlightViewModesConfig {
         )
         .join("\n")}
         `,
-      `See the error report above for more informations.\n\nIf you believe this is a bug, please file an issue at https://github.com/trueberryless-org/starlight-plugins-docs-components/issues/new`
+      `See the error report above for more information.\n\nIf you believe this is a bug, please file an issue at https://github.com/trueberryless-org/starlight-plugins-docs-components/issues/new`
     );
   }
 
