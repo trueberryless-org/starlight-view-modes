@@ -8,26 +8,22 @@ interface Props {
 const { shortcuts } = Astro.props;
 ---
 
-{
-  shortcuts.map((shortcut) => (
-    <>
-      <kbd class="sl-hidden md:sl-flex" style="display: none;">
-        {shortcut.ctrl && <kbd>Ctrl</kbd>}
-        {shortcut.shift && <kbd>Shift</kbd>}
-        {shortcut.alt && <kbd>Alt</kbd>}
-        <kbd>{shortcut.keys.map((k) => k.toUpperCase()).join("+")}</kbd>
-      </kbd>
-    </>
-  ))
-}
+{shortcuts.map((shortcut) => (
+  <>
+    <kbd class="sl-hidden md:sl-flex" style="display: none;">
+      {shortcut.ctrl && <kbd>Ctrl</kbd>}
+      {shortcut.shift && <kbd>Shift</kbd>}
+      {shortcut.alt && <kbd>Alt</kbd>}
+      <kbd>{shortcut.keys.map((k) => k.toUpperCase()).join("+")}</kbd>
+    </kbd>
+  </>
+))}
 
-{
-  /**
-   * This is intentionally inlined to avoid briefly showing an invalid shortcut.
-   * Purposely using the deprecated `navigator.platform` property to detect Apple devices, as the
-   * user agent is spoofed by some browsers when opening the devtools.
-   */
-}
+{/**
+ * This is intentionally inlined to avoid briefly showing an invalid shortcut.
+ * Purposely using the deprecated `navigator.platform` property to detect Apple devices, as the
+ * user agent is spoofed by some browsers when opening the devtools.
+ */}
 <script is:inline>
   (() => {
     const shortcuts = document.querySelectorAll("kbd:has(kbd)");

@@ -1,11 +1,9 @@
 <ul>
-  {
-    Astro.locals.starlightViewModes.modes.map((mode) => (
-      <li>
-        <a href={mode.href} view-modes-ignore>
-          {mode.title}
-        </a>
-      </li>
-    ))
-  }
+  {Astro.locals.starlightViewModes.modes.map((mode) => (
+    <li>
+      <a href={mode.href} view-modes-ignore>
+        {mode.title}
+      </a>
+    </li>
+  ))}
 </ul>

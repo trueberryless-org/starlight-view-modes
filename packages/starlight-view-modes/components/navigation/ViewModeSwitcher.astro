@@ -24,48 +24,44 @@ const switchText = (mode: (typeof modes)[number]) =>
   );
 ---
 
-{
-  type === "social-links" && (
-    <>
-      {nonDefaultModes.map((mode) => (
-        <a
-          href={switchHref(mode)}
-          class="sl-flex starlight-view-modes-social-link-a starlight-view-modes-switcher-a"
-        >
-          <span class="sr-only">{switchText(mode)}</span>
-          <Icon set:html={mode.icon} />
-        </a>
-      ))}
-    </>
-  )
-}
+{type === "social-links" && (
+  <>
+    {nonDefaultModes.map((mode) => (
+      <a
+        href={switchHref(mode)}
+        class="sl-flex starlight-view-modes-social-link-a starlight-view-modes-switcher-a"
+      >
+        <span class="sr-only">{switchText(mode)}</span>
+        <Icon set:html={mode.icon} />
+      </a>
+    ))}
+  </>
+)}
 
-{
-  toc && type === "table-of-contents" && (
-    <div class="starlight-view-modes-table-of-contents-container">
-      {nonDefaultModes.length > 0 && (
-        <>
-          <h2>{Astro.locals.t("starlightViewModes.switchesHeading")}</h2>
-          <ul>
-            {nonDefaultModes.map((mode) => (
-              <li class="starlight-view-modes-table-of-contents-item">
-                <a
-                  href={switchHref(mode)}
-                  class="starlight-view-modes-switcher-a"
-                >
-                  {switchText(mode)}
-                </a>
-                {mode.keyboardShortcuts && (
-                  <KeyboardShortcuts shortcuts={mode.keyboardShortcuts} />
-                )}
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-    </div>
-  )
-}
+{toc && type === "table-of-contents" && (
+  <div class="starlight-view-modes-table-of-contents-container">
+    {nonDefaultModes.length > 0 && (
+      <>
+        <h2>{Astro.locals.t("starlightViewModes.switchesHeading")}</h2>
+        <ul>
+          {nonDefaultModes.map((mode) => (
+            <li class="starlight-view-modes-table-of-contents-item">
+              <a
+                href={switchHref(mode)}
+                class="starlight-view-modes-switcher-a"
+              >
+                {switchText(mode)}
+              </a>
+              {mode.keyboardShortcuts && (
+                <KeyboardShortcuts shortcuts={mode.keyboardShortcuts} />
+              )}
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+  </div>
+)}
 
 <script>
   function updateModeLinksWithHash() {
