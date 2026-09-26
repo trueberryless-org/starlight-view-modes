@@ -1,8 +1,8 @@
 ---
-import { processedHtml, rehypePrefixInternalLinks } from "../../libs/rehype";
+import { prefixInternalLinks } from "../../libs/html";
+import { ZenMode } from "../../libs/modes";
 
-const html = await Astro.slots.render("default");
-const contentHtml = await processedHtml(html, rehypePrefixInternalLinks);
+const html = prefixInternalLinks(await Astro.slots.render("default"), ZenMode);
 ---
 
-<Fragment set:html={contentHtml} />
+<Fragment set:html={html} />

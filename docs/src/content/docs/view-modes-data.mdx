@@ -70,35 +70,41 @@ The `starlightViewModes` object has the following properties:
 
 A list of all the available view modes of the current page.
 
-Each modes object has the following properties:
+Each mode object has the following properties:
 
 #### `name`
 
-**type:** `string`
+**Type:** `string`
 
 The name of the view mode.
 
 #### `title`
 
-**type:** `string`
+**Type:** `string`
 
-The name of the view mode in readable form.
+The translated name of the view mode in readable form.
+
+#### `switchToText`
+
+**Type:** `string`
+
+The translated label used to switch to the view mode.
 
 #### `href`
 
-**type:** `string`
+**Type:** `string`
 
 The link to the same page in this view mode.
 
 #### `isCurrent`
 
-**type:** `boolean`
+**Type:** `boolean`
 
 Indicates if the current page is in this view mode right now.
 
 #### `icon`
 
-**type:** `string`
+**Type:** `string`
 
 The activation or deactivation SVG path of the view mode, depending on the current mode.
 The default mode has no icon (`undefined`).
@@ -106,3 +112,10 @@ The default mode has no icon (`undefined`).
 :::note[Example]
 If you are currently in the `zen-mode`, the `icon` property of the `zen-mode` will be the SVG path, rendering a symbol for "exit Zen Mode" (an alarm clock with a cross in it).
 :::
+
+#### `keyboardShortcuts`
+
+**Type:** `{ keys: string[]; ctrl?: boolean; shift?: boolean; alt?: boolean; mode: string }[] | undefined`
+
+The [keyboard shortcuts](/configuration/#keyboardshortcut) to switch to and from the view mode.
+The default mode has no keyboard shortcuts (`undefined`).

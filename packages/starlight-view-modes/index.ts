@@ -6,8 +6,8 @@ import {
   type StarlightViewModesUserConfig,
   validateConfig,
 } from "./libs/config";
-import { overrideStarlightComponent } from "./libs/starlight";
-import { vitePluginStarlightViewModesConfig } from "./libs/vite";
+import { getComponentOverrides } from "./libs/starlight";
+import { vitePluginStarlightViewModes } from "./libs/vite";
 import { Translations } from "./translations";
 
 export type { StarlightViewModesConfig, StarlightViewModesUserConfig };
@@ -27,64 +27,46 @@ export default function starlightViewModes(
         addIntegration,
         addRouteMiddleware,
         config: starlightConfig,
-        astroConfig,
         logger,
-        updateConfig,
+        updateConfig: updateStarlightConfig,
       }) {
         addRouteMiddleware({
           entrypoint: "starlight-view-modes/middleware",
           order: "pre",
         });
 
-        updateConfig({
-          components: {
-            ...starlightConfig.components,
-            ...overrideStarlightComponent(
-              starlightConfig.components,
-              logger,
-              "PageTitle",
-              "PageTitle"
-            ),
-            ...overrideStarlightComponent(
-              starlightConfig.components,
-              logger,
-              "Search" /* Override because should stay in zen-mode for all search results */,
-              "Search"
-            ),
-            ...overrideStarlightComponent(
-              starlightConfig.components,
-              logger,
-              "SocialIcons",
-              "SocialIcons"
-            ),
-            ...overrideStarlightComponent(
-              starlightConfig.components,
-              logger,
-              "TableOfContents",
-              "TableOfContents"
-            ),
-          },
+        updateStarlightConfig({
+          components: getComponentOverrides(
+            starlightConfig.components,
+            logger,
+            ["PageTitle", "Search", "SocialIcons", "TableOfContents"]
+          ),
         });
 
         addIntegration({
           name: "starlight-view-modes-integration",
           hooks: {
-            "astro:config:setup": ({ injectRoute, updateConfig }) => {
+            "astro:config:setup": ({
+              config: astroConfig,
+              injectRoute,
+              updateConfig,
+            }) => {
               updateConfig({
                 vite: {
                   plugins: [
-                    vitePluginStarlightViewModesConfig(config, {
-                      base: astroConfig.base,
-                      trailingSlash: astroConfig.trailingSlash,
-                    }),
+                    vitePluginStarlightViewModes(
+                      config,
+                      starlightConfig,
+                      astroConfig
+                    ),
                   ],
                 },
               });
 
               if (config.zenModeSettings.enabled) {
                 injectRoute({
-                  entrypoint: `starlight-view-modes/routes/ZenMode.astro`,
-                  pattern: "[...locale]/zen-mode/[...path]", // trailingSlash: "never" not supported if path is undefined (#67)
+                  entrypoint: "starlight-view-modes/routes/ZenMode.astro",
+                  pattern: "[...locale]/zen-mode/[...path]",
                   prerender: true,
                 });
               }

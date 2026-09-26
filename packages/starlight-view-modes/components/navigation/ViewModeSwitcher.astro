@@ -1,83 +1,52 @@
 ---
-import KeyboardShortcuts from "./KeyboardShortcuts.astro";
+import { getModeSwitches } from "../../libs/switcher";
 import Icon from "../ui/Icon.astro";
-
-const { toc } = Astro.locals.starlightRoute;
-const { modes } = Astro.locals.starlightViewModes;
+import KeyboardShortcuts from "./KeyboardShortcuts.astro";
 
 interface Props {
   type: "social-links" | "table-of-contents";
 }
 
 const { type } = Astro.props;
-const defaultMode = modes.find((mode) => mode.name === "default");
-const nonDefaultModes = modes.filter((mode) => mode.name !== "default");
-
-const switchHref = (mode: (typeof modes)[number]) =>
-  mode.isCurrent ? (defaultMode?.href ?? mode.href) : mode.href;
-
-const switchText = (mode: (typeof modes)[number]) =>
-  Astro.locals.t(
-    mode.isCurrent
-      ? (defaultMode?.switchToText ?? mode.switchToText)
-      : mode.switchToText
-  );
+const { toc } = Astro.locals.starlightRoute;
+const switches = getModeSwitches(Astro.locals.starlightViewModes);
 ---
 
-{
-  type === "social-links" && (
-    <>
-      {nonDefaultModes.map((mode) => (
-        <a
-          href={switchHref(mode)}
-          class="sl-flex starlight-view-modes-social-link-a starlight-view-modes-switcher-a"
-        >
-          <span class="sr-only">{switchText(mode)}</span>
-          <Icon set:html={mode.icon} />
-        </a>
-      ))}
-    </>
-  )
-}
+{type === "social-links" &&
+  switches.map((modeSwitch) => (
+    <a
+      href={modeSwitch.href}
+      class="sl-flex starlight-view-modes-social-link-a starlight-view-modes-switcher-a"
+    >
+      <span class="sr-only">{modeSwitch.text}</span>
+      <Icon set:html={modeSwitch.icon} />
+    </a>
+  ))}
 
-{
-  toc && type === "table-of-contents" && (
-    <div class="starlight-view-modes-table-of-contents-container">
-      {nonDefaultModes.length > 0 && (
-        <>
-          <h2>{Astro.locals.t("starlightViewModes.switchesHeading")}</h2>
-          <ul>
-            {nonDefaultModes.map((mode) => (
-              <li class="starlight-view-modes-table-of-contents-item">
-                <a
-                  href={switchHref(mode)}
-                  class="starlight-view-modes-switcher-a"
-                >
-                  {switchText(mode)}
-                </a>
-                {mode.keyboardShortcuts && (
-                  <KeyboardShortcuts shortcuts={mode.keyboardShortcuts} />
-                )}
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-    </div>
-  )
-}
+{toc && type === "table-of-contents" && (
+  <div class="starlight-view-modes-table-of-contents-container">
+    {switches.length > 0 && (
+      <>
+        <h2>{Astro.locals.t("starlightViewModes.switchesHeading")}</h2>
+        <ul>
+          {switches.map((modeSwitch) => (
+            <li class="starlight-view-modes-table-of-contents-item">
+              <a href={modeSwitch.href} class="starlight-view-modes-switcher-a">
+                {modeSwitch.text}
+              </a>
+              {modeSwitch.keyboardShortcuts && (
+                <KeyboardShortcuts shortcuts={modeSwitch.keyboardShortcuts} />
+              )}
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+  </div>
+)}
 
 <script>
-  function updateModeLinksWithHash() {
-    const hash = window.location.hash;
-    document
-      .querySelectorAll<HTMLAnchorElement>(".starlight-view-modes-switcher-a")
-      .forEach((link) => {
-        if (link instanceof HTMLAnchorElement) {
-          link.href = link.href.split("#")[0] + hash;
-        }
-      });
-  }
+  import { updateModeLinksWithHash } from "../../libs/navigation";
 
   updateModeLinksWithHash();
   window.addEventListener("hashchange", updateModeLinksWithHash);

@@ -8,35 +8,24 @@ interface Props {
 const { shortcuts } = Astro.props;
 ---
 
-{
-  shortcuts.map((shortcut) => (
-    <>
-      <kbd class="sl-hidden md:sl-flex" style="display: none;">
-        {shortcut.ctrl && <kbd>Ctrl</kbd>}
-        {shortcut.shift && <kbd>Shift</kbd>}
-        {shortcut.alt && <kbd>Alt</kbd>}
-        <kbd>{shortcut.keys.map((k) => k.toUpperCase()).join("+")}</kbd>
-      </kbd>
-    </>
-  ))
-}
+{shortcuts.map((shortcut) => (
+  <kbd class="sl-hidden md:sl-flex" style="display: none;">
+    {shortcut.ctrl && <kbd>Ctrl</kbd>}
+    {shortcut.shift && <kbd>Shift</kbd>}
+    {shortcut.alt && <kbd>Alt</kbd>}
+    <kbd>{shortcut.keys.map((key) => key.toUpperCase()).join("+")}</kbd>
+  </kbd>
+))}
 
-{
-  /**
-   * This is intentionally inlined to avoid briefly showing an invalid shortcut.
-   * Purposely using the deprecated `navigator.platform` property to detect Apple devices, as the
-   * user agent is spoofed by some browsers when opening the devtools.
-   */
-}
 <script is:inline>
   (() => {
+    const isApple = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
     const shortcuts = document.querySelectorAll("kbd:has(kbd)");
     for (const shortcut of shortcuts) {
       if (!(shortcut instanceof HTMLElement)) return;
-      const platformKeys = shortcut.querySelectorAll("kbd");
-      for (const platformKey of platformKeys) {
-        if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
-          platformKey.textContent = platformKey.textContent
+      if (isApple) {
+        for (const key of shortcut.querySelectorAll("kbd")) {
+          key.textContent = key.textContent
             .replace("Ctrl", "⌘")
             .replace("Shift", "⇧")
             .replace("Alt", "⌥");

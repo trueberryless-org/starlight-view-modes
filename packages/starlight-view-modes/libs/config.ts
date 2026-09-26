@@ -1,82 +1,43 @@
-import { AstroError } from "astro/errors";
 import { z } from "astro/zod";
+
+import { throwPluginError } from "./error";
+
+const keyboardShortcutPattern = /^(?:(?:Ctrl|Shift|Alt)\+)*[a-zA-Z0-9]$/;
+
+const displayOptionsSchema = z
+  .object({
+    showHeader: z.boolean().default(false),
+    showSidebar: z.boolean().default(false),
+    showTableOfContents: z.boolean().default(true),
+    showFooter: z.boolean().default(true),
+  })
+  .prefault({})
+  .refine((options) => Object.values(options).includes(false), {
+    message: "At least one element must be hidden in Zen mode.",
+  });
+
+const keyboardShortcutSchema = z
+  .string()
+  .transform((shortcut) => [shortcut])
+  .or(z.string().array())
+  .default([])
+  .superRefine((shortcuts, ctx) => {
+    for (const shortcut of getInvalidKeyboardShortcuts(shortcuts)) {
+      ctx.addIssue({
+        code: "custom",
+        message: getInvalidKeyboardShortcutMessage(shortcut),
+      });
+    }
+  });
 
 const configSchema = z
   .object({
-    /**
-     * All options related to Zen mode.
-     *
-     * @type {object}
-     */
     zenModeSettings: z
       .object({
-        /**
-         * Indicates if Zen mode is enabled. When enabled, the user is able to activate Zen mode which
-         * provides a distraction-free interface by hiding everything except the main content.
-         *
-         * @type {boolean}
-         * @default true
-         */
         enabled: z.boolean().default(true),
-
-        /**
-         * Choose what elements should be hidden when Zen mode is active.
-         *
-         * @type {object}
-         * @default {}
-         */
-        displayOptions: z
-          .object({
-            showHeader: z.boolean().default(false),
-            showSidebar: z.boolean().default(false),
-            showTableOfContents: z.boolean().default(true),
-            showFooter: z.boolean().default(true),
-          })
-          .prefault({})
-          .refine(
-            (options) => {
-              const values = Object.values(options);
-              return values.includes(false);
-            },
-            {
-              message: "At least one element must be hidden in Zen mode.",
-            }
-          ),
-
-        /**
-         * Defines a list of pages or glob patterns that are not viewable in Zen mode.
-         *
-         * @default []
-         */
+        displayOptions: displayOptionsSchema,
         exclude: z.array(z.string()).default([]),
-
-        /**
-         * Defines a list of keyboard shortcuts which will activate and deactivate Zen mode.
-         *
-         * @default []
-         */
-        keyboardShortcut: z
-          .string()
-          .transform((string) => [string])
-          .or(z.string().array())
-          .default([])
-          .superRefine((shortcuts, ctx) => {
-            // Regex pattern to match invalid keyboard shortcuts: https://regex101.com/r/fgyKoV/1
-            const invalidShortcutRegex =
-              /^(?:(?:Ctrl|Shift|Alt)\+)*[a-zA-Z0-9]$/;
-            const invalidShortcuts = shortcuts.filter(
-              (shortcut) => !invalidShortcutRegex.test(shortcut)
-            );
-            for (const invalidShortcut of invalidShortcuts) {
-              ctx.addIssue({
-                code: "custom",
-                message:
-                  "A `keyboardShortcut` in your Starlight View Modes config does not match the expected string format.\n\n" +
-                  `You should correctly pass a valid keyboard shortcut, like \`Ctrl+K\` or \`Ctrl+Shift+K\`, but you passed \`${invalidShortcut}\`.\n\n` +
-                  "- More about Starlight View Modes' keyboard shortcuts: https://starlight-view-modes.trueberryless.org/configuration/#keyboardshortcut",
-              });
-            }
-          }),
+        keyboardShortcut: keyboardShortcutSchema,
       })
       .prefault({}),
   })
@@ -86,25 +47,30 @@ export function validateConfig(userConfig: unknown): StarlightViewModesConfig {
   const config = configSchema.safeParse(userConfig);
 
   if (!config.success) {
-    const errors = config.error.flatten();
+    throwPluginError(`Invalid starlight-view-modes configuration:
 
-    throw new AstroError(
-      `Invalid starlight-view-modes configuration:
-
-      ${errors.formErrors.map((formError) => ` - ${formError}`).join("\n")}
-      ${Object.entries(errors.fieldErrors)
-        .map(
-          ([fieldName, fieldErrors]) =>
-            ` - ${fieldName}: ${fieldErrors.join(" - ")}`
-        )
-        .join("\n")}
-        `,
-      `See the error report above for more information.\n\nIf you believe this is a bug, please file an issue at https://github.com/trueberryless-org/starlight-plugins-docs-components/issues/new`
-    );
+${z.prettifyError(config.error)}
+`);
   }
 
   return config.data;
 }
 
+function getInvalidKeyboardShortcuts(shortcuts: string[]): string[] {
+  return shortcuts.filter(
+    (shortcut) => !keyboardShortcutPattern.test(shortcut)
+  );
+}
+
+function getInvalidKeyboardShortcutMessage(shortcut: string): string {
+  return (
+    "A `keyboardShortcut` in your Starlight View Modes config does not match the expected string format.\n\n" +
+    `You should correctly pass a valid keyboard shortcut, like \`Ctrl+K\` or \`Ctrl+Shift+K\`, but you passed \`${shortcut}\`.\n\n` +
+    "- More about Starlight View Modes' keyboard shortcuts: https://starlight-view-modes.netlify.app/configuration/#keyboardshortcut"
+  );
+}
+
 export type StarlightViewModesUserConfig = z.input<typeof configSchema>;
 export type StarlightViewModesConfig = z.output<typeof configSchema>;
+export type ZenModeDisplayOptions =
+  StarlightViewModesConfig["zenModeSettings"]["displayOptions"];

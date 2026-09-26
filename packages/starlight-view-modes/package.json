@@ -1,27 +1,8 @@
 {
   "name": "starlight-view-modes",
   "version": "0.13.1",
-  "description": "Starlight plugin adding view mode capabilities to your documentation website.",
-  "keywords": [
-    "starlight",
-    "plugin",
-    "zen",
-    "view",
-    "mode",
-    "zen-mode",
-    "view-modes",
-    "documentation"
-  ],
-  "homepage": "https://starlight-view-modes.netlify.app/",
-  "bugs": {
-    "url": "https://github.com/trueberryless-org/starlight-view-modes/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/trueberryless-org/starlight-view-modes.git",
-    "directory": "packages/starlight-view-modes"
-  },
   "license": "MIT",
+  "description": "Starlight plugin to add view mode capabilities to your documentation website.",
   "author": "trueberryless <trueberryless@gmail.com> (https://felixs.dev)",
   "type": "module",
   "exports": {
@@ -40,37 +21,53 @@
     "./components/RenderHtmlWithRehype.astro": "./components/content/RenderHtmlWithRehype.astro",
     "./components/ViewModeSwitcher.astro": "./components/navigation/ViewModeSwitcher.astro",
     "./components/KeyboardShortcuts.astro": "./components/navigation/KeyboardShortcuts.astro",
-    "./libs/keyboard.js": "./libs/keyboard.js",
     "./routes/ZenMode.astro": "./routes/ZenMode.astro",
     "./styles/zen-mode.css": "./styles/zen-mode.css",
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "sass styles/*.scss styles/*.css --no-source-map",
-    "coverage": "vitest run --coverage",
-    "prepublishOnly": "npm run build",
     "test": "vitest"
   },
   "dependencies": {
-    "@pagefind/default-ui": "1.5.2",
-    "is-absolute-url": "^5.0.0",
-    "pagefind": "1.5.2",
-    "picomatch": "^4.0.4",
-    "rehype-parse": "^9.0.1",
-    "rehype-stringify": "^10.0.1",
-    "unified": "^11.0.5",
+    "@pagefind/default-ui": "^1.5.2",
+    "hast-util-from-html": "^2.0.3",
+    "hast-util-to-html": "^9.0.5",
+    "picomatch": "^4.0.7",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
-    "@astrojs/starlight": "^0.40.0",
-    "astro": "^6.4.8",
-    "sass": "^1.101.0",
-    "vitest": "^4.1.9"
+    "@astrojs/starlight": "^0.42.4",
+    "@types/hast": "^3.0.4",
+    "@types/picomatch": "^4.0.3",
+    "astro": "^7.3.5",
+    "vitest": "^5.0.2"
   },
   "peerDependencies": {
-    "@astrojs/starlight": ">=0.38"
+    "@astrojs/starlight": ">=0.42.0"
   },
   "engines": {
-    "node": ">=22.23.2"
-  }
+    "node": ">=22.12.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "starlight",
+    "plugin",
+    "view-modes",
+    "zen-mode",
+    "distraction-free",
+    "documentation",
+    "astro",
+    "withastro",
+    "astro-integration"
+  ],
+  "homepage": "https://starlight-view-modes.netlify.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trueberryless-org/starlight-view-modes.git",
+    "directory": "packages/starlight-view-modes"
+  },
+  "bugs": "https://github.com/trueberryless-org/starlight-view-modes/issues"
 }
