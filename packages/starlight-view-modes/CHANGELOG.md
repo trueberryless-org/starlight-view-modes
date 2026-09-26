@@ -1,5 +1,35 @@
 # starlight-view-modes
 
+## 0.14.0
+
+### Minor Changes
+
+- [#200](https://github.com/trueberryless-org/starlight-view-modes/pull/200) [`e455605`](https://github.com/trueberryless-org/starlight-view-modes/commit/e455605b6246e2bbe6561909986219f74130ba97) Thanks [@trueberryless](https://github.com/trueberryless)! - Adds support for Astro v7, drops support for Astro v6.
+  
+  ⚠️ **BREAKING CHANGE:** The minimum supported version of Starlight is now `0.42.0`.
+  
+  Please follow the [upgrade guide](https://github.com/withastro/starlight/releases/tag/%40astrojs%2Fstarlight%400.42.0) to update your project.
+
+### Patch Changes
+
+- [#200](https://github.com/trueberryless-org/starlight-view-modes/pull/200) [`e455605`](https://github.com/trueberryless-org/starlight-view-modes/commit/e455605b6246e2bbe6561909986219f74130ba97) Thanks [@trueberryless](https://github.com/trueberryless)! - Fixes absolute links using a protocol other than HTTP(S), e.g. `mailto:` or `tel:` links, being prefixed with the view mode path in Zen mode pages.
+
+- [#200](https://github.com/trueberryless-org/starlight-view-modes/pull/200) [`e455605`](https://github.com/trueberryless-org/starlight-view-modes/commit/e455605b6246e2bbe6561909986219f74130ba97) Thanks [@trueberryless](https://github.com/trueberryless)! - Fixes Zen mode keyboard shortcuts being registered when Zen mode is disabled.
+
+- [#200](https://github.com/trueberryless-org/starlight-view-modes/pull/200) [`e455605`](https://github.com/trueberryless-org/starlight-view-modes/commit/e455605b6246e2bbe6561909986219f74130ba97) Thanks [@trueberryless](https://github.com/trueberryless)! - Removes the `is-absolute-url`, `pagefind`, `rehype-parse`, `rehype-stringify`, and `unified` dependencies and refactors internal logic to small pure functions for improved maintainability.
+
+- [#200](https://github.com/trueberryless-org/starlight-view-modes/pull/200) [`e455605`](https://github.com/trueberryless-org/starlight-view-modes/commit/e455605b6246e2bbe6561909986219f74130ba97) Thanks [@trueberryless](https://github.com/trueberryless)! - Fixes the default browser behavior of a Zen mode [keyboard shortcut](https://starlight-view-modes.netlify.app/configuration/#keyboardshortcut) not being prevented when switching view modes.
+
+- [#200](https://github.com/trueberryless-org/starlight-view-modes/pull/200) [`e455605`](https://github.com/trueberryless-org/starlight-view-modes/commit/e455605b6246e2bbe6561909986219f74130ba97) Thanks [@trueberryless](https://github.com/trueberryless)! - Fixes the search button being displayed when [Pagefind](https://starlight.astro.build/reference/configuration/#pagefind) is disabled in the Starlight configuration.
+
+- [#200](https://github.com/trueberryless-org/starlight-view-modes/pull/200) [`e455605`](https://github.com/trueberryless-org/starlight-view-modes/commit/e455605b6246e2bbe6561909986219f74130ba97) Thanks [@trueberryless](https://github.com/trueberryless)! - Fixes the `Search` component override rendering a copy of an older version of the Starlight `Search` component by now rendering the default Starlight `Search` component and only adding the view modes behavior on top of it.
+  
+  If you have a custom `Search` component override in your Starlight project, make sure to render both the default Starlight `Search` component and the `starlight-view-modes/components/Search.astro` component, like for all other [component overrides](https://starlight-view-modes.netlify.app/getting-started/#component-overrides).
+
+- [#200](https://github.com/trueberryless-org/starlight-view-modes/pull/200) [`e455605`](https://github.com/trueberryless-org/starlight-view-modes/commit/e455605b6246e2bbe6561909986219f74130ba97) Thanks [@trueberryless](https://github.com/trueberryless)! - Fixes the `title` and `switchToText` properties of the [view modes data](https://starlight-view-modes.netlify.app/view-modes-data/) being UI string keys instead of translated strings.
+
+- [#200](https://github.com/trueberryless-org/starlight-view-modes/pull/200) [`e455605`](https://github.com/trueberryless-org/starlight-view-modes/commit/e455605b6246e2bbe6561909986219f74130ba97) Thanks [@trueberryless](https://github.com/trueberryless)! - Fixes Simplified Chinese UI translations not being used by keying them with the `zh-CN` language tag.
+
 ## 0.13.1
 
 ### Patch Changes
