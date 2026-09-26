@@ -35,8 +35,10 @@ test("navigates horizontally between sections and vertically into details", asyn
   await expect(breadcrumbs).toHaveText("LessonBasics");
 
   await page.keyboard.press("ArrowDown");
-  await expect(page).toHaveURL("/presentation-mode/lesson/#details");
-  await expect(breadcrumbs).toHaveText("LessonBasicsNested");
+  await expect(page).toHaveURL(
+    /\/presentation-mode\/lesson\/#(setup|usage|troubleshooting)$/
+  );
+  await expect(breadcrumbs).toContainText("LessonBasicsNested");
 
   await page.keyboard.press("ArrowRight");
   await expect(page).toHaveURL("/presentation-mode/lesson/#code");
@@ -45,7 +47,6 @@ test("navigates horizontally between sections and vertically into details", asyn
 
 test("shrinks slides overflowing the available space", async ({ page }) => {
   await gotoPresentation(page, "/presentation-mode/lesson/#code");
-  await page.keyboard.press("ArrowRight");
 
   const slide = page.locator(
     ".slides section.present:not(.stack) .starlight-view-modes-presentation-slide"

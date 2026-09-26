@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 
 import { getSlides } from "../libs/slides";
 
-function deck(html: string, splitHeadingLevel = 6) {
+function deck(html: string, splitHeadingLevel = 3) {
   return getSlides(fromHtml(html, { fragment: true }), {
     description: "A description",
     splitHeadingLevel,
@@ -11,7 +11,7 @@ function deck(html: string, splitHeadingLevel = 6) {
   });
 }
 
-function slides(html: string, splitHeadingLevel = 6) {
+function slides(html: string, splitHeadingLevel = 3) {
   return deck(html, splitHeadingLevel).stacks.flat();
 }
 
@@ -69,31 +69,57 @@ describe("getSlides", () => {
       undefined,
       "first",
       "nested",
-      "deep",
     ]);
-    expect(slides(html, 3).map(({ anchor }) => anchor)).toEqual([
+    expect(slides(html, 2).map(({ anchor }) => anchor)).toEqual([
+      undefined,
+      "first",
+    ]);
+    expect(slides(html, 4).map(({ anchor }) => anchor)).toEqual([
       undefined,
       "first",
       "nested",
+      "deep",
     ]);
   });
 
-  test("places sections of h4 to h6 headings vertically below their parent slide", () => {
-    const { stacks } = deck(
-      [
-        '<h2 id="a">A</h2><p>One</p>',
-        '<h3 id="a1">A1</h3><p>Two</p>',
-        '<h4 id="a1a">A1a</h4><p>Three</p>',
-        '<h5 id="a1a1">A1a1</h5><p>Four</p>',
-        '<h2 id="b">B</h2><p>Five</p>',
-      ].join("")
+  test("keeps short nested sections on the slide of their parent section", () => {
+    const [, section] = slides(
+      '<h3 id="section">Section</h3><p>One</p><h4 id="detail">Detail</h4><p>Two</p>'
     );
 
-    expect(stacks.map((stack) => stack.map(({ anchor }) => anchor))).toEqual([
-      [undefined],
-      ["a"],
-      ["a1", "a1a", "a1a1"],
-      ["b"],
+    expect(section?.html).toBe(
+      '<h3 id="section">Section</h3><p>One</p><h4 id="detail">Detail</h4><p>Two</p>'
+    );
+  });
+
+  test("places nested sections not fitting on the slide of their parent section vertically below it", () => {
+    const details = ["a", "b", "c", "d"]
+      .map((id) => `<h4 id="${id}">${id.toUpperCase()}</h4>${paragraph(4)}`)
+      .join("");
+    const { stacks } = deck(
+      `<h2 id="parent">Parent</h2><p>One</p><h3 id="section">Section</h3><p>Two</p>${details}`
+    );
+    const [section, ...rest] = stacks[2] ?? [];
+
+    expect(stacks.map((stack) => stack.length)).toEqual([1, 1, 3]);
+    expect(section?.html).toMatch(/^<h3 id="section">Section<\/h3>/);
+    expect(rest.map(({ anchor, breadcrumbs, html }) => [anchor, breadcrumbs, html.slice(0, 15)])).toEqual([
+      ["b", ["Title", "Parent", "Section"], '<h4 id="b">B</h'],
+      ["d", ["Title", "Parent", "Section"], '<h4 id="d">D</h'],
+    ]);
+  });
+
+  test("includes the headings of nested sections in the breadcrumbs of details", () => {
+    const options = ["b", "c", "d", "e"]
+      .map((id) => `<h5 id="${id}">${id.toUpperCase()}</h5>${paragraph(4)}`)
+      .join("");
+    const [, ...details] =
+      deck(`<h3 id="section">Section</h3><h4 id="a">A</h4>${options}`).stacks[1] ?? [];
+
+    expect(details.map(({ breadcrumbs }) => breadcrumbs)).toContainEqual([
+      "Title",
+      "Section",
+      "A",
     ]);
   });
 
@@ -105,21 +131,14 @@ describe("getSlides", () => {
     expect(stacks.map((stack) => stack.length)).toEqual([1, 1, 1]);
   });
 
-  test("places sections of h4 to h6 headings without parent section horizontally", () => {
-    const { stacks } = deck('<h4 id="orphan">Orphan</h4><p>One</p>');
 
-    expect(stacks.map((stack) => stack.map(({ anchor }) => anchor))).toEqual([
-      [undefined],
-      ["orphan"],
-    ]);
-  });
 
   test("returns breadcrumbs with the page title and the parent headings", () => {
     expect(
       slides(
-        '<h2 id="a">A</h2><p>One</p><h3 id="b">B</h3><p>Two</p><h5 id="c">C</h5><p>Three</p><h2 id="d">D</h2><p>Four</p>'
+        '<h2 id="a">A</h2><p>One</p><h3 id="b">B</h3><p>Two</p><h2 id="d">D</h2><p>Four</p>'
       ).map(({ breadcrumbs }) => breadcrumbs)
-    ).toEqual([[], ["Title"], ["Title", "A"], ["Title", "A", "B"], ["Title"]]);
+    ).toEqual([[], ["Title"], ["Title", "A"], ["Title"]]);
   });
 
   test("unwraps Starlight heading anchor links", () => {
@@ -138,7 +157,7 @@ describe("getSlides", () => {
     );
 
     expect(divider).toMatchObject({ anchor: "parent", type: "divider" });
-    expect(nested).toMatchObject({ anchor: "child", type: "content" });
+    expect(nested).toMatchObject({ anchor: "child", type: "statement" });
   });
 
   test("starts a new slide at thematic breaks and break directives", () => {
@@ -193,14 +212,44 @@ describe("getSlides", () => {
 
   test("keeps headings and lead-in paragraphs with the following block", () => {
     const sections = slides(
-      `<h2 id="section">Section</h2>${paragraph(6)}<h4>Example</h4><p>Run the following command:</p>\n<pre><code>npm install\nnpm run build</code></pre>`,
-      3
+      `<h2 id="section">Section</h2>${paragraph(10)}<h4>Example</h4><p>Run the following command:</p>\n<pre><code>npm install\nnpm run build</code></pre>`
     ).slice(1);
 
     expect(sections).toHaveLength(2);
     expect(sections[1]?.html).toMatch(
-      /<\/h2><h4>Example<\/h4><p>Run the following command:<\/p>\s*<pre>/
+      /^<h4>Example<\/h4><p>Run the following command:<\/p>\s*<pre>/
     );
+  });
+
+  test("avoids nearly empty slides by slightly shrinking content", () => {
+    const code = Array.from({ length: 11 }, (_, index) => `line ${index}`).join("\n");
+    const sections = slides(
+      `<h2 id="section">Section</h2>${paragraph(4)}<p>Consider the following code:</p><pre><code>${code}</code></pre><p>Last sentence.</p>`
+    ).slice(1);
+
+    expect(sections).toHaveLength(2);
+    expect(sections[1]?.html).toMatch(/<\/pre><p>Last sentence.<\/p>$/);
+  });
+
+  test("displays sparse single slide sections as statements", () => {
+    const [, short, long] = slides(
+      `<h2 id="short">Short</h2><p>One sentence.</p><h2 id="long">Long</h2>${paragraph(2).repeat(5)}`
+    );
+
+    expect(short?.type).toBe("statement");
+    expect(long?.type).toBe("content");
+  });
+
+  test("splits long tables between rows while repeating the table head", () => {
+    const rows = Array.from({ length: 12 }, (_, index) => `<tr><td>${index}</td></tr>`).join("");
+    const sections = slides(
+      `<h2 id="table">Table</h2><table><thead><tr><th>Head</th></tr></thead><tbody>${rows}</tbody></table>`
+    ).slice(1);
+
+    expect(sections).toHaveLength(2);
+    for (const section of sections) {
+      expect(section.html).toContain("<thead><tr><th>Head</th></tr></thead>");
+    }
   });
 
   test("keeps blocks wrapped in keep directives on the same slide", () => {
@@ -256,7 +305,7 @@ describe("getSlides", () => {
       '<h2 id="code">Code</h2><link rel="stylesheet" href="/ec.css"><script type="module" src="/ec.js"></script><p>Content</p>'
     );
 
-    expect(section?.type).toBe("content");
+    expect(section?.type).toBe("statement");
     expect(section?.html).toContain('<link rel="stylesheet" href="/ec.css">');
   });
 

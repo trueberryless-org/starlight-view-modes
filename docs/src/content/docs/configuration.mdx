@@ -6,8 +6,6 @@ tableOfContents:
   maxHeadingLevel: 5
 ---
 
-import SlideHide from "starlight-view-modes/components/SlideHide.astro";
-import SlideKeep from "starlight-view-modes/components/SlideKeep.astro";
 import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
 import { Kbd } from "starlight-kbd/components";
 
@@ -54,8 +52,6 @@ Disabling this option is useful if a Zen Mode doesn't make much sense on your we
 
 #### `displayOptions`
 
-<SlideKeep>
-
 **Type:**
 
 ```graphql
@@ -77,8 +73,6 @@ Disabling this option is useful if a Zen Mode doesn't make much sense on your we
   showFooter: true
 }
 ```
-
-</SlideKeep>
 
 :::note
 It is not possible to set all four `displayOptions` to `true` because this would look exactly like the normal mode.
@@ -134,13 +128,9 @@ If your site is multilingual, your glob patterns do **not** need to start with t
 E.g. `["resources/**/*"]` instead of `["en/resources/**/*"]` will also work for all locales.
 A page cannot be excluded in only one language.
 
-<SlideHide>
-
 :::tip
 You can use this [webpage](https://www.digitalocean.com/community/tools/glob) to generate and test glob patterns.
 :::
-
-</SlideHide>
 
 #### `keyboardShortcut`
 
@@ -210,17 +200,16 @@ starlightViewModes({
 #### `splitHeadingLevel`
 
 **Type:** `2 | 3 | 4 | 5 | 6`  
-**Default:** `6`
+**Default:** `3`
 
 The deepest heading level starting a new slide.
-Sections of `h4`, `h5`, and `h6` headings are placed vertically below the slide of their parent section.
+The content of deeper headings stays on the slide of their section when it fits, and otherwise continues on slides placed vertically below the section.
 
-For example, set this option to `3` to keep the content of `h4` to `h6` headings on the slide of their parent section instead.
-Sections too long for a single slide are always split into multiple slides.
+For example, set this option to `2` to also keep the content of `h3` headings on the slide of their parent section when possible, or to `4` to start a new slide for each `h4` heading.
 
 <SpeakerNotes>
   This page uses deeply nested headings: use the down arrow to explore the
-  options of each setting.
+  options of each setting when available.
 </SpeakerNotes>
 
 #### `transition`

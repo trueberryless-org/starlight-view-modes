@@ -13,9 +13,23 @@ The basics of the lesson.
 
 A nested section of the lesson.
 
-#### Details
+#### Setup
 
-The details of the nested section.
+This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. 
+
+This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. 
+
+#### Usage
+
+This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. 
+
+This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. 
+
+#### Troubleshooting
+
+This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. 
+
+This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. 
 
 <!-- presentation: hide start -->
 

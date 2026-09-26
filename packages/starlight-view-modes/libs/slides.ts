@@ -16,14 +16,11 @@ import {
   KeepClassName,
   getBlockLines,
   getLines,
-  getSlideCapacity,
   isKeep,
   layoutBlocks,
 } from "./slideLayout";
 
-const MaxTitleIntroLines = 4;
-// Sections of headings of this rank or deeper are placed vertically below the slides of their parent section.
-const VerticalHeadingRank = 4;
+const MaxTitleIntroLines = 6;
 
 const HeadingWrapperClassName = "sl-heading-wrapper";
 const CounterClassName = "starlight-view-modes-presentation-counter";
@@ -36,25 +33,22 @@ export function getSlides(tree: Root, options: SlidesOptions): SlideDeck {
   const [introGroup, ...groups] = getSectionGroups(
     getSections(tree.children, options)
   );
-  const intro =
-    introGroup?.sections.length === 1 ? introGroup.sections[0] : undefined;
+  const intro = introGroup?.length === 1 ? introGroup[0] : undefined;
   const hasTitleIntro =
     intro !== undefined && getLines(intro.blocks) <= MaxTitleIntroLines;
 
-  const stacks = [
-    [getTitleSlide(options, hasTitleIntro ? intro.blocks : [])],
-    ...(introGroup && !hasTitleIntro
-      ? getGroupSlides(introGroup.sections).map((slide) => [slide])
-      : []),
+  const stacks = [[getTitleSlide(options, hasTitleIntro ? intro.blocks : [])]];
+  const slides = [
+    ...(introGroup && !hasTitleIntro ? getGroupSlides(introGroup) : []),
+    ...groups.flatMap(getGroupSlides),
   ];
 
-  for (const group of groups) {
-    const slides = getGroupSlides(group.sections);
-
-    if (group.isVertical) {
-      stacks.at(-1)?.push(...slides);
+  // Details of a section are placed vertically below the slides of their section.
+  for (const { isDetail, slide } of slides) {
+    if (isDetail) {
+      stacks.at(-1)?.push(slide);
     } else {
-      stacks.push(...slides.map((slide) => [slide]));
+      stacks.push([slide]);
     }
   }
 
@@ -123,56 +117,94 @@ function getSections(
   return sections;
 }
 
-// Groups sections with their continuations and determines which groups are placed vertically below the slides of
-// their parent section instead of horizontally.
-function getSectionGroups(sections: Section[]): SectionGroup[] {
-  const groups: SectionGroup[] = [];
-  let hasParentSection = false;
+// Groups sections with their continuations, e.g. content following a thematic break.
+function getSectionGroups(sections: Section[]): Section[][] {
+  const groups: Section[][] = [];
 
   for (const section of sections) {
     const group = groups.at(-1);
 
     if (group && section.isContinuation) {
-      group.sections.push(section);
-      continue;
+      group.push(section);
+    } else {
+      groups.push([section]);
     }
-
-    const isVertical: boolean =
-      hasParentSection &&
-      section.rank !== undefined &&
-      section.rank >= VerticalHeadingRank;
-
-    groups.push({ sections: [section], isVertical });
-    hasParentSection ||= section.rank !== undefined && !isVertical;
   }
 
   return groups;
 }
 
-function getGroupSlides(sections: Section[]): Slide[] {
+function getGroupSlides(sections: Section[]): GroupSlide[] {
+  let isDetail = false;
+
   const parts = sections
     .filter(
       (section) =>
         (section.heading && !section.isContinuation) ||
         getLines(section.blocks) > 0
     )
-    .flatMap((section) =>
-      layoutBlocks(
-        section.blocks,
-        getSlideCapacity(section.heading !== undefined)
-      ).map((nodes, index) => ({
+    .flatMap((section) => {
+      const slides = layoutBlocks(section.blocks, {
+        hasHeading: section.heading !== undefined,
+        isDetail,
+        startsSection: !section.isContinuation,
+      });
+
+      isDetail ||= section.blocks.some(
+        (block) =>
+          block.type === "element" && getHeadingRank(block) !== undefined
+      );
+
+      return slides.map((slide, index) => ({
+        ...slide,
         section,
-        nodes,
         isContinuation: section.isContinuation || index > 0,
-      }))
+      }));
+    });
+  const sectionParts = parts.filter((part) => !part.isDetail);
+
+  // Only sections fitting on a single slide are displayed as statements to keep a consistent text size in a section.
+  if (parts.length > 1) {
+    for (const part of parts) part.isSparse = false;
+  }
+
+  const inlineAncestors = getInlineAncestors(parts);
+
+  return parts.map((part, index) => ({
+    isDetail: part.isDetail,
+    slide: getSlide(
+      { ...part, inlineAncestors: inlineAncestors[index] ?? [] },
+      !part.isDetail && sectionParts.length > 1
+        ? `${sectionParts.indexOf(part) + 1}/${sectionParts.length}`
+        : undefined
+    ),
+  }));
+}
+
+// Returns for each slide the headings of the nested sections (e.g. `h4` in an `h3` section) containing its content.
+function getInlineAncestors(
+  parts: { nodes: ElementContent[] }[]
+): InlineHeading[][] {
+  const ancestors: InlineHeading[] = [];
+
+  return parts.map(({ nodes }) => {
+    const firstBlock = nodes.find((node) => getBlockLines(node) > 0);
+    const firstRank =
+      firstBlock?.type === "element" ? getHeadingRank(firstBlock) : undefined;
+    const partAncestors = ancestors.filter(
+      (ancestor) => firstRank === undefined || ancestor.rank < firstRank
     );
 
-  return parts.map((part, index) =>
-    getSlide(
-      part,
-      parts.length > 1 ? `${index + 1}/${parts.length}` : undefined
-    )
-  );
+    for (const node of nodes) {
+      const rank = node.type === "element" ? getHeadingRank(node) : undefined;
+      if (node.type !== "element" || rank === undefined) continue;
+
+      while ((ancestors.at(-1)?.rank ?? 0) >= rank) ancestors.pop();
+      ancestors.push({ id: getId(node), rank, title: getText(node) });
+    }
+
+    return partAncestors;
+  });
 }
 
 function getTitleSlide(
@@ -203,28 +235,57 @@ function getSlide(part: SlidePart, counter: string | undefined): Slide {
   const { content, notes } = extractNotes(part.nodes);
   const children: ElementContent[] = [];
 
-  if (heading) {
+  // Detail slides show the heading of their section in their breadcrumbs instead of repeating it.
+  if (heading && !part.isDetail) {
     children.push(getSlideHeading(heading, part.isContinuation, counter));
   }
 
   children.push(...content.flatMap(unwrapKeep));
 
   return {
-    anchor: getId(heading),
-    breadcrumbs,
+    // Detail slides are linked to the first or enclosing nested section heading of their content.
+    anchor: part.isDetail
+      ? (getFirstHeadingId(content) ??
+        part.inlineAncestors.at(-1)?.id ??
+        getId(heading))
+      : getId(heading),
+    breadcrumbs:
+      heading && part.isDetail
+        ? [
+            ...breadcrumbs,
+            getText(heading),
+            ...part.inlineAncestors.map((ancestor) => ancestor.title),
+          ]
+        : breadcrumbs,
     html: toHtml(children),
     notes: getNotesHtml(notes),
     outline:
-      heading &&
-      rank !== undefined &&
-      rank < VerticalHeadingRank &&
-      !part.isContinuation
+      heading && rank !== undefined && !part.isContinuation
         ? { rank, title: getText(heading) }
         : undefined,
-    type: content.some((node) => getBlockLines(node) > 0)
-      ? "content"
-      : "divider",
+    type: getSlideType(part, content),
   };
+}
+
+// Sparse slides, e.g. a short section, are displayed as statements with centered and larger content.
+function getSlideType(
+  part: SlidePart,
+  content: ElementContent[]
+): Slide["type"] {
+  if (!part.isDetail && !content.some((node) => getBlockLines(node) > 0)) {
+    return "divider";
+  }
+
+  return part.isSparse ? "statement" : "content";
+}
+
+function getFirstHeadingId(nodes: ElementContent[]): string | undefined {
+  const heading = nodes.find(
+    (node): node is Element =>
+      node.type === "element" && getHeadingRank(node) !== undefined
+  );
+
+  return getId(heading);
 }
 
 // Only the first slide of a section keeps the heading ID to avoid duplicated IDs.
@@ -328,7 +389,7 @@ export interface Slide {
   html: string;
   notes: string | undefined;
   outline: Omit<OutlineEntry, "anchor" | "slide"> | undefined;
-  type: "title" | "content" | "divider";
+  type: "title" | "content" | "divider" | "statement";
 }
 
 export interface OutlineEntry {
@@ -352,15 +413,27 @@ interface Section {
   isContinuation: boolean;
 }
 
-interface SectionGroup {
-  sections: Section[];
-  isVertical: boolean;
+interface GroupSlide {
+  isDetail: boolean;
+  slide: Slide;
 }
 
 interface SlidePart {
   section: Section;
   nodes: ElementContent[];
   isContinuation: boolean;
+  isDetail: boolean;
+  isSparse: boolean;
+  /**
+   * The headings of the nested sections containing the content of a detail slide.
+   */
+  inlineAncestors: InlineHeading[];
+}
+
+interface InlineHeading {
+  id: string | undefined;
+  rank: number;
+  title: string;
 }
 
 type Directive =

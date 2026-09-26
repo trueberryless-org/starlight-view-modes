@@ -71,6 +71,14 @@
     scrollbar-width: thin;
   }
 
+  .starlight-view-modes-presentation-statement {
+    --sl-text-body: 2.5rem;
+    --sl-text-h2: 3.5rem;
+    --sl-text-h3: 3rem;
+    justify-content: center;
+    font-size: var(--sl-text-body);
+  }
+
   .starlight-view-modes-presentation-title,
   .starlight-view-modes-presentation-divider {
     align-items: center;
@@ -120,11 +128,16 @@
     margin-top: 0.25rem;
   }
 
+  /* Vertically aligned with the menu in the top right corner: same offset and height (buttons, padding and border). */
   .starlight-view-modes-presentation-breadcrumbs {
     position: fixed;
-    top: 1.25rem;
+    top: 1rem;
     inset-inline-start: 1.5rem;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    min-height: calc(2.25rem + 0.25rem * 2 + 2px);
+    margin: 0;
     max-width: calc(50vw - 1.5rem);
     color: var(--sl-color-gray-3);
     font-size: var(--sl-text-sm);
