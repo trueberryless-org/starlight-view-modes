@@ -1,6 +1,6 @@
 {
   "name": "starlight-view-modes",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "license": "MIT",
   "description": "Starlight plugin to add view mode capabilities to your documentation website.",
   "author": "trueberryless <trueberryless@gmail.com> (https://felixs.dev)",

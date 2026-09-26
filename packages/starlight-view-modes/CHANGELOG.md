@@ -1,5 +1,11 @@
 # starlight-view-modes
 
+## 0.14.1
+
+### Patch Changes
+
+- [#202](https://github.com/trueberryless-org/starlight-view-modes/pull/202) [`a8adee3`](https://github.com/trueberryless-org/starlight-view-modes/commit/a8adee3d9e2497b214cbe6c5b69c559097313412) Thanks [@trueberryless-bot](https://github.com/trueberryless-bot)! - Fixes the types of the `title` and `switchToText` properties of the [view modes data](https://starlight-view-modes.netlify.app/view-modes-data/) which are translated strings and not translation keys.
+
 ## 0.14.0
 
 ### Minor Changes
