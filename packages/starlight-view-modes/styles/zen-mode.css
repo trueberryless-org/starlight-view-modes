@@ -622,3 +622,8 @@
     inset-block-start: 0;
   }
 }
+@layer zen-mode.no-header {
+  body:has(.starlight-view-modes-zen-mode-no-header) .main-frame {
+    padding-block-start: 0;
+  }
+}
