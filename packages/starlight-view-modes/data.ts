@@ -10,13 +10,13 @@ export interface StarlightViewModesRouteData {
      */
     name: AvailableMode["name"];
     /**
-     * The name of the view mode in readable form.
+     * The translated name of the view mode in readable form, e.g. "Zen Mode".
      */
-    title: AvailableMode["title"];
+    title: string;
     /**
-     * The name of the view mode in readable form.
+     * The translated label of a link switching to this view mode, e.g. "Switch to Zen Mode".
      */
-    switchToText: AvailableMode["switchToText"];
+    switchToText: string;
     /**
      * The link to the same page in this view mode.
      */
