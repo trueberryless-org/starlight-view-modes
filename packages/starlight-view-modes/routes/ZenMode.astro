@@ -1,116 +1,25 @@
 ---
-import type {
-  GetStaticPaths,
-  InferGetStaticPropsType,
-  ImageMetadata,
-} from "astro";
-import { render } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
-import isAbsoluteUrl from "is-absolute-url";
-import config from "virtual:starlight-view-modes-config";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
 import Renderer from "../components/content/Renderer.astro";
 import RenderHtmlWithRehype from "../components/content/RenderHtmlWithRehype.astro";
-import { AdditionalModes } from "../libs/definitions";
-import { generateStaticPaths } from "../libs/server";
-import { getClassNameZenMode, insertModePathname } from "../libs/utils";
+import { getZenModePage, getZenModeStaticPaths } from "../libs/zenMode";
 import "../styles/zen-mode.css";
 
-export const getStaticPaths = (async () => {
-  const paths = await generateStaticPaths(
-    AdditionalModes.find((mode) => mode.name === "zen-mode")!
-  );
-  return paths.filter((p): p is NonNullable<typeof p> => p !== undefined);
-}) satisfies GetStaticPaths;
+export const getStaticPaths = (() =>
+  getZenModeStaticPaths()) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-export const prerender = true;
-
-const props = Astro.props as Props;
-const { entry, isFallback } = props;
-const { headings, remarkPluginFrontmatter } = await render(entry);
-const { displayOptions } = config.zenModeSettings;
-const { hasSidebar } = remarkPluginFrontmatter;
-
-const classes = [
-  getClassNameZenMode(displayOptions),
-  !displayOptions.showHeader && "starlight-view-modes-zen-mode-no-header",
-  !displayOptions.showSidebar && "starlight-view-modes-zen-mode-no-sidebar",
-  !displayOptions.showTableOfContents &&
-    "starlight-view-modes-zen-mode-no-table-of-contents",
-  !displayOptions.showFooter && "starlight-view-modes-zen-mode-no-footer",
-].filter(Boolean);
-
-type HeroImage =
-  | { file: ImageMetadata }
-  | { dark: ImageMetadata; light: ImageMetadata }
-  | { html: string };
-
-function normalizeHeroActions(hero: Record<string, any> | undefined) {
-  if (!hero?.actions?.length) return hero;
-
-  const actions = hero.actions.map((action: Record<string, any>) => {
-    if (typeof action.link !== "string") return action;
-    if (isAbsoluteUrl(action.link)) return action;
-
-    return {
-      ...action,
-      link: insertModePathname(action.link, "zen-mode"),
-    };
-  });
-
-  return { ...hero, actions };
-}
-
-function normalizeHeroImage(
-  image: Record<string, any> | undefined
-): HeroImage | undefined {
-  if (!image) return undefined;
-
-  if ("dark" in image && "light" in image) {
-    return { dark: image.dark, light: image.light };
-  }
-
-  if ("file" in image) {
-    return { file: image.file };
-  }
-
-  if ("html" in image) {
-    return { html: image.html };
-  }
-
-  return undefined;
-}
-
-const heroImage = normalizeHeroImage(entry.data.hero?.image);
-const hero = normalizeHeroActions(
-  remarkPluginFrontmatter.hero
-    ? {
-        ...remarkPluginFrontmatter.hero,
-        ...(heroImage ? { image: heroImage } : {}),
-      }
-    : heroImage
-      ? { image: heroImage }
-      : undefined
-);
-
-const frontmatter = {
-  ...(remarkPluginFrontmatter as any),
-  ...(hero ? { hero } : {}),
-  pagefind: false,
-};
+const { entry, isFallback } = Astro.props;
+const { classes, props } = await getZenModePage(entry, isFallback);
 ---
 
-<StarlightPage
-  frontmatter={frontmatter}
-  headings={headings}
-  hasSidebar={hasSidebar}
-  isFallback={isFallback}
->
+<StarlightPage {...props}>
   <div class:list={classes}>
     <RenderHtmlWithRehype>
-      <Renderer {entry} />
+      <Renderer entry={entry} />
     </RenderHtmlWithRehype>
   </div>
 </StarlightPage>

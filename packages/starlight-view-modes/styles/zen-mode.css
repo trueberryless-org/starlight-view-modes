@@ -1,5 +1,4 @@
 @layer starlight, zen-mode;
-/* Each block lives in the public `zen-mode` layer using sublayers for clarity. */
 @layer zen-mode.base {
   body:has(.starlight-view-modes-zen-mode) {
     --sl-mobile-toc-height: 0rem;
@@ -542,7 +541,6 @@
   }
 }
 @layer zen-mode.header-sidebar-table-of-contents-footer {
-  /* Reserved for completeness; no additional rules required yet. */
 }
 @layer zen-mode.header-table-of-contents-footer {
   body:has(.starlight-view-modes-zen-mode-header-table-of-contents-footer) nav {

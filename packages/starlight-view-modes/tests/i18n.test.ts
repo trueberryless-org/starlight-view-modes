@@ -1,24 +1,13 @@
-import { describe, expect, vi, afterEach, test } from "vitest";
+import { afterEach, describe, expect, test } from "vitest";
 
-function mockStarlightConfig(config: any) {
-  vi.doMock("virtual:starlight/user-config", () => ({
-    default: config,
-  }));
-}
-
-function mockAstroConfigBase(base: string = "", trailingSlash: "never" | "always" | "ignore" = "ignore") {
-  vi.doMock("virtual:starlight-view-modes-context", () => ({
-    default: { base, trailingSlash: trailingSlash },
-  }));
-}
+import { mockAstroConfigBase, mockStarlightConfig, resetMocks } from "./mocks";
 
 async function importI18n() {
   return await import("../libs/i18n");
 }
 
 afterEach(() => {
-  vi.resetModules();
-  vi.resetAllMocks();
+  resetMocks();
 });
 
 describe("getLocalizedSlug", () => {

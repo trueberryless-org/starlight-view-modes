@@ -1,4 +1,4 @@
-import type { AdditionalMode, AvailableMode } from "./libs/definitions";
+import type { AdditionalMode, AvailableMode } from "./libs/modes";
 
 export interface StarlightViewModesRouteData {
   /**

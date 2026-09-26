@@ -1,77 +1,88 @@
 import { type CollectionEntry, getCollection, getEntry } from "astro:content";
 
-import { handleIndexSlug, isExcludedPage } from "../libs/utils";
-import type { AdditionalMode, AvailableMode } from "./definitions";
 import {
   defaultLocale,
   getLocaleFromSlug,
   getLocales,
   getLocalizedSlug,
 } from "./i18n";
+import type { AdditionalMode, AvailableMode } from "./modes";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
-import { getCurrentModeFromPath as getCurrentModeFromPathWithoutDocs } from "./utils";
+import {
+  getCurrentModeFromPath as getCurrentModeFromPathname,
+  handleIndexSlug,
+  isExcludedPage,
+} from "./utils";
 
-/**
- * Get the active view mode
- * @param pathname The current URL path
- * @returns The active view mode as a string; "default" if no mode is active
- */
 export async function getCurrentModeFromPath(
   pathname: string
 ): Promise<AvailableMode["name"]> {
-  let slug = stripLeadingSlash(stripTrailingSlash(pathname));
+  const slug = normalizeSlug(pathname);
+  const docs = await getCollection("docs");
 
-  const allSlugs = (await getCollection("docs")).map(
-    (doc: CollectionEntry<"docs">) =>
-      stripLeadingSlash(stripTrailingSlash(doc.id))
-  );
+  if (docs.some((doc) => normalizeSlug(doc.id) === slug)) return "default";
 
-  if (allSlugs.includes(slug)) return "default";
-
-  return getCurrentModeFromPathWithoutDocs(slug);
+  return getCurrentModeFromPathname(slug);
 }
 
 export async function generateStaticPaths(mode: AdditionalMode) {
   const pages = await getCollection("docs");
-  const locales = getLocales();
-
-  const paths = (
-    await Promise.all(
-      pages
-        .flatMap(async (page: CollectionEntry<"docs">) => {
-          if (isExcludedPage(page.id, mode.exclude)) return;
-          if (
-            getLocaleFromSlug(page.id) &&
-            getLocaleFromSlug(page.id) !== defaultLocale
-          )
-            return;
-
-          const slugWithoutLocale = getLocalizedSlug(page.id, undefined);
-          let path = handleIndexSlug(slugWithoutLocale);
-          // if (path != undefined) path = handleAstroTrailingSlash(path); // trailingSlash: "never" not supported if path is undefined (#67)
-
-          return Promise.all(
-            locales.map(async (locale) => {
-              let localizedSlug = stripTrailingSlash(
-                getLocalizedSlug(path || "", locale)
-              );
-              if (localizedSlug == "") localizedSlug = "index";
-              let translationPage = await getEntry("docs", localizedSlug);
-              return {
-                params: { locale, path },
-                props: {
-                  entry: translationPage ?? page,
-                  isFallback: translationPage === undefined,
-                },
-              };
-            })
-          );
-        })
-        .filter(Boolean)
-    )
-  )
-    .flat()
-    .filter((p) => p?.params !== undefined);
+  const paths = await Promise.all(
+    pages
+      .filter((page) => isDefaultLocalePage(page, mode))
+      .map((page) => getPagePaths(page))
+  );
 
   return paths.flat();
+}
+
+function isDefaultLocalePage(
+  page: CollectionEntry<"docs">,
+  mode: AdditionalMode
+): boolean {
+  if (isExcludedPage(page.id, mode.exclude)) return false;
+
+  const locale = getLocaleFromSlug(page.id);
+
+  return !locale || locale === defaultLocale;
+}
+
+function getPagePaths(page: CollectionEntry<"docs">) {
+  const path = handleIndexSlug(getLocalizedSlug(page.id, undefined));
+
+  return Promise.all(
+    getLocales().map((locale) => getLocalizedPagePath(page, path, locale))
+  );
+}
+
+async function getLocalizedPagePath(
+  page: CollectionEntry<"docs">,
+  path: string | undefined,
+  locale: string | undefined
+) {
+  const translationPage = await getEntry(
+    "docs",
+    getLocalizedEntryId(path, locale)
+  );
+
+  return {
+    params: { locale, path },
+    props: {
+      entry: translationPage ?? page,
+      isFallback: translationPage === undefined,
+    },
+  };
+}
+
+function getLocalizedEntryId(
+  path: string | undefined,
+  locale: string | undefined
+): string {
+  const id = stripTrailingSlash(getLocalizedSlug(path ?? "", locale));
+
+  return id === "" ? "index" : id;
+}
+
+function normalizeSlug(slug: string): string {
+  return stripLeadingSlash(stripTrailingSlash(slug));
 }

@@ -1,28 +1,18 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
-import type { APIContext } from "astro";
 
-import { getRouteData } from "./libs/routeData";
-import { modifySidebarAndPagination } from "./libs/sidebar";
-import { insertModePathname } from "./libs/utils";
+import { getRouteData, getSiteTitleHref } from "./libs/routeData";
+import { updateSidebarAndPagination } from "./libs/sidebar";
 
 export const onRequest = defineRouteMiddleware(async (context) => {
   const { starlightRoute } = context.locals;
-  const { id, sidebar, pagination, siteTitleHref } = starlightRoute;
 
-  await modifySidebarAndPagination(starlightRoute, id, sidebar, pagination);
-  await attachRouteData(context);
+  await updateSidebarAndPagination(starlightRoute);
 
-  const currentMode = context.locals.starlightViewModes.modes.find(
-    (mode) => mode.isCurrent
+  const routeData = await getRouteData(starlightRoute, context.locals.t);
+
+  context.locals.starlightViewModes = routeData;
+  starlightRoute.siteTitleHref = getSiteTitleHref(
+    starlightRoute.siteTitleHref,
+    routeData
   );
-
-  if (currentMode && currentMode.name !== "default")
-    starlightRoute.siteTitleHref = insertModePathname(
-      siteTitleHref,
-      currentMode.name
-    );
 });
-
-async function attachRouteData(context: APIContext) {
-  context.locals.starlightViewModes = await getRouteData(context);
-}

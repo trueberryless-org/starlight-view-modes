@@ -1,4 +1,5 @@
 import { build } from "astro";
+import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { vi } from "vitest";
 
@@ -33,4 +34,11 @@ export async function buildFixture(name: string) {
   stdoutWriteSpy.mockRestore();
 
   return { output, status };
+}
+
+export function readFixtureOutput(name: string, path: string) {
+  return readFileSync(
+    fileURLToPath(new URL(`fixtures/${name}/dist/${path}`, import.meta.url)),
+    "utf8"
+  );
 }

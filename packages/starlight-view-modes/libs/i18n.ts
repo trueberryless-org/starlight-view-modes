@@ -1,69 +1,69 @@
-import astroConfig from "virtual:starlight-view-modes-context";
-import starlightConfig from "virtual:starlight/user-config";
+import context from "virtual:starlight-view-modes/context";
 
 import { insertSegment, isSamePathStart, stripLeadingSlash } from "./path";
 
-export const defaultLocale = starlightConfig.defaultLocale.locale ?? "en";
+const RootLocale = "root";
+
+export const defaultLocale = context.defaultLocale ?? "en";
 
 export function getLocalizedSlug(
   slug: string,
   locale: string | undefined
 ): string {
   const slugLocale = getLocaleFromSlug(slug);
-  const allLocales = getLocales();
-  if (
-    slugLocale === locale ||
-    (!allLocales.includes(locale) && locale !== undefined)
-  )
-    return slug;
-  locale ??= "";
-  if (slugLocale === slug) return locale;
 
-  const hasLeadingSlash = slug.startsWith("/");
+  if (slugLocale === locale || !isKnownLocale(locale)) return slug;
+  if (slugLocale === slug) return locale ?? "";
+  if (slugLocale) return replaceSlugLocale(slug, slugLocale, locale ?? "");
 
-  if (slugLocale) {
-    return `${hasLeadingSlash ? "/" : ""}${slug
-      .replace(`${slugLocale}/`, locale ? `${locale}/` : "")
-      .replace(/^\/+/, "")}`;
-  }
-
-  const base = astroConfig?.base || "";
-  const insertionPosition = isSamePathStart(slug, base)
-    ? base.split("/").filter(Boolean).length
-    : 0;
-  return insertSegment(slug, locale, insertionPosition);
+  return insertSegment(slug, locale ?? "", getBaseSegmentCount(slug));
 }
 
 export function getLocaleFromSlug(slug: string): string | undefined {
-  const locales = Object.keys(starlightConfig.locales ?? {});
-  const base = astroConfig?.base || "";
-  const baseSegments = base.split("/").filter(Boolean);
   const slugSegments = stripLeadingSlash(slug).split("/");
+  const possibleLocale = slugSegments[getBaseSegmentCount(slug)];
 
-  const possibleLocaleIndex = isSamePathStart(slug, base)
-    ? baseSegments.length
-    : 0;
-  const possibleLocale = slugSegments[possibleLocaleIndex];
-
-  return possibleLocale && locales.includes(possibleLocale)
+  return possibleLocale && context.locales.includes(possibleLocale)
     ? possibleLocale
     : undefined;
 }
 
 export function getLocales(): (string | undefined)[] {
-  const { locales = {}, defaultLocale } = starlightConfig;
   return [
-    locales === undefined || locales.root ? undefined : defaultLocale.locale,
-    ...Object.keys(locales).filter(
-      (locale) => locale !== defaultLocale.locale && locale !== "root"
+    context.locales.includes(RootLocale) ? undefined : context.defaultLocale,
+    ...context.locales.filter(
+      (locale) => locale !== context.defaultLocale && locale !== RootLocale
     ),
   ];
 }
 
 export function getLocalizedExclude(exclude: string[]): string[] {
-  exclude.map((e) => getLocalizedSlug(e, undefined));
-  const locales = getLocales();
-  return locales
-    .map((locale) => exclude.map((e) => getLocalizedSlug(e, locale)))
-    .flat();
+  return getLocales().flatMap((locale) =>
+    exclude.map((pattern) => getLocalizedSlug(pattern, locale))
+  );
+}
+
+function isKnownLocale(locale: string | undefined): boolean {
+  return locale === undefined || getLocales().includes(locale);
+}
+
+function replaceSlugLocale(
+  slug: string,
+  slugLocale: string,
+  locale: string
+): string {
+  const leadingSlash = slug.startsWith("/") ? "/" : "";
+  const localizedSlug = slug
+    .replace(`${slugLocale}/`, locale ? `${locale}/` : "")
+    .replace(/^\/+/, "");
+
+  return `${leadingSlash}${localizedSlug}`;
+}
+
+function getBaseSegmentCount(slug: string): number {
+  const base = context.base || "";
+
+  return isSamePathStart(slug, base)
+    ? base.split("/").filter(Boolean).length
+    : 0;
 }

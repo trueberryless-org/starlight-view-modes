@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 
-import { buildFixture } from './utils'
+import { buildFixture, readFixtureOutput } from './utils'
 
 test('basic', async () => {
   const { status } = await buildFixture('basic')
@@ -54,4 +54,29 @@ test('trailing slash never', async () => {
   const { status } = await buildFixture('trailing-slash-never')
 
   expect(status).toBe('success')
+})
+
+test('prefixes content links with the Sätteri Markdown processor', async () => {
+  const { status } = await buildFixture('basic')
+
+  expect(status).toBe('success')
+  expect(readFixtureOutput('basic', 'zen-mode/demo/index.html')).toContain('<a href="/zen-mode/">Home</a>')
+})
+
+test('prefixes content links with the unified Markdown processor', async () => {
+  const { status } = await buildFixture('markdown-unified')
+  const html = readFixtureOutput('markdown-unified', 'zen-mode/demo/index.html')
+
+  expect(status).toBe('success')
+  expect(html).toContain('<a href="/zen-mode/">Home</a>')
+  expect(html).toContain('<a href="mailto:hello@example.com">Mail</a>')
+})
+
+test('does not render the search when Pagefind is disabled', async () => {
+  const { status } = await buildFixture('pagefind-disabled')
+  const html = readFixtureOutput('pagefind-disabled', 'demo/index.html')
+
+  expect(status).toBe('success')
+  expect(html).not.toContain('<site-search')
+  expect(html).toContain('<starlight-view-modes-search')
 })

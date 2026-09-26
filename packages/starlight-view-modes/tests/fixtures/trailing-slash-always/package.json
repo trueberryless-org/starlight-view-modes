@@ -2,9 +2,9 @@
   "name": "@starlight-view-modes-tests/trailing-slash-always",
   "version": "0.1.0",
   "dependencies": {
-    "@astrojs/starlight": "^0.40.0",
-    "astro": "^6.4.8",
-    "starlight-links-validator": "^0.24.1",
+    "@astrojs/starlight": "^0.42.4",
+    "astro": "^7.3.5",
+    "starlight-links-validator": "^0.26.0",
     "starlight-view-modes": "workspace:*"
   },
   "private": true

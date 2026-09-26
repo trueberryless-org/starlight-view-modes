@@ -1,5 +1,13 @@
 ---
+import Default from "@astrojs/starlight/components/Search.astro";
+
 import StarlightViewModesSearch from "../components/starlight/Search.astro";
+import { isSearchEnabled } from "../libs/search";
 ---
 
-<StarlightViewModesSearch><slot /></StarlightViewModesSearch>
+{isSearchEnabled() && (
+  <Default>
+    <slot />
+  </Default>
+)}
+<StarlightViewModesSearch />

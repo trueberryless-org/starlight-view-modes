@@ -1,44 +1,36 @@
 {
   "name": "starlight-view-modes-monorepo",
-  "version": "0.1.0",
-  "private": true,
-  "description": "Starlight plugin adding view mode capabilities to your documentation website.",
-  "keywords": [
-    "starlight",
-    "plugin",
-    "zen",
-    "view",
-    "mode",
-    "zen-mode",
-    "view-modes",
-    "documentation"
-  ],
-  "homepage": "https://github.com/trueberryless-org/starlight-view-modes",
-  "bugs": {
-    "url": "https://github.com/trueberryless-org/starlight-view-modes/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/trueberryless-org/starlight-view-modes.git",
-    "directory": "packages/starlight-view-modes"
-  },
+  "version": "0.0.0",
   "license": "MIT",
+  "description": "Starlight plugin to add view mode capabilities to your documentation website.",
   "author": "trueberryless <trueberryless@gmail.com> (https://felixs.dev)",
-  "sideEffects": false,
+  "private": true,
   "type": "module",
   "scripts": {
+    "build": "pnpm --filter starlight-view-modes-docs build",
+    "check": "pnpm --filter starlight-view-modes-docs astro sync && astro check --noSync",
+    "dev": "pnpm --filter starlight-view-modes-docs dev",
+    "format": "prettier . --write --cache --ignore-unknown",
     "version": "pnpm changeset version && pnpm i --no-frozen-lockfile"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^1.0.0",
-    "@changesets/cli": "^3.0.0",
-    "@trivago/prettier-plugin-sort-imports": "6.0.2",
-    "prettier": "3.9.6",
-    "prettier-plugin-astro": "0.14.1",
-    "typescript": "5.9.3"
+    "@astrojs/check": "^0.9.10",
+    "@changesets/changelog-github": "^1.0.1",
+    "@changesets/cli": "^3.0.3",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "astro": "^7.3.5",
+    "prettier": "^3.9.9",
+    "prettier-plugin-astro": "^1.1.0",
+    "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@11.1.2",
+  "packageManager": "pnpm@11.28.0",
   "engines": {
-    "node": ">=22.23.2"
-  }
+    "node": ">=22.12.0"
+  },
+  "homepage": "https://starlight-view-modes.netlify.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trueberryless-org/starlight-view-modes.git"
+  },
+  "bugs": "https://github.com/trueberryless-org/starlight-view-modes/issues"
 }

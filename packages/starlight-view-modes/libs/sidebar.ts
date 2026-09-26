@@ -1,128 +1,93 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
-import config from "virtual:starlight-view-modes-config";
 
-import { AdditionalModes } from "./definitions";
-import { getLocalizedExclude } from "./i18n";
+import { type AdditionalMode, AdditionalModes } from "./modes";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import { getCurrentModeFromPath } from "./server";
-import { insertModePathname } from "./utils";
-import { isExcludedPage } from "./utils";
+import { insertModePathname, isExcludedPage } from "./utils";
 
-export async function isSpecificMode(
-  currentSlug: string,
-  mode: string
-): Promise<boolean> {
-  return (await getCurrentModeFromPath(currentSlug)) === mode;
-}
-
-export async function modifySidebarAndPagination(
-  starlightRoute: StarlightRouteData,
-  currentSlug: string,
-  sidebar: SidebarEntry[],
-  pagination: PaginationLinks
+export async function updateSidebarAndPagination(
+  starlightRoute: StarlightRouteData
 ): Promise<void> {
-  currentSlug = stripLeadingSlash(stripTrailingSlash(currentSlug));
+  const mode = await getCurrentAdditionalMode(starlightRoute.id);
+  if (!mode) return;
 
-  let currentMode = {
-    mode: "default",
+  const currentSlug = normalizeSlug(starlightRoute.id);
+  const sidebar = getModeSidebar(starlightRoute.sidebar, currentSlug, mode);
+
+  starlightRoute.sidebar = sidebar;
+  starlightRoute.pagination = getModePagination(
+    starlightRoute.pagination,
     sidebar,
-    pagination,
-  };
-
-  for (const mode of AdditionalModes) {
-    const isSomeMode = await isSpecificMode(currentSlug, mode.name);
-
-    if (isSomeMode) {
-      const zenSidebar = modifySidebar(sidebar, currentSlug, mode.name);
-      const zenPagination = modifyPagination(pagination, zenSidebar, mode.name);
-      currentMode = {
-        mode: mode.name,
-        sidebar: zenSidebar,
-        pagination: zenPagination,
-      };
-    }
-  }
-
-  starlightRoute.sidebar = currentMode.sidebar;
-  starlightRoute.pagination = currentMode.pagination;
+    mode
+  );
 }
 
-function modifySidebar(
+async function getCurrentAdditionalMode(
+  id: string
+): Promise<AdditionalMode | undefined> {
+  const currentMode = await getCurrentModeFromPath(normalizeSlug(id));
+
+  return AdditionalModes.find((mode) => mode.name === currentMode);
+}
+
+function getModeSidebar(
   sidebar: SidebarEntry[],
   currentSlug: string,
-  prefix: string = ""
+  mode: AdditionalMode
 ): SidebarEntry[] {
   return sidebar
-    .map((entry) => {
-      if (entry.type === "link") {
-        if (
-          isExcludedPage(
-            stripLeadingSlash(entry.href),
-            getLocalizedExclude(config.zenModeSettings.exclude)
-          )
-        ) {
-          return null; // Remove excluded entry
-        }
-
-        entry.href = insertModePathname(entry.href, prefix);
-        entry.isCurrent =
-          stripLeadingSlash(stripTrailingSlash(entry.href)) === currentSlug;
-      }
-
-      if (entry.type === "group") {
-        entry.entries = modifySidebar(entry.entries, currentSlug, prefix);
-        if (entry.entries.length === 0) {
-          return null; // Remove group if empty
-        }
-      }
-
-      return entry;
-    })
-    .filter((entry) => entry !== null) as SidebarEntry[];
+    .map((entry) => getModeSidebarEntry(entry, currentSlug, mode))
+    .filter((entry): entry is SidebarEntry => entry !== undefined);
 }
 
-function modifyPagination(
+function getModeSidebarEntry(
+  entry: SidebarEntry,
+  currentSlug: string,
+  mode: AdditionalMode
+): SidebarEntry | undefined {
+  if (entry.type === "group") {
+    entry.entries = getModeSidebar(entry.entries, currentSlug, mode);
+
+    return entry.entries.length > 0 ? entry : undefined;
+  }
+
+  if (isExcludedPage(stripLeadingSlash(entry.href), mode.exclude)) {
+    return undefined;
+  }
+
+  entry.href = insertModePathname(entry.href, mode.name);
+  entry.isCurrent = normalizeSlug(entry.href) === currentSlug;
+
+  return entry;
+}
+
+function getModePagination(
   pagination: PaginationLinks,
   sidebar: SidebarEntry[],
-  prefix: string = ""
+  mode: AdditionalMode
 ): PaginationLinks {
-  const flattenedSidebar = flattenSidebar(sidebar);
+  const links = flattenSidebar(sidebar);
+  const currentIndex = links.findIndex((link) => link.isCurrent);
 
-  function findNextValid(index: number): SidebarLink | undefined {
-    if (index >= flattenedSidebar.length) return undefined;
-    const entry = flattenedSidebar[index];
-    return excludeLink(
-      entry,
-      getLocalizedExclude(config.zenModeSettings.exclude),
-      prefix
-    )
-      ? findNextValid(index + 1)
-      : entry;
-  }
+  if (currentIndex === -1) return pagination;
 
-  function findPrevValid(index: number): SidebarLink | undefined {
-    if (index < 0) return undefined;
-    const entry = flattenedSidebar[index];
-    return excludeLink(
-      entry,
-      getLocalizedExclude(config.zenModeSettings.exclude),
-      prefix
-    )
-      ? findPrevValid(index - 1)
-      : entry;
-  }
+  return {
+    prev: findValidLink(links.slice(0, currentIndex).reverse(), mode),
+    next: findValidLink(links.slice(currentIndex + 1), mode),
+  };
+}
 
-  for (let i = 0; i < flattenedSidebar.length; i++) {
-    const entry = flattenedSidebar[i]!;
+function findValidLink(
+  links: SidebarLink[],
+  mode: AdditionalMode
+): SidebarLink | undefined {
+  const exclude = mode.exclude.map((pattern) =>
+    insertModePathname(normalizeSlug(pattern), mode.name)
+  );
 
-    if (entry.isCurrent) {
-      pagination.prev = findPrevValid(i - 1);
-      pagination.next = findNextValid(i + 1);
-      break;
-    }
-  }
-
-  return pagination;
+  return links.find(
+    (link) => !isExcludedPage(normalizeSlug(link.href), exclude)
+  );
 }
 
 function flattenSidebar(sidebar: SidebarEntry[]): SidebarLink[] {
@@ -131,17 +96,8 @@ function flattenSidebar(sidebar: SidebarEntry[]): SidebarLink[] {
   );
 }
 
-function excludeLink(
-  link: SidebarLink | undefined,
-  exclude: string[],
-  prefix: string = ""
-): boolean {
-  return isExcludedPage(
-    stripLeadingSlash(stripTrailingSlash(link?.href || "")),
-    exclude.map((e) =>
-      insertModePathname(stripLeadingSlash(stripTrailingSlash(e)), prefix)
-    )
-  );
+function normalizeSlug(slug: string): string {
+  return stripLeadingSlash(stripTrailingSlash(slug));
 }
 
 type SidebarEntry = StarlightRouteData["sidebar"][number];
