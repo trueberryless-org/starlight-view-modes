@@ -1,0 +1,89 @@
+---
+import { getContentsSections } from "../../libs/contents";
+import type { PageDescriptions } from "../../libs/presentationMode";
+import type { OutlineEntry } from "../../libs/slides";
+import Icon from "../ui/Icon.astro";
+
+interface Props {
+  descriptions: PageDescriptions;
+  outline: OutlineEntry[];
+}
+
+const { descriptions, outline } = Astro.props;
+const { entry, sidebar } = Astro.locals.starlightRoute;
+const { t } = Astro.locals;
+const sections = getContentsSections(sidebar, descriptions);
+---
+
+<dialog
+  class="starlight-view-modes-presentation-contents not-content"
+  aria-labelledby="starlight-view-modes-presentation-contents-title"
+>
+  <div class="starlight-view-modes-presentation-contents-header">
+    <h2 id="starlight-view-modes-presentation-contents-title">
+      {t("starlightViewModes.presentationMode.contents")}
+    </h2>
+    <button
+      type="button"
+      data-action="close-contents"
+      title={t("starlightViewModes.presentationMode.close")}
+    >
+      <Icon set:html='<path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />' />
+      <span class="sr-only">
+        {t("starlightViewModes.presentationMode.close")}
+      </span>
+    </button>
+  </div>
+  <div class="starlight-view-modes-presentation-contents-columns">
+    <nav aria-label={t("sidebarNav.accessibleLabel")}>
+      {sections.map((section) => (
+        <section>
+          {section.path.length > 0 && (
+            <h3 class="starlight-view-modes-presentation-contents-path">
+              {section.path.map((label) => (
+                <span>{label}</span>
+              ))}
+            </h3>
+          )}
+          <ul class="starlight-view-modes-presentation-contents-pages">
+            {section.pages.map((page) => (
+              <li>
+                <a
+                  href={page.href}
+                  aria-current={page.isCurrent ? "page" : undefined}
+                  {...page.attrs}
+                >
+                  <span class="starlight-view-modes-presentation-contents-page-title">
+                    {page.label}
+                  </span>
+                  {page.description && (
+                    <span class="starlight-view-modes-presentation-contents-page-description">
+                      {page.description}
+                    </span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </nav>
+    <nav aria-labelledby="starlight-view-modes-presentation-contents-outline">
+      <h3 id="starlight-view-modes-presentation-contents-outline">
+        {entry.data.title}
+      </h3>
+      <ol class="starlight-view-modes-presentation-contents-outline">
+        {outline.map((heading) => (
+          <li data-rank={heading.rank} data-slide={heading.slide}>
+            <a href={`#${heading.anchor}`} data-action="close-contents">
+              <span>{heading.title}</span>
+              <span class="starlight-view-modes-presentation-contents-slide">
+                {heading.slide}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </div>
+</dialog>

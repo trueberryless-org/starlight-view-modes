@@ -5,6 +5,18 @@ export const Translations = {
     "starlightViewModes.zenMode.title": "Zen Mode",
     "starlightViewModes.switchToDefaultMode": "Switch to normal mode",
     "starlightViewModes.switchToZenMode": "Switch to Zen Mode",
+    "starlightViewModes.presentationMode.title": "Presentation Mode",
+    "starlightViewModes.switchToPresentationMode":
+      "Switch to Presentation Mode",
+    "starlightViewModes.presentationMode.upNext": "Up next",
+    "starlightViewModes.presentationMode.overview": "Slide overview",
+    "starlightViewModes.presentationMode.speakerView": "Speaker view",
+    "starlightViewModes.presentationMode.fullscreen": "Toggle fullscreen",
+    "starlightViewModes.presentationMode.print": "Export as PDF",
+    "starlightViewModes.presentationMode.controls": "Presentation controls",
+    "starlightViewModes.presentationMode.contents": "Contents",
+    "starlightViewModes.presentationMode.close": "Close",
+    "starlightViewModes.presentationMode.breadcrumbs": "Breadcrumbs",
   },
   de: {
     "starlightViewModes.switchesHeading": "Ansichtsmodi",
@@ -12,6 +24,18 @@ export const Translations = {
     "starlightViewModes.zenMode.title": "Zen-Modus",
     "starlightViewModes.switchToDefaultMode": "Zu normalem Modus wechseln",
     "starlightViewModes.switchToZenMode": "Zu Zen-Modus wechseln",
+    "starlightViewModes.presentationMode.title": "Präsentationsmodus",
+    "starlightViewModes.switchToPresentationMode":
+      "Zu Präsentationsmodus wechseln",
+    "starlightViewModes.presentationMode.upNext": "Als Nächstes",
+    "starlightViewModes.presentationMode.overview": "Folienübersicht",
+    "starlightViewModes.presentationMode.speakerView": "Referentenansicht",
+    "starlightViewModes.presentationMode.fullscreen": "Vollbild umschalten",
+    "starlightViewModes.presentationMode.print": "Als PDF exportieren",
+    "starlightViewModes.presentationMode.controls": "Präsentationssteuerung",
+    "starlightViewModes.presentationMode.contents": "Inhalt",
+    "starlightViewModes.presentationMode.close": "Schließen",
+    "starlightViewModes.presentationMode.breadcrumbs": "Brotkrümelnavigation",
   },
   fr: {
     "starlightViewModes.switchesHeading": "Modes de visualisation",
@@ -20,6 +44,20 @@ export const Translations = {
     "starlightViewModes.switchToDefaultMode":
       "Basculer vers le mode par défaut",
     "starlightViewModes.switchToZenMode": "Basculer vers le mode zen",
+    "starlightViewModes.presentationMode.title": "Mode présentation",
+    "starlightViewModes.switchToPresentationMode":
+      "Basculer vers le mode présentation",
+    "starlightViewModes.presentationMode.upNext": "À suivre",
+    "starlightViewModes.presentationMode.overview":
+      "Vue d’ensemble des diapositives",
+    "starlightViewModes.presentationMode.speakerView": "Mode présentateur",
+    "starlightViewModes.presentationMode.fullscreen": "Basculer en plein écran",
+    "starlightViewModes.presentationMode.print": "Exporter en PDF",
+    "starlightViewModes.presentationMode.controls":
+      "Contrôles de la présentation",
+    "starlightViewModes.presentationMode.contents": "Sommaire",
+    "starlightViewModes.presentationMode.close": "Fermer",
+    "starlightViewModes.presentationMode.breadcrumbs": "Fil d’Ariane",
   },
   es: {
     "starlightViewModes.switchesHeading": "Ver Modos",
@@ -27,6 +65,21 @@ export const Translations = {
     "starlightViewModes.zenMode.title": "Modo zen",
     "starlightViewModes.switchToDefaultMode": "Cambiar a modo normal",
     "starlightViewModes.switchToZenMode": "Cambiar a modo zen",
+    "starlightViewModes.presentationMode.title": "Modo presentación",
+    "starlightViewModes.switchToPresentationMode":
+      "Cambiar a modo presentación",
+    "starlightViewModes.presentationMode.upNext": "A continuación",
+    "starlightViewModes.presentationMode.overview":
+      "Vista general de diapositivas",
+    "starlightViewModes.presentationMode.speakerView": "Vista del presentador",
+    "starlightViewModes.presentationMode.fullscreen":
+      "Alternar pantalla completa",
+    "starlightViewModes.presentationMode.print": "Exportar como PDF",
+    "starlightViewModes.presentationMode.controls":
+      "Controles de la presentación",
+    "starlightViewModes.presentationMode.contents": "Contenido",
+    "starlightViewModes.presentationMode.close": "Cerrar",
+    "starlightViewModes.presentationMode.breadcrumbs": "Ruta de navegación",
   },
   pt: {
     "starlightViewModes.switchesHeading": "Ver Modos",
@@ -34,6 +87,18 @@ export const Translations = {
     "starlightViewModes.zenMode.title": "Modo Zen",
     "starlightViewModes.switchToDefaultMode": "Trocar para o modo normal",
     "starlightViewModes.switchToZenMode": "Trocar para o modo zen",
+    "starlightViewModes.presentationMode.title": "Modo Apresentação",
+    "starlightViewModes.switchToPresentationMode":
+      "Trocar para o modo apresentação",
+    "starlightViewModes.presentationMode.upNext": "A seguir",
+    "starlightViewModes.presentationMode.overview": "Visão geral dos slides",
+    "starlightViewModes.presentationMode.speakerView": "Modo do apresentador",
+    "starlightViewModes.presentationMode.fullscreen": "Alternar tela cheia",
+    "starlightViewModes.presentationMode.print": "Exportar como PDF",
+    "starlightViewModes.presentationMode.controls": "Controles da apresentação",
+    "starlightViewModes.presentationMode.contents": "Conteúdo",
+    "starlightViewModes.presentationMode.close": "Fechar",
+    "starlightViewModes.presentationMode.breadcrumbs": "Trilha de navegação",
   },
   ko: {
     "starlightViewModes.switchesHeading": "뷰 모드",
@@ -41,6 +106,17 @@ export const Translations = {
     "starlightViewModes.zenMode.title": "Zen 모드",
     "starlightViewModes.switchToDefaultMode": "기본 모드로 전환",
     "starlightViewModes.switchToZenMode": "Zen 모드로 전환",
+    "starlightViewModes.presentationMode.title": "프레젠테이션 모드",
+    "starlightViewModes.switchToPresentationMode": "프레젠테이션 모드로 전환",
+    "starlightViewModes.presentationMode.upNext": "다음",
+    "starlightViewModes.presentationMode.overview": "슬라이드 개요",
+    "starlightViewModes.presentationMode.speakerView": "발표자 보기",
+    "starlightViewModes.presentationMode.fullscreen": "전체 화면 전환",
+    "starlightViewModes.presentationMode.print": "PDF로 내보내기",
+    "starlightViewModes.presentationMode.controls": "프레젠테이션 컨트롤",
+    "starlightViewModes.presentationMode.contents": "목차",
+    "starlightViewModes.presentationMode.close": "닫기",
+    "starlightViewModes.presentationMode.breadcrumbs": "이동 경로",
   },
   "zh-CN": {
     "starlightViewModes.switchesHeading": "视图模式",
@@ -48,6 +124,17 @@ export const Translations = {
     "starlightViewModes.zenMode.title": "禅意模式",
     "starlightViewModes.switchToDefaultMode": "切换到普通模式",
     "starlightViewModes.switchToZenMode": "切换到禅意模式",
+    "starlightViewModes.presentationMode.title": "演示模式",
+    "starlightViewModes.switchToPresentationMode": "切换到演示模式",
+    "starlightViewModes.presentationMode.upNext": "下一页",
+    "starlightViewModes.presentationMode.overview": "幻灯片概览",
+    "starlightViewModes.presentationMode.speakerView": "演讲者视图",
+    "starlightViewModes.presentationMode.fullscreen": "切换全屏",
+    "starlightViewModes.presentationMode.print": "导出为 PDF",
+    "starlightViewModes.presentationMode.controls": "演示控件",
+    "starlightViewModes.presentationMode.contents": "目录",
+    "starlightViewModes.presentationMode.close": "关闭",
+    "starlightViewModes.presentationMode.breadcrumbs": "面包屑导航",
   },
   ru: {
     "starlightViewModes.switchesHeading": "Режимы просмотра",
@@ -55,6 +142,19 @@ export const Translations = {
     "starlightViewModes.zenMode.title": "Дзен режим",
     "starlightViewModes.switchToDefaultMode": "Переключиться в обычный режим",
     "starlightViewModes.switchToZenMode": "Переключиться в дзен режим",
+    "starlightViewModes.presentationMode.title": "Режим презентации",
+    "starlightViewModes.switchToPresentationMode":
+      "Переключиться в режим презентации",
+    "starlightViewModes.presentationMode.upNext": "Далее",
+    "starlightViewModes.presentationMode.overview": "Обзор слайдов",
+    "starlightViewModes.presentationMode.speakerView": "Режим докладчика",
+    "starlightViewModes.presentationMode.fullscreen":
+      "Переключить полноэкранный режим",
+    "starlightViewModes.presentationMode.print": "Экспортировать в PDF",
+    "starlightViewModes.presentationMode.controls": "Управление презентацией",
+    "starlightViewModes.presentationMode.contents": "Содержание",
+    "starlightViewModes.presentationMode.close": "Закрыть",
+    "starlightViewModes.presentationMode.breadcrumbs": "Навигационная цепочка",
   },
   it: {
     "starlightViewModes.switchesHeading": "Modalità di visualizzazione",
@@ -62,5 +162,22 @@ export const Translations = {
     "starlightViewModes.zenMode.title": "Modalità Zen",
     "starlightViewModes.switchToDefaultMode": "Passa alla modalità normale",
     "starlightViewModes.switchToZenMode": "Passa alla modalità Zen",
+    "starlightViewModes.presentationMode.title": "Modalità presentazione",
+    "starlightViewModes.switchToPresentationMode":
+      "Passa alla modalità presentazione",
+    "starlightViewModes.presentationMode.upNext": "A seguire",
+    "starlightViewModes.presentationMode.overview":
+      "Panoramica delle diapositive",
+    "starlightViewModes.presentationMode.speakerView":
+      "Visualizzazione relatore",
+    "starlightViewModes.presentationMode.fullscreen":
+      "Attiva/disattiva schermo intero",
+    "starlightViewModes.presentationMode.print": "Esporta come PDF",
+    "starlightViewModes.presentationMode.controls":
+      "Controlli della presentazione",
+    "starlightViewModes.presentationMode.contents": "Indice",
+    "starlightViewModes.presentationMode.close": "Chiudi",
+    "starlightViewModes.presentationMode.breadcrumbs":
+      "Percorso di navigazione",
   },
 };

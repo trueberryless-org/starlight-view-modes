@@ -9,7 +9,14 @@ const zenModeEnableIcon =
 const zenModeDisableIcon =
   '<path d="M22 13a10 10 0 1 0-20 0c0 4.32 3.08 10 10 10 6.93 0 10-5.7 10-10Zm-10 8a8.01 8.01 0 0 1 0-16 8.01 8.01 0 0 1 0 16ZM.8 8.71a4.99 4.99 0 0 1 6.91-6.9 12.04 12.04 0 0 0-6.9 6.9ZM19 1a5 5 0 0 0-2.72.8 12.06 12.06 0 0 1 6.92 6.91A4.99 4.99 0 0 0 19 1Z" /><path d="M14.22 9.72 12 11.94 9.78 9.72a.75.75 0 0 0-1.06 1.06L10.94 13l-2.22 2.22a.75.75 0 0 0 1.06 1.06L12 14.06l2.23 2.22a.75.75 0 0 0 1.06-1.06L13.06 13l2.22-2.22a.75.75 0 0 0-1.06-1.06Z" />';
 
+const presentationModeEnableIcon =
+  '<path d="M21 3H3a1 1 0 0 0 0 2h1v10a2 2 0 0 0 2 2h4.59l-2.3 2.29a1 1 0 1 0 1.42 1.42L12 18.41l2.29 2.3a1 1 0 0 0 1.42-1.42L13.41 17H18a2 2 0 0 0 2-2V5h1a1 1 0 1 0 0-2Zm-3 12H6V5h12v10Z" /><path d="M10 7.5v5a.5.5 0 0 0 .78.42l3.75-2.5a.5.5 0 0 0 0-.84l-3.75-2.5A.5.5 0 0 0 10 7.5Z" />';
+
+const presentationModeDisableIcon =
+  '<path d="M21 3H3a1 1 0 0 0 0 2h1v10a2 2 0 0 0 2 2h4.59l-2.3 2.29a1 1 0 1 0 1.42 1.42L12 18.41l2.29 2.3a1 1 0 0 0 1.42-1.42L13.41 17H18a2 2 0 0 0 2-2V5h1a1 1 0 1 0 0-2Zm-3 12H6V5h12v10Z" /><path d="M14.12 7.88a.75.75 0 0 0-1.06 0L12 8.94l-1.06-1.06a.75.75 0 0 0-1.06 1.06L10.94 10l-1.06 1.06a.75.75 0 1 0 1.06 1.06L12 11.06l1.06 1.06a.75.75 0 0 0 1.06-1.06L13.06 10l1.06-1.06a.75.75 0 0 0 0-1.06Z" />';
+
 export const ZenMode = "zen-mode";
+export const PresentationMode = "presentation-mode";
 
 export const AvailableModes: AvailableMode[] = [
   {
@@ -28,6 +35,19 @@ export const AvailableModes: AvailableMode[] = [
     keyboardShortcut: getModeShortcuts(
       config.zenModeSettings.keyboardShortcut,
       ZenMode
+    ),
+  },
+  {
+    name: PresentationMode,
+    title: "starlightViewModes.presentationMode.title",
+    switchToText: "starlightViewModes.switchToPresentationMode",
+    enabled: config.presentationModeSettings.enabled,
+    exclude: getLocalizedExclude(config.presentationModeSettings.exclude),
+    enableIcon: presentationModeEnableIcon,
+    disableIcon: presentationModeDisableIcon,
+    keyboardShortcut: getModeShortcuts(
+      config.presentationModeSettings.keyboardShortcut,
+      PresentationMode
     ),
   },
 ];

@@ -20,6 +20,21 @@ export function handleIndexSlug(slug: string): string | undefined {
   return slug;
 }
 
+// Returns an identifier of a page independent of the view mode, index pages, and slashes, e.g. `guides/intro` for the
+// `guides/intro/index` entry ID or the `/zen-mode/guides/intro/` pathname.
+export function getPageKey(slug: string): string {
+  const modes = AvailableModes.map((mode) => mode.name);
+
+  return stripLeadingSlash(stripTrailingSlash(slug))
+    .split("/")
+    .filter((segment) => segment !== "index" && !modes.includes(segment))
+    .join("/");
+}
+
+export function getPathnamePageKey(pathname: string): string {
+  return getPageKey(stripSlugBase(stripLeadingSlash(pathname)));
+}
+
 export function insertModePathname(pathname: string, mode: string): string {
   if (mode === DefaultMode) return pathname;
 

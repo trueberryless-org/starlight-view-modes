@@ -6,6 +6,9 @@ tableOfContents:
   maxHeadingLevel: 5
 ---
 
+import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
+import { Kbd } from "starlight-kbd/components";
+
 The Starlight View Modes plugin can be configured inside the `astro.config.mjs` configuration file of your project:
 
 ```js {11}
@@ -139,7 +142,8 @@ Keyboard shortcuts are disabled by default.
 A basic shortcut consists of one or more modifier keys followed by a regular key, all connected with `+` signs.
 The Starlight View Modes plugin accepts the following modifier keys: `Ctrl`, `Shift`, `Alt`.
 
-As an example, this website uses the following keyboard shortcut configuration:
+On macOS, `Ctrl` matches both the <Kbd mac="⌃" windows="Ctrl" /> and the <Kbd mac="⌘" windows="Ctrl" /> keys.
+As an example, this website uses the following keyboard shortcut configuration, so you can press <Kbd mac="⌘+⇧+Z" windows="Ctrl+Shift+Z" /> to toggle Zen mode:
 
 ```js
 starlightViewModes({
@@ -150,5 +154,74 @@ starlightViewModes({
 ```
 
 :::note
-We don't recommend using the shortcut `Ctrl+K` because it is already used for opening the search modal.
+We don't recommend using the shortcut <Kbd mac="⌘+K" windows="Ctrl+K" /> because it is already used for opening the search modal.
 :::
+
+### `presentationModeSettings`
+
+**Type:** `object`  
+**Default:** `{}`
+
+Here you can find all options regarding [Presentation mode](/presentations/).
+
+#### `enabled`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Whether the Presentation Mode feature overall should be enabled or disabled.
+
+#### `exclude`
+
+**Type:** `string[]`  
+**Default:** `[]`
+
+A list of pages or [glob patterns](https://github.com/micromatch/picomatch#globbing-features) that cannot be presented.
+
+Like for the Zen mode [`exclude`](#exclude) option, glob patterns do **not** need to start with the locale prefix of multilingual sites.
+
+#### `keyboardShortcut`
+
+**Type:** `string | string[]`
+
+A list of keyboard shortcuts that will enable the user to start and stop presenting the current page.
+Keyboard shortcuts are disabled by default and use the same format as the Zen mode [`keyboardShortcut`](#keyboardshortcut) option.
+
+This website uses the following configuration, so you can press <Kbd mac="⌘+⇧+Y" windows="Ctrl+Shift+Y" /> to present the current page:
+
+```js
+starlightViewModes({
+  presentationModeSettings: {
+    keyboardShortcut: ["Ctrl+Shift+Y"],
+  },
+}),
+```
+
+#### `splitHeadingLevel`
+
+**Type:** `2 | 3 | 4 | 5 | 6`  
+**Default:** `3`
+
+The deepest heading level starting a new slide.
+The content of deeper headings stays on the slide of their section when it fits, and otherwise continues on slides placed vertically below the section.
+
+For example, set this option to `2` to also keep the content of `h3` headings on the slide of their parent section when possible, or to `4` to start a new slide for each `h4` heading.
+
+<SpeakerNotes>
+  This page uses deeply nested headings: use the down arrow to explore the
+  options of each setting when available.
+</SpeakerNotes>
+
+#### `transition`
+
+**Type:** `"none" | "fade" | "slide" | "convex" | "concave" | "zoom"`  
+**Default:** `"slide"`
+
+The [transition](https://revealjs.com/transitions/) used when moving between slides.
+
+#### `slideNumber`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Whether the current slide number and the total number of slides should be displayed during a presentation.

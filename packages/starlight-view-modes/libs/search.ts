@@ -1,6 +1,6 @@
 import context from "virtual:starlight-view-modes/context";
 
-import { ZenMode, getAdditionalMode } from "./modes";
+import { AdditionalModes } from "./modes";
 import { getCurrentModeFromPath } from "./server";
 import type { Shortcut } from "./shortcuts";
 
@@ -16,9 +16,9 @@ export function isSearchEnabled(): boolean {
 }
 
 function getEnabledModeShortcuts(): Shortcut[] {
-  const mode = getAdditionalMode(ZenMode);
-
-  return mode?.enabled ? mode.keyboardShortcut : [];
+  return AdditionalModes.filter((mode) => mode.enabled).flatMap(
+    (mode) => mode.keyboardShortcut
+  );
 }
 
 interface SearchData {

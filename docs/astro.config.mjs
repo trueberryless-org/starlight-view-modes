@@ -2,6 +2,7 @@ import starlight from "@astrojs/starlight";
 import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
 import { defineConfig } from "astro/config";
 import starlightImageZoom from "starlight-image-zoom";
+import starlightKbd from "starlight-kbd";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightViewModes from "starlight-view-modes";
 
@@ -23,7 +24,9 @@ export default defineConfig({
           "https://github.com/trueberryless-org/starlight-view-modes/edit/main/docs/",
       },
       plugins: [
-        starlightLinksValidator(),
+        starlightLinksValidator({
+          exclude: ["/presentation-mode/**", "/zen-mode/**"],
+        }),
         starlightPluginsDocsComponents({
           pluginName: "starlight-view-modes",
           showcaseProps: {
@@ -58,8 +61,17 @@ export default defineConfig({
             exclude: ["resources/*"],
             keyboardShortcut: ["Ctrl+Shift+Z"],
           },
+          presentationModeSettings: {
+            keyboardShortcut: ["Ctrl+Shift+Y"],
+          },
         }),
         starlightImageZoom(),
+        starlightKbd({
+          types: [
+            { id: "mac", label: "macOS", detector: "apple" },
+            { id: "windows", label: "Windows & Linux", default: true },
+          ],
+        }),
       ],
       sidebar: [
         {
@@ -67,6 +79,7 @@ export default defineConfig({
           items: [
             "getting-started",
             "configuration",
+            "presentations",
             "view-modes-data",
             "css-customization",
             "i18n",

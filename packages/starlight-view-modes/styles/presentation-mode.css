@@ -1,0 +1,503 @@
+@import "reveal.js/reveal.css" layer(presentation-mode.reveal);
+
+@layer starlight, presentation-mode;
+@layer presentation-mode.base {
+  /* Hide the Starlight page behind the presentation while keeping dialogs like the search usable. */
+  .page:has(starlight-view-modes-presentation) {
+    visibility: hidden;
+  }
+  .page:has(starlight-view-modes-presentation)
+    :is(starlight-view-modes-presentation, dialog) {
+    visibility: visible;
+  }
+
+  starlight-view-modes-presentation {
+    display: block;
+  }
+
+  .reveal-viewport:has(starlight-view-modes-presentation) {
+    background-color: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    line-height: var(--sl-line-height);
+  }
+
+  starlight-view-modes-presentation .reveal {
+    --r-controls-spacing: 1rem;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    margin: 0;
+    color: var(--sl-color-text);
+    font-family: var(--__sl-font);
+  }
+
+  /* Reset Starlight content spacing on the elements positioned by reveal.js. */
+  starlight-view-modes-presentation
+    :is(.reveal > *, .reveal .slides section, .reveal .backgrounds *) {
+    margin-top: 0;
+  }
+
+  starlight-view-modes-presentation .reveal .slides {
+    --sl-text-body: 2rem;
+    --sl-text-body-sm: 1.625rem;
+    --sl-text-code: 1.5rem;
+    --sl-text-code-sm: 1.375rem;
+    --sl-text-h1: 4rem;
+    --sl-text-h2: 3rem;
+    --sl-text-h3: 2.5rem;
+    --sl-text-h4: 2.25rem;
+    --sl-text-h5: 2rem;
+    --sl-content-gap-y: 1.25rem;
+    --sl-line-height: 1.5;
+    --ec-codeFontSize: var(--sl-text-code);
+    --ec-uiFontSize: var(--sl-text-code-sm);
+    font-size: var(--sl-text-body);
+    line-height: var(--sl-line-height);
+    text-align: start;
+  }
+
+  starlight-view-modes-presentation .reveal .slides section {
+    height: 100%;
+  }
+
+  .starlight-view-modes-presentation-slide {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: var(--slide-height);
+    /* Leave room for the breadcrumbs and controls overlaying the top of the presentation. */
+    padding: 4.5rem 4rem 2.5rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .starlight-view-modes-presentation-statement {
+    --sl-text-body: 2.5rem;
+    --sl-text-h2: 3.5rem;
+    --sl-text-h3: 3rem;
+    justify-content: center;
+    font-size: var(--sl-text-body);
+  }
+
+  .starlight-view-modes-presentation-title,
+  .starlight-view-modes-presentation-divider {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .starlight-view-modes-presentation-title h1 {
+    color: var(--sl-color-white);
+    font-size: 4.5rem;
+    font-weight: 600;
+    line-height: var(--sl-line-height-headings);
+  }
+
+  .starlight-view-modes-presentation-title > :not(h1) {
+    max-width: 56rem;
+  }
+
+  .starlight-view-modes-presentation-description {
+    color: var(--sl-color-gray-2);
+  }
+
+  /* Shrink the content of slides overflowing the available space, see `fitSlide()`. */
+  .starlight-view-modes-presentation-slide > * {
+    flex-shrink: 0;
+    zoom: var(--fit, 1);
+  }
+
+  .starlight-view-modes-presentation-divider :is(h1, h2, h3, a) {
+    font-size: 3.5rem;
+    font-weight: 600;
+    line-height: var(--sl-line-height-headings);
+  }
+
+  .starlight-view-modes-presentation-kicker {
+    color: var(--sl-color-text-accent);
+    font-size: var(--sl-text-body-sm);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .sl-markdown-content
+    .starlight-view-modes-presentation-kicker
+    + :is(h1, h2, h3, h4, h5, h6, a) {
+    margin-top: 0.25rem;
+  }
+
+  /* Vertically aligned with the menu in the top right corner: same offset and height (buttons, padding and border). */
+  .starlight-view-modes-presentation-breadcrumbs {
+    position: fixed;
+    top: 1rem;
+    inset-inline-start: 1.5rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    min-height: calc(2.25rem + 0.25rem * 2 + 2px);
+    margin: 0;
+    max-width: calc(50vw - 1.5rem);
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-sm);
+  }
+
+  .starlight-view-modes-presentation-breadcrumbs:has(ol:empty) {
+    display: none;
+  }
+
+  .starlight-view-modes-presentation-breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .starlight-view-modes-presentation-breadcrumbs li:last-child {
+    color: var(--sl-color-gray-2);
+  }
+
+  .starlight-view-modes-presentation-breadcrumbs li + li::before,
+  .starlight-view-modes-presentation-contents-path span + span::before {
+    content: "›";
+    margin-inline-end: 0.5rem;
+    color: var(--sl-color-gray-4);
+  }
+
+  .starlight-view-modes-presentation-counter {
+    margin-inline-start: 0.75rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.5em;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    vertical-align: middle;
+  }
+
+  starlight-view-modes-presentation .reveal :is(.controls, .progress) {
+    color: var(--sl-color-text-accent);
+  }
+
+  starlight-view-modes-presentation .reveal .progress {
+    background-color: var(--sl-color-hairline);
+  }
+
+  starlight-view-modes-presentation .reveal .slide-number {
+    background-color: transparent;
+    color: var(--sl-color-gray-3);
+    font-family: var(--__sl-font);
+    font-size: var(--sl-text-sm);
+    font-variant-numeric: tabular-nums;
+    right: auto;
+    inset-inline-end: 4.5rem;
+    bottom: 1rem;
+  }
+
+  starlight-view-modes-presentation .reveal .slide-number a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .starlight-view-modes-presentation-toolbar {
+    position: fixed;
+    inset-inline-start: 1rem;
+    bottom: 1rem;
+    z-index: 2;
+    display: flex;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0.25rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    background-color: var(--sl-color-bg-nav);
+    box-shadow: var(--sl-shadow-md);
+    transition: opacity 0.3s ease;
+  }
+
+  .starlight-view-modes-presentation-toolbar :is(a, button) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0.375rem;
+    background-color: transparent;
+    color: var(--sl-color-gray-2);
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  .starlight-view-modes-presentation-menu {
+    top: 1rem;
+    bottom: auto;
+    inset-inline: auto 1rem;
+    align-items: center;
+  }
+
+  /* Starlight selects are displayed as icon buttons opening the native select on click. */
+  .starlight-view-modes-presentation-toolbar label {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.375rem;
+    color: var(--sl-color-gray-2);
+  }
+
+  .starlight-view-modes-presentation-toolbar label:hover {
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+  }
+
+  .starlight-view-modes-presentation-toolbar label:has(select:focus-visible) {
+    outline: 2px solid var(--sl-color-text-accent);
+    outline-offset: -2px;
+  }
+
+  .starlight-view-modes-presentation-toolbar label .label-icon {
+    inset-inline-start: 50%;
+    font-size: 1.25rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .starlight-view-modes-presentation-toolbar label .caret {
+    display: none;
+  }
+
+  .starlight-view-modes-presentation-toolbar select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+  }
+
+  .starlight-view-modes-presentation-toolbar :is(a, button):hover {
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+  }
+
+  .starlight-view-modes-presentation-toolbar :is(a, button):focus-visible {
+    outline: 2px solid var(--sl-color-text-accent);
+    outline-offset: -2px;
+  }
+
+  starlight-view-modes-presentation[data-idle]
+    .starlight-view-modes-presentation-toolbar:not(:hover, :focus-within) {
+    opacity: 0;
+  }
+
+  starlight-view-modes-presentation[data-idle] .reveal {
+    cursor: none;
+  }
+
+  .starlight-view-modes-presentation-contents {
+    width: min(76rem, 100vw - 2rem);
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.75rem;
+    background-color: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    box-shadow: var(--sl-shadow-lg);
+    line-height: var(--sl-line-height);
+  }
+
+  .starlight-view-modes-presentation-contents::backdrop {
+    background-color: var(--sl-color-backdrop-overlay);
+  }
+
+  .starlight-view-modes-presentation-contents-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--sl-color-hairline);
+    background-color: var(--sl-color-bg);
+  }
+
+  .starlight-view-modes-presentation-contents h2 {
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-h4);
+    font-weight: 600;
+  }
+
+  .starlight-view-modes-presentation-contents h3 {
+    margin-block: 1.25rem 0.5rem;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-xs);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .starlight-view-modes-presentation-contents-header button {
+    display: flex;
+    padding: 0.5rem;
+    border: 0;
+    border-radius: 0.375rem;
+    background-color: transparent;
+    color: var(--sl-color-gray-2);
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  .starlight-view-modes-presentation-contents-header button:hover {
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+  }
+
+  .starlight-view-modes-presentation-contents-columns {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  @media (max-width: 50rem) {
+    .starlight-view-modes-presentation-contents-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .starlight-view-modes-presentation-contents-pages {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Pages are previewed like the title slide of their presentation. */
+  .starlight-view-modes-presentation-contents-pages a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    aspect-ratio: 16 / 9;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    background-color: var(--sl-color-bg);
+    box-shadow: var(--sl-shadow-sm);
+    text-align: center;
+    text-decoration: none;
+    text-wrap: balance;
+  }
+
+  .starlight-view-modes-presentation-contents-pages a:hover {
+    border-color: var(--sl-color-gray-4);
+  }
+
+  .starlight-view-modes-presentation-contents-page-title {
+    color: var(--sl-color-white);
+    font-weight: 600;
+    line-height: var(--sl-line-height-headings);
+  }
+
+  .starlight-view-modes-presentation-contents-page-description {
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-2xs);
+    line-height: 1.4;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .starlight-view-modes-presentation-contents-path {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .starlight-view-modes-presentation-contents-outline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .starlight-view-modes-presentation-contents-outline li[data-rank="3"] {
+    padding-inline-start: 1rem;
+  }
+
+  .starlight-view-modes-presentation-contents-outline a {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: 0.375rem;
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+  }
+
+  .starlight-view-modes-presentation-contents-outline a:hover {
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+  }
+
+  .starlight-view-modes-presentation-contents-slide {
+    color: var(--sl-color-gray-3);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .starlight-view-modes-presentation-contents
+    :is(a[aria-current], a[aria-current]:hover) {
+    border-color: var(--sl-color-text-accent);
+    background-color: var(--sl-color-accent-low);
+    color: var(--sl-color-white);
+  }
+
+  .starlight-view-modes-presentation-contents a:focus-visible {
+    outline: 2px solid var(--sl-color-text-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .starlight-view-modes-presentation-toolbar {
+      transition: none;
+    }
+  }
+
+  /* Let slides flow into the page when exporting as PDF or when using the scroll view on small screens. */
+  :is(.reveal-print, .reveal-scroll)
+    .page:has(starlight-view-modes-presentation) {
+    visibility: visible;
+  }
+  :is(.reveal-print, .reveal-scroll)
+    .page:has(starlight-view-modes-presentation)
+    :not(
+      :has(starlight-view-modes-presentation),
+      starlight-view-modes-presentation,
+      starlight-view-modes-presentation *
+    ) {
+    display: none;
+  }
+  :is(.reveal-print, .reveal-scroll)
+    :is(.page, .page *):has(starlight-view-modes-presentation) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  :is(.reveal-print, .reveal-scroll) starlight-view-modes-presentation .reveal {
+    position: static;
+  }
+  .reveal-print
+    :is(
+      .starlight-view-modes-presentation-toolbar,
+      .starlight-view-modes-presentation-breadcrumbs
+    ) {
+    display: none;
+  }
+}

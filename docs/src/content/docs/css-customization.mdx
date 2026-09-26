@@ -13,14 +13,15 @@ To customize the styles applied to your Starlight site when using the Starlight 
 
 Like Starlight, the Starlight View Modes plugin uses [cascade layers](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers) internally to manage the order of its styles.
 This ensures a predictable CSS order and allows for simpler overrides.
-Any custom unlayered CSS will override the default styles from the `starlight` and `zen-mode` layers.
+Any custom unlayered CSS will override the default styles from the `starlight`, `zen-mode`, and `presentation-mode` layers.
 
 If you are using cascade layers, you can use [`@layer`](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) in your [custom CSS](https://starlight.astro.build/guides/css-and-tailwind/#custom-css-styles) to define the order of precedence for different layers relative to the Starlight and Starlight View Modes plugin styles:
 
-```css "starlight" "zen-mode"
+```css "starlight" "zen-mode" "presentation-mode"
 /* src/styles/custom.css */
-@layer my-reset, starlight, zen-mode, my-overrides;
+@layer my-reset, starlight, zen-mode, presentation-mode, my-overrides;
 ```
 
 The example above defines a custom layer named `my-reset`, applied before all the Starlight and Starlight View Modes plugin layers, and another named `my-overrides`, applied after all Starlight and Starlight View Modes plugin layers.
 Any styles in the `my-overrides` layer would take precedence over the Starlight and Starlight View Modes plugin styles, but Starlight or the Starlight View Modes plugin could still change styles set in the `my-reset` layer.
+
