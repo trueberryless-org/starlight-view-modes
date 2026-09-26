@@ -1,0 +1,14 @@
+---
+const { next } = Astro.locals.starlightRoute.pagination;
+---
+
+{next && (
+  <section>
+    <div class="starlight-view-modes-presentation-slide starlight-view-modes-presentation-divider">
+      <p class="starlight-view-modes-presentation-kicker">
+        {Astro.locals.t("starlightViewModes.presentationMode.upNext")}
+      </p>
+      <a href={next.href}>{next.label}</a>
+    </div>
+  </section>
+)}

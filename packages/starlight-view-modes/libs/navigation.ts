@@ -75,7 +75,7 @@ async function getShortcutPathname(
 
   return getUpdatedModePathname(
     pathname,
-    currentMode === DefaultMode ? shortcut.mode : DefaultMode
+    currentMode === shortcut.mode ? DefaultMode : shortcut.mode
   );
 }
 

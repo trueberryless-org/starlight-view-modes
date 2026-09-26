@@ -70,6 +70,15 @@ export default function starlightViewModes(
                   prerender: true,
                 });
               }
+
+              if (config.presentationModeSettings.enabled) {
+                injectRoute({
+                  entrypoint:
+                    "starlight-view-modes/routes/PresentationMode.astro",
+                  pattern: "[...locale]/presentation-mode/[...path]",
+                  prerender: true,
+                });
+              }
             },
           },
         });

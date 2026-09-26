@@ -1,0 +1,20 @@
+---
+import type { Slide } from "../../libs/slides";
+
+interface Props {
+  slide: Slide;
+}
+
+const { slide } = Astro.props;
+---
+
+<section data-anchor={slide.anchor}>
+  <div
+    class:list={[
+      "starlight-view-modes-presentation-slide",
+      `starlight-view-modes-presentation-${slide.type}`,
+    ]}
+    set:html={slide.html}
+  />
+  {slide.notes && <aside class="notes" set:html={slide.notes} />}
+</section>

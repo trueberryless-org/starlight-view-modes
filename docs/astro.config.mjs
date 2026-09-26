@@ -23,7 +23,9 @@ export default defineConfig({
           "https://github.com/trueberryless-org/starlight-view-modes/edit/main/docs/",
       },
       plugins: [
-        starlightLinksValidator(),
+        starlightLinksValidator({
+          exclude: ["/presentation-mode/**", "/zen-mode/**"],
+        }),
         starlightPluginsDocsComponents({
           pluginName: "starlight-view-modes",
           showcaseProps: {
@@ -58,6 +60,9 @@ export default defineConfig({
             exclude: ["resources/*"],
             keyboardShortcut: ["Ctrl+Shift+Z"],
           },
+          presentationModeSettings: {
+            keyboardShortcut: ["Ctrl+Shift+Y"],
+          },
         }),
         starlightImageZoom(),
       ],
@@ -67,6 +72,7 @@ export default defineConfig({
           items: [
             "getting-started",
             "configuration",
+            "presentations",
             "view-modes-data",
             "css-customization",
             "i18n",

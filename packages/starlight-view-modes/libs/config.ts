@@ -40,6 +40,18 @@ const configSchema = z
         keyboardShortcut: keyboardShortcutSchema,
       })
       .prefault({}),
+    presentationModeSettings: z
+      .object({
+        enabled: z.boolean().default(true),
+        exclude: z.array(z.string()).default([]),
+        keyboardShortcut: keyboardShortcutSchema,
+        splitHeadingLevel: z.union([z.literal(2), z.literal(3)]).default(3),
+        transition: z
+          .enum(["none", "fade", "slide", "convex", "concave", "zoom"])
+          .default("slide"),
+        slideNumber: z.boolean().default(true),
+      })
+      .prefault({}),
   })
   .prefault({});
 
@@ -74,3 +86,5 @@ export type StarlightViewModesUserConfig = z.input<typeof configSchema>;
 export type StarlightViewModesConfig = z.output<typeof configSchema>;
 export type ZenModeDisplayOptions =
   StarlightViewModesConfig["zenModeSettings"]["displayOptions"];
+export type PresentationModeSettings =
+  StarlightViewModesConfig["presentationModeSettings"];

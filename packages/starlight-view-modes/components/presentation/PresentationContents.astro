@@ -1,0 +1,56 @@
+---
+import type { OutlineEntry } from "../../libs/slides";
+import Icon from "../ui/Icon.astro";
+import PresentationSidebar from "./PresentationSidebar.astro";
+
+interface Props {
+  outline: OutlineEntry[];
+}
+
+const { outline } = Astro.props;
+const { entry, sidebar } = Astro.locals.starlightRoute;
+const { t } = Astro.locals;
+---
+
+<dialog
+  class="starlight-view-modes-presentation-contents not-content"
+  aria-labelledby="starlight-view-modes-presentation-contents-title"
+>
+  <div class="starlight-view-modes-presentation-contents-header">
+    <h2 id="starlight-view-modes-presentation-contents-title">
+      {t("starlightViewModes.presentationMode.contents")}
+    </h2>
+    <button
+      type="button"
+      data-action="close-contents"
+      title={t("starlightViewModes.presentationMode.close")}
+    >
+      <Icon set:html='<path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />' />
+      <span class="sr-only">
+        {t("starlightViewModes.presentationMode.close")}
+      </span>
+    </button>
+  </div>
+  <div class="starlight-view-modes-presentation-contents-columns">
+    <nav aria-label={t("sidebarNav.accessibleLabel")}>
+      <PresentationSidebar entries={sidebar} />
+    </nav>
+    <nav aria-labelledby="starlight-view-modes-presentation-contents-outline">
+      <h3 id="starlight-view-modes-presentation-contents-outline">
+        {entry.data.title}
+      </h3>
+      <ol class="starlight-view-modes-presentation-contents-outline">
+        {outline.map((heading) => (
+          <li data-rank={heading.rank} data-slide={heading.slide}>
+            <a href={`#${heading.anchor}`} data-action="close-contents">
+              <span>{heading.title}</span>
+              <span class="starlight-view-modes-presentation-contents-slide">
+                {heading.slide}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </div>
+</dialog>

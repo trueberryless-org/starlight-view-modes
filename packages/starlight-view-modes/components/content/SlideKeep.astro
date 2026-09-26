@@ -1,0 +1,8 @@
+---
+// Renders the same directive comments as `<!-- presentation: keep start -->` and
+// `<!-- presentation: keep end -->` in Markdown files.
+---
+
+<Fragment set:html="<!-- presentation: keep start -->" />
+<slot />
+<Fragment set:html="<!-- presentation: keep end -->" />

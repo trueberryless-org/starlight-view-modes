@@ -152,3 +152,65 @@ starlightViewModes({
 :::note
 We don't recommend using the shortcut `Ctrl+K` because it is already used for opening the search modal.
 :::
+
+### `presentationModeSettings`
+
+**Type:** `object`  
+**Default:** `{}`
+
+Here you can find all options regarding [Presentation mode](/presentations/).
+
+#### `enabled`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Whether the Presentation Mode feature overall should be enabled or disabled.
+
+#### `exclude`
+
+**Type:** `string[]`  
+**Default:** `[]`
+
+A list of pages or [glob patterns](https://github.com/micromatch/picomatch#globbing-features) that cannot be presented.
+
+Like for the Zen mode [`exclude`](#exclude) option, glob patterns do **not** need to start with the locale prefix of multilingual sites.
+
+#### `keyboardShortcut`
+
+**Type:** `string | string[]`
+
+A list of keyboard shortcuts that will enable the user to start and stop presenting the current page.
+Keyboard shortcuts are disabled by default and use the same format as the Zen mode [`keyboardShortcut`](#keyboardshortcut) option.
+
+```js
+starlightViewModes({
+  presentationModeSettings: {
+    keyboardShortcut: ["Ctrl+Shift+Y"],
+  },
+}),
+```
+
+#### `splitHeadingLevel`
+
+**Type:** `2 | 3`  
+**Default:** `3`
+
+The deepest heading level starting a new slide.
+Set this option to `2` to only start a new slide for `h2` headings and keep `h3` headings on the slide of their parent section.
+
+Sections too long for a single slide are always split into multiple slides.
+
+#### `transition`
+
+**Type:** `"none" | "fade" | "slide" | "convex" | "concave" | "zoom"`  
+**Default:** `"slide"`
+
+The [transition](https://revealjs.com/transitions/) used when moving between slides.
+
+#### `slideNumber`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Whether the current slide number and the total number of slides should be displayed during a presentation.

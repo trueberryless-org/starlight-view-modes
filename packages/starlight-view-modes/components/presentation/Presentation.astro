@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import { getPresentation } from "../../libs/presentation";
+import PresentationContents from "./PresentationContents.astro";
+import PresentationNextPage from "./PresentationNextPage.astro";
+import PresentationSlide from "./PresentationSlide.astro";
+import PresentationToolbar from "./PresentationToolbar.astro";
+
+interface Props {
+  entry: CollectionEntry<"docs">;
+}
+
+const { deck, options } = getPresentation(
+  await Astro.slots.render("default"),
+  Astro.props.entry
+);
+---
+
+<starlight-view-modes-presentation data-options={JSON.stringify(options)}>
+  <div class="reveal">
+    <div class="slides">
+      {deck.stacks.map((stack) =>
+        stack.length > 1 ? (
+          <section>
+            {stack.map((slide) => (
+              <PresentationSlide slide={slide} />
+            ))}
+          </section>
+        ) : (
+          stack.map((slide) => <PresentationSlide slide={slide} />)
+        )
+      )}
+      <PresentationNextPage />
+    </div>
+  </div>
+  <PresentationToolbar />
+  <PresentationContents outline={deck.outline} />
+</starlight-view-modes-presentation>
+
+<script>
+  import { initializePresentation } from "../../libs/deck";
+
+  class StarlightViewModesPresentation extends HTMLElement {
+    constructor() {
+      super();
+
+      void initializePresentation(this);
+    }
+  }
+
+  customElements.define(
+    "starlight-view-modes-presentation",
+    StarlightViewModesPresentation
+  );
+</script>

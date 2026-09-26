@@ -80,3 +80,33 @@ test('does not render the search when Pagefind is disabled', async () => {
   expect(html).not.toContain('<site-search')
   expect(html).toContain('<starlight-view-modes-search')
 })
+
+test('renders presentation mode pages as slides', async () => {
+  const { status } = await buildFixture('basic')
+  const html = readFixtureOutput('basic', 'presentation-mode/demo/index.html')
+
+  expect(status).toBe('success')
+  expect(html).toContain('<starlight-view-modes-presentation')
+  expect(html).toContain('<h1>Demo</h1>')
+  expect(html).toContain('<a href="/presentation-mode/">Home</a>')
+})
+
+test('renders presentation mode pages for all locales', async () => {
+  const { status } = await buildFixture('i18n')
+
+  expect(status).toBe('success')
+  expect(readFixtureOutput('i18n', 'en/presentation-mode/demo/index.html')).toContain('lang="en"')
+  expect(readFixtureOutput('i18n', 'zh-cn/presentation-mode/demo/index.html')).toContain('lang="zh-CN"')
+})
+
+test('supports presentation directives in MDX pages', async () => {
+  const { status } = await buildFixture('presentation')
+  const docs = readFixtureOutput('presentation', 'components/index.html')
+  const presentation = readFixtureOutput('presentation', 'presentation-mode/components/index.html')
+
+  expect(status).toBe('success')
+  expect(docs).toContain('Hidden from the presentation.')
+  expect(presentation).not.toContain('Hidden from the presentation.')
+  expect(presentation).toMatch(/Directives<span class="starlight-view-modes-presentation-counter">2\/2<\/span><\/h2>\s*<p>After the break.<\/p>/)
+  expect(presentation).toContain('<aside class="notes">A speaker note.</aside>')
+})
