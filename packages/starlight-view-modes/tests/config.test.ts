@@ -20,7 +20,7 @@ describe("validateConfig", () => {
         enabled: true,
         exclude: [],
         keyboardShortcut: [],
-        splitHeadingLevel: 3,
+        splitHeadingLevel: 6,
         transition: "slide",
         slideNumber: true,
       },
@@ -36,7 +36,7 @@ describe("validateConfig", () => {
 
   test("throws for an unsupported presentation split heading level", () => {
     expect(() =>
-      validateConfig({ presentationModeSettings: { splitHeadingLevel: 4 } })
+      validateConfig({ presentationModeSettings: { splitHeadingLevel: 7 } })
     ).toThrow(/presentationModeSettings\.splitHeadingLevel/);
   });
 

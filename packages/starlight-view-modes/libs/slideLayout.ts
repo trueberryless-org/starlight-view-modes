@@ -12,9 +12,8 @@ import {
 } from "./hast";
 
 // Slide sizes are estimated in lines of body text rendered on a 1280×720 slide.
-const MaxSlideLines = 13;
+const MaxSlideLines = 12.5;
 const HeadingLines = 2;
-const BreadcrumbsLines = 0.75;
 const InlineHeadingLines = 1.5;
 const MediaLines = 8;
 const CharactersPerLine = 74;
@@ -48,15 +47,8 @@ const blockTagNames = new Set([
   "ul",
 ]);
 
-export function getSlideCapacity(
-  hasHeading: boolean,
-  hasBreadcrumbs: boolean
-): number {
-  return (
-    MaxSlideLines -
-    (hasHeading ? HeadingLines : 0) -
-    (hasBreadcrumbs ? BreadcrumbsLines : 0)
-  );
+export function getSlideCapacity(hasHeading: boolean): number {
+  return MaxSlideLines - (hasHeading ? HeadingLines : 0);
 }
 
 // Distributes blocks on as few slides as possible while keeping slides as evenly filled as possible.

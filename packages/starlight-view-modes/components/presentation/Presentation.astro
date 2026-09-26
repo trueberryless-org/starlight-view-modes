@@ -2,12 +2,15 @@
 import type { CollectionEntry } from "astro:content";
 
 import { getPresentation } from "../../libs/presentation";
+import type { PageDescriptions } from "../../libs/presentationMode";
 import PresentationContents from "./PresentationContents.astro";
+import PresentationMenu from "./PresentationMenu.astro";
 import PresentationNextPage from "./PresentationNextPage.astro";
 import PresentationSlide from "./PresentationSlide.astro";
 import PresentationToolbar from "./PresentationToolbar.astro";
 
 interface Props {
+  descriptions: PageDescriptions;
   entry: CollectionEntry<"docs">;
 }
 
@@ -34,8 +37,20 @@ const { deck, options } = getPresentation(
       <PresentationNextPage />
     </div>
   </div>
+  <nav
+    class="starlight-view-modes-presentation-breadcrumbs not-content"
+    aria-label={Astro.locals.t(
+      "starlightViewModes.presentationMode.breadcrumbs"
+    )}
+  >
+    <ol></ol>
+  </nav>
+  <PresentationMenu />
   <PresentationToolbar />
-  <PresentationContents outline={deck.outline} />
+  <PresentationContents
+    descriptions={Astro.props.descriptions}
+    outline={deck.outline}
+  />
 </starlight-view-modes-presentation>
 
 <script>

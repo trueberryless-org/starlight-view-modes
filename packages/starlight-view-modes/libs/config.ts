@@ -45,7 +45,7 @@ const configSchema = z
         enabled: z.boolean().default(true),
         exclude: z.array(z.string()).default([]),
         keyboardShortcut: keyboardShortcutSchema,
-        splitHeadingLevel: z.union([z.literal(2), z.literal(3)]).default(3),
+        splitHeadingLevel: z.number().int().min(2).max(6).default(6),
         transition: z
           .enum(["none", "fade", "slide", "convex", "concave", "zoom"])
           .default("slide"),

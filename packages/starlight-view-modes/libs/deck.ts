@@ -21,8 +21,6 @@ export async function initializePresentation(
 
   const deck = new Reveal(revealElement, {
     center: false,
-    // Vertical slides structure the overview while the arrow keys still go through all slides in order.
-    navigationMode: "linear",
     keyboardCondition: () => !contents.open,
     hash: false,
     history: false,
@@ -47,9 +45,11 @@ export async function initializePresentation(
 
   fitVisibleSlides(deck);
   showHashSlide(deck);
+  updateBreadcrumbs(element, deck);
   deck.on("slidechanged", () => {
     fitVisibleSlides(deck);
     updateHash(deck);
+    updateBreadcrumbs(element, deck);
   });
   window.addEventListener("hashchange", () => showHashSlide(deck));
 
@@ -125,6 +125,25 @@ function showHashSlide(deck: RevealApi): void {
   deck.slide(h, v);
 }
 
+function updateBreadcrumbs(element: HTMLElement, deck: RevealApi): void {
+  const list = element.querySelector(
+    ".starlight-view-modes-presentation-breadcrumbs ol"
+  );
+  if (!list) return;
+
+  const breadcrumbs: string[] = JSON.parse(
+    deck.getCurrentSlide().dataset["breadcrumbs"] ?? "[]"
+  );
+
+  list.replaceChildren(
+    ...breadcrumbs.map((breadcrumb) => {
+      const item = document.createElement("li");
+      item.textContent = breadcrumb;
+      return item;
+    })
+  );
+}
+
 function updateHash(deck: RevealApi): void {
   const url = new URL(window.location.href);
   url.hash = deck.getCurrentSlide().dataset["anchor"] ?? "";
@@ -176,6 +195,9 @@ function setupToolbar(
       case "print":
         openPrintView();
         break;
+      case "search":
+        openSearch();
+        break;
     }
   });
 }
@@ -197,6 +219,13 @@ function openContents(deck: RevealApi, contents: HTMLDialogElement): void {
 
   contents.showModal();
   current?.scrollIntoView({ block: "nearest" });
+}
+
+// Opens the Starlight search dialog rendered in the hidden page header.
+function openSearch(): void {
+  document
+    .querySelector<HTMLButtonElement>("site-search button[data-open-modal]")
+    ?.click();
 }
 
 async function toggleFullscreen(): Promise<void> {

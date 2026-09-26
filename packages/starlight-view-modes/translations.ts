@@ -16,6 +16,7 @@ export const Translations = {
     "starlightViewModes.presentationMode.controls": "Presentation controls",
     "starlightViewModes.presentationMode.contents": "Contents",
     "starlightViewModes.presentationMode.close": "Close",
+    "starlightViewModes.presentationMode.breadcrumbs": "Breadcrumbs",
   },
   de: {
     "starlightViewModes.switchesHeading": "Ansichtsmodi",
@@ -34,6 +35,7 @@ export const Translations = {
     "starlightViewModes.presentationMode.controls": "Präsentationssteuerung",
     "starlightViewModes.presentationMode.contents": "Inhalt",
     "starlightViewModes.presentationMode.close": "Schließen",
+    "starlightViewModes.presentationMode.breadcrumbs": "Brotkrümelnavigation",
   },
   fr: {
     "starlightViewModes.switchesHeading": "Modes de visualisation",
@@ -55,6 +57,7 @@ export const Translations = {
       "Contrôles de la présentation",
     "starlightViewModes.presentationMode.contents": "Sommaire",
     "starlightViewModes.presentationMode.close": "Fermer",
+    "starlightViewModes.presentationMode.breadcrumbs": "Fil d’Ariane",
   },
   es: {
     "starlightViewModes.switchesHeading": "Ver Modos",
@@ -76,6 +79,7 @@ export const Translations = {
       "Controles de la presentación",
     "starlightViewModes.presentationMode.contents": "Contenido",
     "starlightViewModes.presentationMode.close": "Cerrar",
+    "starlightViewModes.presentationMode.breadcrumbs": "Ruta de navegación",
   },
   pt: {
     "starlightViewModes.switchesHeading": "Ver Modos",
@@ -94,6 +98,7 @@ export const Translations = {
     "starlightViewModes.presentationMode.controls": "Controles da apresentação",
     "starlightViewModes.presentationMode.contents": "Conteúdo",
     "starlightViewModes.presentationMode.close": "Fechar",
+    "starlightViewModes.presentationMode.breadcrumbs": "Trilha de navegação",
   },
   ko: {
     "starlightViewModes.switchesHeading": "뷰 모드",
@@ -111,6 +116,7 @@ export const Translations = {
     "starlightViewModes.presentationMode.controls": "프레젠테이션 컨트롤",
     "starlightViewModes.presentationMode.contents": "목차",
     "starlightViewModes.presentationMode.close": "닫기",
+    "starlightViewModes.presentationMode.breadcrumbs": "이동 경로",
   },
   "zh-CN": {
     "starlightViewModes.switchesHeading": "视图模式",
@@ -128,6 +134,7 @@ export const Translations = {
     "starlightViewModes.presentationMode.controls": "演示控件",
     "starlightViewModes.presentationMode.contents": "目录",
     "starlightViewModes.presentationMode.close": "关闭",
+    "starlightViewModes.presentationMode.breadcrumbs": "面包屑导航",
   },
   ru: {
     "starlightViewModes.switchesHeading": "Режимы просмотра",
@@ -147,6 +154,7 @@ export const Translations = {
     "starlightViewModes.presentationMode.controls": "Управление презентацией",
     "starlightViewModes.presentationMode.contents": "Содержание",
     "starlightViewModes.presentationMode.close": "Закрыть",
+    "starlightViewModes.presentationMode.breadcrumbs": "Навигационная цепочка",
   },
   it: {
     "starlightViewModes.switchesHeading": "Modalità di visualizzazione",
@@ -169,5 +177,7 @@ export const Translations = {
       "Controlli della presentazione",
     "starlightViewModes.presentationMode.contents": "Indice",
     "starlightViewModes.presentationMode.close": "Chiudi",
+    "starlightViewModes.presentationMode.breadcrumbs":
+      "Percorso di navigazione",
   },
 };

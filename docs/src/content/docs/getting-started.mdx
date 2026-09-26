@@ -13,6 +13,7 @@ If you don't have one yet, you can follow the ["Getting Started"](https://starli
 ## Installation
 
 import { Steps } from "@astrojs/starlight/components";
+import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
 import { PackageManagers } from "starlight-package-managers";
 
 <Steps>
@@ -43,6 +44,11 @@ import { PackageManagers } from "starlight-package-managers";
 
 </Steps>
 
+<SpeakerNotes>
+  Install the plugin live and show the view mode switcher appearing in the
+  header.
+</SpeakerNotes>
+
 The Starlight View Modes plugin behavior can be tweaked using various [configuration options](/configuration).
 
 ## Component overrides
@@ -64,3 +70,8 @@ import Default from '@astrojs/starlight/components/PageTitle.astro'
 ```
 
 The same logic applies to the `Search`, `SocialIcons` and `TableOfContents` components.
+
+<SpeakerNotes>
+  Only relevant for projects with custom component overrides, skip this slide
+  for beginners.
+</SpeakerNotes>

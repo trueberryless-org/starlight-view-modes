@@ -1,8 +1,9 @@
 import type { StarlightPageProps } from "@astrojs/starlight/props";
-import type { CollectionEntry } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
 import { PresentationMode, getAdditionalMode } from "./modes";
 import { generateStaticPaths } from "./server";
+import { getPageKey } from "./utils";
 
 export async function getPresentationModeStaticPaths() {
   const mode = getAdditionalMode(PresentationMode);
@@ -31,3 +32,18 @@ export function getPresentationModePageProps(
     isFallback,
   };
 }
+
+// Page descriptions are used by the contents to preview pages as their presentation would start.
+export async function getPageDescriptions(): Promise<PageDescriptions> {
+  const pages = await getCollection("docs");
+
+  return Object.fromEntries(
+    pages.flatMap((page) =>
+      page.data.description
+        ? [[getPageKey(page.id), page.data.description]]
+        : []
+    )
+  );
+}
+
+export type PageDescriptions = Record<string, string>;

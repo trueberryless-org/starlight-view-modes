@@ -13,6 +13,10 @@ The basics of the lesson.
 
 A nested section of the lesson.
 
+#### Details
+
+The details of the nested section.
+
 <!-- presentation: hide start -->
 
 Only visible in the documentation.

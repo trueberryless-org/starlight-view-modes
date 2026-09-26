@@ -1,15 +1,18 @@
 ---
+import { getContentsSections } from "../../libs/contents";
+import type { PageDescriptions } from "../../libs/presentationMode";
 import type { OutlineEntry } from "../../libs/slides";
 import Icon from "../ui/Icon.astro";
-import PresentationSidebar from "./PresentationSidebar.astro";
 
 interface Props {
+  descriptions: PageDescriptions;
   outline: OutlineEntry[];
 }
 
-const { outline } = Astro.props;
+const { descriptions, outline } = Astro.props;
 const { entry, sidebar } = Astro.locals.starlightRoute;
 const { t } = Astro.locals;
+const sections = getContentsSections(sidebar, descriptions);
 ---
 
 <dialog
@@ -33,7 +36,37 @@ const { t } = Astro.locals;
   </div>
   <div class="starlight-view-modes-presentation-contents-columns">
     <nav aria-label={t("sidebarNav.accessibleLabel")}>
-      <PresentationSidebar entries={sidebar} />
+      {sections.map((section) => (
+        <section>
+          {section.path.length > 0 && (
+            <h3 class="starlight-view-modes-presentation-contents-path">
+              {section.path.map((label) => (
+                <span>{label}</span>
+              ))}
+            </h3>
+          )}
+          <ul class="starlight-view-modes-presentation-contents-pages">
+            {section.pages.map((page) => (
+              <li>
+                <a
+                  href={page.href}
+                  aria-current={page.isCurrent ? "page" : undefined}
+                  {...page.attrs}
+                >
+                  <span class="starlight-view-modes-presentation-contents-page-title">
+                    {page.label}
+                  </span>
+                  {page.description && (
+                    <span class="starlight-view-modes-presentation-contents-page-description">
+                      {page.description}
+                    </span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </nav>
     <nav aria-labelledby="starlight-view-modes-presentation-contents-outline">
       <h3 id="starlight-view-modes-presentation-contents-outline">

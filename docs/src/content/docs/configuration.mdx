@@ -6,6 +6,11 @@ tableOfContents:
   maxHeadingLevel: 5
 ---
 
+import SlideHide from "starlight-view-modes/components/SlideHide.astro";
+import SlideKeep from "starlight-view-modes/components/SlideKeep.astro";
+import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
+import { Kbd } from "starlight-kbd/components";
+
 The Starlight View Modes plugin can be configured inside the `astro.config.mjs` configuration file of your project:
 
 ```js {11}
@@ -49,6 +54,8 @@ Disabling this option is useful if a Zen Mode doesn't make much sense on your we
 
 #### `displayOptions`
 
+<SlideKeep>
+
 **Type:**
 
 ```graphql
@@ -70,6 +77,8 @@ Disabling this option is useful if a Zen Mode doesn't make much sense on your we
   showFooter: true
 }
 ```
+
+</SlideKeep>
 
 :::note
 It is not possible to set all four `displayOptions` to `true` because this would look exactly like the normal mode.
@@ -125,9 +134,13 @@ If your site is multilingual, your glob patterns do **not** need to start with t
 E.g. `["resources/**/*"]` instead of `["en/resources/**/*"]` will also work for all locales.
 A page cannot be excluded in only one language.
 
+<SlideHide>
+
 :::tip
 You can use this [webpage](https://www.digitalocean.com/community/tools/glob) to generate and test glob patterns.
 :::
+
+</SlideHide>
 
 #### `keyboardShortcut`
 
@@ -139,7 +152,8 @@ Keyboard shortcuts are disabled by default.
 A basic shortcut consists of one or more modifier keys followed by a regular key, all connected with `+` signs.
 The Starlight View Modes plugin accepts the following modifier keys: `Ctrl`, `Shift`, `Alt`.
 
-As an example, this website uses the following keyboard shortcut configuration:
+On macOS, `Ctrl` matches both the <Kbd mac="⌃" windows="Ctrl" /> and the <Kbd mac="⌘" windows="Ctrl" /> keys.
+As an example, this website uses the following keyboard shortcut configuration, so you can press <Kbd mac="⌘+⇧+Z" windows="Ctrl+Shift+Z" /> to toggle Zen mode:
 
 ```js
 starlightViewModes({
@@ -150,7 +164,7 @@ starlightViewModes({
 ```
 
 :::note
-We don't recommend using the shortcut `Ctrl+K` because it is already used for opening the search modal.
+We don't recommend using the shortcut <Kbd mac="⌘+K" windows="Ctrl+K" /> because it is already used for opening the search modal.
 :::
 
 ### `presentationModeSettings`
@@ -183,6 +197,8 @@ Like for the Zen mode [`exclude`](#exclude) option, glob patterns do **not** nee
 A list of keyboard shortcuts that will enable the user to start and stop presenting the current page.
 Keyboard shortcuts are disabled by default and use the same format as the Zen mode [`keyboardShortcut`](#keyboardshortcut) option.
 
+This website uses the following configuration, so you can press <Kbd mac="⌘+⇧+Y" windows="Ctrl+Shift+Y" /> to present the current page:
+
 ```js
 starlightViewModes({
   presentationModeSettings: {
@@ -193,13 +209,19 @@ starlightViewModes({
 
 #### `splitHeadingLevel`
 
-**Type:** `2 | 3`  
-**Default:** `3`
+**Type:** `2 | 3 | 4 | 5 | 6`  
+**Default:** `6`
 
 The deepest heading level starting a new slide.
-Set this option to `2` to only start a new slide for `h2` headings and keep `h3` headings on the slide of their parent section.
+Sections of `h4`, `h5`, and `h6` headings are placed vertically below the slide of their parent section.
 
+For example, set this option to `3` to keep the content of `h4` to `h6` headings on the slide of their parent section instead.
 Sections too long for a single slide are always split into multiple slides.
+
+<SpeakerNotes>
+  This page uses deeply nested headings: use the down arrow to explore the
+  options of each setting.
+</SpeakerNotes>
 
 #### `transition`
 

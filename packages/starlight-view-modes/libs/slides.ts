@@ -22,9 +22,10 @@ import {
 } from "./slideLayout";
 
 const MaxTitleIntroLines = 4;
+// Sections of headings of this rank or deeper are placed vertically below the slides of their parent section.
+const VerticalHeadingRank = 4;
 
 const HeadingWrapperClassName = "sl-heading-wrapper";
-const BreadcrumbsClassName = "starlight-view-modes-presentation-breadcrumbs";
 const CounterClassName = "starlight-view-modes-presentation-counter";
 const DescriptionClassName = "starlight-view-modes-presentation-description";
 
@@ -40,21 +41,20 @@ export function getSlides(tree: Root, options: SlidesOptions): SlideDeck {
   const hasTitleIntro =
     intro !== undefined && getLines(intro.blocks) <= MaxTitleIntroLines;
 
-  const titleStack = [
-    getTitleSlide(options, hasTitleIntro ? intro.blocks : []),
+  const stacks = [
+    [getTitleSlide(options, hasTitleIntro ? intro.blocks : [])],
     ...(introGroup && !hasTitleIntro
-      ? getGroupSlides(introGroup.sections)
+      ? getGroupSlides(introGroup.sections).map((slide) => [slide])
       : []),
   ];
-  const stacks = [titleStack];
 
   for (const group of groups) {
     const slides = getGroupSlides(group.sections);
 
-    if (group.isStackStart) {
-      stacks.push(slides);
-    } else {
+    if (group.isVertical) {
       stacks.at(-1)?.push(...slides);
+    } else {
+      stacks.push(...slides.map((slide) => [slide]));
     }
   }
 
@@ -123,11 +123,11 @@ function getSections(
   return sections;
 }
 
-// Groups sections with their continuations and determines which groups start a new horizontal stack of slides.
-// Sections of headings deeper than `h2` are placed vertically below the slides of their parent section.
+// Groups sections with their continuations and determines which groups are placed vertically below the slides of
+// their parent section instead of horizontally.
 function getSectionGroups(sections: Section[]): SectionGroup[] {
   const groups: SectionGroup[] = [];
-  let hasTopLevelSection = false;
+  let hasParentSection = false;
 
   for (const section of sections) {
     const group = groups.at(-1);
@@ -137,13 +137,13 @@ function getSectionGroups(sections: Section[]): SectionGroup[] {
       continue;
     }
 
-    const isTopLevel = section.rank === undefined || section.rank <= 2;
+    const isVertical: boolean =
+      hasParentSection &&
+      section.rank !== undefined &&
+      section.rank >= VerticalHeadingRank;
 
-    groups.push({
-      sections: [section],
-      isStackStart: isTopLevel || !hasTopLevelSection,
-    });
-    hasTopLevelSection ||= isTopLevel && section.rank !== undefined;
+    groups.push({ sections: [section], isVertical });
+    hasParentSection ||= section.rank !== undefined && !isVertical;
   }
 
   return groups;
@@ -159,10 +159,7 @@ function getGroupSlides(sections: Section[]): Slide[] {
     .flatMap((section) =>
       layoutBlocks(
         section.blocks,
-        getSlideCapacity(
-          section.heading !== undefined,
-          section.breadcrumbs.length > 0
-        )
+        getSlideCapacity(section.heading !== undefined)
       ).map((nodes, index) => ({
         section,
         nodes,
@@ -193,6 +190,7 @@ function getTitleSlide(
 
   return {
     anchor: undefined,
+    breadcrumbs: [],
     html: toHtml(children),
     notes: getNotesHtml(notes),
     outline: undefined,
@@ -205,17 +203,6 @@ function getSlide(part: SlidePart, counter: string | undefined): Slide {
   const { content, notes } = extractNotes(part.nodes);
   const children: ElementContent[] = [];
 
-  if (breadcrumbs.length > 0) {
-    children.push(
-      createElement(
-        "ol",
-        BreadcrumbsClassName,
-        breadcrumbs.map((breadcrumb) =>
-          createElement("li", undefined, breadcrumb)
-        )
-      )
-    );
-  }
   if (heading) {
     children.push(getSlideHeading(heading, part.isContinuation, counter));
   }
@@ -224,10 +211,14 @@ function getSlide(part: SlidePart, counter: string | undefined): Slide {
 
   return {
     anchor: getId(heading),
+    breadcrumbs,
     html: toHtml(children),
     notes: getNotesHtml(notes),
     outline:
-      heading && rank !== undefined && !part.isContinuation
+      heading &&
+      rank !== undefined &&
+      rank < VerticalHeadingRank &&
+      !part.isContinuation
         ? { rank, title: getText(heading) }
         : undefined,
     type: content.some((node) => getBlockLines(node) > 0)
@@ -316,7 +307,7 @@ function unwrapKeep(node: ElementContent): ElementContent[] {
 
 export interface SlideDeck {
   /**
-   * Slides grouped in horizontal stacks, each stack containing vertical slides.
+   * Horizontal stacks of slides, each stack containing a slide and the vertical slides of its nested sections.
    */
   stacks: Slide[][];
   /**
@@ -330,6 +321,10 @@ export interface Slide {
    * The ID of the heading of the section this slide belongs to, used to link docs anchors to slides.
    */
   anchor: string | undefined;
+  /**
+   * The page title and the headings of the parent sections of the section this slide belongs to.
+   */
+  breadcrumbs: string[];
   html: string;
   notes: string | undefined;
   outline: Omit<OutlineEntry, "anchor" | "slide"> | undefined;
@@ -359,7 +354,7 @@ interface Section {
 
 interface SectionGroup {
   sections: Section[];
-  isStackStart: boolean;
+  isVertical: boolean;
 }
 
 interface SlidePart {

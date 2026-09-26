@@ -11,6 +11,7 @@ test("switches to the presentation of the current section and back", async ({
   await page.goto("/lesson/#nested");
   await page.keyboard.press("Control+Shift+Y");
 
+
   await expect(page).toHaveURL("/presentation-mode/lesson/#nested");
   await expect(page.locator("starlight-view-modes-presentation[data-ready]")).toBeAttached();
   await expect(
@@ -20,11 +21,26 @@ test("switches to the presentation of the current section and back", async ({
     "Only visible in the documentation"
   );
 
+  await page.keyboard.press("Control+Shift+Y");
+  await expect(page).toHaveURL("/lesson/#nested");
+});
+
+test("navigates horizontally between sections and vertically into details", async ({
+  page,
+}) => {
+  await gotoPresentation(page, "/presentation-mode/lesson/#nested");
+
+  const breadcrumbs = page.getByRole("navigation", { name: "Breadcrumbs" });
+
+  await expect(breadcrumbs).toHaveText("LessonBasics");
+
+  await page.keyboard.press("ArrowDown");
+  await expect(page).toHaveURL("/presentation-mode/lesson/#details");
+  await expect(breadcrumbs).toHaveText("LessonBasicsNested");
+
   await page.keyboard.press("ArrowRight");
   await expect(page).toHaveURL("/presentation-mode/lesson/#code");
-
-  await page.keyboard.press("Control+Shift+Y");
-  await expect(page).toHaveURL("/lesson/#code");
+  await expect(breadcrumbs).toHaveText("Lesson");
 });
 
 test("shrinks slides overflowing the available space", async ({ page }) => {

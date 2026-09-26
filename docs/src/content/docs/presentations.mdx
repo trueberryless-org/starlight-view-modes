@@ -3,7 +3,11 @@ title: Presentation Mode
 description: Present any page of your documentation as a slide deck without writing a single slide.
 ---
 
+import SlideBreak from "starlight-view-modes/components/SlideBreak.astro";
+import SlideHide from "starlight-view-modes/components/SlideHide.astro";
+import SlideKeep from "starlight-view-modes/components/SlideKeep.astro";
 import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
+import { Kbd } from "starlight-kbd/components";
 
 Presentation Mode turns every page of your documentation into a slide deck powered by [reveal.js](https://revealjs.com/).
 Write your content once and use it both as documentation and as a presentation, e.g. for teaching a class.
@@ -14,15 +18,18 @@ Write your content once and use it both as documentation and as a presentation, 
 
 ## Starting a presentation
 
-Use the Presentation Mode icon next to the social links, the "View Modes" section of the table of contents, or a [keyboard shortcut](/configuration/#keyboardshortcut-1) to present the current page.
+Use the Presentation Mode icon next to the social links, the "View Modes" section of the table of contents, or the <Kbd mac="⌘+⇧+Y" windows="Ctrl+Shift+Y" /> [keyboard shortcut](/configuration/#keyboardshortcut-1) of this website to present the current page.
 
 You can also share a direct link to a presentation by adding `/presentation-mode/` after the locale of a page URL, e.g. [`/presentation-mode/getting-started/`](/presentation-mode/getting-started/).
+
+<SlideBreak />
 
 Links to a section of a page, e.g. `/presentation-mode/getting-started/#installation`, open the presentation at the slide of this section.
 When leaving Presentation Mode, you return to the section of the page matching the current slide.
 
 <SpeakerNotes>
-  Show the switcher in the header and the table of contents.
+  Show the switcher in the header and the table of contents, then try the
+  keyboard shortcut.
 </SpeakerNotes>
 
 ## How pages become slides
@@ -30,9 +37,8 @@ When leaving Presentation Mode, you return to the section of the page matching t
 Slides are generated from the content of your pages using the following rules:
 
 - The first slide shows the title and description of the page, and a short introduction if the page starts with one.
-- Each `h2` and `h3` heading starts a new slide.
-- Each `h2` section starts a new column of slides, and its `h3` sections are stacked vertically below it. The arrow keys still go through all slides in order, while the [slide overview](#controls) shows the structure of the page.
-- Breadcrumbs above the heading of each slide show the page title and the parent headings of the current section.
+- Each heading starts a new slide.
+- Sections of `h2` and `h3` headings follow each other horizontally, while sections of `h4`, `h5`, and `h6` headings are placed vertically below the slide of their parent section.
 - A heading directly followed by another heading becomes a section divider slide.
 - Sections too long for a single slide are split into as few slides as possible, as evenly filled as possible, between blocks like paragraphs, lists, or code blocks. The heading of each of these slides is numbered, e.g. "2/3".
 - Long lists are split between their items while preserving the numbering of ordered lists and [steps](https://starlight.astro.build/components/steps/).
@@ -46,18 +52,30 @@ The same content always results in the same slides.
   Highlight that authors do not need to write any slides.
 </SpeakerNotes>
 
+### Finding your way
+
+Breadcrumbs in the top left corner of the presentation show the page title and the parent headings of the current slide.
+The arrows in the bottom right corner show the directions in which more slides are available.
+
+Use <Kbd windows="→" /> and <Kbd windows="←" /> to go through the sections of a page, and <Kbd windows="↓" /> and <Kbd windows="↑" /> to explore the details of a section.
+<Kbd windows="Space" /> goes through all slides in order.
+
 ## Controlling slides
 
 Slides are generated automatically, but you know your content best.
 Use presentation directives to control how your content is split into slides.
 
+<SlideKeep>
+
 In Markdown files, directives are HTML comments, which are not visible in the other view modes:
 
-| Directive                                                                     | Effect                                                                                  |
-| ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `<!-- presentation: break -->`                                                | Starts a new slide.                                                                     |
-| `<!-- presentation: keep start -->` … `<!-- presentation: keep end -->`       | Keeps the content in between on the same slide, scaling it down to fit if needed.      |
-| `<!-- presentation: hide start -->` … `<!-- presentation: hide end -->`       | Hides the content in between from the presentation, e.g. details only meant for reading. |
+| Directive                                                               | Effect                                                                                   |
+| ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `<!-- presentation: break -->`                                          | Starts a new slide.                                                                      |
+| `<!-- presentation: keep start -->` … `<!-- presentation: keep end -->` | Keeps the content in between on the same slide, scaling it down to fit if needed.        |
+| `<!-- presentation: hide start -->` … `<!-- presentation: hide end -->` | Hides the content in between from the presentation, e.g. details only meant for reading. |
+
+</SlideKeep>
 
 ```md title="src/content/docs/example.md"
 ## Photosynthesis
@@ -81,8 +99,12 @@ A detailed explanation only meant for reading.
 <!-- presentation: hide end -->
 ```
 
+<SlideHide>
+
 Directives must be placed between blocks of content, e.g. separated from paragraphs by empty lines.
 A thematic break using `---` also starts a new slide, and is still rendered as a horizontal line in the other view modes.
+
+</SlideHide>
 
 MDX does not support HTML comments, so use the equivalent components in MDX files instead:
 
@@ -111,6 +133,17 @@ A detailed explanation only meant for reading.
 
 </SlideHide>
 ```
+
+<SlideHide>
+
+This page uses all of these components, compare it with [its presentation](/presentation-mode/presentations/) to see them in action.
+
+</SlideHide>
+
+<SpeakerNotes>
+  The last paragraph of this section is hidden from the presentation using the
+  `SlideHide` component.
+</SpeakerNotes>
 
 ## Speaker notes
 
@@ -141,33 +174,38 @@ In Markdown files, use an `<aside>` element with the `starlight-view-modes-notes
 
 ## Controls
 
-Move your mouse to reveal the toolbar in the bottom corner of the presentation to leave Presentation Mode, browse the contents of your site, show an overview of all slides, open the speaker view, toggle fullscreen, or export the presentation as a PDF.
+Move your mouse to reveal the controls of the presentation:
 
-The contents list all pages of your site, like the sidebar, and all sections of the current page with the number of the slide they start on, to quickly jump to another page or section during a presentation.
+- The top right corner contains the search, the language and theme pickers, and a button to leave Presentation Mode.
+- The bottom left corner contains buttons to browse the contents of your site, show an overview of all slides, open the speaker view, toggle fullscreen, or export the presentation as a PDF.
+
+The contents list all pages of your site like the sidebar, previewed as the first slide of their presentation, and all sections of the current page with the number of the slide they start on.
+
+<SlideBreak />
 
 The following keyboard shortcuts are available during a presentation:
 
-| Shortcut                                       | Action                                      |
-| ---------------------------------------------- | ------------------------------------------- |
-| <kbd>→</kbd>, <kbd>Space</kbd>, <kbd>N</kbd>   | Next slide                                  |
-| <kbd>←</kbd>, <kbd>P</kbd>                     | Previous slide                              |
-| <kbd>Home</kbd>, <kbd>End</kbd>                | First or last slide                         |
-| <kbd>Esc</kbd>, <kbd>O</kbd>                   | Toggle the slide overview                   |
-| <kbd>M</kbd>                                   | Show the contents of the site               |
-| <kbd>S</kbd>                                   | Open the speaker view                       |
-| <kbd>F</kbd>                                   | Toggle fullscreen                           |
-| <kbd>B</kbd>, <kbd>.</kbd>                     | Pause the presentation with a black screen  |
-| <kbd>G</kbd>                                   | Jump to a slide by its number               |
-| <kbd>Alt</kbd> + click                         | Zoom in on an element                       |
-| <kbd>?</kbd>                                   | Show all keyboard shortcuts                 |
+| Shortcut                                                             | Action                                     |
+| -------------------------------------------------------------------- | ------------------------------------------ |
+| <Kbd windows="→" />, <Kbd windows="←" />                             | Next or previous section                   |
+| <Kbd windows="↓" />, <Kbd windows="↑" />                             | Next or previous slide in a section        |
+| <Kbd windows="Space" />, <Kbd mac="⇧+Space" windows="Shift+Space" /> | Next or previous slide                     |
+| <Kbd windows="Home" />, <Kbd windows="End" />                        | First or last slide                        |
+| <Kbd windows="Esc" />, <Kbd windows="O" />                           | Toggle the slide overview                  |
+| <Kbd windows="M" />                                                  | Show the contents of the site              |
+| <Kbd windows="S" />                                                  | Open the speaker view                      |
+| <Kbd windows="F" />                                                  | Toggle fullscreen                          |
+| <Kbd windows="B" />, <Kbd windows="." />                             | Pause the presentation with a black screen |
+| <Kbd windows="G" />                                                  | Jump to a slide by its number              |
+| <Kbd mac="⌥+Click" windows="Alt+Click" />                            | Zoom in on an element                      |
+| <Kbd windows="?" />                                                  | Show all keyboard shortcuts                |
+| <Kbd mac="⌘+K" windows="Ctrl+K" />                                   | Search                                     |
 
-The [Presentation Mode keyboard shortcut](/configuration/#keyboardshortcut-1) and the search also keep working during a presentation.
+The [Presentation Mode keyboard shortcut](/configuration/#keyboardshortcut-1) also keeps working during a presentation.
 
 ## Exporting as PDF
 
 Use the export button of the toolbar to open a printable version of the presentation and save it as a PDF using the print dialog of your browser.
 For the best results, use the landscape layout, disable margins, and enable background graphics.
 
-<SpeakerNotes>
-  Hand out the PDF after the lesson.
-</SpeakerNotes>
+<SpeakerNotes>Hand out the PDF after the lesson.</SpeakerNotes>

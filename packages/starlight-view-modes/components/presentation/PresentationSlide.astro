@@ -8,7 +8,10 @@ interface Props {
 const { slide } = Astro.props;
 ---
 
-<section data-anchor={slide.anchor}>
+<section
+  data-anchor={slide.anchor}
+  data-breadcrumbs={JSON.stringify(slide.breadcrumbs)}
+>
   <div
     class:list={[
       "starlight-view-modes-presentation-slide",

@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 
 import { getSlides } from "../libs/slides";
 
-function deck(html: string, splitHeadingLevel = 3) {
+function deck(html: string, splitHeadingLevel = 6) {
   return getSlides(fromHtml(html, { fragment: true }), {
     description: "A description",
     splitHeadingLevel,
@@ -11,7 +11,7 @@ function deck(html: string, splitHeadingLevel = 3) {
   });
 }
 
-function slides(html: string, splitHeadingLevel = 3) {
+function slides(html: string, splitHeadingLevel = 6) {
   return deck(html, splitHeadingLevel).stacks.flat();
 }
 
@@ -26,12 +26,6 @@ function list(items: number, tagName = "ul", attributes = "") {
   ).join("")}</${tagName}>`;
 }
 
-function breadcrumbs(...items: string[]) {
-  return `<ol class="starlight-view-modes-presentation-breadcrumbs">${items
-    .map((item) => `<li>${item}</li>`)
-    .join("")}</ol>`;
-}
-
 function counter(value: string) {
   return `<span class="starlight-view-modes-presentation-counter">${value}</span>`;
 }
@@ -42,6 +36,7 @@ describe("getSlides", () => {
 
     expect(title).toEqual({
       anchor: undefined,
+      breadcrumbs: [],
       html: '<h1>Title</h1><p class="starlight-view-modes-presentation-description">A description</p><p>Short introduction.</p>',
       notes: undefined,
       outline: undefined,
@@ -50,14 +45,14 @@ describe("getSlides", () => {
     expect(rest).toEqual([]);
   });
 
-  test("moves a long introduction to its own slides below the title slide", () => {
-    const { stacks } = deck(paragraph(8));
+  test("moves a long introduction to its own slides after the title slide", () => {
+    const [title, intro] = slides(paragraph(8));
 
-    expect(stacks).toHaveLength(1);
-    expect(stacks[0]?.[0]?.html).not.toContain("Lorem");
-    expect(stacks[0]?.[1]?.html).toBe(
-      `${breadcrumbs("Title")}${paragraph(8)}`
-    );
+    expect(title?.html).not.toContain("Lorem");
+    expect(intro).toMatchObject({
+      breadcrumbs: ["Title"],
+      html: paragraph(8),
+    });
   });
 
   test("starts a new slide for each heading up to the split heading level", () => {
@@ -74,27 +69,44 @@ describe("getSlides", () => {
       undefined,
       "first",
       "nested",
+      "deep",
     ]);
-    expect(slides(html, 2).map(({ anchor }) => anchor)).toEqual([
+    expect(slides(html, 3).map(({ anchor }) => anchor)).toEqual([
       undefined,
       "first",
+      "nested",
     ]);
   });
 
-  test("stacks slides of nested sections vertically below their parent section", () => {
+  test("places sections of h4 to h6 headings vertically below their parent slide", () => {
     const { stacks } = deck(
-      '<h2 id="a">A</h2><p>One</p><h3 id="a1">A1</h3><p>Two</p><h3 id="a2">A2</h3><p>Three</p><h2 id="b">B</h2><p>Four</p>'
+      [
+        '<h2 id="a">A</h2><p>One</p>',
+        '<h3 id="a1">A1</h3><p>Two</p>',
+        '<h4 id="a1a">A1a</h4><p>Three</p>',
+        '<h5 id="a1a1">A1a1</h5><p>Four</p>',
+        '<h2 id="b">B</h2><p>Five</p>',
+      ].join("")
     );
 
     expect(stacks.map((stack) => stack.map(({ anchor }) => anchor))).toEqual([
       [undefined],
-      ["a", "a1", "a2"],
+      ["a"],
+      ["a1", "a1a", "a1a1"],
       ["b"],
     ]);
   });
 
-  test("starts a new stack for nested sections without a parent section", () => {
-    const { stacks } = deck('<h3 id="orphan">Orphan</h3><p>One</p>');
+  test("places the slides of long sections horizontally", () => {
+    const { stacks } = deck(
+      `<h2 id="long">Long</h2>${paragraph(2).repeat(5)}`
+    );
+
+    expect(stacks.map((stack) => stack.length)).toEqual([1, 1, 1]);
+  });
+
+  test("places sections of h4 to h6 headings without parent section horizontally", () => {
+    const { stacks } = deck('<h4 id="orphan">Orphan</h4><p>One</p>');
 
     expect(stacks.map((stack) => stack.map(({ anchor }) => anchor))).toEqual([
       [undefined],
@@ -102,17 +114,12 @@ describe("getSlides", () => {
     ]);
   });
 
-  test("adds breadcrumbs with the page title and the parent headings", () => {
-    const [, parent, nested] = slides(
-      '<h2 id="parent">Parent</h2><p>One</p><h3 id="child">Child</h3><p>Two</p>'
-    );
-
-    expect(parent?.html).toBe(
-      `${breadcrumbs("Title")}<h2 id="parent">Parent</h2><p>One</p>`
-    );
-    expect(nested?.html).toBe(
-      `${breadcrumbs("Title", "Parent")}<h3 id="child">Child</h3><p>Two</p>`
-    );
+  test("returns breadcrumbs with the page title and the parent headings", () => {
+    expect(
+      slides(
+        '<h2 id="a">A</h2><p>One</p><h3 id="b">B</h3><p>Two</p><h5 id="c">C</h5><p>Three</p><h2 id="d">D</h2><p>Four</p>'
+      ).map(({ breadcrumbs }) => breadcrumbs)
+    ).toEqual([[], ["Title"], ["Title", "A"], ["Title", "A", "B"], ["Title"]]);
   });
 
   test("unwraps Starlight heading anchor links", () => {
@@ -121,7 +128,7 @@ describe("getSlides", () => {
     );
 
     expect(section?.html).toBe(
-      `${breadcrumbs("Title")}<h2 id="heading">Heading</h2><p>Content</p>`
+      `<h2 id="heading">Heading</h2><p>Content</p>`
     );
   });
 
@@ -142,15 +149,15 @@ describe("getSlides", () => {
     expect(sections.map(({ anchor, html }) => [anchor, html])).toEqual([
       [
         "heading",
-        `${breadcrumbs("Title")}<h2 id="heading">Heading${counter("1/3")}</h2><p>One</p>`,
+        `<h2 id="heading">Heading${counter("1/3")}</h2><p>One</p>`,
       ],
       [
         "heading",
-        `${breadcrumbs("Title")}<h2>Heading${counter("2/3")}</h2><p>Two</p>`,
+        `<h2>Heading${counter("2/3")}</h2><p>Two</p>`,
       ],
       [
         "heading",
-        `${breadcrumbs("Title")}<h2>Heading${counter("3/3")}</h2><p>Three</p>`,
+        `<h2>Heading${counter("3/3")}</h2><p>Three</p>`,
       ],
     ]);
   });
@@ -186,7 +193,8 @@ describe("getSlides", () => {
 
   test("keeps headings and lead-in paragraphs with the following block", () => {
     const sections = slides(
-      `<h2 id="section">Section</h2>${paragraph(6)}<h4>Example</h4><p>Run the following command:</p>\n<pre><code>npm install\nnpm run build</code></pre>`
+      `<h2 id="section">Section</h2>${paragraph(6)}<h4>Example</h4><p>Run the following command:</p>\n<pre><code>npm install\nnpm run build</code></pre>`,
+      3
     ).slice(1);
 
     expect(sections).toHaveLength(2);
@@ -238,7 +246,7 @@ describe("getSlides", () => {
     );
 
     expect(section?.html).toBe(
-      `${breadcrumbs("Title")}<h2 id="notes">Notes</h2><p>Visible</p><ul><li>Item</li></ul>`
+      `<h2 id="notes">Notes</h2><p>Visible</p><ul><li>Item</li></ul>`
     );
     expect(section?.notes).toBe("<p>Top-level</p>Nested");
   });

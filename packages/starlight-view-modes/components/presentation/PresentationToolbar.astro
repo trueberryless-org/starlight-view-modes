@@ -1,11 +1,5 @@
 ---
-import { PresentationMode } from "../../libs/modes";
-import { getModeSwitches } from "../../libs/switcher";
 import Icon from "../ui/Icon.astro";
-
-const exit = getModeSwitches(Astro.locals.starlightViewModes).find(
-  (modeSwitch) => modeSwitch.name === PresentationMode
-);
 
 function getStrokeIcon(paths: string): string {
   return `<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths}</g>`;
@@ -44,16 +38,6 @@ const actions = [
   class="starlight-view-modes-presentation-toolbar not-content"
   aria-label={Astro.locals.t("starlightViewModes.presentationMode.controls")}
 >
-  {exit && (
-    <a
-      href={exit.href}
-      class="starlight-view-modes-switcher-a"
-      title={exit.text}
-    >
-      <Icon set:html={exit.icon} />
-      <span class="sr-only">{exit.text}</span>
-    </a>
-  )}
   {actions.map((action) => (
     <button type="button" data-action={action.name} title={action.label}>
       <Icon set:html={getStrokeIcon(action.icon)} />

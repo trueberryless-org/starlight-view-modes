@@ -5,6 +5,7 @@ import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import Renderer from "../components/content/Renderer.astro";
 import Presentation from "../components/presentation/Presentation.astro";
 import {
+  getPageDescriptions,
   getPresentationModePageProps,
   getPresentationModeStaticPaths,
 } from "../libs/presentationMode";
@@ -16,10 +17,11 @@ export const getStaticPaths = (() =>
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { entry, isFallback } = Astro.props;
+const descriptions = await getPageDescriptions();
 ---
 
 <StarlightPage {...getPresentationModePageProps(entry, isFallback)}>
-  <Presentation entry={entry}>
+  <Presentation descriptions={descriptions} entry={entry}>
     <Renderer entry={entry} />
   </Presentation>
 </StarlightPage>
