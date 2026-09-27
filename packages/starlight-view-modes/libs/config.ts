@@ -43,13 +43,14 @@ const configSchema = z
     presentationModeSettings: z
       .object({
         animation: z
+          // The reveal.js fragment styles revealing content, see https://revealjs.com/fragments/
           .enum([
-            "fade",
-            "slide-up",
-            "slide-down",
-            "slide-left",
-            "slide-right",
-            "grow",
+            "fade-in",
+            "fade-up",
+            "fade-down",
+            "fade-left",
+            "fade-right",
+            "zoom-in",
           ])
           .or(z.literal(false))
           .default(false),

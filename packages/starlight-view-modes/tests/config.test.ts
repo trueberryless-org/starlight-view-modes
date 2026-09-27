@@ -44,11 +44,11 @@ describe("validateConfig", () => {
 
   test("accepts a presentation animation or false", () => {
     expect(
-      validateConfig({ presentationModeSettings: { animation: "slide-left" } })
+      validateConfig({ presentationModeSettings: { animation: "fade-left" } })
         .presentationModeSettings.animation
-    ).toBe("slide-left");
+    ).toBe("fade-left");
     expect(() =>
-      validateConfig({ presentationModeSettings: { animation: "spin" as "fade" } })
+      validateConfig({ presentationModeSettings: { animation: "grow" as "fade-in" } })
     ).toThrow(/presentationModeSettings\.animation/);
   });
 

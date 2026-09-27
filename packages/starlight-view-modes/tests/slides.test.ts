@@ -349,7 +349,7 @@ describe("getSlides", () => {
   });
 
   describe("with an animation", () => {
-    function animatedSlides(html: string, animation: Parameters<typeof getSlides>[1]["animation"] = "slide-up") {
+    function animatedSlides(html: string, animation: Parameters<typeof getSlides>[1]["animation"] = "fade-up") {
       return deck(html, 3, animation).stacks.flat();
     }
 
@@ -375,11 +375,11 @@ describe("getSlides", () => {
       expect(section?.html).toContain('<li class="fragment fade-up" data-fragment-index="1">Two</li>');
     });
 
-    test("uses the reveal.js fragment style of the animation", () => {
+    test("uses the animation as reveal.js fragment style", () => {
       const html = '<h2 id="heading">Heading</h2><p class="lead">One</p>';
 
-      expect(animatedSlides(html, "fade")[1]?.html).toContain('<p class="lead fragment" data-fragment-index="0">');
-      expect(animatedSlides(html, "grow")[1]?.html).toContain('<p class="lead fragment zoom-in" data-fragment-index="0">');
+      expect(animatedSlides(html, "fade-in")[1]?.html).toContain('<p class="lead fragment fade-in" data-fragment-index="0">');
+      expect(animatedSlides(html, "zoom-in")[1]?.html).toContain('<p class="lead fragment zoom-in" data-fragment-index="0">');
     });
 
     test("does not animate title slides, section dividers, or resources", () => {

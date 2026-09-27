@@ -6,14 +6,6 @@ import { getBlockLines } from "./slideLayout";
 
 // Content is animated using reveal.js fragments, see https://revealjs.com/fragments/
 const FragmentClassName = "fragment";
-const fragmentStyles: Record<PresentationAnimation, string | undefined> = {
-  fade: undefined,
-  "slide-up": "fade-up",
-  "slide-down": "fade-down",
-  "slide-left": "fade-left",
-  "slide-right": "fade-right",
-  grow: "zoom-in",
-};
 
 // Animates the blocks of a slide one after the other, e.g. paragraphs or code blocks, and the items of lists one by one.
 // Headings are displayed with the block following them.
@@ -54,13 +46,13 @@ function getAnimatedElement(
 ): Element {
   const className = node.properties["className"];
   const classNames = Array.isArray(className) ? className : [];
-  const style = fragmentStyles[animation];
 
   return {
     ...node,
     properties: {
       ...node.properties,
-      className: [...classNames, FragmentClassName, ...(style ? [style] : [])],
+      // The animation is the name of a reveal.js fragment style.
+      className: [...classNames, FragmentClassName, animation],
       dataFragmentIndex: index,
     },
   };
