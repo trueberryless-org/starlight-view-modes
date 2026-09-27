@@ -23,13 +23,16 @@ export async function getRouteData(
   const currentMode = await getCurrentModeFromPath(starlightRoute.id);
   const id = getIdWithBase(starlightRoute.id);
   const modes: StarlightViewModesRouteData["modes"] = [];
+  // Pages of the docs collection can be in a directory named like a mode.
+  const pageKey =
+    currentMode === "default"
+      ? starlightRoute.id
+      : getPathnamePageKey(starlightRoute.id);
 
   for (const mode of AvailableModes) {
     if (mode.name === currentMode) {
       modes.push(getModeData(mode, id, true, t));
-    } else if (
-      await isAvailableForPage(mode, getPathnamePageKey(starlightRoute.id))
-    ) {
+    } else if (await isAvailableForPage(mode, pageKey)) {
       modes.push(
         getModeData(mode, await getUpdatedModePathname(id, mode.name), false, t)
       );

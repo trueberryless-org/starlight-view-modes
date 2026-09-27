@@ -10,6 +10,7 @@ import { type AdditionalMode, type AvailableMode, ZenMode } from "./modes";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import {
   getCurrentModeFromPath as getCurrentModeFromPathname,
+  getPageKey,
   handleIndexSlug,
   isExcludedPage,
 } from "./utils";
@@ -50,16 +51,14 @@ async function loadModePages(mode: AdditionalMode): Promise<Set<string>> {
     pages
       .filter((page) => isDefaultLocalePage(page, mode))
       .map((page) =>
-        normalizeSlug(
-          handleIndexSlug(getLocalizedSlug(page.id, undefined)) ?? ""
-        )
+        getPageKey(handleIndexSlug(getLocalizedSlug(page.id, undefined)) ?? "")
       )
   );
 }
 
 export function hasModePage(pages: Set<string>, slug: string): boolean {
   return pages.has(
-    normalizeSlug(getLocalizedSlug(normalizeSlug(slug), undefined))
+    getPageKey(getLocalizedSlug(normalizeSlug(slug), undefined))
   );
 }
 
