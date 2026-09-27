@@ -1,17 +1,21 @@
-import type { AstroConfig } from "astro";
+import type { AstroConfig, AstroIntegrationLogger } from "astro";
 
-import { throwPluginError } from "./error";
 import { remarkStarlightViewModes } from "./remark";
 import { satteriStarlightViewModes } from "./satteri";
 
-export function applyMarkdownPlugin(processor: MarkdownProcessor): void {
+// Presentation directives written as MDX comments are only supported with the built-in Markdown processors. As
+// Presentation Mode is enabled by default, other processors only disable them instead of failing the build.
+export function applyMarkdownPlugin(
+  processor: MarkdownProcessor,
+  logger: AstroIntegrationLogger
+): void {
   if (isSatteriProcessor(processor)) {
     processor.options.mdastPlugins.push(satteriStarlightViewModes());
   } else if (isUnifiedProcessor(processor)) {
     processor.options.remarkPlugins.push([remarkStarlightViewModes]);
   } else {
-    throwPluginError(
-      "The configured `markdown.processor` is not supported by the Starlight View Modes plugin."
+    logger.warn(
+      "The configured `markdown.processor` is not supported by Presentation Mode, so presentation directives written as MDX comments are ignored. Use the default Markdown processor or the `unified()` processor to use them."
     );
   }
 }

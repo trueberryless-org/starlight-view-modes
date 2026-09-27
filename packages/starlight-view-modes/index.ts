@@ -51,6 +51,7 @@ export default function starlightViewModes(
             "astro:config:setup": ({
               config: astroConfig,
               injectRoute,
+              logger: integrationLogger,
               updateConfig,
             }) => {
               updateConfig({
@@ -74,7 +75,10 @@ export default function starlightViewModes(
               }
 
               if (config.presentationModeSettings.enabled) {
-                applyMarkdownPlugin(astroConfig.markdown.processor);
+                applyMarkdownPlugin(
+                  astroConfig.markdown.processor,
+                  integrationLogger
+                );
 
                 injectRoute({
                   entrypoint:
