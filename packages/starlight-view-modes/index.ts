@@ -2,12 +2,12 @@
 import type { StarlightPlugin } from "@astrojs/starlight/types";
 
 import { updatePresentationSequences } from "./libs/build";
-import { applyMarkdownPlugin } from "./libs/processor";
 import {
   type StarlightViewModesConfig,
   type StarlightViewModesUserConfig,
   validateConfig,
 } from "./libs/config";
+import { applyMarkdownPlugin } from "./libs/processor";
 import { getComponentOverrides } from "./libs/starlight";
 import { vitePluginStarlightViewModes } from "./libs/vite";
 import { Translations } from "./translations";
