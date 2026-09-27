@@ -11,7 +11,7 @@ export const onRequest = defineRouteMiddleware(async (context) => {
   const routeData = await getRouteData(starlightRoute, context.locals.t);
 
   context.locals.starlightViewModes = routeData;
-  starlightRoute.siteTitleHref = getSiteTitleHref(
+  starlightRoute.siteTitleHref = await getSiteTitleHref(
     starlightRoute.siteTitleHref,
     routeData
   );

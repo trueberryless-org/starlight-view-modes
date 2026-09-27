@@ -2,10 +2,19 @@ import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import context from "virtual:starlight-view-modes/context";
 
 import type { StarlightViewModesRouteData } from "../data";
-import { type AvailableMode, AvailableModes, isAdditionalMode } from "./modes";
+import {
+  AdditionalModes,
+  type AvailableMode,
+  AvailableModes,
+  isAdditionalMode,
+} from "./modes";
 import { stripTrailingSlash, trimToExactlyOneLeadingSlash } from "./path";
 import { getCurrentModeFromPath, getModePages, hasModePage } from "./server";
-import { getUpdatedModePathname, insertModePathname } from "./utils";
+import {
+  getPathnamePageKey,
+  getUpdatedModePathname,
+  insertModePathname,
+} from "./utils";
 
 export async function getRouteData(
   starlightRoute: StarlightRouteData,
@@ -18,7 +27,9 @@ export async function getRouteData(
   for (const mode of AvailableModes) {
     if (mode.name === currentMode) {
       modes.push(getModeData(mode, id, true, t));
-    } else if (await isAvailableForPage(mode, starlightRoute.id)) {
+    } else if (
+      await isAvailableForPage(mode, getPathnamePageKey(starlightRoute.id))
+    ) {
       modes.push(
         getModeData(mode, await getUpdatedModePathname(id, mode.name), false, t)
       );
@@ -28,13 +39,19 @@ export async function getRouteData(
   return { modes };
 }
 
-export function getSiteTitleHref(
+export async function getSiteTitleHref(
   siteTitleHref: string,
   routeData: StarlightViewModesRouteData
-): string {
-  const currentMode = routeData.modes.find((mode) => mode.isCurrent);
+): Promise<string> {
+  const currentMode = AdditionalModes.find(
+    (mode) =>
+      mode.name === routeData.modes.find(({ isCurrent }) => isCurrent)?.name
+  );
+  if (!currentMode) return siteTitleHref;
 
-  return currentMode && currentMode.name !== "default"
+  const pages = await getModePages(currentMode);
+
+  return hasModePage(pages, getPathnamePageKey(siteTitleHref))
     ? insertModePathname(siteTitleHref, currentMode.name)
     : siteTitleHref;
 }

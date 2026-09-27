@@ -11,41 +11,50 @@ if (isTemplateSplash) return;
   <ViewModeSwitcher type="social-links" />
 </div>
 
-<style>
+<style is:global>
   .starlight-view-modes-page-title-switcher {
     display: none;
     grid-column: 2;
     justify-self: end;
+    gap: 0.75rem;
   }
-  body:has(.starlight-view-modes-zen-mode-no-header):has(
-      .starlight-view-modes-zen-mode-no-table-of-contents
+
+  /* The view mode switcher is displayed next to the page title when no header or table of contents displays it. */
+  :is(
+      body:has(.starlight-view-modes-zen-mode-no-header):has(
+          .starlight-view-modes-zen-mode-no-table-of-contents
+        ),
+      html:not([data-has-toc])
+        body:has(.starlight-view-modes-zen-mode-no-header)
     )
     .starlight-view-modes-page-title-switcher {
-    display: block !important;
+    display: flex !important;
   }
-  @media (max-width: 50rem) {
-    body:has(.starlight-view-modes-zen-mode-no-header)
-      .starlight-view-modes-page-title-switcher {
-      display: block !important;
-    }
-  }
-</style>
-
-<style is:global>
-  body:has(.starlight-view-modes-zen-mode-no-header):has(
-      .starlight-view-modes-zen-mode-no-table-of-contents
+  :is(
+      body:has(.starlight-view-modes-zen-mode-no-header):has(
+          .starlight-view-modes-zen-mode-no-table-of-contents
+        ),
+      html:not([data-has-toc])
+        body:has(.starlight-view-modes-zen-mode-no-header)
     )
     .sl-container:has(.starlight-view-modes-page-title-switcher) {
     display: grid;
-    grid-template-columns: 1fr 2rem;
+    grid-template-columns: 1fr auto;
     align-items: center;
+    gap: 1rem;
   }
+
   @media (max-width: 50rem) {
+    body:has(.starlight-view-modes-zen-mode-no-header)
+      .starlight-view-modes-page-title-switcher {
+      display: flex !important;
+    }
     body:has(.starlight-view-modes-zen-mode-no-header)
       .sl-container:has(.starlight-view-modes-page-title-switcher) {
       display: grid;
-      grid-template-columns: 1fr 2rem;
+      grid-template-columns: 1fr auto;
       align-items: center;
+      gap: 1rem;
     }
   }
 </style>

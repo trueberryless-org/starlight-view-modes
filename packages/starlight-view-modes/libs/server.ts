@@ -6,7 +6,7 @@ import {
   getLocales,
   getLocalizedSlug,
 } from "./i18n";
-import type { AdditionalMode, AvailableMode } from "./modes";
+import { type AdditionalMode, type AvailableMode, ZenMode } from "./modes";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import {
   getCurrentModeFromPath as getCurrentModeFromPathname,
@@ -79,6 +79,8 @@ function isDefaultLocalePage(
   mode: AdditionalMode
 ): boolean {
   if (isExcludedPage(page.id, mode.exclude)) return false;
+  // Splash pages have no sidebar or table of contents to hide, and no page title to display the view mode switcher.
+  if (mode.name === ZenMode && page.data.template === "splash") return false;
 
   const locale = getLocaleFromSlug(page.id);
 
