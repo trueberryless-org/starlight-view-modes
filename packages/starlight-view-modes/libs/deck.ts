@@ -9,6 +9,11 @@ import {
   getSequenceNavigationPlugin,
   showQuerySlide,
 } from "./deckSequence";
+import {
+  getPageNavigator,
+  isSpeakerPreview,
+  syncSpeakerView,
+} from "./deckSpeaker";
 import { updateModeLinksWithHash } from "./navigation";
 
 const LandscapeSlideSize = { width: 1280, height: 720 };
@@ -30,7 +35,13 @@ export async function initializePresentation(
   if (!revealElement || !contents) return;
 
   const sequence = getSequence(element);
+  // The previews of the speaker view only display the slides.
+  if (isSpeakerPreview()) element.setAttribute("data-speaker-preview", "");
   const options = parseDeckOptions(element.dataset["options"]);
+  const navigateToPage = getPageNavigator();
+  const startSpeakerViewSync = isSpeakerPreview()
+    ? undefined
+    : syncSpeakerView();
 
   const deck: RevealApi = new Reveal(revealElement, {
     center: false,
@@ -49,7 +60,9 @@ export async function initializePresentation(
     plugins: [
       Notes,
       Zoom,
-      ...(sequence ? [getSequenceNavigationPlugin(sequence)] : []),
+      ...(sequence && navigateToPage
+        ? [getSequenceNavigationPlugin(sequence, navigateToPage)]
+        : []),
     ],
     ...getDeckConfig(options),
     ...(sequence && getSequenceConfig(sequence, options, () => deck)),
@@ -86,7 +99,8 @@ export async function initializePresentation(
   });
   window.addEventListener("hashchange", () => showHashSlide(deck));
 
-  setupToolbar(element, deck, contents);
+  setupToolbar(element, deck, contents, navigateToPage);
+  startSpeakerViewSync?.(deck);
   const header = element.querySelector<HTMLElement>(
     ".starlight-view-modes-presentation-header"
   );
@@ -117,9 +131,10 @@ function isPrintView(): boolean {
 }
 
 function getSlideSize(): { width: number; height: number } {
-  // Printed slides always use the landscape size of the exported pages.
+  // Printed slides and the previews of the speaker view always use the landscape size of the presentation.
   const isPortrait =
     !isPrintView() &&
+    !isSpeakerPreview() &&
     window.innerWidth < window.innerHeight &&
     window.innerWidth <= PortraitMaxWidth;
 
@@ -221,7 +236,8 @@ function updateHash(deck: RevealApi): void {
 function setupToolbar(
   element: HTMLElement,
   deck: RevealApi,
-  contents: HTMLDialogElement
+  contents: HTMLDialogElement,
+  navigateToPage: ((href: string) => void) | undefined
 ): void {
   const contentsLabel =
     element.querySelector<HTMLElement>('[data-action="contents"]')?.title ??
@@ -235,10 +251,10 @@ function setupToolbar(
     ".starlight-view-modes-presentation-menu .starlight-view-modes-switcher-a"
   );
 
-  if (exit) {
-    deck.addKeyBinding({ ...ExitKey, description: exit.title }, () => {
-      window.location.href = exit.href;
-    });
+  if (exit && navigateToPage) {
+    deck.addKeyBinding({ ...ExitKey, description: exit.title }, () =>
+      navigateToPage(exit.href)
+    );
   }
 
   // Close the contents when clicking its backdrop.

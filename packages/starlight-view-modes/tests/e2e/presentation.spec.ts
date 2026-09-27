@@ -163,3 +163,28 @@ test("switches to another view mode at the section being read", async ({ page })
   await page.keyboard.press("Control+Shift+Y");
   await expect(page).toHaveURL(/\/presentation-mode\/lesson\/?#basics$/);
 });
+
+test("keeps the speaker view in sync with the presentation", async ({ context, page }) => {
+  await gotoPresentation(page, "/presentation-mode/lesson/#basics");
+
+  const [speakerView] = await Promise.all([context.waitForEvent("page"), page.keyboard.press("s")]);
+  const notes = speakerView.locator(".speaker-controls-notes");
+  const currentSlide = speakerView.frameLocator("#current-slide iframe");
+
+  await expect(notes).toContainText("Remember to greet the class.");
+  // Previews display the slides like the presentation, even in a speaker view taller than wide.
+  await expect(currentSlide.locator(".reveal .slides")).toHaveCSS("width", "1280px");
+
+  await page.keyboard.press("ArrowRight");
+  await expect(page).toHaveURL(/#nested$/);
+  await expect(notes).toBeHidden();
+
+  // Going past the last slide in the speaker view continues the presentation, and its previews, on the next page.
+  await page.keyboard.press("End");
+  await expect(page).toHaveURL(/#code$/);
+  await expect(currentSlide.locator(".slides section.present h2")).toContainText("Code");
+  await speakerView.keyboard.press("ArrowRight");
+  await expect(page).toHaveURL("/presentation-mode/homework/");
+  await expect(speakerView.locator("#current-slide iframe")).toHaveAttribute("src", /\/presentation-mode\/homework\//);
+  await expect(currentSlide.locator(".slides section.present")).toContainText("Homework");
+});

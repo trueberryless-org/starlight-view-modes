@@ -50,16 +50,20 @@ export function getSequenceConfig(
 // All navigations of reveal.js, e.g. using the keyboard, the controls, or touch gestures, go through the instance given
 // to plugins, which differs from the one returned by the constructor, so wrapping its methods covers all of them and
 // enables the controls towards the next or previous page.
-export function getSequenceNavigationPlugin(sequence: Sequence): RevealPlugin {
+export function getSequenceNavigationPlugin(
+  sequence: Sequence,
+  navigateToPage: (href: string) => void
+): RevealPlugin {
   return {
     id: "starlight-view-modes-sequence-navigation",
-    init: (deck) => setupSequenceNavigation(deck, sequence),
+    init: (deck) => setupSequenceNavigation(deck, sequence, navigateToPage),
   };
 }
 
 function setupSequenceNavigation(
   deck: RevealApi,
-  { next, previous }: Sequence
+  { next, previous }: Sequence,
+  navigateToPage: (href: string) => void
 ): void {
   if (!next && !previous) return;
 
@@ -78,7 +82,7 @@ function setupSequenceNavigation(
         : previous && getSlideHref(previous, LastSlideQueryValue);
     if (!href || !isAtEdge()) return false;
 
-    window.location.href = href;
+    navigateToPage(href);
     return true;
   };
   const wrap =

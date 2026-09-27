@@ -563,6 +563,14 @@
     outline-offset: 2px;
   }
 
+  starlight-view-modes-presentation[data-speaker-preview]
+    :is(
+      .starlight-view-modes-presentation-top,
+      .starlight-view-modes-presentation-toolbar
+    ) {
+    display: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .starlight-view-modes-presentation-toolbar {
       transition: none;
