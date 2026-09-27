@@ -74,8 +74,14 @@ function setupSequenceNavigation(
   const getForward = () => (isRtl() ? "left" : "right");
   const getBackward = () => (isRtl() ? "right" : "left");
 
-  const navigate = (direction: "next" | "previous", isAtEdge: () => boolean) => {
-    const href = direction === "next" ? next : previous && getSlideHref(previous, LastSlideQueryValue);
+  const navigate = (
+    direction: "next" | "previous",
+    isAtEdge: () => boolean
+  ) => {
+    const href =
+      direction === "next"
+        ? next
+        : previous && getSlideHref(previous, LastSlideQueryValue);
     if (!href || isOverview() || !isAtEdge()) return false;
 
     window.location.href = href;
@@ -105,8 +111,16 @@ function setupSequenceNavigation(
     };
   };
 
-  const right = wrap(deck.right, () => (isRtl() ? "previous" : "next"), () => (isRtl() ? isAtBackwardEdge() : isAtForwardEdge()));
-  const left = wrap(deck.left, () => (isRtl() ? "next" : "previous"), () => (isRtl() ? isAtForwardEdge() : isAtBackwardEdge()));
+  const right = wrap(
+    deck.right,
+    () => (isRtl() ? "previous" : "next"),
+    () => (isRtl() ? isAtBackwardEdge() : isAtForwardEdge())
+  );
+  const left = wrap(
+    deck.left,
+    () => (isRtl() ? "next" : "previous"),
+    () => (isRtl() ? isAtForwardEdge() : isAtBackwardEdge())
+  );
   const nextSlide = wrap(deck.next, () => "next", isLastSlide);
   const previousSlide = wrap(deck.prev, () => "previous", isFirstSlide);
 

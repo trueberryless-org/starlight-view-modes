@@ -93,7 +93,10 @@ function getSidebarLinks(entry: SidebarEntry): SidebarLink[] {
     : entry.entries.flatMap(getSidebarLinks);
 }
 
-type SequenceRoute = Pick<StarlightRouteData, "locale" | "pagination" | "sidebar">;
+type SequenceRoute = Pick<
+  StarlightRouteData,
+  "locale" | "pagination" | "sidebar"
+>;
 type SidebarEntry = StarlightRouteData["sidebar"][number];
 type SidebarLink = Extract<SidebarEntry, { type: "link" }>;
 

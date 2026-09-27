@@ -2,7 +2,6 @@ import Reveal, { type RevealApi, type TransitionStyle } from "reveal.js";
 import Notes, { type NotesPlugin } from "reveal.js/plugin/notes";
 import Zoom from "reveal.js/plugin/zoom";
 
-import { updateModeLinksWithHash } from "./navigation";
 import {
   getSequence,
   getSequenceConfig,
@@ -10,6 +9,7 @@ import {
   setupSequenceJump,
   showQuerySlide,
 } from "./deckSequence";
+import { updateModeLinksWithHash } from "./navigation";
 
 const SlideWidth = 1280;
 const SlideHeight = 720;
@@ -46,7 +46,6 @@ export async function initializePresentation(
     ...getDeckConfig(parseDeckOptions(element.dataset["options"])),
     ...(sequence && getSequenceConfig(sequence, () => deck)),
   });
-
 
   const isPrinting = isPrintView();
 
