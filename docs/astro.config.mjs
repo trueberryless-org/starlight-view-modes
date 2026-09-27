@@ -61,6 +61,7 @@ export default defineConfig({
             keyboardShortcut: ["Ctrl+Shift+Z"],
           },
           presentationModeSettings: {
+            exclude: ["resources/*"],
             keyboardShortcut: ["Ctrl+Shift+Y"],
             presentSidebarGroups: true,
           },

@@ -577,3 +577,31 @@ describe("getPathnamePageKey", () => {
     expect(getPathnamePageKey("/presentation-mode/guides/default/")).toBe("guides/default");
   });
 });
+
+describe("stripModePathname", () => {
+  test("removes the mode segment of a pathname", async () => {
+    mockAstroConfigBase("/docs");
+    mockConfig();
+    mockStarlightConfig({
+      defaultLocale: { locale: "en", lang: "en" },
+      locales: { en: {}, de: {} },
+    });
+
+    const { stripModePathname } = await importUtils();
+
+    expect(stripModePathname("/docs/presentation-mode/guides/intro/")).toBe("/docs/guides/intro/");
+    expect(stripModePathname("/docs/de/zen-mode/guides/intro/")).toBe("/docs/de/guides/intro/");
+  });
+
+  test("returns nothing for pathnames not in an additional mode", async () => {
+    mockAstroConfigBase("");
+    mockConfig();
+    mockStarlightConfig({ defaultLocale: { locale: "root", lang: "en" }, locales: { root: {} } });
+
+    const { stripModePathname } = await importUtils();
+
+    expect(stripModePathname("/guides/zen-mode/")).toBeUndefined();
+    expect(stripModePathname("/zen-mode-tips/")).toBeUndefined();
+    expect(stripModePathname("/does-not-exist/")).toBeUndefined();
+  });
+});

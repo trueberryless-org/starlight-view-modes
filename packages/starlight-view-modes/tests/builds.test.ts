@@ -158,3 +158,16 @@ test('presents pages separately by default', async () => {
     'starlight-view-modes-presentation-sequence'
   )
 })
+
+test('does not link to view modes of pages outside of the docs collection', async () => {
+  const { status } = await buildFixture('presentation')
+  const custom = readFixtureOutput('presentation', 'custom/index.html')
+  const homework = readFixtureOutput('presentation', 'presentation-mode/homework/index.html')
+
+  expect(status).toBe('success')
+  expect(custom).not.toContain('/presentation-mode/custom/')
+  expect(custom).not.toContain('/zen-mode/custom/')
+  expect(homework).not.toContain('/presentation-mode/custom/')
+  expect(homework).not.toContain('Up next')
+  expect(readFixtureOutput('presentation', '404.html')).toContain('<starlight-view-modes-not-found hidden')
+})

@@ -3,6 +3,7 @@ import {
   getCurrentModeFromPath,
   getUpdatedModePathname,
   insertModePathname,
+  stripModePathname,
 } from "./utils";
 
 const DefaultMode = "default";
@@ -23,6 +24,18 @@ export function updateModeLinksWithHash(): void {
   for (const link of links) {
     link.href = getHrefWithHash(link.href, window.location.hash);
   }
+}
+
+// Pages without a page in an additional mode, e.g. excluded pages linked from the content or the search results, are
+// opened in the default mode instead.
+export function redirectToDefaultMode(): void {
+  const pathname = stripModePathname(window.location.pathname);
+  if (pathname === undefined) return;
+
+  const url = new URL(window.location.href);
+  url.pathname = pathname;
+
+  window.location.replace(url);
 }
 
 export async function switchModeWithShortcut(

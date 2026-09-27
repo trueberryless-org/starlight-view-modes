@@ -25,6 +25,22 @@ export async function getCurrentModeFromPath(
   return getCurrentModeFromPathname(slug);
 }
 
+// Additional modes only exist for pages of the docs collection, and not for other pages rendered using Starlight, e.g.
+// pages injected by other plugins.
+export async function getModePages(mode: AdditionalMode): Promise<Set<string>> {
+  const pages = await getCollection("docs");
+
+  return new Set(
+    pages
+      .filter((page) => isDefaultLocalePage(page, mode))
+      .map((page) => normalizeSlug(handleIndexSlug(getLocalizedSlug(page.id, undefined)) ?? ""))
+  );
+}
+
+export function hasModePage(pages: Set<string>, slug: string): boolean {
+  return pages.has(normalizeSlug(getLocalizedSlug(normalizeSlug(slug), undefined)));
+}
+
 export async function generateStaticPaths(mode: AdditionalMode) {
   const pages = await getCollection("docs");
   const paths = await Promise.all(

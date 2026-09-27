@@ -45,6 +45,20 @@ export function getPathnamePageKey(pathname: string): string {
   return getPageKey(segments.join("/"));
 }
 
+// Returns the pathname of a page in the default mode, or nothing if the pathname is not in an additional mode.
+export function stripModePathname(pathname: string): string | undefined {
+  const segments = pathname.split("/");
+  const position =
+    getBaseSegments().length + (getLocaleFromSlug(pathname) ? 1 : 0) + (pathname.startsWith("/") ? 1 : 0);
+  const modes = AdditionalModes.map((mode) => mode.name);
+
+  if (!modes.includes(segments[position] ?? "")) return undefined;
+
+  segments.splice(position, 1);
+
+  return segments.join("/");
+}
+
 export function insertModePathname(pathname: string, mode: string): string {
   if (mode === DefaultMode) return pathname;
 

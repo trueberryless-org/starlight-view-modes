@@ -21,6 +21,7 @@ export default defineConfig({
           items: [
             { label: "Lesson", link: "/lesson/" },
             { label: "Homework", link: "/homework/" },
+            { label: "Custom", link: "/custom/" },
           ],
         },
       ],

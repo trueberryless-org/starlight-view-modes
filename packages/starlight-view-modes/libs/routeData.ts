@@ -4,15 +4,13 @@ import context from "virtual:starlight-view-modes/context";
 import type { StarlightViewModesRouteData } from "../data";
 import { type AvailableMode, AvailableModes, isAdditionalMode } from "./modes";
 import {
-  stripLeadingSlash,
   stripTrailingSlash,
   trimToExactlyOneLeadingSlash,
 } from "./path";
-import { getCurrentModeFromPath } from "./server";
+import { getCurrentModeFromPath, getModePages, hasModePage } from "./server";
 import {
   getUpdatedModePathname,
   insertModePathname,
-  isExcludedPage,
 } from "./utils";
 
 export async function getRouteData(
@@ -26,7 +24,7 @@ export async function getRouteData(
   for (const mode of AvailableModes) {
     if (mode.name === currentMode) {
       modes.push(getModeData(mode, id, true, t));
-    } else if (isAvailableForPage(mode, id)) {
+    } else if (await isAvailableForPage(mode, starlightRoute.id)) {
       modes.push(
         getModeData(mode, await getUpdatedModePathname(id, mode.name), false, t)
       );
@@ -47,10 +45,13 @@ export function getSiteTitleHref(
     : siteTitleHref;
 }
 
-function isAvailableForPage(mode: AvailableMode, id: string): boolean {
+async function isAvailableForPage(
+  mode: AvailableMode,
+  id: string
+): Promise<boolean> {
   if (!isAdditionalMode(mode)) return true;
 
-  return mode.enabled && !isExcludedPage(stripLeadingSlash(id), mode.exclude);
+  return mode.enabled && hasModePage(await getModePages(mode), id);
 }
 
 function getModeData(
