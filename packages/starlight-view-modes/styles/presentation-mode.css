@@ -138,6 +138,8 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
+    /* Reset the spacing added between elements of the Starlight Markdown content. */
+    margin: 0;
     pointer-events: none;
   }
 
