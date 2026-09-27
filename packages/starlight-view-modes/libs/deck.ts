@@ -30,6 +30,7 @@ export async function initializePresentation(
   if (!revealElement || !contents) return;
 
   const sequence = getSequence(element);
+  const options = parseDeckOptions(element.dataset["options"]);
 
   const deck: RevealApi = new Reveal(revealElement, {
     center: false,
@@ -50,8 +51,8 @@ export async function initializePresentation(
       Zoom,
       ...(sequence ? [getSequenceNavigationPlugin(sequence)] : []),
     ],
-    ...getDeckConfig(parseDeckOptions(element.dataset["options"])),
-    ...(sequence && getSequenceConfig(sequence, () => deck)),
+    ...getDeckConfig(options),
+    ...(sequence && getSequenceConfig(sequence, options, () => deck)),
   });
 
   const isPrinting = isPrintView();

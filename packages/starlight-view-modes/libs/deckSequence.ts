@@ -1,5 +1,6 @@
 import type { RevealApi, RevealPlugin } from "reveal.js";
 
+import type { DeckOptions } from "./deck";
 import { SequenceClassName, type SequencePageSlides } from "./sequence";
 
 const SlideQueryParameter = "slide";
@@ -25,12 +26,13 @@ export function getSequence(element: HTMLElement): Sequence | undefined {
   };
 }
 
-// Slide numbers count the slides of all pages of the sequence.
+// Slide numbers, when displayed, count the slides of all pages of the sequence.
 export function getSequenceConfig(
   { offset, pages }: Sequence,
+  { slideNumber }: Pick<DeckOptions, "slideNumber">,
   getDeck: () => RevealApi
 ): { slideNumber?: (slide: HTMLElement) => [string, string, string] } {
-  if (!pages) return {};
+  if (!pages || !slideNumber) return {};
 
   const total = pages.reduce((sum, page) => sum + page.slides, 0);
 
