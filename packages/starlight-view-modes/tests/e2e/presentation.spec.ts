@@ -150,3 +150,16 @@ test("leaves the presentation with Escape", async ({ page }) => {
   await page.keyboard.press("Escape");
   await expect(page).toHaveURL(/\/lesson\/?#nested$/);
 });
+
+test("switches to another view mode at the section being read", async ({ page }) => {
+  await page.goto("/lesson/");
+  await page.locator("#code").evaluate((heading) => heading.scrollIntoView());
+
+  await page.getByRole("link", { name: "Switch to Presentation Mode" }).first().click();
+  await expect(page).toHaveURL(/\/presentation-mode\/lesson\/?#code$/);
+
+  await page.goto("/lesson/");
+  await page.locator("#basics").evaluate((heading) => heading.scrollIntoView());
+  await page.keyboard.press("Control+Shift+Y");
+  await expect(page).toHaveURL(/\/presentation-mode\/lesson\/?#basics$/);
+});

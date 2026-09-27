@@ -1,12 +1,16 @@
 import { type Shortcut, isShortcutPressed } from "./shortcuts";
 import {
   getCurrentModeFromPath,
+  getPathnameMode,
+  getPathnamePageKey,
   getUpdatedModePathname,
   insertModePathname,
   stripModePathname,
 } from "./utils";
 
 const DefaultMode = "default";
+// Distance below the scroll padding, where headings are placed when navigating to them, to consider a section read.
+const SectionReadingOffset = 32;
 const SwitcherLinkSelector = ".starlight-view-modes-switcher-a";
 
 export function parseShortcuts(shortcuts: string | undefined): Shortcut[] {
@@ -38,6 +42,24 @@ export function redirectToDefaultMode(): void {
   window.location.replace(url);
 }
 
+// Links to another view mode of the current page, including custom switchers built using the view modes data, open the
+// section currently being read.
+export function preserveSectionOnModeSwitch(): void {
+  const updateLink = (event: Event) => {
+    const link =
+      event.target instanceof Element
+        ? event.target.closest<HTMLAnchorElement>("a[href]")
+        : null;
+
+    if (link && isOtherModeLink(link)) {
+      link.href = getHrefWithHash(link.href, getCurrentSectionHash());
+    }
+  };
+
+  document.addEventListener("click", updateLink, { capture: true });
+  document.addEventListener("auxclick", updateLink, { capture: true });
+}
+
 export async function switchModeWithShortcut(
   event: KeyboardEvent,
   shortcuts: Shortcut[]
@@ -49,10 +71,11 @@ export async function switchModeWithShortcut(
 
   event.preventDefault();
 
-  window.location.pathname = await getShortcutPathname(
-    window.location.pathname,
-    shortcut
-  );
+  const url = new URL(window.location.href);
+  url.pathname = await getShortcutPathname(url.pathname, shortcut);
+  url.hash = getCurrentSectionHash();
+
+  window.location.href = url.href;
 }
 
 export function prefixLinksWithMode(
@@ -104,6 +127,40 @@ function prefixLink(
 
   prefixedHrefs.set(link, prefixedHref);
   link.setAttribute("href", prefixedHref);
+}
+
+function isOtherModeLink(link: HTMLAnchorElement): boolean {
+  const url = new URL(link.href);
+  const { hash, pathname } = window.location;
+
+  return (
+    url.origin === window.location.origin &&
+    // Links to a specific section are kept.
+    (url.hash === "" || url.hash === hash) &&
+    getPathnamePageKey(url.pathname) === getPathnamePageKey(pathname) &&
+    getPathnameMode(url.pathname) !== getPathnameMode(pathname)
+  );
+}
+
+// Returns the hash of the section currently being read, which is the anchor of the current slide in presentations and
+// the last heading scrolled to the top of the viewport otherwise.
+function getCurrentSectionHash(): string {
+  if (document.querySelector("starlight-view-modes-presentation")) {
+    return window.location.hash;
+  }
+
+  const scrollPaddingTop = parseFloat(
+    getComputedStyle(document.documentElement).scrollPaddingTop
+  );
+  const offset = (scrollPaddingTop || 0) + SectionReadingOffset;
+  const headings = document.querySelectorAll<HTMLElement>(
+    ".sl-markdown-content :is(h2, h3, h4, h5, h6)[id]"
+  );
+  const heading = [...headings].findLast(
+    (heading) => heading.getBoundingClientRect().top <= offset
+  );
+
+  return heading ? `#${heading.id}` : "";
 }
 
 function getHrefWithHash(href: string, hash: string): string {

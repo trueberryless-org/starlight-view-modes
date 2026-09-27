@@ -607,3 +607,21 @@ describe("stripModePathname", () => {
     expect(stripModePathname("/does-not-exist/")).toBeUndefined();
   });
 });
+
+describe("getPathnameMode", () => {
+  test("returns the mode of a pathname from the segment where modes are inserted", async () => {
+    mockAstroConfigBase("/docs");
+    mockConfig();
+    mockStarlightConfig({
+      defaultLocale: { locale: "en", lang: "en" },
+      locales: { en: {}, de: {} },
+    });
+
+    const { getPathnameMode } = await importUtils();
+
+    expect(getPathnameMode("/docs/zen-mode/guides/")).toBe("zen-mode");
+    expect(getPathnameMode("/docs/de/presentation-mode/guides/")).toBe("presentation-mode");
+    expect(getPathnameMode("/docs/guides/zen-mode/")).toBe("default");
+    expect(getPathnameMode("/docs/zen-mode-tips/")).toBe("default");
+  });
+});
