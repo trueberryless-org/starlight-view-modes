@@ -1,0 +1,35 @@
+---
+import LanguageSelect from "@astrojs/starlight/components/LanguageSelect.astro";
+import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
+import context from "virtual:starlight-view-modes/context";
+
+import { PresentationMode } from "../../libs/modes";
+import { getModeSwitches } from "../../libs/switcher";
+import Icon from "../ui/Icon.astro";
+
+const { t } = Astro.locals;
+const exit = getModeSwitches(Astro.locals.starlightViewModes).find(
+  (modeSwitch) => modeSwitch.name === PresentationMode
+);
+---
+
+<div class="starlight-view-modes-presentation-toolbar starlight-view-modes-presentation-menu not-content">
+  {context.pagefind && (
+    <button type="button" data-action="search" title={t("search.label")}>
+      <Icon set:html='<path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7 7 7 0 0 1-7 7Z" />' />
+      <span class="sr-only">{t("search.label")}</span>
+    </button>
+  )}
+  <LanguageSelect />
+  <ThemeSelect />
+  {exit && (
+    <a
+      href={exit.href}
+      class="starlight-view-modes-switcher-a"
+      title={exit.text}
+    >
+      <Icon set:html={exit.icon} />
+      <span class="sr-only">{exit.text}</span>
+    </a>
+  )}
+</div>

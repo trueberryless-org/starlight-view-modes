@@ -6,10 +6,11 @@ import {
   getLocales,
   getLocalizedSlug,
 } from "./i18n";
-import type { AdditionalMode, AvailableMode } from "./modes";
+import { type AdditionalMode, type AvailableMode, ZenMode } from "./modes";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import {
   getCurrentModeFromPath as getCurrentModeFromPathname,
+  getPageKey,
   handleIndexSlug,
   isExcludedPage,
 } from "./utils";
@@ -23,6 +24,42 @@ export async function getCurrentModeFromPath(
   if (docs.some((doc) => normalizeSlug(doc.id) === slug)) return "default";
 
   return getCurrentModeFromPathname(slug);
+}
+
+const modePagesCache = new Map<AdditionalMode["name"], Promise<Set<string>>>();
+
+// Additional modes only exist for pages of the docs collection, and not for other pages rendered using Starlight, e.g.
+// pages injected by other plugins.
+export function getModePages(mode: AdditionalMode): Promise<Set<string>> {
+  // The docs collection can change during development.
+  if (import.meta.env.DEV) return loadModePages(mode);
+
+  let pages = modePagesCache.get(mode.name);
+
+  if (!pages) {
+    pages = loadModePages(mode);
+    modePagesCache.set(mode.name, pages);
+  }
+
+  return pages;
+}
+
+async function loadModePages(mode: AdditionalMode): Promise<Set<string>> {
+  const pages = await getCollection("docs");
+
+  return new Set(
+    pages
+      .filter((page) => isDefaultLocalePage(page, mode))
+      .map((page) =>
+        getPageKey(handleIndexSlug(getLocalizedSlug(page.id, undefined)) ?? "")
+      )
+  );
+}
+
+export function hasModePage(pages: Set<string>, slug: string): boolean {
+  return pages.has(
+    getPageKey(getLocalizedSlug(normalizeSlug(slug), undefined))
+  );
 }
 
 export async function generateStaticPaths(mode: AdditionalMode) {
@@ -41,6 +78,8 @@ function isDefaultLocalePage(
   mode: AdditionalMode
 ): boolean {
   if (isExcludedPage(page.id, mode.exclude)) return false;
+  // Splash pages have no sidebar or table of contents to hide, and no page title to display the view mode switcher.
+  if (mode.name === ZenMode && page.data.template === "splash") return false;
 
   const locale = getLocaleFromSlug(page.id);
 

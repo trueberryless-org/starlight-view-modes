@@ -2,7 +2,7 @@ import picomatch from "picomatch";
 import context from "virtual:starlight-view-modes/context";
 
 import { getLocaleFromSlug } from "./i18n";
-import { AvailableModes } from "./modes";
+import { AdditionalModes, AvailableModes } from "./modes";
 import { insertSegment, stripLeadingSlash, stripTrailingSlash } from "./path";
 
 const DefaultMode = "default";
@@ -18,6 +18,59 @@ export function handleIndexSlug(slug: string): string | undefined {
   }
 
   return slug;
+}
+
+// Returns an identifier of a page independent of index pages and slashes, e.g. `guides/intro` for the
+// `guides/intro/index` entry ID.
+export function getPageKey(slug: string): string {
+  const segments = stripLeadingSlash(stripTrailingSlash(slug)).split("/");
+  if (segments.at(-1) === "index") segments.pop();
+
+  return segments.join("/");
+}
+
+// Returns the page identifier of a pathname independent of the base and the view mode, e.g. `guides/intro` for the
+// `/zen-mode/guides/intro/` pathname.
+export function getPathnamePageKey(href: string): string {
+  const pathname = href.split(/[?#]/)[0] ?? "";
+  const slug = stripLeadingSlash(stripTrailingSlash(pathname));
+  const segments = stripSlugBase(slug).split("/");
+  const modePosition = getLocaleFromSlug(slug) ? 1 : 0;
+  // The default mode is never part of pathnames, so a page named like it is kept.
+  const modes = AdditionalModes.map((mode) => mode.name);
+
+  if (modes.includes(segments[modePosition] ?? "")) {
+    segments.splice(modePosition, 1);
+  }
+
+  return getPageKey(segments.join("/"));
+}
+
+// Returns the pathname of a page in the default mode, or nothing if the pathname is not in an additional mode.
+export function stripModePathname(pathname: string): string | undefined {
+  const { position, segments } = getPathnameModeSegment(pathname);
+  if (position === undefined) return undefined;
+
+  segments.splice(position, 1);
+
+  return segments.join("/");
+}
+
+function getPathnameModeSegment(pathname: string): {
+  position: number | undefined;
+  segments: string[];
+} {
+  const segments = pathname.split("/");
+  const position =
+    getBaseSegments().length +
+    (getLocaleFromSlug(pathname) ? 1 : 0) +
+    (pathname.startsWith("/") ? 1 : 0);
+  const modes = AdditionalModes.map((mode) => mode.name);
+
+  return {
+    position: modes.includes(segments[position] ?? "") ? position : undefined,
+    segments,
+  };
 }
 
 export function insertModePathname(pathname: string, mode: string): string {

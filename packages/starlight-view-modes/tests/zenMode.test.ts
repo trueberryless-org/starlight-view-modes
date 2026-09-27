@@ -88,3 +88,18 @@ describe("resolveZenModeFrontmatter", () => {
     });
   });
 });
+
+describe("getZenModeDisplayOptions", () => {
+  test("always displays the header of pages with a hero", async () => {
+    const { getZenModeDisplayOptions } = await importZenMode();
+    const displayOptions = {
+      showHeader: false,
+      showSidebar: false,
+      showTableOfContents: true,
+      showFooter: true,
+    };
+
+    expect(getZenModeDisplayOptions(displayOptions, false)).toEqual(displayOptions);
+    expect(getZenModeDisplayOptions(displayOptions, true)).toEqual({ ...displayOptions, showHeader: true });
+  });
+});

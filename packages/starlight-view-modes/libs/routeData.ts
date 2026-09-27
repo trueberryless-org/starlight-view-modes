@@ -2,17 +2,18 @@ import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 import context from "virtual:starlight-view-modes/context";
 
 import type { StarlightViewModesRouteData } from "../data";
-import { type AvailableMode, AvailableModes, isAdditionalMode } from "./modes";
 import {
-  stripLeadingSlash,
-  stripTrailingSlash,
-  trimToExactlyOneLeadingSlash,
-} from "./path";
-import { getCurrentModeFromPath } from "./server";
+  AdditionalModes,
+  type AvailableMode,
+  AvailableModes,
+  isAdditionalMode,
+} from "./modes";
+import { stripTrailingSlash, trimToExactlyOneLeadingSlash } from "./path";
+import { getCurrentModeFromPath, getModePages, hasModePage } from "./server";
 import {
+  getPathnamePageKey,
   getUpdatedModePathname,
   insertModePathname,
-  isExcludedPage,
 } from "./utils";
 
 export async function getRouteData(
@@ -22,35 +23,53 @@ export async function getRouteData(
   const currentMode = await getCurrentModeFromPath(starlightRoute.id);
   const id = getIdWithBase(starlightRoute.id);
   const modes: StarlightViewModesRouteData["modes"] = [];
+  // Pages of the docs collection can be in a directory named like a mode.
+  const pageKey =
+    currentMode === "default"
+      ? starlightRoute.id
+      : getPathnamePageKey(starlightRoute.id);
 
   for (const mode of AvailableModes) {
     if (mode.name === currentMode) {
       modes.push(getModeData(mode, id, true, t));
-    } else if (isAvailableForPage(mode, id)) {
-      modes.push(
-        getModeData(mode, await getUpdatedModePathname(id, mode.name), false, t)
-      );
+    } else if (await isAvailableForPage(mode, pageKey)) {
+      // Pages in the default mode can be in a directory named like a mode, which must not be replaced.
+      const href =
+        currentMode === "default"
+          ? insertModePathname(id, mode.name)
+          : await getUpdatedModePathname(id, mode.name);
+
+      modes.push(getModeData(mode, href, false, t));
     }
   }
 
   return { modes };
 }
 
-export function getSiteTitleHref(
+export async function getSiteTitleHref(
   siteTitleHref: string,
   routeData: StarlightViewModesRouteData
-): string {
-  const currentMode = routeData.modes.find((mode) => mode.isCurrent);
+): Promise<string> {
+  const currentMode = AdditionalModes.find(
+    (mode) =>
+      mode.name === routeData.modes.find(({ isCurrent }) => isCurrent)?.name
+  );
+  if (!currentMode) return siteTitleHref;
 
-  return currentMode && currentMode.name !== "default"
+  const pages = await getModePages(currentMode);
+
+  return hasModePage(pages, getPathnamePageKey(siteTitleHref))
     ? insertModePathname(siteTitleHref, currentMode.name)
     : siteTitleHref;
 }
 
-function isAvailableForPage(mode: AvailableMode, id: string): boolean {
+async function isAvailableForPage(
+  mode: AvailableMode,
+  id: string
+): Promise<boolean> {
   if (!isAdditionalMode(mode)) return true;
 
-  return mode.enabled && !isExcludedPage(stripLeadingSlash(id), mode.exclude);
+  return mode.enabled && hasModePage(await getModePages(mode), id);
 }
 
 function getModeData(

@@ -1,0 +1,10 @@
+{
+  "name": "@starlight-view-modes-tests/presentation",
+  "version": "0.1.0",
+  "dependencies": {
+    "@astrojs/starlight": "^0.42.4",
+    "astro": "^7.3.5",
+    "starlight-view-modes": "workspace:*"
+  },
+  "private": true
+}

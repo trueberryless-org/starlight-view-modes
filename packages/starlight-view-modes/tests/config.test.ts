@@ -16,6 +16,16 @@ describe("validateConfig", () => {
         exclude: [],
         keyboardShortcut: [],
       },
+      presentationModeSettings: {
+        animation: false,
+        enabled: true,
+        exclude: [],
+        keyboardShortcut: [],
+        presentSidebarGroups: false,
+        splitHeadingLevel: 3,
+        transition: "slide",
+        slideNumber: true,
+      },
     });
   });
 
@@ -24,6 +34,22 @@ describe("validateConfig", () => {
       validateConfig({ zenModeSettings: { keyboardShortcut: "Ctrl+Shift+Z" } })
         .zenModeSettings.keyboardShortcut
     ).toEqual(["Ctrl+Shift+Z"]);
+  });
+
+  test("throws for an unsupported presentation split heading level", () => {
+    expect(() =>
+      validateConfig({ presentationModeSettings: { splitHeadingLevel: 7 } })
+    ).toThrow(/presentationModeSettings\.splitHeadingLevel/);
+  });
+
+  test("accepts a presentation animation or false", () => {
+    expect(
+      validateConfig({ presentationModeSettings: { animation: "fade-left" } })
+        .presentationModeSettings.animation
+    ).toBe("fade-left");
+    expect(() =>
+      validateConfig({ presentationModeSettings: { animation: "grow" as "fade-in" } })
+    ).toThrow(/presentationModeSettings\.animation/);
   });
 
   test("throws when all elements are displayed", () => {

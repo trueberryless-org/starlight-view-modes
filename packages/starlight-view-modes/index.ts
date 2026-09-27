@@ -1,11 +1,13 @@
 /// <reference path="./locals.d.ts" />
 import type { StarlightPlugin } from "@astrojs/starlight/types";
 
+import { updatePresentationSequences } from "./libs/build";
 import {
   type StarlightViewModesConfig,
   type StarlightViewModesUserConfig,
   validateConfig,
 } from "./libs/config";
+import { applyMarkdownPlugin } from "./libs/processor";
 import { getComponentOverrides } from "./libs/starlight";
 import { vitePluginStarlightViewModes } from "./libs/vite";
 import { Translations } from "./translations";
@@ -49,6 +51,7 @@ export default function starlightViewModes(
             "astro:config:setup": ({
               config: astroConfig,
               injectRoute,
+              logger: integrationLogger,
               updateConfig,
             }) => {
               updateConfig({
@@ -69,6 +72,28 @@ export default function starlightViewModes(
                   pattern: "[...locale]/zen-mode/[...path]",
                   prerender: true,
                 });
+              }
+
+              if (config.presentationModeSettings.enabled) {
+                applyMarkdownPlugin(
+                  astroConfig.markdown.processor,
+                  integrationLogger
+                );
+
+                injectRoute({
+                  entrypoint:
+                    "starlight-view-modes/routes/PresentationMode.astro",
+                  pattern: "[...locale]/presentation-mode/[...path]",
+                  prerender: true,
+                });
+              }
+            },
+            "astro:build:done": async ({ dir }) => {
+              const { enabled, presentSidebarGroups } =
+                config.presentationModeSettings;
+
+              if (enabled && presentSidebarGroups) {
+                await updatePresentationSequences(dir);
               }
             },
           },
