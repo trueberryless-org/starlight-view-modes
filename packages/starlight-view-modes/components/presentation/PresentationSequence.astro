@@ -1,5 +1,8 @@
 ---
-import { SequenceClassName, getPresentationSequence } from "../../libs/sequence";
+import {
+  SequenceClassName,
+  getPresentationSequence,
+} from "../../libs/sequence";
 
 interface Props {
   slides: number;
@@ -17,5 +20,4 @@ const sequence = getPresentationSequence(sidebar, locale);
   data-sequence={sequence?.id}
   data-sequence-index={sequence?.index}
   data-slides={Astro.props.slides + (pagination.next ? 1 : 0)}
->
-</div>
+></div>

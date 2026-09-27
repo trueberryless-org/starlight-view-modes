@@ -191,12 +191,16 @@ function showLastSlide(deck: RevealApi, { next }: Sequence): boolean {
 }
 
 // Continues the presentation on the next or previous page when going past the last or first slide.
-function setupPageNavigation(deck: RevealApi, { next, previous }: Sequence): void {
+function setupPageNavigation(
+  deck: RevealApi,
+  { next, previous }: Sequence
+): void {
   document.addEventListener(
     "keydown",
     (event) => {
       const direction = getNavigationDirection(event);
-      if (!direction || !deck.isReady() || deck.isOverview() || deck.isPaused()) return;
+      if (!direction || !deck.isReady() || deck.isOverview() || deck.isPaused())
+        return;
       if (document.querySelector("dialog[open]")) return;
 
       const href =

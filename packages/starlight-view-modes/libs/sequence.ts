@@ -5,7 +5,8 @@ export const SequenceClassName = "starlight-view-modes-presentation-sequence";
 const sequenceElementPattern = new RegExp(
   `<div class="${SequenceClassName}"[^>]*>`
 );
-const sequenceAttributePattern = /data-(sequence|sequence-index|slides)="([^"]*)"/g;
+const sequenceAttributePattern =
+  /data-(sequence|sequence-index|slides)="([^"]*)"/g;
 
 // The pages of a top-level sidebar group are presented as a sequence, e.g. the lessons of a course, with slide numbers
 // counting the slides of all these pages.
@@ -14,7 +15,9 @@ export function getPresentationSequence(
   locale: string | undefined
 ): PresentationSequence | undefined {
   const groupIndex = sidebar.findIndex(
-    (entry) => entry.type === "group" && getSidebarLinks(entry).some((link) => link.isCurrent)
+    (entry) =>
+      entry.type === "group" &&
+      getSidebarLinks(entry).some((link) => link.isCurrent)
   );
   const group = sidebar[groupIndex];
   if (!group) return undefined;
@@ -51,7 +54,10 @@ export function getSequencePage(html: string): SequencePage | undefined {
   if (!element) return undefined;
 
   const attributes = Object.fromEntries(
-    [...element.matchAll(sequenceAttributePattern)].map(([, name, value]) => [name, value])
+    [...element.matchAll(sequenceAttributePattern)].map(([, name, value]) => [
+      name,
+      value,
+    ])
   );
   if (!attributes["sequence"]) return undefined;
 
@@ -62,14 +68,19 @@ export function getSequencePage(html: string): SequencePage | undefined {
   };
 }
 
-export function setSequenceCount(html: string, { offset, total }: SequenceCount): string {
+export function setSequenceCount(
+  html: string,
+  { offset, total }: SequenceCount
+): string {
   return html.replace(sequenceElementPattern, (element) =>
     element.replace(/>$/, ` data-offset="${offset}" data-total="${total}">`)
   );
 }
 
 function getSidebarLinks(entry: SidebarEntry): SidebarLink[] {
-  return entry.type === "link" ? [entry] : entry.entries.flatMap(getSidebarLinks);
+  return entry.type === "link"
+    ? [entry]
+    : entry.entries.flatMap(getSidebarLinks);
 }
 
 type SidebarEntry = StarlightRouteData["sidebar"][number];

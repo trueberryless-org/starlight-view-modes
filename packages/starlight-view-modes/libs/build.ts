@@ -2,7 +2,11 @@ import { readFile, readdir, writeFile } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { getSequenceCounts, getSequencePage, setSequenceCount } from "./sequence";
+import {
+  getSequenceCounts,
+  getSequencePage,
+  setSequenceCount,
+} from "./sequence";
 
 // The modes module cannot be imported from integration hooks as it depends on the plugin virtual modules.
 const PresentationModeSegment = "presentation-mode";
@@ -35,5 +39,7 @@ async function getPresentationFiles(dir: string): Promise<string[]> {
   return entries
     .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
     .map((entry) => join(entry.parentPath, entry.name))
-    .filter((file) => relative(dir, file).split(/[/\\]/).includes(PresentationModeSegment));
+    .filter((file) =>
+      relative(dir, file).split(/[/\\]/).includes(PresentationModeSegment)
+    );
 }
