@@ -440,6 +440,17 @@ describe("getSlides", () => {
         );
       });
 
+      test("starts a slide empty when a pause ends kept content preceding its heading", () => {
+        const [, first, second] = deck(
+          '<h2 id="a">A</h2><!-- presentation: keep start --><p>One</p><!-- presentation: pause --><!-- presentation: keep end --><h2 id="b">B</h2><p>Two</p>'
+        ).stacks.flat();
+
+        expect(first?.html).toBe('<h2 id="a">A</h2><p>One</p>');
+        expect(second?.html).toBe(
+          '<h2 id="b" class="fragment" data-fragment-index="0">B</h2><p class="fragment" data-fragment-index="0">Two</p>'
+        );
+      });
+
       test("ignores pauses at the end of a slide", () => {
         const [, section] = deck('<h2 id="a">A</h2><p>One</p><!-- presentation: pause -->').stacks.flat();
 

@@ -173,9 +173,14 @@ function getSectionGroups(sections: Section[]): Section[][] {
   return groups;
 }
 
+// Removes a pause ending the content of a section, including at the end of content kept on a single slide.
 function removeTrailingPause(blocks: ElementContent[]): boolean {
   const block = blocks.at(-1);
-  if (!block || !isPauseMarker(block)) return false;
+  if (!block) return false;
+  if (block.type === "element" && isKeep(block)) {
+    return removeTrailingPause(block.children);
+  }
+  if (!isPauseMarker(block)) return false;
 
   blocks.pop();
   return true;
