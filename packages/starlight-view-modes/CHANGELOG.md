@@ -1,5 +1,31 @@
 # starlight-view-modes
 
+## 0.15.0
+
+### Minor Changes
+
+- [#203](https://github.com/trueberryless-org/starlight-view-modes/pull/203) [`599bb3f`](https://github.com/trueberryless-org/starlight-view-modes/commit/599bb3fed32dce3960e14b78915030da80b69414) Thanks [@trueberryless-bot](https://github.com/trueberryless-bot)! - Adds a new [Presentation Mode](https://starlight-view-modes.netlify.app/presentation/) to present documentation pages as slide decks, configurable using the new [`presentationModeSettings`](https://starlight-view-modes.netlify.app/configuration/#presentationmodesettings) option.
+  
+  To disable Presentation Mode, set the `presentationModeSettings.enabled` option to `false`:
+  
+  ```js
+  starlightViewModes({
+    presentationModeSettings: {
+      enabled: false,
+    },
+  }),
+  ```
+
+- [#203](https://github.com/trueberryless-org/starlight-view-modes/pull/203) [`599bb3f`](https://github.com/trueberryless-org/starlight-view-modes/commit/599bb3fed32dce3960e14b78915030da80b69414) Thanks [@trueberryless-bot](https://github.com/trueberryless-bot)! - Stays within the same section when switching between view modes, including from custom switchers built using the [View Modes Data](https://starlight-view-modes.netlify.app/view-modes-data/).
+
+### Patch Changes
+
+- [#203](https://github.com/trueberryless-org/starlight-view-modes/pull/203) [`599bb3f`](https://github.com/trueberryless-org/starlight-view-modes/commit/599bb3fed32dce3960e14b78915030da80b69414) Thanks [@trueberryless-bot](https://github.com/trueberryless-bot)! - Fixes view mode links to pages not rendered from the docs content collection, e.g. pages added by other plugins, which are now opened in the default view mode.
+
+- [#203](https://github.com/trueberryless-org/starlight-view-modes/pull/203) [`599bb3f`](https://github.com/trueberryless-org/starlight-view-modes/commit/599bb3fed32dce3960e14b78915030da80b69414) Thanks [@trueberryless-bot](https://github.com/trueberryless-bot)! - Fixes the view mode switcher text of the page title being included in search results.
+
+- [#203](https://github.com/trueberryless-org/starlight-view-modes/pull/203) [`599bb3f`](https://github.com/trueberryless-org/starlight-view-modes/commit/599bb3fed32dce3960e14b78915030da80b69414) Thanks [@trueberryless-bot](https://github.com/trueberryless-bot)! - Fixes Zen Mode layouts without header on small screens, and prevents being unable to leave [Zen Mode](https://starlight-view-modes.netlify.app/zen/) on pages with a hero. Splash pages are no longer available in Zen Mode.
+
 ## 0.14.1
 
 ### Patch Changes
