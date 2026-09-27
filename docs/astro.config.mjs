@@ -5,11 +5,34 @@ import starlightImageZoom from "starlight-image-zoom";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightViewModes from "starlight-view-modes";
 
+const site =
+  (process.env.CONTEXT === "deploy-preview" ||
+  process.env.CONTEXT === "branch-deploy"
+    ? process.env.DEPLOY_PRIME_URL
+    : process.env.URL) ?? "https://starlight-view-modes.netlify.app";
+
 // https://astro.build/config
 export default defineConfig({
+  site,
   integrations: [
     starlight({
       title: "Starlight View Modes",
+      head: [
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image",
+            content: new URL("og.png", site).href,
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image:alt",
+            content: "Different view modes for your docs.",
+          },
+        },
+      ],
       customCss: ["./src/styles/custom.css"],
       social: [
         {
