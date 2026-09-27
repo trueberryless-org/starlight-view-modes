@@ -90,3 +90,25 @@ test("searches the site and opens the presentation of a result", async ({
   await search.getByRole("link", { name: "Homework" }).first().click();
   await expect(page).toHaveURL(/\/presentation-mode\/homework\//);
 });
+
+test("continues the presentation on the next and previous pages of a sidebar group", async ({
+  page,
+}) => {
+  await gotoPresentation(page, "/presentation-mode/lesson/");
+
+  const slideNumber = page.locator(".slide-number");
+  const total = Number((await slideNumber.textContent())?.split("/")[1]);
+
+  await page.keyboard.press("End");
+  await expect(page.locator(".slides section.present")).toContainText("Homework");
+  const last = Number((await slideNumber.textContent())?.split("/")[0]);
+
+  await page.keyboard.press("ArrowRight");
+  await expect(page).toHaveURL("/presentation-mode/homework/");
+  await expect(page.locator("starlight-view-modes-presentation[data-ready]")).toBeAttached();
+  await expect(slideNumber).toHaveText(new RegExp(`^\\s*${last + 1}\\s*/\\s*${total}\\s*$`));
+
+  await page.keyboard.press("ArrowLeft");
+  await expect(page).toHaveURL("/presentation-mode/lesson/#code");
+  await expect(slideNumber).toHaveText(new RegExp(`^\\s*${last - 1}\\s*/\\s*${total}\\s*$`));
+});

@@ -57,6 +57,19 @@ The arrows in the bottom right corner show the directions in which more slides a
 Use `→` and `←` to go through the sections of a page, and `↓` and `↑` to explore the details of a section when available.
 `Space` goes through all slides in order.
 
+## Presenting several pages
+
+The pages of a top-level [sidebar group](https://starlight.astro.build/guides/sidebar/#groups) form a single presentation, e.g. the lessons of a course:
+
+- Slide numbers count the slides of all pages of the group, e.g. "23/63" on the second page of a group.
+- Going past the last slide of a page continues with the presentation of the next page, and going back from the first slide of a page returns to the last slide of the previous page.
+
+Slide numbers spanning several pages are added when building your site, so the development server numbers the slides of each page separately.
+
+<SpeakerNotes>
+  Go back and forth between the end of this page and the next one.
+</SpeakerNotes>
+
 ## Controlling slides
 
 Slides are generated automatically and should work well for most content, but you know your content best.

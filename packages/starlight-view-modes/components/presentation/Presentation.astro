@@ -6,6 +6,7 @@ import type { PageDescriptions } from "../../libs/presentationMode";
 import PresentationContents from "./PresentationContents.astro";
 import PresentationMenu from "./PresentationMenu.astro";
 import PresentationNextPage from "./PresentationNextPage.astro";
+import PresentationSequence from "./PresentationSequence.astro";
 import PresentationSlide from "./PresentationSlide.astro";
 import PresentationToolbar from "./PresentationToolbar.astro";
 
@@ -45,6 +46,7 @@ const { deck, options } = getPresentation(
   >
     <ol></ol>
   </nav>
+  <PresentationSequence slides={deck.stacks.flat().length} />
   <PresentationMenu />
   <PresentationToolbar />
   <PresentationContents

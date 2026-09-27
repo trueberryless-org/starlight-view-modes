@@ -1,0 +1,21 @@
+---
+import { SequenceClassName, getPresentationSequence } from "../../libs/sequence";
+
+interface Props {
+  slides: number;
+}
+
+const { locale, pagination, sidebar } = Astro.locals.starlightRoute;
+const sequence = getPresentationSequence(sidebar, locale);
+---
+
+<div
+  class={SequenceClassName}
+  hidden
+  data-next={pagination.next?.href}
+  data-previous={pagination.prev?.href}
+  data-sequence={sequence?.id}
+  data-sequence-index={sequence?.index}
+  data-slides={Astro.props.slides + (pagination.next ? 1 : 0)}
+>
+</div>

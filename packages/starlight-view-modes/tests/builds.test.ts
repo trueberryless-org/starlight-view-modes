@@ -119,3 +119,19 @@ test('supports presentation directives in MDX pages', async () => {
   expect(presentation).toMatch(/Directives<span class="starlight-view-modes-presentation-counter">2\/2<\/span><\/h2>\s*<p>After the break.<\/p>/)
   expect(presentation).toContain('<aside class="notes">A speaker note.</aside>')
 })
+
+test('numbers the slides of all pages of a sidebar group', async () => {
+  const { status } = await buildFixture('presentation')
+  const sequence = (page: string) =>
+    /<div class="starlight-view-modes-presentation-sequence"[^>]*>/.exec(
+      readFixtureOutput('presentation', `presentation-mode/${page}/index.html`)
+    )?.[0]
+  const lessonSlides = Number(/data-slides="(\d+)"/.exec(sequence('lesson') ?? '')?.[1])
+  const homeworkSlides = Number(/data-slides="(\d+)"/.exec(sequence('homework') ?? '')?.[1])
+  const total = lessonSlides + homeworkSlides
+
+  expect(status).toBe('success')
+  expect(sequence('lesson')).toContain(`data-offset="0" data-total="${total}"`)
+  expect(sequence('homework')).toContain(`data-offset="${lessonSlides}" data-total="${total}"`)
+  expect(sequence('components')).not.toContain('data-offset')
+})

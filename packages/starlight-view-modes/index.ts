@@ -6,6 +6,7 @@ import {
   type StarlightViewModesUserConfig,
   validateConfig,
 } from "./libs/config";
+import { updatePresentationSequences } from "./libs/build";
 import { getComponentOverrides } from "./libs/starlight";
 import { vitePluginStarlightViewModes } from "./libs/vite";
 import { Translations } from "./translations";
@@ -78,6 +79,11 @@ export default function starlightViewModes(
                   pattern: "[...locale]/presentation-mode/[...path]",
                   prerender: true,
                 });
+              }
+            },
+            "astro:build:done": async ({ dir }) => {
+              if (config.presentationModeSettings.enabled) {
+                await updatePresentationSequences(dir);
               }
             },
           },
