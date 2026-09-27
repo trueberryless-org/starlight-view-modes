@@ -22,9 +22,6 @@
     "./components/ViewModeSwitcher.astro": "./components/navigation/ViewModeSwitcher.astro",
     "./components/KeyboardShortcuts.astro": "./components/navigation/KeyboardShortcuts.astro",
     "./components/SpeakerNotes.astro": "./components/content/SpeakerNotes.astro",
-    "./components/SlideBreak.astro": "./components/content/SlideBreak.astro",
-    "./components/SlideHide.astro": "./components/content/SlideHide.astro",
-    "./components/SlideKeep.astro": "./components/content/SlideKeep.astro",
     "./routes/ZenMode.astro": "./routes/ZenMode.astro",
     "./routes/PresentationMode.astro": "./routes/PresentationMode.astro",
     "./styles/zen-mode.css": "./styles/zen-mode.css",
@@ -36,11 +33,14 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.1",
     "@pagefind/default-ui": "^1.5.2",
     "hast-util-from-html": "^2.0.3",
     "hast-util-to-html": "^9.0.5",
+    "mdast-util-mdx-expression": "^2.0.1",
     "picomatch": "^4.0.7",
     "reveal.js": "^6.0.2",
+    "satteri": "^0.10.5",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {

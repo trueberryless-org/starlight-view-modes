@@ -285,6 +285,17 @@ describe("getSlides", () => {
     expect(html).toContain("<p>One</p><p>Two</p>");
   });
 
+  test("supports directives authored as MDX comments", () => {
+    const sections = slides(
+      '<h2 id="heading">Heading</h2><p>One</p><p hidden><!-- presentation: break --></p><p>Two</p><p hidden><!-- presentation: hide start --></p><p>Hidden</p><p hidden><!-- presentation: hide end --></p>'
+    ).slice(1);
+
+    expect(sections.map(({ html }) => html)).toEqual([
+      `<h2 id="heading">Heading${counter("1/2")}</h2><p>One</p>`,
+      `<h2>Heading${counter("2/2")}</h2><p>Two</p>`,
+    ]);
+  });
+
   test("ignores unknown directives and regular comments", () => {
     const [, section] = slides(
       '<h2 id="heading">Heading</h2><p>One</p><!-- presentation: unknown --><p>Two</p>'

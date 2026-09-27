@@ -2,6 +2,7 @@
 import type { StarlightPlugin } from "@astrojs/starlight/types";
 
 import { updatePresentationSequences } from "./libs/build";
+import { applyMarkdownPlugin } from "./libs/processor";
 import {
   type StarlightViewModesConfig,
   type StarlightViewModesUserConfig,
@@ -73,6 +74,8 @@ export default function starlightViewModes(
               }
 
               if (config.presentationModeSettings.enabled) {
+                applyMarkdownPlugin(astroConfig.markdown.processor);
+
                 injectRoute({
                   entrypoint:
                     "starlight-view-modes/routes/PresentationMode.astro",

@@ -72,6 +72,14 @@ test('prefixes content links with the unified Markdown processor', async () => {
   expect(html).toContain('<a href="mailto:hello@example.com">Mail</a>')
 })
 
+test('supports presentation directives with the unified Markdown processor', async () => {
+  const { status } = await buildFixture('markdown-unified')
+  const html = readFixtureOutput('markdown-unified', 'presentation-mode/demo/index.html')
+
+  expect(status).toBe('success')
+  expect(html).toMatch(/Directives<span class="starlight-view-modes-presentation-counter">2\/2<\/span><\/h2>\s*<p>After the break.<\/p>/)
+})
+
 test('does not render the search when Pagefind is disabled', async () => {
   const { status } = await buildFixture('pagefind-disabled')
   const html = readFixtureOutput('pagefind-disabled', 'demo/index.html')

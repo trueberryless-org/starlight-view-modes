@@ -72,8 +72,9 @@ export default defineConfig({
           label: "Start Here",
           items: [
             "getting-started",
+            "zen",
+            "presentation",
             "configuration",
-            "presentations",
             "view-modes-data",
             "css-customization",
             "i18n",

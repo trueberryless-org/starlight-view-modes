@@ -12,6 +12,7 @@ import {
   isElementContent,
   isNotes,
 } from "./hast";
+import { type Directive, getDirective } from "./directives";
 import {
   KeepClassName,
   getBlockLines,
@@ -26,8 +27,6 @@ const HeadingWrapperClassName = "sl-heading-wrapper";
 const CounterClassName = "starlight-view-modes-presentation-counter";
 const DescriptionClassName = "starlight-view-modes-presentation-description";
 
-const directivePattern =
-  /^\s*presentation:\s*(break|hide start|hide end|keep start|keep end)\s*$/;
 
 export function getSlides(tree: Root, options: SlidesOptions): SlideDeck {
   const [introGroup, ...groups] = getSectionGroups(
@@ -74,7 +73,7 @@ function getSections(
   for (const node of nodes) {
     if (!isElementContent(node)) continue;
 
-    const directive = getDirective(node);
+    const directive = getNodeDirective(node);
 
     if (directive === "hide end") {
       isHidden = false;
@@ -345,10 +344,13 @@ function getNotesHtml(notes: ElementContent[]): string | undefined {
   return notes.length > 0 ? toHtml(notes) : undefined;
 }
 
-function getDirective(node: ElementContent): Directive | undefined {
-  if (node.type !== "comment") return undefined;
+// Directives are HTML comments, which are wrapped in a hidden paragraph when authored as MDX comments.
+function getNodeDirective(node: ElementContent): Directive | undefined {
+  if (node.type === "comment") return getDirective(node.value);
 
-  return directivePattern.exec(node.value)?.[1] as Directive | undefined;
+  const [child, ...rest] = node.type === "element" && isElement(node, "p") && node.properties["hidden"] ? node.children : [];
+
+  return child?.type === "comment" && rest.length === 0 ? getDirective(child.value) : undefined;
 }
 
 function getHeading(node: ElementContent): Element | undefined {
@@ -435,6 +437,3 @@ interface InlineHeading {
   rank: number;
   title: string;
 }
-
-type Directive =
-  "break" | "hide start" | "hide end" | "keep start" | "keep end";

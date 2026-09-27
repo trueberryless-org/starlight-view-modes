@@ -68,6 +68,9 @@ importers:
 
   packages/starlight-view-modes:
     dependencies:
+      '@astrojs/markdown-remark':
+        specifier: ^7.3.1
+        version: 7.3.1(supports-color@10.2.2)
       '@pagefind/default-ui':
         specifier: ^1.5.2
         version: 1.5.2
@@ -77,12 +80,18 @@ importers:
       hast-util-to-html:
         specifier: ^9.0.5
         version: 9.0.5
+      mdast-util-mdx-expression:
+        specifier: ^2.0.1
+        version: 2.0.1(supports-color@10.2.2)
       picomatch:
         specifier: ^4.0.7
         version: 4.0.7
       reveal.js:
         specifier: ^6.0.2
         version: 6.0.2
+      satteri:
+        specifier: ^0.10.5
+        version: 0.10.5
       unist-util-visit:
         specifier: ^5.1.0
         version: 5.1.0

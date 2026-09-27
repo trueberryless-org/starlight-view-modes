@@ -2,29 +2,28 @@
 title: Components
 ---
 
-import SlideBreak from "starlight-view-modes/components/SlideBreak.astro";
-import SlideHide from "starlight-view-modes/components/SlideHide.astro";
-import SlideKeep from "starlight-view-modes/components/SlideKeep.astro";
 import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
 
 ## Directives
 
 Before the break.
 
-<SlideBreak />
+{/* presentation: break */}
 
 After the break.
 
-<SlideHide>
+{/* presentation: hide start */}
 
 Hidden from the presentation.
 
-</SlideHide>
+{/* presentation: hide end */}
 
-<SlideKeep>
+{/* presentation: keep start */}
 
 Kept together.
 
-</SlideKeep>
+{/* presentation: keep end */}
+
+{/* A regular comment */}
 
 <SpeakerNotes>A speaker note.</SpeakerNotes>
