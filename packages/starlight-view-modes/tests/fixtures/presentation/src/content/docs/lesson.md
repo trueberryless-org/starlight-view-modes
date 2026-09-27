@@ -31,6 +31,8 @@ This paragraph explains the topic in enough detail to fill a good part of a slid
 
 This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. 
 
+<p class="fragment">Displayed when going back.</p>
+
 <!-- presentation: hide start -->
 
 Only visible in the documentation.

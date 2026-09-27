@@ -138,6 +138,14 @@ test("skips animations when going back", async ({ page }) => {
   await expect(page).not.toHaveURL(/#code$/);
 });
 
+test("displays all the content of the previous slide when going back", async ({ page }) => {
+  await gotoPresentation(page, "/presentation-mode/lesson/#code");
+
+  await page.keyboard.press("PageUp");
+  await expect(page).not.toHaveURL(/#code$/);
+  await expect(page.locator(".fragment", { hasText: "Displayed when going back." })).toHaveClass(/\bvisible\b/);
+});
+
 test("jumps to slides of all pages of a sidebar group", async ({ page }) => {
   await gotoPresentation(page, "/presentation-mode/homework/");
 
@@ -204,7 +212,7 @@ test("keeps the speaker view in sync with the presentation", async ({ context, p
   await expect(currentSlide.locator(".slides section.present h2")).toContainText("Code");
   // The first key press shows the fragment of the last slide.
   await speakerView.keyboard.press("ArrowRight");
-  await expect(currentSlide.locator(".fragment")).toHaveClass(/\bvisible\b/);
+  await expect(currentSlide.locator(".fragment", { hasText: "Revealed step by step." })).toHaveClass(/\bvisible\b/);
   await speakerView.keyboard.press("ArrowRight");
   await expect(page).toHaveURL("/presentation-mode/homework/");
   await expect(speakerView.locator("#current-slide iframe")).toHaveAttribute("src", /\/presentation-mode\/homework\//);
