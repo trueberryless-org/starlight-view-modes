@@ -46,8 +46,12 @@ const switches = getModeSwitches(Astro.locals.starlightViewModes);
 )}
 
 <script>
-  import { updateModeLinksWithHash } from "../../libs/navigation";
+  import {
+    preserveSectionOnModeSwitch,
+    updateModeLinksWithHash,
+  } from "../../libs/navigation";
 
+  preserveSectionOnModeSwitch();
   updateModeLinksWithHash();
   window.addEventListener("hashchange", updateModeLinksWithHash);
 </script>

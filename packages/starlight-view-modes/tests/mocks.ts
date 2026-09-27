@@ -36,6 +36,10 @@ export function mockConfig() {
         exclude: [],
         keyboardShortcut: [],
       },
+      presentationModeSettings: {
+        exclude: [],
+        keyboardShortcut: [],
+      },
     },
   }));
 }

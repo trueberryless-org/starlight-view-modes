@@ -6,6 +6,8 @@ tableOfContents:
   maxHeadingLevel: 5
 ---
 
+import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
+
 The Starlight View Modes plugin can be configured inside the `astro.config.mjs` configuration file of your project:
 
 ```js {11}
@@ -37,7 +39,7 @@ The Starlight View Modes plugin accepts the following configuration options:
 **Type:** `object`  
 **Default:** `{}`
 
-Here you can find all options regarding Zen mode.
+Here you can find all options regarding [Zen Mode](/zen/).
 
 #### `enabled`
 
@@ -70,6 +72,8 @@ Disabling this option is useful if a Zen Mode doesn't make much sense on your we
   showFooter: true
 }
 ```
+
+The page elements displayed in Zen Mode, also described in [Hidden elements](/zen/#hidden-elements).
 
 :::note
 It is not possible to set all four `displayOptions` to `true` because this would look exactly like the normal mode.
@@ -133,13 +137,14 @@ You can use this [webpage](https://www.digitalocean.com/community/tools/glob) to
 
 **Type:** `string | string[]`
 
-A list of keyboard shortcuts that will enable the user to enter and exit the Zen Mode.
+A list of keyboard shortcuts that will enable the user to [enter](/zen/#entering-zen-mode) and exit the Zen Mode.
 Keyboard shortcuts are disabled by default.
 
 A basic shortcut consists of one or more modifier keys followed by a regular key, all connected with `+` signs.
 The Starlight View Modes plugin accepts the following modifier keys: `Ctrl`, `Shift`, `Alt`.
 
-As an example, this website uses the following keyboard shortcut configuration:
+On macOS, `Ctrl` matches both the `Control` and the `Command` keys.
+As an example, this website uses the following keyboard shortcut configuration, so you can press `Ctrl+Shift+Z` (`Cmd+Shift+Z` on macOS) to toggle Zen mode:
 
 ```js
 starlightViewModes({
@@ -150,5 +155,96 @@ starlightViewModes({
 ```
 
 :::note
-We don't recommend using the shortcut `Ctrl+K` because it is already used for opening the search modal.
+We don't recommend using the shortcut `Ctrl+K` (`Cmd+K` on macOS) because it is already used for opening the search modal.
 :::
+
+### `presentationModeSettings`
+
+**Type:** `object`  
+**Default:** `{}`
+
+Here you can find all options regarding [Presentation Mode](/presentation/).
+
+#### `enabled`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Whether the Presentation Mode feature overall should be enabled or disabled.
+
+#### `exclude`
+
+**Type:** `string[]`  
+**Default:** `[]`
+
+A list of pages or [glob patterns](https://github.com/micromatch/picomatch#globbing-features) that cannot be presented.
+
+If your site is multilingual, your glob patterns do **not** need to start with the [locale prefix](https://starlight.astro.build/reference/configuration/#locales).  
+E.g. `["resources/**/*"]` instead of `["en/resources/**/*"]` will also work for all locales.
+A page cannot be excluded in only one language.
+
+#### `keyboardShortcut`
+
+**Type:** `string | string[]`
+
+A list of keyboard shortcuts that will enable the user to [start](/presentation/#starting-a-presentation) and stop presenting the current page.
+Keyboard shortcuts are disabled by default.
+
+A basic shortcut consists of one or more modifier keys followed by a regular key, all connected with `+` signs.
+The Starlight View Modes plugin accepts the following modifier keys: `Ctrl`, `Shift`, `Alt`.
+On macOS, `Ctrl` matches both the `Control` and the `Command` keys.
+
+This website uses the following configuration, so you can press `Ctrl+Shift+Y` (`Cmd+Shift+Y` on macOS) to present the current page:
+
+```js
+starlightViewModes({
+  presentationModeSettings: {
+    keyboardShortcut: ["Ctrl+Shift+Y"],
+  },
+}),
+```
+
+#### `presentSidebarGroups`
+
+**Type:** `boolean`  
+**Default:** `false`
+
+Whether the pages of a top-level sidebar group are [presented as a single presentation](/presentation/#presenting-several-pages).
+When enabled, slides are numbered across all pages of the group, and going past the last or first slide of a page continues with the next or previous page of the group.
+
+#### `splitHeadingLevel`
+
+**Type:** `2 | 3 | 4 | 5 | 6`  
+**Default:** `3`
+
+The deepest heading level starting a new slide, as described in [How pages become slides](/presentation/#how-pages-become-slides).
+The content of deeper headings stays on the slide of their section when it fits, and otherwise continues on slides placed vertically below the section.
+
+For example, set this option to `2` to also keep the content of `h3` headings on the slide of their parent section when possible, or to `4` to start a new slide for each `h4` heading.
+
+<SpeakerNotes>
+  This page uses deeply nested headings: use the down arrow to explore the
+  options of each setting when available.
+</SpeakerNotes>
+
+#### `transition`
+
+**Type:** `"none" | "fade" | "slide" | "convex" | "concave" | "zoom"`  
+**Default:** `"slide"`
+
+The [transition](https://revealjs.com/transitions/) used when moving between slides.
+
+#### `animation`
+
+**Type:** `false | "fade-in" | "fade-up" | "fade-down" | "fade-left" | "fade-right" | "zoom-in"`  
+**Default:** `false`
+
+The [reveal.js fragment style](https://revealjs.com/fragments/) used to [reveal list items](/presentation/#revealing-content-step-by-step) one by one.
+When `false`, list items are displayed right away, and [pauses](/presentation/#revealing-content-step-by-step) fade in the content following them.
+
+#### `slideNumber`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Whether the current slide number and the total number of slides should be displayed during a presentation.

@@ -1,4 +1,4 @@
-import type { Element } from "hast";
+import type { Element, Root } from "hast";
 import { fromHtml } from "hast-util-from-html";
 import { toHtml } from "hast-util-to-html";
 import { visit } from "unist-util-visit";
@@ -11,6 +11,12 @@ const IgnoreAttribute = "view-modes-ignore";
 export function prefixInternalLinks(html: string, mode: string): string {
   const tree = fromHtml(html, { fragment: true });
 
+  prefixTreeInternalLinks(tree, mode);
+
+  return toHtml(tree);
+}
+
+export function prefixTreeInternalLinks(tree: Root, mode: string): void {
   visit(tree, "element", (node) => {
     if (isPrefixableLink(node)) {
       node.properties["href"] = insertModePathname(
@@ -19,8 +25,6 @@ export function prefixInternalLinks(html: string, mode: string): string {
       );
     }
   });
-
-  return toHtml(tree);
 }
 
 function isPrefixableLink(

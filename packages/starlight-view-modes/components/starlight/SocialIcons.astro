@@ -1,5 +1,16 @@
 ---
 import ViewModeSwitcher from "../navigation/ViewModeSwitcher.astro";
+
+const isNotFound = Astro.locals.starlightRoute.id === "404";
 ---
 
 <ViewModeSwitcher type="social-links" />
+{isNotFound && <starlight-view-modes-not-found hidden />}
+
+<script>
+  import { redirectToDefaultMode } from "../../libs/navigation";
+
+  if (document.querySelector("starlight-view-modes-not-found")) {
+    redirectToDefaultMode();
+  }
+</script>

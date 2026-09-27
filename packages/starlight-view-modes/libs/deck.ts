@@ -1,0 +1,368 @@
+import Reveal, { type RevealApi, type TransitionStyle } from "reveal.js";
+import Notes, { type NotesPlugin } from "reveal.js/plugin/notes";
+import Zoom from "reveal.js/plugin/zoom";
+
+import { getBackwardNavigationPlugin } from "./deckFragments";
+import { setupJump } from "./deckJump";
+import {
+  getSequence,
+  getSequenceConfig,
+  getSequenceNavigationPlugin,
+  showQuerySlide,
+} from "./deckSequence";
+import {
+  getPageNavigator,
+  isSpeakerPreview,
+  syncSpeakerView,
+} from "./deckSpeaker";
+import { updateModeLinksWithHash } from "./navigation";
+
+const LandscapeSlideSize = { width: 1280, height: 720 };
+// Portrait slides keep the text readable on portrait phones and tablets, where landscape slides would be tiny.
+const PortraitSlideSize = { width: 720, height: 1280 };
+const PortraitMaxWidth = 800;
+const IdleDelay = 2500;
+const MinimumFitScale = 0.5;
+const FitAttempts = 3;
+const PrintQueryParameter = "print-pdf";
+const ContentsKey = { keyCode: 77, key: "M" };
+const ExitKey = { keyCode: 27, key: "Esc" };
+
+export async function initializePresentation(
+  element: HTMLElement
+): Promise<void> {
+  const revealElement = element.querySelector<HTMLElement>(".reveal");
+  const contents = element.querySelector<HTMLDialogElement>("dialog");
+  if (!revealElement || !contents) return;
+
+  const sequence = getSequence(element);
+  // The previews of the speaker view only display the slides.
+  if (isSpeakerPreview()) element.setAttribute("data-speaker-preview", "");
+  const options = parseDeckOptions(element.dataset["options"]);
+  const navigateToPage = getPageNavigator();
+  const startSpeakerViewSync = isSpeakerPreview()
+    ? undefined
+    : syncSpeakerView();
+
+  const deck: RevealApi = new Reveal(revealElement, {
+    center: false,
+    // Keyboard navigation is disabled while a dialog is open, e.g. the contents or the search.
+    keyboardCondition: () => !document.querySelector("dialog[open]"),
+    hash: false,
+    history: false,
+    // The overview is replaced by the contents, and `Esc` leaves Presentation Mode instead.
+    overview: false,
+    jumpToSlide: false,
+    respondToHashChanges: false,
+    ...getSlideSize(),
+    // Slides are adapted to portrait screens instead of being displayed in the scroll view of small screens.
+    scrollActivationWidth: 0,
+    margin: 0.04,
+    // Exported presentations display all the content of each slide on a single page.
+    pdfSeparateFragments: false,
+    plugins: [
+      Notes,
+      Zoom,
+      ...(sequence && navigateToPage
+        ? [getSequenceNavigationPlugin(sequence, navigateToPage)]
+        : []),
+      // Registered after the sequence navigation so that going back to the previous page also skips animations.
+      getBackwardNavigationPlugin(),
+    ],
+    ...getDeckConfig(options),
+    ...(sequence && getSequenceConfig(sequence, options, () => deck)),
+  });
+
+  const isPrinting = isPrintView();
+
+  // The print view is laid out during the initialization, so the handler must be registered before.
+  if (isPrinting) {
+    deck.on("pdf-ready", async () => {
+      await document.fonts.ready;
+      fitSlides(deck.getSlides());
+      window.print();
+    });
+  }
+
+  await deck.initialize();
+  await document.fonts.ready;
+
+  if (isPrinting) return;
+
+  fitVisibleSlides(deck);
+  watchOrientation(deck);
+  if (showQuerySlide(deck)) {
+    updateHash(deck);
+  } else {
+    showHashSlide(deck);
+  }
+  updateBreadcrumbs(element, deck);
+  deck.on("slidechanged", () => {
+    fitVisibleSlides(deck);
+    updateHash(deck);
+    updateBreadcrumbs(element, deck);
+  });
+  window.addEventListener("hashchange", () => showHashSlide(deck));
+
+  setupToolbar(element, deck, contents, navigateToPage);
+  startSpeakerViewSync?.(deck);
+  const header = element.querySelector<HTMLElement>(
+    ".starlight-view-modes-presentation-header"
+  );
+  if (header) setupJump(header, deck, sequence);
+  watchIdle(element);
+
+  element.setAttribute("data-ready", "");
+}
+
+function getDeckConfig(options: DeckOptions) {
+  return {
+    rtl: document.documentElement.dir === "rtl",
+    slideNumber: options.slideNumber ? ("c/t" as const) : false,
+    transition: options.transition,
+  };
+}
+
+function parseDeckOptions(options: string | undefined): DeckOptions {
+  return {
+    slideNumber: true,
+    transition: "slide",
+    ...JSON.parse(options || "{}"),
+  };
+}
+
+function isPrintView(): boolean {
+  return new URLSearchParams(window.location.search).has(PrintQueryParameter);
+}
+
+function getSlideSize(): { width: number; height: number } {
+  // Printed slides and the previews of the speaker view always use the landscape size of the presentation.
+  const isPortrait =
+    !isPrintView() &&
+    !isSpeakerPreview() &&
+    window.innerWidth < window.innerHeight &&
+    window.innerWidth <= PortraitMaxWidth;
+
+  return isPortrait ? PortraitSlideSize : LandscapeSlideSize;
+}
+
+function watchOrientation(deck: RevealApi): void {
+  window.addEventListener("resize", () => {
+    const size = getSlideSize();
+    if (deck.getConfig().width === size.width) return;
+
+    deck.configure(size);
+
+    // Slides are fitted again for their new size.
+    for (const content of document.querySelectorAll<HTMLElement>(
+      ".starlight-view-modes-presentation-slide[data-fitted]"
+    )) {
+      delete content.dataset["fitted"];
+      content.style.removeProperty("--fit");
+    }
+
+    fitVisibleSlides(deck);
+  });
+}
+
+// Slides are only measurable when displayed, which reveal.js only does for slides close to the current one.
+function fitVisibleSlides(deck: RevealApi): void {
+  fitSlides(deck.getSlides().filter((slide) => slide.offsetHeight > 0));
+}
+
+// Shrinks the content of slides overflowing the available space, e.g. a single long code block.
+function fitSlides(slides: HTMLElement[]): void {
+  for (const slide of slides) {
+    const content = slide.querySelector<HTMLElement>(
+      ".starlight-view-modes-presentation-slide"
+    );
+    if (!content || content.dataset["fitted"] !== undefined) continue;
+
+    const { paddingBlockEnd, paddingBlockStart } = getComputedStyle(content);
+    const padding = parseFloat(paddingBlockStart) + parseFloat(paddingBlockEnd);
+    let scale = 1;
+
+    for (let attempt = 0; attempt < FitAttempts; attempt++) {
+      const available = content.clientHeight - padding;
+      const used = content.scrollHeight - padding;
+      if (used <= available || scale <= MinimumFitScale) break;
+
+      scale = Math.max(MinimumFitScale, (scale * available) / used);
+      content.style.setProperty("--fit", String(scale));
+    }
+
+    content.dataset["fitted"] = "";
+  }
+}
+
+function showHashSlide(deck: RevealApi): void {
+  const id = decodeURIComponent(window.location.hash.slice(1));
+  if (!id) return;
+
+  const slide =
+    deck.getSlides().find((slide) => slide.dataset["anchor"] === id) ??
+    deck
+      .getSlidesElement()
+      ?.querySelector(`#${CSS.escape(id)}`)
+      ?.closest<HTMLElement>("section");
+  if (!slide) return;
+
+  const { h, v } = deck.getIndices(slide);
+  deck.slide(h, v);
+}
+
+function updateBreadcrumbs(element: HTMLElement, deck: RevealApi): void {
+  const list = element.querySelector(
+    ".starlight-view-modes-presentation-breadcrumbs ol"
+  );
+  if (!list) return;
+
+  const breadcrumbs: string[] = JSON.parse(
+    deck.getCurrentSlide().dataset["breadcrumbs"] ?? "[]"
+  );
+
+  list.replaceChildren(
+    ...breadcrumbs.map((breadcrumb) => {
+      const item = document.createElement("li");
+      item.textContent = breadcrumb;
+      return item;
+    })
+  );
+}
+
+function updateHash(deck: RevealApi): void {
+  const url = new URL(window.location.href);
+  url.hash = deck.getCurrentSlide().dataset["anchor"] ?? "";
+
+  history.replaceState(history.state, "", url);
+  updateModeLinksWithHash();
+}
+
+function setupToolbar(
+  element: HTMLElement,
+  deck: RevealApi,
+  contents: HTMLDialogElement,
+  navigateToPage: ((href: string) => void) | undefined
+): void {
+  const contentsLabel =
+    element.querySelector<HTMLElement>('[data-action="contents"]')?.title ??
+    ContentsKey.key;
+
+  deck.addKeyBinding({ ...ContentsKey, description: contentsLabel }, () =>
+    openContents(deck, contents)
+  );
+
+  const exit = element.querySelector<HTMLAnchorElement>(
+    ".starlight-view-modes-presentation-menu .starlight-view-modes-switcher-a"
+  );
+
+  if (exit && navigateToPage) {
+    deck.addKeyBinding({ ...ExitKey, description: exit.title }, () =>
+      navigateToPage(exit.href)
+    );
+  }
+
+  // Close the contents when clicking its backdrop.
+  contents.addEventListener("click", (event) => {
+    if (event.target === contents) contents.close();
+  });
+
+  element.addEventListener("click", (event) => {
+    const action =
+      event.target instanceof Element
+        ? event.target.closest<HTMLElement>("[data-action]")?.dataset["action"]
+        : undefined;
+
+    switch (action) {
+      case "contents":
+        openContents(deck, contents);
+        break;
+      case "close-contents":
+        contents.close();
+        break;
+      case "speaker-view":
+        (deck.getPlugin("notes") as NotesPlugin | undefined)?.open();
+        break;
+      case "fullscreen":
+        void toggleFullscreen();
+        break;
+      case "print":
+        openPrintView();
+        break;
+      case "search":
+        openSearch(event);
+        break;
+    }
+  });
+}
+
+// Highlights the section of the current slide in the page outline.
+function openContents(deck: RevealApi, contents: HTMLDialogElement): void {
+  const slide = deck.getSlidePastCount() + 1;
+  const headings = [
+    ...contents.querySelectorAll<HTMLElement>("li[data-slide]"),
+  ];
+  const current = headings.findLast(
+    (heading) => Number(heading.dataset["slide"]) <= slide
+  );
+
+  for (const heading of headings) {
+    heading.querySelector("a")?.removeAttribute("aria-current");
+  }
+  current?.querySelector("a")?.setAttribute("aria-current", "location");
+
+  contents.showModal();
+  current?.scrollIntoView({ block: "nearest" });
+}
+
+// Opens the Starlight search dialog rendered in the hidden page header.
+function openSearch(event: MouseEvent): void {
+  // The search dialog closes on clicks outside of it, which would include this click once reaching the window.
+  event.stopPropagation();
+  document
+    .querySelector<HTMLButtonElement>("site-search button[data-open-modal]")
+    ?.click();
+}
+
+async function toggleFullscreen(): Promise<void> {
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+    } else {
+      await document.documentElement.requestFullscreen();
+    }
+  } catch {
+    // Fullscreen can be denied by the browser, e.g. by a permissions policy, which leaves the presentation unchanged.
+  }
+}
+
+function openPrintView(): void {
+  const url = new URL(window.location.href);
+  url.searchParams.set(PrintQueryParameter, "");
+  url.hash = "";
+
+  window.open(url, "_blank", "noopener");
+}
+
+// Hides the toolbar and the cursor when the pointer has not moved for a while.
+function watchIdle(element: HTMLElement): void {
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+
+  const wake = () => {
+    element.removeAttribute("data-idle");
+    clearTimeout(timeout);
+    timeout = setTimeout(
+      () => element.setAttribute("data-idle", ""),
+      IdleDelay
+    );
+  };
+
+  wake();
+  element.addEventListener("pointermove", wake);
+  element.addEventListener("focusin", wake);
+}
+
+export interface DeckOptions {
+  slideNumber: boolean;
+  transition: TransitionStyle;
+}

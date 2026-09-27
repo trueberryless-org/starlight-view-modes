@@ -1,0 +1,115 @@
+---
+title: Presentation Mode
+description: Present any page of your documentation as a slide deck.
+---
+
+import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
+
+Presentation Mode turns each page of your documentation into a slide deck powered by [reveal.js](https://revealjs.com/), without writing any slides.
+
+<SpeakerNotes>
+  Welcome everyone! Press `S` to open this speaker view.
+</SpeakerNotes>
+
+## Starting a presentation
+
+Select the Presentation Mode icon in the header or in the table of contents, or use a [keyboard shortcut](/configuration/#keyboardshortcut-1).
+Press `Esc` to leave the presentation.
+
+Presentations are available at the URL of a page with `/presentation-mode/` added after the locale, e.g. [`/presentation-mode/getting-started/`](/presentation-mode/getting-started/).
+Switching between view modes keeps the section you are reading.
+
+## How pages become slides
+
+The title and description of a page open its presentation.
+Each `h2` and `h3` heading starts a new slide, and the content of deeper headings continues below its section when it does not fit.
+Use the [`splitHeadingLevel`](/configuration/#splitheadinglevel) option to change which headings start a new slide.
+
+Long sections are split into numbered slides, and content too large for a single slide is scaled down to fit.
+
+<SpeakerNotes>
+  Highlight that authors do not need to write any slides.
+</SpeakerNotes>
+
+## Revealing content step by step
+
+Set the [`animation`](/configuration/#animation) option to reveal the items of lists one by one, followed by the content after them.
+Content before the first list of a slide is displayed right away.
+
+Add a `presentation: pause` [directive](#controlling-slides) to reveal the content following it in a later step, including a heading starting a new slide.
+
+```md title="src/content/docs/example.md" "<!-- presentation: pause -->"
+Where do plants get their energy from?
+
+<!-- presentation: pause -->
+
+From sunlight, using photosynthesis.
+```
+
+Going back always displays the previous slide with all its content.
+
+## Presenting several pages
+
+Enable the [`presentSidebarGroups`](/configuration/#presentsidebargroups) option to present the pages of a top-level sidebar group as a single presentation, with slide numbers spanning all of its pages.
+
+Slide numbers spanning several pages are only available in production builds.
+
+## Controlling slides
+
+Add presentation directives as comments to adjust how a page is split into slides.
+Comments are not displayed in the documentation.
+
+```md title="src/content/docs/example.md"
+<!-- presentation: break -->
+```
+
+```mdx title="src/content/docs/example.mdx"
+{/* presentation: break */}
+```
+
+The following directives are available:
+
+| Directive                                             | Effect                                          |
+| ----------------------------------------------------- | ----------------------------------------------- |
+| `presentation: break`                                 | Starts a new slide.                             |
+| `presentation: keep start` … `presentation: keep end` | Keeps the content in between on a single slide. |
+| `presentation: hide start` … `presentation: hide end` | Hides the content in between.                   |
+| `presentation: pause`                                 | [Reveals the content following it in a later step](#revealing-content-step-by-step). |
+
+A thematic break (`---`) also starts a new slide.
+
+## Speaker notes
+
+Add speaker notes using the `<SpeakerNotes>` component.
+They are only visible in the speaker view, opened with `S`.
+
+```mdx title="src/content/docs/example.mdx"
+import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
+
+<SpeakerNotes>Ask the class where plants get their energy from.</SpeakerNotes>
+```
+
+In Markdown files, use `<aside class="starlight-view-modes-notes" hidden>` instead.
+
+<SpeakerNotes>This is an example of speaker notes.</SpeakerNotes>
+
+## Keyboard shortcuts
+
+| Shortcut                    | Action                                     |
+| --------------------------- | ------------------------------------------ |
+| `→`, `←`                    | Next or previous section                   |
+| `↓`, `↑`                    | Next or previous slide in a section        |
+| `Space`, `Shift+Space`      | Next or previous slide                     |
+| `M`                         | Show the contents of the site              |
+| `S`                         | Open the speaker view                      |
+| `F`                         | Toggle fullscreen                          |
+| `G`                         | Jump to a slide by its number or its text  |
+| `B`                         | Pause the presentation with a black screen |
+| `Ctrl+K` (`Cmd+K` on macOS) | Search                                     |
+| `Esc`                       | Leave Presentation Mode                    |
+| `?`                         | Show all keyboard shortcuts                |
+
+## Exporting as PDF
+
+Select the export button in the bottom left corner and save the printable view as a PDF using the print dialog of your browser.
+Use the landscape layout without margins for the best results.

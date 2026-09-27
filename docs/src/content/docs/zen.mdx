@@ -1,0 +1,24 @@
+---
+title: Zen Mode
+description: Read your documentation without distractions.
+---
+
+import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
+
+Zen Mode hides the elements around the content of a page, like the header and the sidebar.
+
+<SpeakerNotes>Switch to Zen Mode to show the difference.</SpeakerNotes>
+
+## Entering Zen Mode
+
+Select the Zen Mode icon in the header or in the table of contents, or use a [keyboard shortcut](/configuration/#keyboardshortcut).
+
+Zen Mode pages are available at the URL of a page with `/zen-mode/` added after the locale, e.g. [`/zen-mode/getting-started/`](/zen-mode/getting-started/).
+Links to other pages stay in Zen Mode, and switching between view modes keeps the section you are reading.
+
+## Hidden elements
+
+By default, Zen Mode hides the header and the sidebar.
+Use the [`displayOptions`](/configuration/#displayoptions) option to choose which elements to hide.
+
+Pages with a hero always display their header, and splash pages are not available in Zen Mode.

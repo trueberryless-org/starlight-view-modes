@@ -2,8 +2,12 @@ import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 
 import { type AdditionalMode, AdditionalModes } from "./modes";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
-import { getCurrentModeFromPath } from "./server";
-import { insertModePathname, isExcludedPage } from "./utils";
+import { getCurrentModeFromPath, getModePages, hasModePage } from "./server";
+import {
+  getPathnamePageKey,
+  insertModePathname,
+  isExcludedPage,
+} from "./utils";
 
 export async function updateSidebarAndPagination(
   starlightRoute: StarlightRouteData
@@ -12,7 +16,11 @@ export async function updateSidebarAndPagination(
   if (!mode) return;
 
   const currentSlug = normalizeSlug(starlightRoute.id);
-  const sidebar = getModeSidebar(starlightRoute.sidebar, currentSlug, mode);
+  const sidebar = getModeSidebar(starlightRoute.sidebar, {
+    currentSlug,
+    mode,
+    pages: await getModePages(mode),
+  });
 
   starlightRoute.sidebar = sidebar;
   starlightRoute.pagination = getModePagination(
@@ -32,31 +40,33 @@ async function getCurrentAdditionalMode(
 
 function getModeSidebar(
   sidebar: SidebarEntry[],
-  currentSlug: string,
-  mode: AdditionalMode
+  options: ModeSidebarOptions
 ): SidebarEntry[] {
   return sidebar
-    .map((entry) => getModeSidebarEntry(entry, currentSlug, mode))
+    .map((entry) => getModeSidebarEntry(entry, options))
     .filter((entry): entry is SidebarEntry => entry !== undefined);
 }
 
 function getModeSidebarEntry(
   entry: SidebarEntry,
-  currentSlug: string,
-  mode: AdditionalMode
+  options: ModeSidebarOptions
 ): SidebarEntry | undefined {
   if (entry.type === "group") {
-    entry.entries = getModeSidebar(entry.entries, currentSlug, mode);
+    entry.entries = getModeSidebar(entry.entries, options);
 
     return entry.entries.length > 0 ? entry : undefined;
   }
 
-  if (isExcludedPage(stripLeadingSlash(entry.href), mode.exclude)) {
+  // External links are not part of the site.
+  if (!entry.href.startsWith("/")) return entry;
+
+  // Pages without a page in the current mode, e.g. excluded pages or pages injected by other plugins, are omitted.
+  if (!hasModePage(options.pages, getPathnamePageKey(entry.href))) {
     return undefined;
   }
 
-  entry.href = insertModePathname(entry.href, mode.name);
-  entry.isCurrent = normalizeSlug(entry.href) === currentSlug;
+  entry.href = insertModePathname(entry.href, options.mode.name);
+  entry.isCurrent = normalizeSlug(entry.href) === options.currentSlug;
 
   return entry;
 }
@@ -98,6 +108,12 @@ function flattenSidebar(sidebar: SidebarEntry[]): SidebarLink[] {
 
 function normalizeSlug(slug: string): string {
   return stripLeadingSlash(stripTrailingSlash(slug));
+}
+
+interface ModeSidebarOptions {
+  currentSlug: string;
+  mode: AdditionalMode;
+  pages: Set<string>;
 }
 
 type SidebarEntry = StarlightRouteData["sidebar"][number];

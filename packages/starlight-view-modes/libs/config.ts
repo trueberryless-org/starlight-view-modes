@@ -40,6 +40,31 @@ const configSchema = z
         keyboardShortcut: keyboardShortcutSchema,
       })
       .prefault({}),
+    presentationModeSettings: z
+      .object({
+        animation: z
+          // The reveal.js fragment styles revealing content, see https://revealjs.com/fragments/
+          .enum([
+            "fade-in",
+            "fade-up",
+            "fade-down",
+            "fade-left",
+            "fade-right",
+            "zoom-in",
+          ])
+          .or(z.literal(false))
+          .default(false),
+        enabled: z.boolean().default(true),
+        exclude: z.array(z.string()).default([]),
+        keyboardShortcut: keyboardShortcutSchema,
+        presentSidebarGroups: z.boolean().default(false),
+        splitHeadingLevel: z.number().int().min(2).max(6).default(3),
+        transition: z
+          .enum(["none", "fade", "slide", "convex", "concave", "zoom"])
+          .default("slide"),
+        slideNumber: z.boolean().default(true),
+      })
+      .prefault({}),
   })
   .prefault({});
 
@@ -74,3 +99,9 @@ export type StarlightViewModesUserConfig = z.input<typeof configSchema>;
 export type StarlightViewModesConfig = z.output<typeof configSchema>;
 export type ZenModeDisplayOptions =
   StarlightViewModesConfig["zenModeSettings"]["displayOptions"];
+export type PresentationModeSettings =
+  StarlightViewModesConfig["presentationModeSettings"];
+export type PresentationAnimation = Exclude<
+  PresentationModeSettings["animation"],
+  false
+>;

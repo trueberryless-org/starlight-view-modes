@@ -32,7 +32,12 @@ export async function getZenModePage(
   const hasSidebar: boolean | undefined = remarkPluginFrontmatter["hasSidebar"];
 
   return {
-    classes: resolveZenModeClasses(config.zenModeSettings.displayOptions),
+    classes: resolveZenModeClasses(
+      getZenModeDisplayOptions(
+        config.zenModeSettings.displayOptions,
+        entry.data.hero !== undefined
+      )
+    ),
     props: {
       frontmatter: resolveZenModeFrontmatter(
         remarkPluginFrontmatter,
@@ -43,6 +48,15 @@ export async function getZenModePage(
       ...(hasSidebar === undefined ? {} : { hasSidebar }),
     },
   };
+}
+
+// Pages with a hero, e.g. doc pages with a hero, have no page title to display the view mode switcher when the header is hidden,
+// so their header is always displayed to be able to leave Zen Mode.
+export function getZenModeDisplayOptions(
+  displayOptions: ZenModeDisplayOptions,
+  hasHero: boolean
+): ZenModeDisplayOptions {
+  return hasHero ? { ...displayOptions, showHeader: true } : displayOptions;
 }
 
 export function resolveZenModeClasses(
