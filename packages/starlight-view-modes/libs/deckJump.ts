@@ -21,7 +21,6 @@ export function setupJump(
 
   input.className = "starlight-view-modes-presentation-jump";
   input.type = "text";
-  input.inputMode = "numeric";
   input.placeholder = label;
   input.setAttribute("aria-label", label);
 

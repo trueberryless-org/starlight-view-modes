@@ -237,6 +237,13 @@
     color: var(--sl-color-gray-4);
   }
 
+  :is(
+      .starlight-view-modes-presentation-breadcrumbs li + li,
+      .starlight-view-modes-presentation-contents-path span + span
+    ):dir(rtl)::before {
+    content: "‹";
+  }
+
   .starlight-view-modes-presentation-counter {
     margin-inline-start: 0.75rem;
     color: var(--sl-color-gray-3);

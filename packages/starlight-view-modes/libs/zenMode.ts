@@ -50,7 +50,7 @@ export async function getZenModePage(
   };
 }
 
-// Pages with a hero, e.g. splash pages, have no page title to display the view mode switcher when the header is hidden,
+// Pages with a hero, e.g. doc pages with a hero, have no page title to display the view mode switcher when the header is hidden,
 // so their header is always displayed to be able to leave Zen Mode.
 export function getZenModeDisplayOptions(
   displayOptions: ZenModeDisplayOptions,

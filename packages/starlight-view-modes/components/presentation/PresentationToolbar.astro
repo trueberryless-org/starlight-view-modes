@@ -29,8 +29,9 @@ const actions = [
 ];
 ---
 
-<nav
+<div
   class="starlight-view-modes-presentation-toolbar not-content"
+  role="toolbar"
   aria-label={Astro.locals.t("starlightViewModes.presentationMode.controls")}
 >
   {actions.map((action) => (
@@ -39,4 +40,4 @@ const actions = [
       <span class="sr-only">{action.label}</span>
     </button>
   ))}
-</nav>
+</div>
