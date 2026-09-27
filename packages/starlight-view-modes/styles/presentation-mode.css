@@ -291,6 +291,19 @@
     bottom: -4.6em;
   }
 
+  /* Touch targets are larger than the arrows, which are small to fit next to the toolbar. */
+  @media (pointer: coarse) {
+    starlight-view-modes-presentation .reveal .controls button::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2.75rem;
+      height: 2.75rem;
+      transform: translate(-50%, -50%);
+    }
+  }
+
   starlight-view-modes-presentation .reveal .slide-number {
     background-color: transparent;
     color: var(--sl-color-gray-3);
