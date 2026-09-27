@@ -40,6 +40,13 @@ async function getPresentationFiles(dir: string): Promise<string[]> {
     .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
     .map((entry) => join(entry.parentPath, entry.name))
     .filter((file) =>
-      relative(dir, file).split(/[/\\]/).includes(PresentationModeSegment)
+      relative(dir, file)
+        .split(/[/\\]/)
+        // With the `file` build format, the presentation of an index page is an HTML file named like the mode.
+        .some(
+          (segment) =>
+            segment === PresentationModeSegment ||
+            segment === `${PresentationModeSegment}.html`
+        )
     );
 }
