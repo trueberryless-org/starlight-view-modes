@@ -20,19 +20,28 @@ export function handleIndexSlug(slug: string): string | undefined {
   return slug;
 }
 
-// Returns an identifier of a page independent of the view mode, index pages, and slashes, e.g. `guides/intro` for the
-// `guides/intro/index` entry ID or the `/zen-mode/guides/intro/` pathname.
+// Returns an identifier of a page independent of index pages and slashes, e.g. `guides/intro` for the
+// `guides/intro/index` entry ID.
 export function getPageKey(slug: string): string {
-  const modes = AvailableModes.map((mode) => mode.name);
+  const segments = stripLeadingSlash(stripTrailingSlash(slug)).split("/");
+  if (segments.at(-1) === "index") segments.pop();
 
-  return stripLeadingSlash(stripTrailingSlash(slug))
-    .split("/")
-    .filter((segment) => segment !== "index" && !modes.includes(segment))
-    .join("/");
+  return segments.join("/");
 }
 
+// Returns the page identifier of a pathname independent of the base and the view mode, e.g. `guides/intro` for the
+// `/zen-mode/guides/intro/` pathname.
 export function getPathnamePageKey(pathname: string): string {
-  return getPageKey(stripSlugBase(stripLeadingSlash(pathname)));
+  const slug = stripLeadingSlash(stripTrailingSlash(pathname));
+  const segments = stripSlugBase(slug).split("/");
+  const modePosition = getLocaleFromSlug(slug) ? 1 : 0;
+  const modes = AvailableModes.map((mode) => mode.name);
+
+  if (modes.includes(segments[modePosition] ?? "")) {
+    segments.splice(modePosition, 1);
+  }
+
+  return getPageKey(segments.join("/"));
 }
 
 export function insertModePathname(pathname: string, mode: string): string {

@@ -210,6 +210,12 @@ describe("getSlides", () => {
     );
   });
 
+  test("ignores invalid start attributes when splitting ordered lists", () => {
+    const sections = slides(`<h2 id="steps">Steps</h2>${list(14, "ol", ' start="abc"')}`).slice(1);
+
+    expect(sections[1]?.html).toContain('start="8"');
+  });
+
   test("keeps headings and lead-in paragraphs with the following block", () => {
     const sections = slides(
       `<h2 id="section">Section</h2>${paragraph(10)}<h4>Example</h4><p>Run the following command:</p>\n<pre><code>npm install\nnpm run build</code></pre>`

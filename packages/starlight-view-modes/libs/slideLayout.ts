@@ -244,7 +244,8 @@ function splitBlock(block: ElementContent, capacity: number): ElementContent[] {
   const items = block.children
     .filter((child) => isElement(child, "li"))
     .map((item) => ({ nodes: [item], lines: getListItemLines(item) }));
-  const start = Number(block.properties["start"] ?? 1);
+  const parsedStart = Number(block.properties["start"] ?? 1);
+  const start = Number.isFinite(parsedStart) ? parsedStart : 1;
   let offset = 0;
 
   return partitionItems(items, () => capacity - 0.5).map((group) => {

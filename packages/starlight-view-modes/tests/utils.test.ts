@@ -533,3 +533,45 @@ describe("insertModePathname", () => {
     expect(insertModePathname("docs/ru", "default")).toBe("docs/ru"); // Russian is not configured as a locale
   });
 });
+
+describe("getPageKey", () => {
+  test("strips slashes and a trailing index segment only", async () => {
+    mockConfig();
+
+    const { getPageKey } = await importUtils();
+
+    expect(getPageKey("guides/intro/index")).toBe("guides/intro");
+    expect(getPageKey("/guides/intro/")).toBe("guides/intro");
+    expect(getPageKey("index")).toBe("");
+    expect(getPageKey("guides/default")).toBe("guides/default");
+    expect(getPageKey("index/guide")).toBe("index/guide");
+  });
+});
+
+describe("getPathnamePageKey", () => {
+  test("strips the base and the mode segment", async () => {
+    mockAstroConfigBase("/docs");
+    mockConfig();
+    mockStarlightConfig({
+      defaultLocale: { locale: "en", lang: "en" },
+      locales: { en: {}, de: {} },
+    });
+
+    const { getPathnamePageKey } = await importUtils();
+
+    expect(getPathnamePageKey("/docs/presentation-mode/guides/intro/")).toBe("guides/intro");
+    expect(getPathnamePageKey("/docs/de/zen-mode/guides/intro/")).toBe("de/guides/intro");
+    expect(getPathnamePageKey("/docs/de/guides/intro/")).toBe("de/guides/intro");
+  });
+
+  test("keeps segments named like a mode outside of the mode position", async () => {
+    mockAstroConfigBase("");
+    mockConfig();
+    mockStarlightConfig({ defaultLocale: { locale: "root", lang: "en" }, locales: { root: {} } });
+
+    const { getPathnamePageKey } = await importUtils();
+
+    expect(getPathnamePageKey("/guides/default/")).toBe("guides/default");
+    expect(getPathnamePageKey("/presentation-mode/guides/default/")).toBe("guides/default");
+  });
+});

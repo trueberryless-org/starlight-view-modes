@@ -33,16 +33,21 @@ export async function initializePresentation(
     ...getDeckConfig(parseDeckOptions(element.dataset["options"])),
   });
 
-  await deck.initialize();
-  await document.fonts.ready;
+  const isPrinting = isPrintView();
 
-  if (isPrintView()) {
-    deck.on("pdf-ready", () => {
+  // The print view is laid out during the initialization, so the handler must be registered before.
+  if (isPrinting) {
+    deck.on("pdf-ready", async () => {
+      await document.fonts.ready;
       fitSlides(deck.getSlides());
       window.print();
     });
-    return;
   }
+
+  await deck.initialize();
+  await document.fonts.ready;
+
+  if (isPrinting) return;
 
   fitVisibleSlides(deck);
   showHashSlide(deck);
@@ -232,10 +237,14 @@ function openSearch(event: MouseEvent): void {
 }
 
 async function toggleFullscreen(): Promise<void> {
-  if (document.fullscreenElement) {
-    await document.exitFullscreen();
-  } else {
-    await document.documentElement.requestFullscreen();
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+    } else {
+      await document.documentElement.requestFullscreen();
+    }
+  } catch {
+    // Fullscreen can be denied by the browser, e.g. by a permissions policy, which leaves the presentation unchanged.
   }
 }
 
