@@ -28,6 +28,9 @@ import {
 } from "./slideLayout";
 
 const MaxTitleIntroLines = 6;
+// Statements filled above this ratio are displayed as content slides next to content slides to avoid alternating
+// layouts for sections of a similar length.
+const MaxLoneStatementFill = 0.35;
 
 const HeadingWrapperClassName = "sl-heading-wrapper";
 const CounterClassName = "starlight-view-modes-presentation-counter";
@@ -48,6 +51,8 @@ export function getSlides(tree: Root, options: SlidesOptions): SlideDeck {
       : []),
     ...groups.flatMap((group) => getGroupSlides(group, options.animation)),
   ];
+
+  alignStatementLayouts(slides);
 
   // Details of a section are placed vertically below the slides of their section.
   for (const { isDetail, slide } of slides) {
@@ -137,6 +142,20 @@ function getSections(
   return sections;
 }
 
+// Statements almost filling a slide are displayed like adjacent content slides, e.g. two sections of a similar length
+// with one of them slightly shorter, while short statements, e.g. a single sentence, are still centered.
+function alignStatementLayouts(slides: GroupSlide[]): void {
+  const types = slides.map(({ slide }) => slide.type);
+
+  for (const [index, { fill, slide }] of slides.entries()) {
+    if (slide.type !== "statement" || fill <= MaxLoneStatementFill) continue;
+
+    if (types[index - 1] === "content" || types[index + 1] === "content") {
+      slide.type = "content";
+    }
+  }
+}
+
 // Groups sections with their continuations, e.g. content following a thematic break.
 function getSectionGroups(sections: Section[]): Section[][] {
   const groups: Section[][] = [];
@@ -202,6 +221,7 @@ function getGroupSlides(
   const inlineAncestors = getInlineAncestors(parts);
 
   return parts.map((part, index) => ({
+    fill: part.fill,
     isDetail: part.isDetail,
     slide: getSlide(
       { ...part, inlineAncestors: inlineAncestors[index] ?? [] },
@@ -469,6 +489,7 @@ interface Section {
 }
 
 interface GroupSlide {
+  fill: number;
   isDetail: boolean;
   slide: Slide;
 }
@@ -479,6 +500,7 @@ interface SlidePart {
   isContinuation: boolean;
   isDetail: boolean;
   isSparse: boolean;
+  fill: number;
   /**
    * The headings of the nested sections containing the content of a detail slide.
    */

@@ -89,14 +89,17 @@ export function layoutBlocks(
   const getCapacity = (item: LayoutItem | undefined, isFirst: boolean) =>
     isDetailSlide(item, isFirst) ? getSlideCapacity(false) : capacity;
 
-  return partitionItems(items, getCapacity).map((group, index) => ({
-    nodes: group.flatMap((item) => item.nodes),
-    isDetail: isDetailSlide(group[0], index === 0),
-    isSparse:
-      getLines(group.flatMap((item) => item.nodes)) /
-        getCapacity(group[0], index === 0) <
-      SparseSlideFill,
-  }));
+  return partitionItems(items, getCapacity).map((group, index) => {
+    const nodes = group.flatMap((item) => item.nodes);
+    const fill = getLines(nodes) / getCapacity(group[0], index === 0);
+
+    return {
+      nodes,
+      fill,
+      isDetail: isDetailSlide(group[0], index === 0),
+      isSparse: fill < SparseSlideFill,
+    };
+  });
 }
 
 export function getLines(nodes: ElementContent[]): number {
@@ -424,4 +427,8 @@ export interface LayoutSlide {
    * Whether the slide is sparsely filled, e.g. a short section which cannot be combined with other content.
    */
   isSparse: boolean;
+  /**
+   * The estimated ratio of the slide filled by its content.
+   */
+  fill: number;
 }

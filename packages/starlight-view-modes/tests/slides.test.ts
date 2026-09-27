@@ -251,6 +251,18 @@ describe("getSlides", () => {
     expect(long?.type).toBe("content");
   });
 
+  test("displays almost filled statements like adjacent content slides", () => {
+    const [, long, medium, short] = slides(
+      `<h2 id="long">Long</h2>${paragraph(2).repeat(3)}<h2 id="medium">Medium</h2>${paragraph(2).repeat(2)}<h2 id="short">Short</h2><p>One sentence.</p>`
+    );
+    const [, lone] = slides(`<h2 id="medium">Medium</h2>${paragraph(2).repeat(2)}`);
+
+    expect(long?.type).toBe("content");
+    expect(medium?.type).toBe("content");
+    expect(short?.type).toBe("statement");
+    expect(lone?.type).toBe("statement");
+  });
+
   test("splits long tables between rows while repeating the table head", () => {
     const rows = Array.from({ length: 12 }, (_, index) => `<tr><td>${index}</td></tr>`).join("");
     const sections = slides(
