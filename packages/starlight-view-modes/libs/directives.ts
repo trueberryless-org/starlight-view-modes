@@ -4,6 +4,7 @@ const directives = [
   "hide end",
   "keep start",
   "keep end",
+  "pause",
 ] as const;
 
 const directivePattern = new RegExp(

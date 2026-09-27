@@ -14,7 +14,11 @@ import {
   isElementContent,
   isNotes,
 } from "./hast";
-import { animateSlideContent } from "./slideAnimation";
+import {
+  animateSlideContent,
+  createPauseMarker,
+  isPauseMarker,
+} from "./slideAnimation";
 import {
   KeepClassName,
   getBlockLines,
@@ -67,6 +71,7 @@ function getSections(
     heading: undefined,
     rank: undefined,
     isContinuation: false,
+    isPaused: false,
   };
   const sections = [current];
   const ancestors: { rank: number; title: string }[] = [];
@@ -88,6 +93,9 @@ function getSections(
     const rank = heading ? getHeadingRank(heading) : undefined;
 
     if (heading && rank !== undefined && rank <= splitHeadingLevel) {
+      // A pause preceding a heading also hides the heading of the new section.
+      const isPaused = removeTrailingPause(current.blocks);
+
       while ((ancestors.at(-1)?.rank ?? 0) >= rank) ancestors.pop();
 
       current = {
@@ -96,12 +104,20 @@ function getSections(
         heading,
         rank,
         isContinuation: false,
+        isPaused,
       };
       sections.push(current);
       ancestors.push({ rank, title: getText(heading) });
       keep = undefined;
     } else if (directive === "break" || isElement(node, "hr")) {
-      current = { ...current, blocks: [], isContinuation: true };
+      const isPaused = removeTrailingPause(current.blocks);
+
+      current = {
+        ...current,
+        blocks: isPaused ? [createPauseMarker()] : [],
+        isContinuation: true,
+        isPaused: false,
+      };
       sections.push(current);
       keep = undefined;
     } else if (directive === "hide start") {
@@ -111,6 +127,8 @@ function getSections(
       current.blocks.push(keep);
     } else if (directive === "keep end") {
       keep = undefined;
+    } else if (directive === "pause") {
+      (keep?.children ?? current.blocks).push(createPauseMarker());
     } else {
       (keep?.children ?? current.blocks).push(heading ?? node);
     }
@@ -134,6 +152,14 @@ function getSectionGroups(sections: Section[]): Section[][] {
   }
 
   return groups;
+}
+
+function removeTrailingPause(blocks: ElementContent[]): boolean {
+  const block = blocks.at(-1);
+  if (!block || !isPauseMarker(block)) return false;
+
+  blocks.pop();
+  return true;
 }
 
 function getGroupSlides(
@@ -224,7 +250,10 @@ function getTitleSlide(
     children.push(createElement("p", DescriptionClassName, description));
   }
 
-  children.push(...content.flatMap(unwrapKeep));
+  // Title slides are not revealed step by step.
+  children.push(
+    ...content.flatMap(unwrapKeep).filter((node) => !isPauseMarker(node))
+  );
 
   return {
     anchor: undefined,
@@ -251,14 +280,7 @@ function getSlide(
     children.push(getSlideHeading(heading, part.isContinuation, counter));
   }
 
-  const blocks = content.flatMap(unwrapKeep);
-
-  // Only slides with content are animated, e.g. not section dividers.
-  children.push(
-    ...(animation && (type === "content" || type === "statement")
-      ? animateSlideContent(blocks, animation)
-      : blocks)
-  );
+  children.push(...content.flatMap(unwrapKeep));
 
   return {
     // Detail slides are linked to the first or enclosing nested section heading of their content.
@@ -275,7 +297,12 @@ function getSlide(
             ...part.inlineAncestors.map((ancestor) => ancestor.title),
           ]
         : breadcrumbs,
-    html: toHtml(children),
+    html: toHtml(
+      animateSlideContent(children, {
+        animation,
+        startsPaused: part.section.isPaused && !part.isContinuation,
+      })
+    ),
     notes: getNotesHtml(notes),
     outline:
       heading && rank !== undefined && !part.isContinuation
@@ -438,6 +465,7 @@ interface Section {
   heading: Element | undefined;
   rank: number | undefined;
   isContinuation: boolean;
+  isPaused: boolean;
 }
 
 interface GroupSlide {

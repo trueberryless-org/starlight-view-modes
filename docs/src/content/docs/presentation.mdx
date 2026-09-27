@@ -31,10 +31,21 @@ Long sections are split into numbered slides, and content too large for a single
   Highlight that authors do not need to write any slides.
 </SpeakerNotes>
 
-## Animating content
+## Revealing content step by step
 
-Set the [`animation`](/configuration/#animation) option to reveal the content of slides block by block, e.g. paragraphs, code blocks, and list items.
-Going forward reveals the next block before continuing to the next slide, and going back always displays the previous slide with all its content.
+Set the [`animation`](/configuration/#animation) option to reveal the items of lists one by one, while other content is displayed right away.
+
+Add a `presentation: pause` [directive](#controlling-slides) to reveal the content following it in a later step, including a heading starting a new slide.
+
+```md title="src/content/docs/example.md" "<!-- presentation: pause -->"
+Where do plants get their energy from?
+
+<!-- presentation: pause -->
+
+From sunlight, using photosynthesis.
+```
+
+Going back always displays the previous slide with all its content.
 
 ## Presenting several pages
 
@@ -62,6 +73,7 @@ The following directives are available:
 | `presentation: break`                                 | Starts a new slide.                             |
 | `presentation: keep start` … `presentation: keep end` | Keeps the content in between on a single slide. |
 | `presentation: hide start` … `presentation: hide end` | Hides the content in between.                   |
+| `presentation: pause`                                 | [Reveals the content following it in a later step](#revealing-content-step-by-step). |
 
 A thematic break (`---`) also starts a new slide.
 

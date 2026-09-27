@@ -31,7 +31,9 @@ This paragraph explains the topic in enough detail to fill a good part of a slid
 
 This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. This paragraph explains the topic in enough detail to fill a good part of a slide on its own, which is what detailed sections usually look like in real documentation pages. 
 
-<p class="fragment">Displayed when going back.</p>
+<!-- presentation: pause -->
+
+Displayed when going back.
 
 <!-- presentation: hide start -->
 
@@ -68,4 +70,6 @@ const value21 = 21;
 const value22 = 22;
 ```
 
-<p class="fragment">Revealed step by step.</p>
+<!-- presentation: pause -->
+
+Revealed step by step.

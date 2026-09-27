@@ -348,48 +348,91 @@ describe("getSlides", () => {
     expect(deck(html)).toEqual(deck(html));
   });
 
-  describe("with an animation", () => {
+  describe("revealing content step by step", () => {
     function animatedSlides(html: string, animation: Parameters<typeof getSlides>[1]["animation"] = "fade-up") {
       return deck(html, 3, animation).stacks.flat();
     }
 
-    test("animates each block and list item after the slide heading", () => {
+    test("reveals list items one by one and displays other content right away", () => {
       const [, section] = animatedSlides(
         '<h2 id="heading">Heading</h2><p>One</p><ul><li>Two</li><li>Three</li></ul><pre><code>four</code></pre>'
       );
 
       expect(section?.html).toBe(
-        '<h2 id="heading">Heading</h2>' +
-          '<p class="fragment fade-up" data-fragment-index="0">One</p>' +
-          '<ul><li class="fragment fade-up" data-fragment-index="1">Two</li><li class="fragment fade-up" data-fragment-index="2">Three</li></ul>' +
-          '<pre class="fragment fade-up" data-fragment-index="3"><code>four</code></pre>'
+        '<h2 id="heading">Heading</h2><p>One</p>' +
+          '<ul><li class="fragment fade-up" data-fragment-index="0">Two</li><li class="fragment fade-up" data-fragment-index="1">Three</li></ul>' +
+          "<pre><code>four</code></pre>"
       );
-    });
-
-    test("displays nested headings with the block following them", () => {
-      const [, section] = animatedSlides(
-        '<h2 id="heading">Heading</h2><p>One</p><h4 id="nested">Nested</h4><ol><li>Two</li></ol>'
-      );
-
-      expect(section?.html).toContain('<h4 id="nested" class="fragment fade-up" data-fragment-index="1">Nested</h4>');
-      expect(section?.html).toContain('<li class="fragment fade-up" data-fragment-index="1">Two</li>');
     });
 
     test("uses the animation as reveal.js fragment style", () => {
-      const html = '<h2 id="heading">Heading</h2><p class="lead">One</p>';
+      const html = '<h2 id="heading">Heading</h2><ul><li class="item">One</li></ul>';
 
-      expect(animatedSlides(html, "fade-in")[1]?.html).toContain('<p class="lead fragment fade-in" data-fragment-index="0">');
-      expect(animatedSlides(html, "zoom-in")[1]?.html).toContain('<p class="lead fragment zoom-in" data-fragment-index="0">');
+      expect(animatedSlides(html, "fade-in")[1]?.html).toContain('<li class="item fragment fade-in" data-fragment-index="0">');
+      expect(animatedSlides(html, "zoom-in")[1]?.html).toContain('<li class="item fragment zoom-in" data-fragment-index="0">');
     });
 
-    test("does not animate title slides, section dividers, or resources", () => {
-      const [title, divider, section] = animatedSlides(
-        '<p>Introduction.</p><h2 id="parent">Parent</h2><h3 id="child">Child</h3><link rel="stylesheet" href="/ec.css"><p>Content</p>'
-      );
+    test("displays the first list item right away when the slide would start empty", () => {
+      const [, intro, section] = animatedSlides(`${list(8)}<h2 id="heading">Heading</h2>${list(2)}`);
 
-      expect(title?.html).not.toContain("fragment");
-      expect(divider?.html).not.toContain("fragment");
-      expect(section?.html).toContain('<link rel="stylesheet" href="/ec.css"><p class="fragment fade-up"');
+      expect(intro?.html).toMatch(/^<ul><li>Item 1<\/li><li class="fragment fade-up" data-fragment-index="0">Item 2<\/li>/);
+      expect(section?.html).toContain('<li class="fragment fade-up" data-fragment-index="0">Item 1</li>');
+    });
+
+    test("does not reveal lists step by step without an animation", () => {
+      expect(slides('<h2 id="heading">Heading</h2><ul><li>One</li></ul>')[1]?.html).not.toContain("fragment");
+    });
+
+    test("does not reveal title slides step by step", () => {
+      const [title] = animatedSlides("<ul><li>One</li></ul><!-- presentation: pause --><p>Two</p>");
+
+      expect(title?.html).toBe(
+        '<h1>Title</h1><p class="starlight-view-modes-presentation-description">A description</p><ul><li>One</li></ul><p>Two</p>'
+      );
+    });
+
+    describe("with pauses", () => {
+      test("reveals the content following a pause in the next step", () => {
+        const [, section] = deck(
+          '<h2 id="heading">Heading</h2><p>One</p><!-- presentation: pause --><p>Two</p><pre><code>three</code></pre><p hidden><!-- presentation: pause --></p><p>Four</p>'
+        ).stacks.flat();
+
+        expect(section?.html).toBe(
+          '<h2 id="heading">Heading</h2><p>One</p>' +
+            '<p class="fragment" data-fragment-index="0">Two</p><pre class="fragment" data-fragment-index="0"><code>three</code></pre>' +
+            '<p class="fragment" data-fragment-index="1">Four</p>'
+        );
+      });
+
+      test("reveals list items and the content following them in order", () => {
+        const [, section] = animatedSlides(
+          '<h2 id="heading">Heading</h2><!-- presentation: pause --><h4 id="nested">Nested</h4><ul><li>One</li><li>Two</li></ul><p>Three</p>'
+        );
+
+        expect(section?.html).toBe(
+          '<h2 id="heading">Heading</h2>' +
+            '<h4 id="nested" class="fragment fade-up" data-fragment-index="0">Nested</h4>' +
+            '<ul><li class="fragment fade-up" data-fragment-index="0">One</li><li class="fragment fade-up" data-fragment-index="1">Two</li></ul>' +
+            '<p class="fragment fade-up" data-fragment-index="1">Three</p>'
+        );
+      });
+
+      test("starts a slide empty when a pause precedes its heading", () => {
+        const [, first, second] = deck(
+          '<h2 id="a">A</h2><p>One</p><!-- presentation: pause --><h2 id="b">B</h2><p>Two</p>'
+        ).stacks.flat();
+
+        expect(first?.html).toBe('<h2 id="a">A</h2><p>One</p>');
+        expect(second?.html).toBe(
+          '<h2 id="b" class="fragment" data-fragment-index="0">B</h2><p class="fragment" data-fragment-index="0">Two</p>'
+        );
+      });
+
+      test("ignores pauses at the end of a slide", () => {
+        const [, section] = deck('<h2 id="a">A</h2><p>One</p><!-- presentation: pause -->').stacks.flat();
+
+        expect(section?.html).toBe('<h2 id="a">A</h2><p>One</p>');
+      });
     });
   });
 });
