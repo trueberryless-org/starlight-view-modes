@@ -1,5 +1,11 @@
 # starlight-view-modes
 
+## 0.15.1
+
+### Patch Changes
+
+- [#207](https://github.com/trueberryless-org/starlight-view-modes/pull/207) [`3d78426`](https://github.com/trueberryless-org/starlight-view-modes/commit/3d78426606895df1d66fc685d320cae0a955aa4c) Thanks [@trueberryless](https://github.com/trueberryless)! - Fixes trailing pause handling inside kept content, enlarges touch targets for presentation controls on touch devices, and clarifies list item pause behavior in the documentation.
+
 ## 0.15.0
 
 ### Minor Changes
