@@ -1,8 +1,7 @@
+import { stripTrailingSlash } from "./path";
 import { type Shortcut, isShortcutPressed } from "./shortcuts";
 import {
   getCurrentModeFromPath,
-  getPathnameMode,
-  getPathnamePageKey,
   getUpdatedModePathname,
   insertModePathname,
   stripModePathname,
@@ -129,16 +128,26 @@ function prefixLink(
   link.setAttribute("href", prefixedHref);
 }
 
+// The view mode switchers rendered from the view modes data are used to recognize links to the other view modes of the
+// current page, e.g. in custom switchers using the same data.
 function isOtherModeLink(link: HTMLAnchorElement): boolean {
   const url = new URL(link.href);
-  const { hash, pathname } = window.location;
+  const { hash, origin } = window.location;
 
   return (
-    url.origin === window.location.origin &&
+    url.origin === origin &&
     // Links to a specific section are kept.
     (url.hash === "" || url.hash === hash) &&
-    getPathnamePageKey(url.pathname) === getPathnamePageKey(pathname) &&
-    getPathnameMode(url.pathname) !== getPathnameMode(pathname)
+    getModeSwitchPathnames().has(stripTrailingSlash(url.pathname))
+  );
+}
+
+function getModeSwitchPathnames(): Set<string> {
+  const links =
+    document.querySelectorAll<HTMLAnchorElement>(SwitcherLinkSelector);
+
+  return new Set(
+    [...links].map((link) => stripTrailingSlash(new URL(link.href).pathname))
   );
 }
 

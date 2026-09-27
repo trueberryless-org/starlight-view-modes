@@ -56,15 +56,6 @@ export function stripModePathname(pathname: string): string | undefined {
   return segments.join("/");
 }
 
-// Returns the mode of a pathname, only considering the segment where modes are inserted.
-export function getPathnameMode(pathname: string): string {
-  const { position, segments } = getPathnameModeSegment(pathname);
-
-  return position === undefined
-    ? DefaultMode
-    : (segments[position] ?? DefaultMode);
-}
-
 function getPathnameModeSegment(pathname: string): {
   position: number | undefined;
   segments: string[];
