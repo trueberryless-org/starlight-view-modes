@@ -4,18 +4,17 @@ description: Present any page of your documentation as a slide deck without writ
 ---
 
 import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
-import { Kbd } from "starlight-kbd/components";
 
 Presentation Mode turns every page of your documentation into a slide deck powered by [reveal.js](https://revealjs.com/).
 Write your content once and use it both as documentation and as a presentation, e.g. for teaching a class.
 
 <SpeakerNotes>
-  Welcome everyone! Press <kbd>S</kbd> to open this speaker view.
+  Welcome everyone! Press `S` to open this speaker view.
 </SpeakerNotes>
 
 ## Starting a presentation
 
-Use the Presentation Mode icon next to the social links, the "View Modes" section of the table of contents, or the <Kbd mac="⌘+⇧+Y" windows="Ctrl+Shift+Y" /> [keyboard shortcut](/configuration/#keyboardshortcut-1) of this website to present the current page.
+Use the Presentation Mode icon next to the social links, the "View Modes" section of the table of contents, or the `Ctrl+Shift+Y` (`Cmd+Shift+Y` on macOS) [keyboard shortcut](/configuration/#keyboardshortcut-1) of this website to present the current page.
 
 You can also share a direct link to a presentation by adding `/presentation-mode/` after the locale of a page URL, e.g. [`/presentation-mode/getting-started/`](/presentation-mode/getting-started/).
 
@@ -55,8 +54,8 @@ Breadcrumbs in the top left corner of the presentation show the page title and t
 The top right corner contains the search, the language and theme pickers, and a button to leave Presentation Mode.
 The arrows in the bottom right corner show the directions in which more slides are available.
 
-Use <Kbd windows="→" /> and <Kbd windows="←" /> to go through the sections of a page, and <Kbd windows="↓" /> and <Kbd windows="↑" /> to explore the details of a section when available.
-<Kbd windows="Space" /> goes through all slides in order.
+Use `→` and `←` to go through the sections of a page, and `↓` and `↑` to explore the details of a section when available.
+`Space` goes through all slides in order.
 
 ## Controlling slides
 
@@ -164,21 +163,21 @@ The contents list all pages of your site like the sidebar, previewed as the firs
 
 The following keyboard shortcuts are available during a presentation:
 
-| Shortcut                                                             | Action                                     |
-| -------------------------------------------------------------------- | ------------------------------------------ |
-| <Kbd windows="→" />, <Kbd windows="←" />                             | Next or previous section                   |
-| <Kbd windows="↓" />, <Kbd windows="↑" />                             | Next or previous slide in a section        |
-| <Kbd windows="Space" />, <Kbd mac="⇧+Space" windows="Shift+Space" /> | Next or previous slide                     |
-| <Kbd windows="Home" />, <Kbd windows="End" />                        | First or last slide                        |
-| <Kbd windows="Esc" />, <Kbd windows="O" />                           | Toggle the slide overview                  |
-| <Kbd windows="M" />                                                  | Show the contents of the site              |
-| <Kbd windows="S" />                                                  | Open the speaker view                      |
-| <Kbd windows="F" />                                                  | Toggle fullscreen                          |
-| <Kbd windows="B" />, <Kbd windows="." />                             | Pause the presentation with a black screen |
-| <Kbd windows="G" />                                                  | Jump to a slide by its number              |
-| <Kbd mac="⌥+Click" windows="Alt+Click" />                            | Zoom in on an element                      |
-| <Kbd windows="?" />                                                  | Show all keyboard shortcuts                |
-| <Kbd mac="⌘+K" windows="Ctrl+K" />                                   | Search                                     |
+| Shortcut                              | Action                                     |
+| ------------------------------------- | ------------------------------------------ |
+| `→`, `←`                              | Next or previous section                   |
+| `↓`, `↑`                              | Next or previous slide in a section        |
+| `Space`, `Shift+Space`                | Next or previous slide                     |
+| `Home`, `End`                         | First or last slide                        |
+| `Esc`, `O`                            | Toggle the slide overview                  |
+| `M`                                   | Show the contents of the site              |
+| `S`                                   | Open the speaker view                      |
+| `F`                                   | Toggle fullscreen                          |
+| `B`, `.`                              | Pause the presentation with a black screen |
+| `G`                                   | Jump to a slide by its number              |
+| `Alt+Click` (`Option+Click` on macOS) | Zoom in on an element                      |
+| `?`                                   | Show all keyboard shortcuts                |
+| `Ctrl+K` (`Cmd+K` on macOS)           | Search                                     |
 
 The [Presentation Mode keyboard shortcut](/configuration/#keyboardshortcut-1) also keeps working during a presentation.
 

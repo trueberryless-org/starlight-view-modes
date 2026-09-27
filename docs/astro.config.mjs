@@ -2,7 +2,6 @@ import starlight from "@astrojs/starlight";
 import starlightPluginsDocsComponents from "@trueberryless-org/starlight-plugins-docs-components";
 import { defineConfig } from "astro/config";
 import starlightImageZoom from "starlight-image-zoom";
-import starlightKbd from "starlight-kbd";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightViewModes from "starlight-view-modes";
 
@@ -66,12 +65,6 @@ export default defineConfig({
           },
         }),
         starlightImageZoom(),
-        starlightKbd({
-          types: [
-            { id: "mac", label: "macOS", detector: "apple" },
-            { id: "windows", label: "Windows & Linux", default: true },
-          ],
-        }),
       ],
       sidebar: [
         {

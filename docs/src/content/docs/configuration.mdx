@@ -7,7 +7,6 @@ tableOfContents:
 ---
 
 import SpeakerNotes from "starlight-view-modes/components/SpeakerNotes.astro";
-import { Kbd } from "starlight-kbd/components";
 
 The Starlight View Modes plugin can be configured inside the `astro.config.mjs` configuration file of your project:
 
@@ -142,8 +141,8 @@ Keyboard shortcuts are disabled by default.
 A basic shortcut consists of one or more modifier keys followed by a regular key, all connected with `+` signs.
 The Starlight View Modes plugin accepts the following modifier keys: `Ctrl`, `Shift`, `Alt`.
 
-On macOS, `Ctrl` matches both the <Kbd mac="⌃" windows="Ctrl" /> and the <Kbd mac="⌘" windows="Ctrl" /> keys.
-As an example, this website uses the following keyboard shortcut configuration, so you can press <Kbd mac="⌘+⇧+Z" windows="Ctrl+Shift+Z" /> to toggle Zen mode:
+On macOS, `Ctrl` matches both the `Control` and the `Command` keys.
+As an example, this website uses the following keyboard shortcut configuration, so you can press `Ctrl+Shift+Z` (`Cmd+Shift+Z` on macOS) to toggle Zen mode:
 
 ```js
 starlightViewModes({
@@ -154,7 +153,7 @@ starlightViewModes({
 ```
 
 :::note
-We don't recommend using the shortcut <Kbd mac="⌘+K" windows="Ctrl+K" /> because it is already used for opening the search modal.
+We don't recommend using the shortcut `Ctrl+K` (`Cmd+K` on macOS) because it is already used for opening the search modal.
 :::
 
 ### `presentationModeSettings`
@@ -187,7 +186,7 @@ Like for the Zen mode [`exclude`](#exclude) option, glob patterns do **not** nee
 A list of keyboard shortcuts that will enable the user to start and stop presenting the current page.
 Keyboard shortcuts are disabled by default and use the same format as the Zen mode [`keyboardShortcut`](#keyboardshortcut) option.
 
-This website uses the following configuration, so you can press <Kbd mac="⌘+⇧+Y" windows="Ctrl+Shift+Y" /> to present the current page:
+This website uses the following configuration, so you can press `Ctrl+Shift+Y` (`Cmd+Shift+Y` on macOS) to present the current page:
 
 ```js
 starlightViewModes({

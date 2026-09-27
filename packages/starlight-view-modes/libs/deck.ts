@@ -21,7 +21,8 @@ export async function initializePresentation(
 
   const deck = new Reveal(revealElement, {
     center: false,
-    keyboardCondition: () => !contents.open,
+    // Keyboard navigation is disabled while a dialog is open, e.g. the contents or the search.
+    keyboardCondition: () => !document.querySelector("dialog[open]"),
     hash: false,
     history: false,
     respondToHashChanges: false,
@@ -196,7 +197,7 @@ function setupToolbar(
         openPrintView();
         break;
       case "search":
-        openSearch();
+        openSearch(event);
         break;
     }
   });
@@ -222,7 +223,9 @@ function openContents(deck: RevealApi, contents: HTMLDialogElement): void {
 }
 
 // Opens the Starlight search dialog rendered in the hidden page header.
-function openSearch(): void {
+function openSearch(event: MouseEvent): void {
+  // The search dialog closes on clicks outside of it, which would include this click once reaching the window.
+  event.stopPropagation();
   document
     .querySelector<HTMLButtonElement>("site-search button[data-open-modal]")
     ?.click();

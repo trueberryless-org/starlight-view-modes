@@ -99,6 +99,15 @@ test('renders presentation mode pages for all locales', async () => {
   expect(readFixtureOutput('i18n', 'zh-cn/presentation-mode/demo/index.html')).toContain('lang="zh-CN"')
 })
 
+test('switches the language of multilingual presentations', async () => {
+  const { status } = await buildFixture('i18n')
+  const html = readFixtureOutput('i18n', 'en/presentation-mode/demo/index.html')
+
+  expect(status).toBe('success')
+  expect(html).toMatch(/starlight-view-modes-presentation-menu[\s\S]*<starlight-lang-select/)
+  expect(html).toContain('value="/zh-cn/presentation-mode/demo/"')
+})
+
 test('supports presentation directives in MDX pages', async () => {
   const { status } = await buildFixture('presentation')
   const docs = readFixtureOutput('presentation', 'components/index.html')

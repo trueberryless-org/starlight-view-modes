@@ -7,7 +7,6 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Starlight View Modes",
-      pagefind: false,
       plugins: [
         starlightViewModes({
           presentationModeSettings: { keyboardShortcut: "Ctrl+Shift+Y" },

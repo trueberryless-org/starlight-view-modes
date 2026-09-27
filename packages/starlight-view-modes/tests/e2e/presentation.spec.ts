@@ -75,3 +75,18 @@ test("navigates between sections and pages using the contents", async ({
   await contents.getByRole("link", { name: "Homework" }).click();
   await expect(page).toHaveURL("/presentation-mode/homework/");
 });
+
+test("searches the site and opens the presentation of a result", async ({
+  page,
+}) => {
+  await gotoPresentation(page, "/presentation-mode/lesson/");
+
+  const search = page.getByRole("dialog", { name: "Search" });
+
+  await page.getByRole("button", { name: "Search" }).click();
+  await expect(search).toBeVisible();
+
+  await page.keyboard.type("homework");
+  await search.getByRole("link", { name: "Homework" }).first().click();
+  await expect(page).toHaveURL(/\/presentation-mode\/homework\//);
+});
