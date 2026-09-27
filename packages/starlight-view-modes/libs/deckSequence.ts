@@ -92,8 +92,26 @@ function setupSequenceNavigation(
       isAtEdge: () => boolean
     ) =>
     (...args: T) => {
+      if (hasPendingFragment(direction(), args[0])) return method(...args);
       if (!navigate(direction(), isAtEdge)) method(...args);
     };
+
+  // Fragments of the first or last slide are shown or hidden before continuing on another page, unless skipped.
+  const hasPendingFragment = (
+    direction: "next" | "previous",
+    options: unknown
+  ) => {
+    const skipFragments =
+      typeof options === "object" &&
+      options !== null &&
+      "skipFragments" in options &&
+      options.skipFragments === true;
+    const fragments = deck.availableFragments();
+
+    return (
+      !skipFragments && (direction === "next" ? fragments.next : fragments.prev)
+    );
+  };
 
   const isAtForwardEdge = () => !availableRoutes()[getForward()];
   const isAtBackwardEdge = () => !availableRoutes()[getBackward()];

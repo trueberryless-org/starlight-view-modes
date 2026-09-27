@@ -65,3 +65,5 @@ const value20 = 20;
 const value21 = 21;
 const value22 = 22;
 ```
+
+<p class="fragment">Revealed step by step.</p>

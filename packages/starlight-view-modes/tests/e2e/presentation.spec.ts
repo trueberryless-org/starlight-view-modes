@@ -108,6 +108,11 @@ test("continues the presentation on the next and previous pages of a sidebar gro
   await expect(page).toHaveURL("/presentation-mode/lesson/#code");
   const [last] = await getSlideNumber(page);
 
+  // Fragments of the last slide are shown before continuing on the next page.
+  await page.locator(".controls .navigate-right").click();
+  await expect(page.locator(".fragment", { hasText: "Revealed step by step." })).toHaveClass(/\bvisible\b/);
+  await expect(page).toHaveURL("/presentation-mode/lesson/#code");
+
   await page.locator(".controls .navigate-right").click();
   await expect(page).toHaveURL("/presentation-mode/homework/");
   await expect(page.locator("starlight-view-modes-presentation[data-ready]")).toBeAttached();
@@ -183,6 +188,9 @@ test("keeps the speaker view in sync with the presentation", async ({ context, p
   await page.keyboard.press("End");
   await expect(page).toHaveURL(/#code$/);
   await expect(currentSlide.locator(".slides section.present h2")).toContainText("Code");
+  // The first key press shows the fragment of the last slide.
+  await speakerView.keyboard.press("ArrowRight");
+  await expect(currentSlide.locator(".fragment")).toHaveClass(/\bvisible\b/);
   await speakerView.keyboard.press("ArrowRight");
   await expect(page).toHaveURL("/presentation-mode/homework/");
   await expect(speakerView.locator("#current-slide iframe")).toHaveAttribute("src", /\/presentation-mode\/homework\//);
