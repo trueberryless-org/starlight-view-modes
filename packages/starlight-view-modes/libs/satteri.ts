@@ -9,7 +9,10 @@ export function satteriStarlightViewModes() {
       const directive = getMdxDirective(node.value);
       if (!directive) return;
 
-      ctx.replaceNode(node, { type: "html", value: getDirectiveHtml(directive) });
+      ctx.replaceNode(node, {
+        type: "html",
+        value: getDirectiveHtml(directive),
+      });
     },
   });
 }

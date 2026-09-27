@@ -1,6 +1,5 @@
-import "mdast-util-mdx-expression";
-
 import type { RemarkPlugin } from "@astrojs/markdown-remark";
+import "mdast-util-mdx-expression";
 import { visit } from "unist-util-visit";
 
 import { getDirectiveHtml, getMdxDirective } from "./directives";
@@ -11,7 +10,10 @@ export const remarkStarlightViewModes: RemarkPlugin = function () {
       const directive = getMdxDirective(node.value);
       if (!directive || !parent || index === undefined) return;
 
-      parent.children[index] = { type: "html", value: getDirectiveHtml(directive) };
+      parent.children[index] = {
+        type: "html",
+        value: getDirectiveHtml(directive),
+      };
     });
   };
 };

@@ -2,6 +2,7 @@ import type { Element, ElementContent, Root, RootContent } from "hast";
 import { toHtml } from "hast-util-to-html";
 import { visit } from "unist-util-visit";
 
+import { type Directive, getDirective } from "./directives";
 import {
   createElement,
   getHeadingRank,
@@ -12,7 +13,6 @@ import {
   isElementContent,
   isNotes,
 } from "./hast";
-import { type Directive, getDirective } from "./directives";
 import {
   KeepClassName,
   getBlockLines,
@@ -26,7 +26,6 @@ const MaxTitleIntroLines = 6;
 const HeadingWrapperClassName = "sl-heading-wrapper";
 const CounterClassName = "starlight-view-modes-presentation-counter";
 const DescriptionClassName = "starlight-view-modes-presentation-description";
-
 
 export function getSlides(tree: Root, options: SlidesOptions): SlideDeck {
   const [introGroup, ...groups] = getSectionGroups(
@@ -348,9 +347,14 @@ function getNotesHtml(notes: ElementContent[]): string | undefined {
 function getNodeDirective(node: ElementContent): Directive | undefined {
   if (node.type === "comment") return getDirective(node.value);
 
-  const [child, ...rest] = node.type === "element" && isElement(node, "p") && node.properties["hidden"] ? node.children : [];
+  const [child, ...rest] =
+    node.type === "element" && isElement(node, "p") && node.properties["hidden"]
+      ? node.children
+      : [];
 
-  return child?.type === "comment" && rest.length === 0 ? getDirective(child.value) : undefined;
+  return child?.type === "comment" && rest.length === 0
+    ? getDirective(child.value)
+    : undefined;
 }
 
 function getHeading(node: ElementContent): Element | undefined {
