@@ -64,7 +64,7 @@ export default defineConfig({
             exclude: ["resources/*"],
             keyboardShortcut: ["Ctrl+Shift+Y"],
             presentSidebarGroups: true,
-            animation: "fade-in"
+            animation: "fade-in",
           },
         }),
         starlightImageZoom(),
