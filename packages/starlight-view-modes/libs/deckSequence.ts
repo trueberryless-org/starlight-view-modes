@@ -161,12 +161,13 @@ export function showQuerySlide(deck: RevealApi): boolean {
   history.replaceState(history.state, "", url);
 
   const slides = deck.getSlides();
-  const slide =
-    value === LastSlideQueryValue ? slides.at(-1) : slides[Number(value) - 1];
+  const isLastSlide = value === LastSlideQueryValue;
+  const slide = isLastSlide ? slides.at(-1) : slides[Number(value) - 1];
   if (!slide) return false;
 
   const { h, v } = deck.getIndices(slide);
-  deck.slide(h, v);
+  // Going back to the previous page displays its last slide with all its content, like going back to a slide.
+  deck.slide(h, v, isLastSlide ? Number.MAX_SAFE_INTEGER : undefined);
 
   return true;
 }

@@ -2,6 +2,7 @@ import Reveal, { type RevealApi, type TransitionStyle } from "reveal.js";
 import Notes, { type NotesPlugin } from "reveal.js/plugin/notes";
 import Zoom from "reveal.js/plugin/zoom";
 
+import { getBackwardNavigationPlugin } from "./deckFragments";
 import { setupJump } from "./deckJump";
 import {
   getSequence,
@@ -57,12 +58,16 @@ export async function initializePresentation(
     // Slides are adapted to portrait screens instead of being displayed in the scroll view of small screens.
     scrollActivationWidth: 0,
     margin: 0.04,
+    // Exported presentations display all the content of each slide on a single page.
+    pdfSeparateFragments: false,
     plugins: [
       Notes,
       Zoom,
       ...(sequence && navigateToPage
         ? [getSequenceNavigationPlugin(sequence, navigateToPage)]
         : []),
+      // Registered after the sequence navigation so that going back to the previous page also skips animations.
+      getBackwardNavigationPlugin(),
     ],
     ...getDeckConfig(options),
     ...(sequence && getSequenceConfig(sequence, options, () => deck)),

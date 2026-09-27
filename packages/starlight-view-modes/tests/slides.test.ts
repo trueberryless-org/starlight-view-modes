@@ -3,8 +3,13 @@ import { describe, expect, test } from "vitest";
 
 import { getSlides } from "../libs/slides";
 
-function deck(html: string, splitHeadingLevel = 3) {
+function deck(
+  html: string,
+  splitHeadingLevel = 3,
+  animation: Parameters<typeof getSlides>[1]["animation"] = false
+) {
   return getSlides(fromHtml(html, { fragment: true }), {
+    animation,
     description: "A description",
     splitHeadingLevel,
     title: "Title",
@@ -341,5 +346,50 @@ describe("getSlides", () => {
     const html = `<h2 id="a">A</h2>${paragraph(20)}${list(30)}<h3 id="b">B</h3>${paragraph(4)}`;
 
     expect(deck(html)).toEqual(deck(html));
+  });
+
+  describe("with an animation", () => {
+    function animatedSlides(html: string, animation: Parameters<typeof getSlides>[1]["animation"] = "slide-up") {
+      return deck(html, 3, animation).stacks.flat();
+    }
+
+    test("animates each block and list item after the slide heading", () => {
+      const [, section] = animatedSlides(
+        '<h2 id="heading">Heading</h2><p>One</p><ul><li>Two</li><li>Three</li></ul><pre><code>four</code></pre>'
+      );
+
+      expect(section?.html).toBe(
+        '<h2 id="heading">Heading</h2>' +
+          '<p class="fragment fade-up" data-fragment-index="0">One</p>' +
+          '<ul><li class="fragment fade-up" data-fragment-index="1">Two</li><li class="fragment fade-up" data-fragment-index="2">Three</li></ul>' +
+          '<pre class="fragment fade-up" data-fragment-index="3"><code>four</code></pre>'
+      );
+    });
+
+    test("displays nested headings with the block following them", () => {
+      const [, section] = animatedSlides(
+        '<h2 id="heading">Heading</h2><p>One</p><h4 id="nested">Nested</h4><ol><li>Two</li></ol>'
+      );
+
+      expect(section?.html).toContain('<h4 id="nested" class="fragment fade-up" data-fragment-index="1">Nested</h4>');
+      expect(section?.html).toContain('<li class="fragment fade-up" data-fragment-index="1">Two</li>');
+    });
+
+    test("uses the reveal.js fragment style of the animation", () => {
+      const html = '<h2 id="heading">Heading</h2><p class="lead">One</p>';
+
+      expect(animatedSlides(html, "fade")[1]?.html).toContain('<p class="lead fragment" data-fragment-index="0">');
+      expect(animatedSlides(html, "grow")[1]?.html).toContain('<p class="lead fragment zoom-in" data-fragment-index="0">');
+    });
+
+    test("does not animate title slides, section dividers, or resources", () => {
+      const [title, divider, section] = animatedSlides(
+        '<p>Introduction.</p><h2 id="parent">Parent</h2><h3 id="child">Child</h3><link rel="stylesheet" href="/ec.css"><p>Content</p>'
+      );
+
+      expect(title?.html).not.toContain("fragment");
+      expect(divider?.html).not.toContain("fragment");
+      expect(section?.html).toContain('<link rel="stylesheet" href="/ec.css"><p class="fragment fade-up"');
+    });
   });
 });

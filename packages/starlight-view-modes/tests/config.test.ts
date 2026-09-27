@@ -17,6 +17,7 @@ describe("validateConfig", () => {
         keyboardShortcut: [],
       },
       presentationModeSettings: {
+        animation: false,
         enabled: true,
         exclude: [],
         keyboardShortcut: [],
@@ -39,6 +40,16 @@ describe("validateConfig", () => {
     expect(() =>
       validateConfig({ presentationModeSettings: { splitHeadingLevel: 7 } })
     ).toThrow(/presentationModeSettings\.splitHeadingLevel/);
+  });
+
+  test("accepts a presentation animation or false", () => {
+    expect(
+      validateConfig({ presentationModeSettings: { animation: "slide-left" } })
+        .presentationModeSettings.animation
+    ).toBe("slide-left");
+    expect(() =>
+      validateConfig({ presentationModeSettings: { animation: "spin" as "fade" } })
+    ).toThrow(/presentationModeSettings\.animation/);
   });
 
   test("throws when all elements are displayed", () => {

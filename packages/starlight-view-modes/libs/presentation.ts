@@ -21,6 +21,7 @@ export function getPresentation(
 
   return {
     deck: getSlides(tree, {
+      animation: config.presentationModeSettings.animation,
       description: entry.data.description ?? entry.data.hero?.tagline,
       splitHeadingLevel: config.presentationModeSettings.splitHeadingLevel,
       title: entry.data.title,

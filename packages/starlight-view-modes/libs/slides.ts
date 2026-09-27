@@ -2,6 +2,7 @@ import type { Element, ElementContent, Root, RootContent } from "hast";
 import { toHtml } from "hast-util-to-html";
 import { visit } from "unist-util-visit";
 
+import type { PresentationAnimation } from "./config";
 import { type Directive, getDirective } from "./directives";
 import {
   createElement,
@@ -13,6 +14,7 @@ import {
   isElementContent,
   isNotes,
 } from "./hast";
+import { animateSlideContent } from "./slideAnimation";
 import {
   KeepClassName,
   getBlockLines,
@@ -37,8 +39,10 @@ export function getSlides(tree: Root, options: SlidesOptions): SlideDeck {
 
   const stacks = [[getTitleSlide(options, hasTitleIntro ? intro.blocks : [])]];
   const slides = [
-    ...(introGroup && !hasTitleIntro ? getGroupSlides(introGroup) : []),
-    ...groups.flatMap(getGroupSlides),
+    ...(introGroup && !hasTitleIntro
+      ? getGroupSlides(introGroup, options.animation)
+      : []),
+    ...groups.flatMap((group) => getGroupSlides(group, options.animation)),
   ];
 
   // Details of a section are placed vertically below the slides of their section.
@@ -132,7 +136,10 @@ function getSectionGroups(sections: Section[]): Section[][] {
   return groups;
 }
 
-function getGroupSlides(sections: Section[]): GroupSlide[] {
+function getGroupSlides(
+  sections: Section[],
+  animation: SlidesOptions["animation"]
+): GroupSlide[] {
   let isDetail = false;
 
   const parts = sections
@@ -174,7 +181,8 @@ function getGroupSlides(sections: Section[]): GroupSlide[] {
       { ...part, inlineAncestors: inlineAncestors[index] ?? [] },
       !part.isDetail && sectionParts.length > 1
         ? `${sectionParts.indexOf(part) + 1}/${sectionParts.length}`
-        : undefined
+        : undefined,
+      animation
     ),
   }));
 }
@@ -228,9 +236,14 @@ function getTitleSlide(
   };
 }
 
-function getSlide(part: SlidePart, counter: string | undefined): Slide {
+function getSlide(
+  part: SlidePart,
+  counter: string | undefined,
+  animation: SlidesOptions["animation"]
+): Slide {
   const { breadcrumbs, heading, rank } = part.section;
   const { content, notes } = extractNotes(part.nodes);
+  const type = getSlideType(part, content);
   const children: ElementContent[] = [];
 
   // Detail slides show the heading of their section in their breadcrumbs instead of repeating it.
@@ -238,7 +251,14 @@ function getSlide(part: SlidePart, counter: string | undefined): Slide {
     children.push(getSlideHeading(heading, part.isContinuation, counter));
   }
 
-  children.push(...content.flatMap(unwrapKeep));
+  const blocks = content.flatMap(unwrapKeep);
+
+  // Only slides with content are animated, e.g. not section dividers.
+  children.push(
+    ...(animation && (type === "content" || type === "statement")
+      ? animateSlideContent(blocks, animation)
+      : blocks)
+  );
 
   return {
     // Detail slides are linked to the first or enclosing nested section heading of their content.
@@ -261,7 +281,7 @@ function getSlide(part: SlidePart, counter: string | undefined): Slide {
       heading && rank !== undefined && !part.isContinuation
         ? { rank, title: getText(heading) }
         : undefined,
-    type: getSlideType(part, content),
+    type,
   };
 }
 
@@ -406,6 +426,7 @@ export interface OutlineEntry {
 }
 
 interface SlidesOptions {
+  animation: PresentationAnimation | false;
   description: string | undefined;
   splitHeadingLevel: number;
   title: string;

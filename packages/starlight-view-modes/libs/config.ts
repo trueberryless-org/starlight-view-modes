@@ -42,6 +42,17 @@ const configSchema = z
       .prefault({}),
     presentationModeSettings: z
       .object({
+        animation: z
+          .enum([
+            "fade",
+            "slide-up",
+            "slide-down",
+            "slide-left",
+            "slide-right",
+            "grow",
+          ])
+          .or(z.literal(false))
+          .default(false),
         enabled: z.boolean().default(true),
         exclude: z.array(z.string()).default([]),
         keyboardShortcut: keyboardShortcutSchema,
@@ -89,3 +100,7 @@ export type ZenModeDisplayOptions =
   StarlightViewModesConfig["zenModeSettings"]["displayOptions"];
 export type PresentationModeSettings =
   StarlightViewModesConfig["presentationModeSettings"];
+export type PresentationAnimation = Exclude<
+  PresentationModeSettings["animation"],
+  false
+>;

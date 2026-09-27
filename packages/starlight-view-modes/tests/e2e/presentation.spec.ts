@@ -118,10 +118,24 @@ test("continues the presentation on the next and previous pages of a sidebar gro
   await expect(page.locator("starlight-view-modes-presentation[data-ready]")).toBeAttached();
   expect(await getSlideNumber(page)).toEqual([(last ?? 0) + 1, total]);
 
+  // Going back to the previous page displays its last slide with all its content.
   await page.keyboard.press("ArrowLeft");
   await expect(page).toHaveURL("/presentation-mode/lesson/#code");
   await expect(page.locator("starlight-view-modes-presentation[data-ready]")).toBeAttached();
   expect(await getSlideNumber(page)).toEqual([last, total]);
+  await expect(page.locator(".fragment", { hasText: "Revealed step by step." })).toHaveClass(/\bvisible\b/);
+});
+
+test("skips animations when going back", async ({ page }) => {
+  await gotoPresentation(page, "/presentation-mode/lesson/#code");
+
+  const fragment = page.locator(".fragment", { hasText: "Revealed step by step." });
+
+  await page.keyboard.press("ArrowRight");
+  await expect(fragment).toHaveClass(/\bvisible\b/);
+
+  await page.keyboard.press("ArrowLeft");
+  await expect(page).not.toHaveURL(/#code$/);
 });
 
 test("jumps to slides of all pages of a sidebar group", async ({ page }) => {
