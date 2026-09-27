@@ -33,9 +33,13 @@ export async function getRouteData(
     if (mode.name === currentMode) {
       modes.push(getModeData(mode, id, true, t));
     } else if (await isAvailableForPage(mode, pageKey)) {
-      modes.push(
-        getModeData(mode, await getUpdatedModePathname(id, mode.name), false, t)
-      );
+      // Pages in the default mode can be in a directory named like a mode, which must not be replaced.
+      const href =
+        currentMode === "default"
+          ? insertModePathname(id, mode.name)
+          : await getUpdatedModePathname(id, mode.name);
+
+      modes.push(getModeData(mode, href, false, t));
     }
   }
 
