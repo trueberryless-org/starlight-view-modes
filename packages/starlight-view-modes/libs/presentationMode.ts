@@ -33,8 +33,19 @@ export function getPresentationModePageProps(
   };
 }
 
+let pageDescriptions: Promise<PageDescriptions> | undefined;
+
 // Page descriptions are used by the contents to preview pages as their presentation would start.
-export async function getPageDescriptions(): Promise<PageDescriptions> {
+export function getPageDescriptions(): Promise<PageDescriptions> {
+  // The docs collection can change during development.
+  if (import.meta.env.DEV) return loadPageDescriptions();
+
+  pageDescriptions ??= loadPageDescriptions();
+
+  return pageDescriptions;
+}
+
+async function loadPageDescriptions(): Promise<PageDescriptions> {
   const pages = await getCollection("docs");
 
   return Object.fromEntries(
