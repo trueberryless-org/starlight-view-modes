@@ -25,9 +25,25 @@ export async function getCurrentModeFromPath(
   return getCurrentModeFromPathname(slug);
 }
 
+const modePagesCache = new Map<AdditionalMode["name"], Promise<Set<string>>>();
+
 // Additional modes only exist for pages of the docs collection, and not for other pages rendered using Starlight, e.g.
 // pages injected by other plugins.
-export async function getModePages(mode: AdditionalMode): Promise<Set<string>> {
+export function getModePages(mode: AdditionalMode): Promise<Set<string>> {
+  // The docs collection can change during development.
+  if (import.meta.env.DEV) return loadModePages(mode);
+
+  let pages = modePagesCache.get(mode.name);
+
+  if (!pages) {
+    pages = loadModePages(mode);
+    modePagesCache.set(mode.name, pages);
+  }
+
+  return pages;
+}
+
+async function loadModePages(mode: AdditionalMode): Promise<Set<string>> {
   const pages = await getCollection("docs");
 
   return new Set(

@@ -562,6 +562,8 @@ describe("getPathnamePageKey", () => {
     expect(getPathnamePageKey("/docs/presentation-mode/guides/intro/")).toBe("guides/intro");
     expect(getPathnamePageKey("/docs/de/zen-mode/guides/intro/")).toBe("de/guides/intro");
     expect(getPathnamePageKey("/docs/de/guides/intro/")).toBe("de/guides/intro");
+    expect(getPathnamePageKey("/docs/guides/intro/#usage")).toBe("guides/intro");
+    expect(getPathnamePageKey("/docs/guides/intro/?lang=js#usage")).toBe("guides/intro");
   });
 
   test("keeps segments named like a mode outside of the mode position", async () => {

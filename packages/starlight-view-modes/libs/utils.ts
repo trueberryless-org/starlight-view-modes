@@ -31,7 +31,8 @@ export function getPageKey(slug: string): string {
 
 // Returns the page identifier of a pathname independent of the base and the view mode, e.g. `guides/intro` for the
 // `/zen-mode/guides/intro/` pathname.
-export function getPathnamePageKey(pathname: string): string {
+export function getPathnamePageKey(href: string): string {
+  const pathname = href.split(/[?#]/)[0] ?? "";
   const slug = stripLeadingSlash(stripTrailingSlash(pathname));
   const segments = stripSlugBase(slug).split("/");
   const modePosition = getLocaleFromSlug(slug) ? 1 : 0;
