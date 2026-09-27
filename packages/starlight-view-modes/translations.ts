@@ -9,7 +9,6 @@ export const Translations = {
     "starlightViewModes.switchToPresentationMode":
       "Switch to Presentation Mode",
     "starlightViewModes.presentationMode.upNext": "Up next",
-    "starlightViewModes.presentationMode.overview": "Slide overview",
     "starlightViewModes.presentationMode.speakerView": "Speaker view",
     "starlightViewModes.presentationMode.fullscreen": "Toggle fullscreen",
     "starlightViewModes.presentationMode.print": "Export as PDF",
@@ -29,7 +28,6 @@ export const Translations = {
     "starlightViewModes.switchToPresentationMode":
       "Zu Präsentationsmodus wechseln",
     "starlightViewModes.presentationMode.upNext": "Als Nächstes",
-    "starlightViewModes.presentationMode.overview": "Folienübersicht",
     "starlightViewModes.presentationMode.speakerView": "Referentenansicht",
     "starlightViewModes.presentationMode.fullscreen": "Vollbild umschalten",
     "starlightViewModes.presentationMode.print": "Als PDF exportieren",
@@ -50,8 +48,6 @@ export const Translations = {
     "starlightViewModes.switchToPresentationMode":
       "Basculer vers le mode présentation",
     "starlightViewModes.presentationMode.upNext": "À suivre",
-    "starlightViewModes.presentationMode.overview":
-      "Vue d’ensemble des diapositives",
     "starlightViewModes.presentationMode.speakerView": "Mode présentateur",
     "starlightViewModes.presentationMode.fullscreen": "Basculer en plein écran",
     "starlightViewModes.presentationMode.print": "Exporter en PDF",
@@ -72,8 +68,6 @@ export const Translations = {
     "starlightViewModes.switchToPresentationMode":
       "Cambiar a modo presentación",
     "starlightViewModes.presentationMode.upNext": "A continuación",
-    "starlightViewModes.presentationMode.overview":
-      "Vista general de diapositivas",
     "starlightViewModes.presentationMode.speakerView": "Vista del presentador",
     "starlightViewModes.presentationMode.fullscreen":
       "Alternar pantalla completa",
@@ -95,7 +89,6 @@ export const Translations = {
     "starlightViewModes.switchToPresentationMode":
       "Trocar para o modo apresentação",
     "starlightViewModes.presentationMode.upNext": "A seguir",
-    "starlightViewModes.presentationMode.overview": "Visão geral dos slides",
     "starlightViewModes.presentationMode.speakerView": "Modo do apresentador",
     "starlightViewModes.presentationMode.fullscreen": "Alternar tela cheia",
     "starlightViewModes.presentationMode.print": "Exportar como PDF",
@@ -114,7 +107,6 @@ export const Translations = {
     "starlightViewModes.presentationMode.title": "프레젠테이션 모드",
     "starlightViewModes.switchToPresentationMode": "프레젠테이션 모드로 전환",
     "starlightViewModes.presentationMode.upNext": "다음",
-    "starlightViewModes.presentationMode.overview": "슬라이드 개요",
     "starlightViewModes.presentationMode.speakerView": "발표자 보기",
     "starlightViewModes.presentationMode.fullscreen": "전체 화면 전환",
     "starlightViewModes.presentationMode.print": "PDF로 내보내기",
@@ -133,7 +125,6 @@ export const Translations = {
     "starlightViewModes.presentationMode.title": "演示模式",
     "starlightViewModes.switchToPresentationMode": "切换到演示模式",
     "starlightViewModes.presentationMode.upNext": "下一页",
-    "starlightViewModes.presentationMode.overview": "幻灯片概览",
     "starlightViewModes.presentationMode.speakerView": "演讲者视图",
     "starlightViewModes.presentationMode.fullscreen": "切换全屏",
     "starlightViewModes.presentationMode.print": "导出为 PDF",
@@ -153,7 +144,6 @@ export const Translations = {
     "starlightViewModes.switchToPresentationMode":
       "Переключиться в режим презентации",
     "starlightViewModes.presentationMode.upNext": "Далее",
-    "starlightViewModes.presentationMode.overview": "Обзор слайдов",
     "starlightViewModes.presentationMode.speakerView": "Режим докладчика",
     "starlightViewModes.presentationMode.fullscreen":
       "Переключить полноэкранный режим",
@@ -174,8 +164,6 @@ export const Translations = {
     "starlightViewModes.switchToPresentationMode":
       "Passa alla modalità presentazione",
     "starlightViewModes.presentationMode.upNext": "A seguire",
-    "starlightViewModes.presentationMode.overview":
-      "Panoramica delle diapositive",
     "starlightViewModes.presentationMode.speakerView":
       "Visualizzazione relatore",
     "starlightViewModes.presentationMode.fullscreen":

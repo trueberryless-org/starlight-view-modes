@@ -38,16 +38,25 @@ const { deck, options } = getPresentation(
       <PresentationNextPage />
     </div>
   </div>
-  <nav
-    class="starlight-view-modes-presentation-breadcrumbs not-content"
-    aria-label={Astro.locals.t(
-      "starlightViewModes.presentationMode.breadcrumbs"
-    )}
-  >
-    <ol></ol>
-  </nav>
+  <div class="starlight-view-modes-presentation-top">
+    <div
+      class="starlight-view-modes-presentation-header not-content"
+      data-jump-label={Astro.locals.t(
+        "starlightViewModes.presentationMode.jumpToSlide"
+      )}
+    >
+      <nav
+        class="starlight-view-modes-presentation-breadcrumbs"
+        aria-label={Astro.locals.t(
+          "starlightViewModes.presentationMode.breadcrumbs"
+        )}
+      >
+        <ol></ol>
+      </nav>
+    </div>
+    <PresentationMenu />
+  </div>
   <PresentationSequence slides={deck.stacks.flat().length} />
-  <PresentationMenu />
   <PresentationToolbar />
   <PresentationContents
     descriptions={Astro.props.descriptions}

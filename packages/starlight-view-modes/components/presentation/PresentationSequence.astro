@@ -9,7 +9,7 @@ interface Props {
   slides: number;
 }
 
-const { starlightRoute, t } = Astro.locals;
+const { starlightRoute } = Astro.locals;
 const sequence = getPresentationRouteSequence(starlightRoute);
 const hasNextPageSlide = getPresentationNextPage(starlightRoute) !== undefined;
 ---
@@ -19,7 +19,6 @@ const hasNextPageSlide = getPresentationNextPage(starlightRoute) !== undefined;
     class={SequenceClassName}
     hidden
     data-href={sequence.href}
-    data-jump-label={t("starlightViewModes.presentationMode.jumpToSlide")}
     data-next={sequence.next}
     data-previous={sequence.previous}
     data-sequence={sequence.id}

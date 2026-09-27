@@ -22,7 +22,7 @@ test("switches to the presentation of the current section and back", async ({
   );
 
   await page.keyboard.press("Control+Shift+Y");
-  await expect(page).toHaveURL("/lesson/#nested");
+  await expect(page).toHaveURL(/\/lesson\/?#nested$/);
 });
 
 test("navigates horizontally between sections and vertically into details", async ({
@@ -126,6 +126,10 @@ test("jumps to slides of all pages of a sidebar group", async ({ page }) => {
   const jump = page.getByRole("textbox", { name: "Jump to slide" });
 
   await page.keyboard.press("g");
+  // The jump to slide field is displayed below the breadcrumbs.
+  await expect(
+    page.locator(".starlight-view-modes-presentation-header > nav + input")
+  ).toBeVisible();
   await jump.fill("2");
   await jump.press("Enter");
   await expect(page).toHaveURL(/\/presentation-mode\/lesson\/#/);
@@ -138,4 +142,11 @@ test("jumps to slides of all pages of a sidebar group", async ({ page }) => {
   await expect(page).toHaveURL("/presentation-mode/homework/");
   await expect(page.locator("starlight-view-modes-presentation[data-ready]")).toBeAttached();
   expect(await getSlideNumber(page)).toEqual([first, total]);
+});
+
+test("leaves the presentation with Escape", async ({ page }) => {
+  await gotoPresentation(page, "/presentation-mode/lesson/#nested");
+
+  await page.keyboard.press("Escape");
+  await expect(page).toHaveURL(/\/lesson\/?#nested$/);
 });

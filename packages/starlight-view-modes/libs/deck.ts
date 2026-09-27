@@ -2,22 +2,25 @@ import Reveal, { type RevealApi, type TransitionStyle } from "reveal.js";
 import Notes, { type NotesPlugin } from "reveal.js/plugin/notes";
 import Zoom from "reveal.js/plugin/zoom";
 
+import { setupJump } from "./deckJump";
 import {
   getSequence,
   getSequenceConfig,
   getSequenceNavigationPlugin,
-  setupSequenceJump,
   showQuerySlide,
 } from "./deckSequence";
 import { updateModeLinksWithHash } from "./navigation";
 
-const SlideWidth = 1280;
-const SlideHeight = 720;
+const LandscapeSlideSize = { width: 1280, height: 720 };
+// Portrait slides keep the text readable on portrait phones and tablets, where landscape slides would be tiny.
+const PortraitSlideSize = { width: 720, height: 1280 };
+const PortraitMaxWidth = 800;
 const IdleDelay = 2500;
 const MinimumFitScale = 0.5;
 const FitAttempts = 3;
 const PrintQueryParameter = "print-pdf";
 const ContentsKey = { keyCode: 77, key: "M" };
+const ExitKey = { keyCode: 27, key: "Esc" };
 
 export async function initializePresentation(
   element: HTMLElement
@@ -34,9 +37,13 @@ export async function initializePresentation(
     keyboardCondition: () => !document.querySelector("dialog[open]"),
     hash: false,
     history: false,
+    // The overview is replaced by the contents, and `Esc` leaves Presentation Mode instead.
+    overview: false,
+    jumpToSlide: false,
     respondToHashChanges: false,
-    width: SlideWidth,
-    height: SlideHeight,
+    ...getSlideSize(),
+    // Slides are adapted to portrait screens instead of being displayed in the scroll view of small screens.
+    scrollActivationWidth: 0,
     margin: 0.04,
     plugins: [
       Notes,
@@ -64,6 +71,7 @@ export async function initializePresentation(
   if (isPrinting) return;
 
   fitVisibleSlides(deck);
+  watchOrientation(deck);
   if (showQuerySlide(deck)) {
     updateHash(deck);
   } else {
@@ -78,7 +86,10 @@ export async function initializePresentation(
   window.addEventListener("hashchange", () => showHashSlide(deck));
 
   setupToolbar(element, deck, contents);
-  if (sequence) setupSequenceJump(deck, sequence);
+  const header = element.querySelector<HTMLElement>(
+    ".starlight-view-modes-presentation-header"
+  );
+  if (header) setupJump(header, deck, sequence);
   watchIdle(element);
 
   element.setAttribute("data-ready", "");
@@ -102,6 +113,35 @@ function parseDeckOptions(options: string | undefined): DeckOptions {
 
 function isPrintView(): boolean {
   return new URLSearchParams(window.location.search).has(PrintQueryParameter);
+}
+
+function getSlideSize(): { width: number; height: number } {
+  // Printed slides always use the landscape size of the exported pages.
+  const isPortrait =
+    !isPrintView() &&
+    window.innerWidth < window.innerHeight &&
+    window.innerWidth <= PortraitMaxWidth;
+
+  return isPortrait ? PortraitSlideSize : LandscapeSlideSize;
+}
+
+function watchOrientation(deck: RevealApi): void {
+  window.addEventListener("resize", () => {
+    const size = getSlideSize();
+    if (deck.getConfig().width === size.width) return;
+
+    deck.configure(size);
+
+    // Slides are fitted again for their new size.
+    for (const content of document.querySelectorAll<HTMLElement>(
+      ".starlight-view-modes-presentation-slide[data-fitted]"
+    )) {
+      delete content.dataset["fitted"];
+      content.style.removeProperty("--fit");
+    }
+
+    fitVisibleSlides(deck);
+  });
 }
 
 // Slides are only measurable when displayed, which reveal.js only does for slides close to the current one.
@@ -190,6 +230,16 @@ function setupToolbar(
     openContents(deck, contents)
   );
 
+  const exit = element.querySelector<HTMLAnchorElement>(
+    ".starlight-view-modes-presentation-menu .starlight-view-modes-switcher-a"
+  );
+
+  if (exit) {
+    deck.addKeyBinding({ ...ExitKey, description: exit.title }, () => {
+      window.location.href = exit.href;
+    });
+  }
+
   // Close the contents when clicking its backdrop.
   contents.addEventListener("click", (event) => {
     if (event.target === contents) contents.close();
@@ -207,9 +257,6 @@ function setupToolbar(
         break;
       case "close-contents":
         contents.close();
-        break;
-      case "overview":
-        deck.toggleOverview();
         break;
       case "speaker-view":
         (deck.getPlugin("notes") as NotesPlugin | undefined)?.open();

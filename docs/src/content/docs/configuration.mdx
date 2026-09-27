@@ -39,7 +39,7 @@ The Starlight View Modes plugin accepts the following configuration options:
 **Type:** `object`  
 **Default:** `{}`
 
-Here you can find all options regarding Zen mode.
+Here you can find all options regarding [Zen Mode](/zen/).
 
 #### `enabled`
 
@@ -72,6 +72,8 @@ Disabling this option is useful if a Zen Mode doesn't make much sense on your we
   showFooter: true
 }
 ```
+
+The page elements displayed in Zen Mode, also described in [Hidden elements](/zen/#hidden-elements).
 
 :::note
 It is not possible to set all four `displayOptions` to `true` because this would look exactly like the normal mode.
@@ -135,7 +137,7 @@ You can use this [webpage](https://www.digitalocean.com/community/tools/glob) to
 
 **Type:** `string | string[]`
 
-A list of keyboard shortcuts that will enable the user to enter and exit the Zen Mode.
+A list of keyboard shortcuts that will enable the user to [enter](/zen/#entering-zen-mode) and exit the Zen Mode.
 Keyboard shortcuts are disabled by default.
 
 A basic shortcut consists of one or more modifier keys followed by a regular key, all connected with `+` signs.
@@ -161,7 +163,7 @@ We don't recommend using the shortcut `Ctrl+K` (`Cmd+K` on macOS) because it is 
 **Type:** `object`  
 **Default:** `{}`
 
-Here you can find all options regarding Presentation Mode.
+Here you can find all options regarding [Presentation Mode](/presentation/).
 
 #### `enabled`
 
@@ -185,7 +187,7 @@ A page cannot be excluded in only one language.
 
 **Type:** `string | string[]`
 
-A list of keyboard shortcuts that will enable the user to start and stop presenting the current page.
+A list of keyboard shortcuts that will enable the user to [start](/presentation/#starting-a-presentation) and stop presenting the current page.
 Keyboard shortcuts are disabled by default.
 
 A basic shortcut consists of one or more modifier keys followed by a regular key, all connected with `+` signs.
@@ -207,7 +209,7 @@ starlightViewModes({
 **Type:** `boolean`  
 **Default:** `false`
 
-Whether the pages of a top-level sidebar group are presented as a single presentation.
+Whether the pages of a top-level sidebar group are [presented as a single presentation](/presentation/#presenting-several-pages).
 When enabled, slides are numbered across all pages of the group, and going past the last or first slide of a page continues with the next or previous page of the group.
 
 #### `splitHeadingLevel`
@@ -215,7 +217,7 @@ When enabled, slides are numbered across all pages of the group, and going past 
 **Type:** `2 | 3 | 4 | 5 | 6`  
 **Default:** `3`
 
-The deepest heading level starting a new slide.
+The deepest heading level starting a new slide, as described in [How pages become slides](/presentation/#how-pages-become-slides).
 The content of deeper headings stays on the slide of their section when it fits, and otherwise continues on slides placed vertically below the section.
 
 For example, set this option to `2` to also keep the content of `h3` headings on the slide of their parent section when possible, or to `4` to start a new slide for each `h4` heading.

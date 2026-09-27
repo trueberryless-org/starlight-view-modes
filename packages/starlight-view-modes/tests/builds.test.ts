@@ -171,3 +171,21 @@ test('does not link to view modes of pages outside of the docs collection', asyn
   expect(homework).not.toContain('Up next')
   expect(readFixtureOutput('presentation', '404.html')).toContain('<starlight-view-modes-not-found hidden')
 })
+
+test('links to all other view modes from every view mode', async () => {
+  const { status } = await buildFixture('presentation')
+
+  expect(status).toBe('success')
+  expect(readFixtureOutput('presentation', 'zen-mode/lesson/index.html')).toContain('href="/presentation-mode/lesson')
+  expect(readFixtureOutput('presentation', 'presentation-mode/lesson/index.html')).toContain('href="/zen-mode/lesson')
+})
+
+test('prevents leaving Zen Mode without a way back on pages with a hero', async () => {
+  const { status } = await buildFixture('presentation')
+
+  expect(status).toBe('success')
+  expect(() => readFixtureOutput('presentation', 'zen-mode/splash/index.html')).toThrow()
+  expect(readFixtureOutput('presentation', 'splash/index.html')).not.toContain('/zen-mode/splash')
+  expect(readFixtureOutput('presentation', 'presentation-mode/splash/index.html')).toContain('Splash content.')
+  expect(readFixtureOutput('presentation', 'zen-mode/hero/index.html')).not.toContain('starlight-view-modes-zen-mode-no-header')
+})

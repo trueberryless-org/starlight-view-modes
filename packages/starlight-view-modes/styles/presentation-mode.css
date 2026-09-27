@@ -128,19 +128,68 @@
     margin-top: 0.25rem;
   }
 
-  /* Vertically aligned with the menu in the top right corner: same offset and height (buttons, padding and border). */
-  .starlight-view-modes-presentation-breadcrumbs {
+  /* The breadcrumbs take the space left by the menu in the top right corner. */
+  .starlight-view-modes-presentation-top {
     position: fixed;
     top: 1rem;
-    inset-inline-start: 1.5rem;
+    inset-inline: 1.5rem 1rem;
     z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    pointer-events: none;
+  }
+
+  .starlight-view-modes-presentation-top > * {
+    pointer-events: auto;
+  }
+
+  /* The breadcrumbs and the jump to slide field are stacked in the top left corner. */
+  .starlight-view-modes-presentation-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  /* Vertically aligned with the menu in the top right corner: same offset and height (buttons, padding and border). */
+  .starlight-view-modes-presentation-breadcrumbs {
     display: flex;
     align-items: center;
     min-height: calc(2.25rem + 0.25rem * 2 + 2px);
+    max-width: 100%;
     margin: 0;
-    max-width: calc(50vw - 1.5rem);
     color: var(--sl-color-gray-3);
     font-size: var(--sl-text-sm);
+  }
+
+  /* Very short screens, e.g. phones in landscape, keep the slides free of the breadcrumbs. */
+  @media (max-height: 30rem) {
+    .starlight-view-modes-presentation-breadcrumbs {
+      display: none;
+    }
+  }
+
+  .starlight-view-modes-presentation-jump {
+    box-sizing: border-box;
+    width: min(18rem, 100vw - 3rem);
+    max-width: 100%;
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    background-color: var(--sl-color-bg-nav);
+    box-shadow: var(--sl-shadow-md);
+    color: var(--sl-color-white);
+    font: inherit;
+    font-size: var(--sl-text-base);
+  }
+
+  .starlight-view-modes-presentation-jump:focus-visible {
+    outline: 2px solid var(--sl-color-text-accent);
+    outline-offset: -1px;
   }
 
   .starlight-view-modes-presentation-breadcrumbs:has(ol:empty) {
@@ -158,6 +207,25 @@
 
   .starlight-view-modes-presentation-breadcrumbs li:last-child {
     color: var(--sl-color-gray-2);
+  }
+
+  /* Small screens only show the closest breadcrumb on a single line. */
+  @media (max-width: 50rem) {
+    .starlight-view-modes-presentation-breadcrumbs ol {
+      flex-wrap: nowrap;
+      min-width: 0;
+    }
+
+    .starlight-view-modes-presentation-breadcrumbs li:not(:last-child),
+    .starlight-view-modes-presentation-breadcrumbs li::before {
+      display: none;
+    }
+
+    .starlight-view-modes-presentation-breadcrumbs li:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .starlight-view-modes-presentation-breadcrumbs li + li::before,
@@ -193,6 +261,13 @@
     right: auto;
     inset-inline-end: 4.5rem;
     bottom: 1rem;
+  }
+
+  /* The controls are larger on small screens. */
+  @media (max-width: 50rem) {
+    starlight-view-modes-presentation .reveal .slide-number {
+      inset-inline-end: 7.5rem;
+    }
   }
 
   starlight-view-modes-presentation .reveal .slide-number a {
@@ -233,9 +308,8 @@
   }
 
   .starlight-view-modes-presentation-menu {
-    top: 1rem;
-    bottom: auto;
-    inset-inline: auto 1rem;
+    position: static;
+    flex-shrink: 0;
     align-items: center;
   }
 
@@ -362,9 +436,15 @@
     padding: 0 1.5rem 1.5rem;
   }
 
+  /* Small screens show the sections of the current page first, and compact page previews. */
   @media (max-width: 50rem) {
     .starlight-view-modes-presentation-contents-columns {
       grid-template-columns: 1fr;
+    }
+
+    .starlight-view-modes-presentation-contents-columns
+      > nav:has(.starlight-view-modes-presentation-contents-outline) {
+      order: -1;
     }
   }
 
@@ -393,6 +473,18 @@
     text-align: center;
     text-decoration: none;
     text-wrap: balance;
+  }
+
+  @media (max-width: 50rem) {
+    .starlight-view-modes-presentation-contents-pages {
+      grid-template-columns: 1fr;
+    }
+
+    .starlight-view-modes-presentation-contents-pages a {
+      align-items: flex-start;
+      aspect-ratio: auto;
+      text-align: start;
+    }
   }
 
   .starlight-view-modes-presentation-contents-pages a:hover {
@@ -496,7 +588,7 @@
   .reveal-print
     :is(
       .starlight-view-modes-presentation-toolbar,
-      .starlight-view-modes-presentation-breadcrumbs
+      .starlight-view-modes-presentation-top
     ) {
     display: none;
   }

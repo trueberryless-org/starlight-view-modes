@@ -31,7 +31,7 @@ Pages not part of the docs [content collection](https://starlight.astro.build/ma
 Slides are generated from the content of a page, and the same content always results in the same slides:
 
 - The first slide shows the page title, its description, and a short introduction if the page starts with one.
-- Each `h2` and `h3` heading starts a new slide, placed horizontally.
+- Each `h2` and `h3` heading starts a new slide, placed horizontally. The deepest heading level starting a new slide is configurable using the [`splitHeadingLevel`](/configuration/#splitheadinglevel) option.
 - The content of deeper headings stays on the slide of its section when it fits, and otherwise continues on slides placed vertically below the section.
 - A heading directly followed by another heading becomes a section divider slide.
 - Short sections are displayed as statements with larger, vertically centered content.
@@ -40,6 +40,7 @@ Slides are generated from the content of a page, and the same content always res
 - Headings and paragraphs introducing the next block, e.g. "Run the following command:", stay on the same slide as this block.
 - Nearly empty slides are avoided by slightly scaling down content instead, and content too large for a single slide, e.g. a very long code block, is scaled down to fit.
 - The last slide links to the presentation of the next page.
+- Portrait screens, e.g. phones, display portrait slides to keep the content readable.
 
 <SpeakerNotes>
   Highlight that authors do not need to write any slides.
@@ -153,7 +154,7 @@ In Markdown files, use an `<aside>` element with the `starlight-view-modes-notes
 Moving the mouse reveals the controls of the presentation:
 
 - The top right corner contains the search, the language and theme pickers, and a button to leave Presentation Mode.
-- The bottom left corner contains buttons to browse the contents of the site, show an overview of all slides, open the speaker view, toggle fullscreen, and export the presentation as a PDF.
+- The bottom left corner contains buttons to browse the contents of the site, open the speaker view, toggle fullscreen, and export the presentation as a PDF.
 
 The contents list all pages of the site previewed as the first slide of their presentation, and all sections of the current page with the number of the slide they start on.
 
@@ -165,17 +166,17 @@ The following keyboard shortcuts are available during a presentation:
 | `↓`, `↑`                              | Next or previous slide in a section        |
 | `Space`, `Shift+Space`                | Next or previous slide                     |
 | `Home`, `End`                         | First or last slide                        |
-| `Esc`, `O`                            | Toggle the slide overview                  |
+| `Esc`                                 | Leave Presentation Mode                    |
 | `M`                                   | Show the contents of the site              |
 | `S`                                   | Open the speaker view                      |
 | `F`                                   | Toggle fullscreen                          |
 | `B`, `.`                              | Pause the presentation with a black screen |
-| `G`                                   | Jump to a slide by its number              |
+| `G`                                   | Jump to a slide by its number or its text  |
 | `Alt+Click` (`Option+Click` on macOS) | Zoom in on an element                      |
 | `?`                                   | Show all keyboard shortcuts                |
 | `Ctrl+K` (`Cmd+K` on macOS)           | Search                                     |
 
-The Presentation Mode keyboard shortcut also leaves the presentation.
+The Presentation Mode [keyboard shortcut](/configuration/#keyboardshortcut-1) also leaves the presentation.
 
 ## Exporting as PDF
 
