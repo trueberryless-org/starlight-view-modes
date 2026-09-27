@@ -571,6 +571,8 @@ describe("getPathnamePageKey", () => {
 
     const { getPathnamePageKey } = await importUtils();
 
+    expect(getPathnamePageKey("/default/")).toBe("default");
+    expect(getPathnamePageKey("/zen-mode/default/")).toBe("default");
     expect(getPathnamePageKey("/guides/default/")).toBe("guides/default");
     expect(getPathnamePageKey("/presentation-mode/guides/default/")).toBe("guides/default");
   });

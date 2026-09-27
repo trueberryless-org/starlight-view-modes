@@ -2,7 +2,7 @@ import picomatch from "picomatch";
 import context from "virtual:starlight-view-modes/context";
 
 import { getLocaleFromSlug } from "./i18n";
-import { AvailableModes } from "./modes";
+import { AdditionalModes, AvailableModes } from "./modes";
 import { insertSegment, stripLeadingSlash, stripTrailingSlash } from "./path";
 
 const DefaultMode = "default";
@@ -35,7 +35,8 @@ export function getPathnamePageKey(pathname: string): string {
   const slug = stripLeadingSlash(stripTrailingSlash(pathname));
   const segments = stripSlugBase(slug).split("/");
   const modePosition = getLocaleFromSlug(slug) ? 1 : 0;
-  const modes = AvailableModes.map((mode) => mode.name);
+  // The default mode is never part of pathnames, so a page named like it is kept.
+  const modes = AdditionalModes.map((mode) => mode.name);
 
   if (modes.includes(segments[modePosition] ?? "")) {
     segments.splice(modePosition, 1);
