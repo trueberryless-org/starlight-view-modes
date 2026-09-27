@@ -261,6 +261,36 @@
     background-color: var(--sl-color-hairline);
   }
 
+  /*
+   * The controls and the slide number are vertically centered with the toolbar. Arrows are about as large as the
+   * toolbar icons, and the left and right arrows are centered with the toolbar, with the up and down arrows around them.
+   */
+  starlight-view-modes-presentation .reveal {
+    --starlight-view-modes-controls-size: 0.375rem;
+    --starlight-view-modes-controls-center: calc(1rem + 1.4375rem);
+  }
+
+  starlight-view-modes-presentation .reveal .controls {
+    right: 1rem;
+    bottom: calc(var(--starlight-view-modes-controls-center) - 1.8em);
+    font-size: var(--starlight-view-modes-controls-size);
+  }
+
+  starlight-view-modes-presentation
+    .reveal
+    .controls
+    :is(.navigate-left, .navigate-right) {
+    bottom: 0;
+  }
+
+  starlight-view-modes-presentation .reveal .controls .navigate-up {
+    bottom: 3.2em;
+  }
+
+  starlight-view-modes-presentation .reveal .controls .navigate-down {
+    bottom: -4.6em;
+  }
+
   starlight-view-modes-presentation .reveal .slide-number {
     background-color: transparent;
     color: var(--sl-color-gray-3);
@@ -268,15 +298,12 @@
     font-size: var(--sl-text-sm);
     font-variant-numeric: tabular-nums;
     right: auto;
-    inset-inline-end: 4.5rem;
-    bottom: 1rem;
-  }
-
-  /* The controls are larger on small screens. */
-  @media (max-width: 50rem) {
-    starlight-view-modes-presentation .reveal .slide-number {
-      inset-inline-end: 7.5rem;
-    }
+    /* The controls are 10 times as wide as their size. */
+    inset-inline-end: calc(
+      1rem + 10 * var(--starlight-view-modes-controls-size) + 0.75rem
+    );
+    bottom: var(--starlight-view-modes-controls-center);
+    transform: translateY(50%);
   }
 
   starlight-view-modes-presentation .reveal .slide-number a {

@@ -18,8 +18,9 @@ export function isPauseMarker(node: ElementContent): boolean {
 }
 
 // Reveals the content of a slide step by step:
-// - With an animation, list items are revealed one by one, and other content is displayed right away.
-// - Content following a pause is revealed in the next step, together with the list items and content following it.
+// - With an animation, list items are revealed one by one, and the content following them in the next step. Other
+//   content is displayed right away.
+// - Content following a pause is revealed in the next step, together with the content following it.
 // A slide never starts empty unless it starts with a pause, so the first step is displayed right away if needed.
 export function animateSlideContent(
   nodes: ElementContent[],
@@ -98,6 +99,9 @@ function getSteps(
         steps.set(item, count - 1);
         hasOnlyHeadings = false;
       }
+      // Content following a list is revealed after its items, like after a pause.
+      hasPaused = true;
+      isPending = true;
       continue;
     }
 

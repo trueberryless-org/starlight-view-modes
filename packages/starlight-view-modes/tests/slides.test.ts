@@ -353,7 +353,7 @@ describe("getSlides", () => {
       return deck(html, 3, animation).stacks.flat();
     }
 
-    test("reveals list items one by one and displays other content right away", () => {
+    test("reveals list items one by one and then the content following them", () => {
       const [, section] = animatedSlides(
         '<h2 id="heading">Heading</h2><p>One</p><ul><li>Two</li><li>Three</li></ul><pre><code>four</code></pre>'
       );
@@ -361,7 +361,7 @@ describe("getSlides", () => {
       expect(section?.html).toBe(
         '<h2 id="heading">Heading</h2><p>One</p>' +
           '<ul><li class="fragment fade-up" data-fragment-index="0">Two</li><li class="fragment fade-up" data-fragment-index="1">Three</li></ul>' +
-          "<pre><code>four</code></pre>"
+          '<pre class="fragment fade-up" data-fragment-index="2"><code>four</code></pre>'
       );
     });
 
@@ -413,7 +413,7 @@ describe("getSlides", () => {
           '<h2 id="heading">Heading</h2>' +
             '<h4 id="nested" class="fragment fade-up" data-fragment-index="0">Nested</h4>' +
             '<ul><li class="fragment fade-up" data-fragment-index="0">One</li><li class="fragment fade-up" data-fragment-index="1">Two</li></ul>' +
-            '<p class="fragment fade-up" data-fragment-index="1">Three</p>'
+            '<p class="fragment fade-up" data-fragment-index="2">Three</p>'
         );
       });
 
