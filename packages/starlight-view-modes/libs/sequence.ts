@@ -5,45 +5,54 @@ export const SequenceClassName = "starlight-view-modes-presentation-sequence";
 const sequenceElementPattern = new RegExp(
   `<div class="${SequenceClassName}"[^>]*>`
 );
-const sequenceAttributePattern = /data-(sequence|sequence-index|slides)="([^"]*)"/g;
+const sequenceAttributePattern =
+  /data-(href|sequence|sequence-index|slides)="([^"]*)"/g;
 
-// The pages of a top-level sidebar group are presented as a sequence, e.g. the lessons of a course, with slide numbers
-// counting the slides of all these pages.
-export function getPresentationSequence(
-  sidebar: SidebarEntry[],
-  locale: string | undefined
-): PresentationSequence | undefined {
+// The pages of a top-level sidebar group are presented as a single presentation, e.g. the lessons of a course.
+export function getPresentationSequence({
+  locale,
+  pagination,
+  sidebar,
+}: SequenceRoute): PresentationSequence | undefined {
   const groupIndex = sidebar.findIndex(
-    (entry) => entry.type === "group" && getSidebarLinks(entry).some((link) => link.isCurrent)
+    (entry) =>
+      entry.type === "group" &&
+      getSidebarLinks(entry).some((link) => link.isCurrent)
   );
   const group = sidebar[groupIndex];
   if (!group) return undefined;
 
+  const links = getSidebarLinks(group);
+  const index = links.findIndex((link) => link.isCurrent);
+  const hrefs = new Set(links.map((link) => link.href));
+  const getGroupHref = (link: { href: string } | undefined) =>
+    link && hrefs.has(link.href) ? link.href : undefined;
+
   return {
+    href: links[index]?.href ?? "",
     id: `${locale ?? ""}/${groupIndex}`,
-    index: getSidebarLinks(group).findIndex((link) => link.isCurrent),
+    index,
+    next: getGroupHref(pagination.next),
+    previous: getGroupHref(pagination.prev),
   };
 }
 
-// Sequence slide counts are only known once all presentations are rendered, so they are added to the built pages.
-export function getSequenceCounts(
+// The slide counts of all pages of a sequence are only known once all presentations are rendered, so they are added
+// to the built pages.
+export function getSequencePages(
   pages: SequencePage[]
-): Map<SequencePage, SequenceCount> {
-  const counts = new Map<SequencePage, SequenceCount>();
-  const sequences = Map.groupBy(pages, (page) => page.id);
+): Map<SequencePage, SequencePageSlides[]> {
+  const sequences = new Map<SequencePage, SequencePageSlides[]>();
 
-  for (const sequence of sequences.values()) {
-    const sortedPages = sequence.toSorted((a, b) => a.index - b.index);
-    const total = sortedPages.reduce((sum, page) => sum + page.slides, 0);
-    let offset = 0;
+  for (const sequence of Map.groupBy(pages, (page) => page.id).values()) {
+    const sequencePages = sequence
+      .toSorted((a, b) => a.index - b.index)
+      .map(({ href, slides }) => ({ href, slides }));
 
-    for (const page of sortedPages) {
-      counts.set(page, { offset, total });
-      offset += page.slides;
-    }
+    for (const page of sequence) sequences.set(page, sequencePages);
   }
 
-  return counts;
+  return sequences;
 }
 
 export function getSequencePage(html: string): SequencePage | undefined {
@@ -51,40 +60,65 @@ export function getSequencePage(html: string): SequencePage | undefined {
   if (!element) return undefined;
 
   const attributes = Object.fromEntries(
-    [...element.matchAll(sequenceAttributePattern)].map(([, name, value]) => [name, value])
+    [...element.matchAll(sequenceAttributePattern)].map(([, name, value]) => [
+      name,
+      value,
+    ])
   );
-  if (!attributes["sequence"]) return undefined;
+  const { href, sequence, slides } = attributes;
+  if (!href || !sequence || !slides) return undefined;
 
   return {
-    id: attributes["sequence"],
+    href,
+    id: sequence,
     index: Number(attributes["sequence-index"]),
-    slides: Number(attributes["slides"]),
+    slides: Number(slides),
   };
 }
 
-export function setSequenceCount(html: string, { offset, total }: SequenceCount): string {
+export function setSequencePages(
+  html: string,
+  pages: SequencePageSlides[]
+): string {
+  const value = JSON.stringify(pages).replaceAll('"', "&quot;");
+
   return html.replace(sequenceElementPattern, (element) =>
-    element.replace(/>$/, ` data-offset="${offset}" data-total="${total}">`)
+    element.replace(/>$/, ` data-pages="${value}">`)
   );
 }
 
 function getSidebarLinks(entry: SidebarEntry): SidebarLink[] {
-  return entry.type === "link" ? [entry] : entry.entries.flatMap(getSidebarLinks);
+  return entry.type === "link"
+    ? [entry]
+    : entry.entries.flatMap(getSidebarLinks);
 }
 
+type SequenceRoute = Pick<StarlightRouteData, "locale" | "pagination" | "sidebar">;
 type SidebarEntry = StarlightRouteData["sidebar"][number];
 type SidebarLink = Extract<SidebarEntry, { type: "link" }>;
 
 export interface PresentationSequence {
+  href: string;
   id: string;
   index: number;
+  /**
+   * The next page of the sequence, if any, excluding pages following the sequence.
+   */
+  next: string | undefined;
+  /**
+   * The previous page of the sequence, if any, excluding pages preceding the sequence.
+   */
+  previous: string | undefined;
 }
 
-export interface SequencePage extends PresentationSequence {
+export interface SequencePage {
+  href: string;
+  id: string;
+  index: number;
   slides: number;
 }
 
-export interface SequenceCount {
-  offset: number;
-  total: number;
+export interface SequencePageSlides {
+  href: string;
+  slides: number;
 }

@@ -62,6 +62,7 @@ export default defineConfig({
           },
           presentationModeSettings: {
             keyboardShortcut: ["Ctrl+Shift+Y"],
+            presentSidebarGroups: true,
           },
         }),
         starlightImageZoom(),

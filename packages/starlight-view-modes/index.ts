@@ -82,7 +82,10 @@ export default function starlightViewModes(
               }
             },
             "astro:build:done": async ({ dir }) => {
-              if (config.presentationModeSettings.enabled) {
+              const { enabled, presentSidebarGroups } =
+                config.presentationModeSettings;
+
+              if (enabled && presentSidebarGroups) {
                 await updatePresentationSequences(dir);
               }
             },

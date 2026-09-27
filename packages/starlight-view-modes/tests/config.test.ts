@@ -20,6 +20,7 @@ describe("validateConfig", () => {
         enabled: true,
         exclude: [],
         keyboardShortcut: [],
+        presentSidebarGroups: false,
         splitHeadingLevel: 3,
         transition: "slide",
         slideNumber: true,

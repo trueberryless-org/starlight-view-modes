@@ -120,18 +120,33 @@ test('supports presentation directives in MDX pages', async () => {
   expect(presentation).toContain('<aside class="notes">A speaker note.</aside>')
 })
 
-test('numbers the slides of all pages of a sidebar group', async () => {
+test('presents the pages of a sidebar group as a single presentation when enabled', async () => {
   const { status } = await buildFixture('presentation')
-  const sequence = (page: string) =>
+  const getSequence = (page: string) =>
     /<div class="starlight-view-modes-presentation-sequence"[^>]*>/.exec(
       readFixtureOutput('presentation', `presentation-mode/${page}/index.html`)
     )?.[0]
-  const lessonSlides = Number(/data-slides="(\d+)"/.exec(sequence('lesson') ?? '')?.[1])
-  const homeworkSlides = Number(/data-slides="(\d+)"/.exec(sequence('homework') ?? '')?.[1])
-  const total = lessonSlides + homeworkSlides
+  const lesson = getSequence('lesson') ?? ''
+  const homework = getSequence('homework') ?? ''
+  const pages = JSON.stringify([
+    { href: '/presentation-mode/lesson/', slides: Number(/data-slides="(\d+)"/.exec(lesson)?.[1]) },
+    { href: '/presentation-mode/homework/', slides: Number(/data-slides="(\d+)"/.exec(homework)?.[1]) },
+  ]).replaceAll('"', '&quot;')
 
   expect(status).toBe('success')
-  expect(sequence('lesson')).toContain(`data-offset="0" data-total="${total}"`)
-  expect(sequence('homework')).toContain(`data-offset="${lessonSlides}" data-total="${total}"`)
-  expect(sequence('components')).not.toContain('data-offset')
+  expect(lesson).toContain('data-next="/presentation-mode/homework/"')
+  expect(lesson).toContain(`data-pages="${pages}"`)
+  expect(homework).toContain('data-previous="/presentation-mode/lesson/"')
+  expect(homework).toContain(`data-pages="${pages}"`)
+  expect(readFixtureOutput('presentation', 'presentation-mode/lesson/index.html')).not.toContain('Up next')
+  expect(getSequence('components')).toBeUndefined()
+})
+
+test('presents pages separately by default', async () => {
+  const { status } = await buildFixture('basic')
+
+  expect(status).toBe('success')
+  expect(readFixtureOutput('basic', 'presentation-mode/demo/index.html')).not.toContain(
+    'starlight-view-modes-presentation-sequence'
+  )
 })

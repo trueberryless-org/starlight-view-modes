@@ -1,21 +1,29 @@
 ---
-import { SequenceClassName, getPresentationSequence } from "../../libs/sequence";
+import {
+  getPresentationNextPage,
+  getPresentationRouteSequence,
+} from "../../libs/presentation";
+import { SequenceClassName } from "../../libs/sequence";
 
 interface Props {
   slides: number;
 }
 
-const { locale, pagination, sidebar } = Astro.locals.starlightRoute;
-const sequence = getPresentationSequence(sidebar, locale);
+const { starlightRoute, t } = Astro.locals;
+const sequence = getPresentationRouteSequence(starlightRoute);
+const hasNextPageSlide = getPresentationNextPage(starlightRoute) !== undefined;
 ---
 
-<div
-  class={SequenceClassName}
-  hidden
-  data-next={pagination.next?.href}
-  data-previous={pagination.prev?.href}
-  data-sequence={sequence?.id}
-  data-sequence-index={sequence?.index}
-  data-slides={Astro.props.slides + (pagination.next ? 1 : 0)}
->
-</div>
+{sequence && (
+  <div
+    class={SequenceClassName}
+    hidden
+    data-href={sequence.href}
+    data-jump-label={t("starlightViewModes.presentationMode.jumpToSlide")}
+    data-next={sequence.next}
+    data-previous={sequence.previous}
+    data-sequence={sequence.id}
+    data-sequence-index={sequence.index}
+    data-slides={Astro.props.slides + (hasNextPageSlide ? 1 : 0)}
+  />
+)}

@@ -2,12 +2,12 @@ import { readFile, readdir, writeFile } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { getSequenceCounts, getSequencePage, setSequenceCount } from "./sequence";
+import { getSequencePage, getSequencePages, setSequencePages } from "./sequence";
 
 // The modes module cannot be imported from integration hooks as it depends on the plugin virtual modules.
 const PresentationModeSegment = "presentation-mode";
 
-// Adds the slide counts of their sequence to the built presentation pages.
+// Adds the pages of their sequence with their slide counts to the built presentation pages.
 export async function updatePresentationSequences(dir: URL): Promise<void> {
   const files = await getPresentationFiles(fileURLToPath(dir));
   const pages = await Promise.all(
@@ -17,14 +17,14 @@ export async function updatePresentationSequences(dir: URL): Promise<void> {
       return { file, html, page: getSequencePage(html) };
     })
   );
-  const counts = getSequenceCounts(pages.flatMap(({ page }) => page ?? []));
+  const sequences = getSequencePages(pages.flatMap(({ page }) => page ?? []));
 
   await Promise.all(
     pages.map(async ({ file, html, page }) => {
-      const count = page && counts.get(page);
-      if (!count) return;
+      const sequence = page && sequences.get(page);
+      if (!sequence) return;
 
-      await writeFile(file, setSequenceCount(html, count));
+      await writeFile(file, setSequencePages(html, sequence));
     })
   );
 }

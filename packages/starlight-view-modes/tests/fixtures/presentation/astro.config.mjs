@@ -9,7 +9,10 @@ export default defineConfig({
       title: "Starlight View Modes",
       plugins: [
         starlightViewModes({
-          presentationModeSettings: { keyboardShortcut: "Ctrl+Shift+Y" },
+          presentationModeSettings: {
+            keyboardShortcut: "Ctrl+Shift+Y",
+            presentSidebarGroups: true,
+          },
         }),
       ],
       sidebar: [

@@ -91,24 +91,51 @@ test("searches the site and opens the presentation of a result", async ({
   await expect(page).toHaveURL(/\/presentation-mode\/homework\//);
 });
 
+async function getSlideNumber(page: Page) {
+  const text = await page.locator(".slide-number").textContent();
+
+  return text?.replace(/\s+/g, "").split("/").map(Number) ?? [];
+}
+
 test("continues the presentation on the next and previous pages of a sidebar group", async ({
   page,
 }) => {
   await gotoPresentation(page, "/presentation-mode/lesson/");
 
-  const slideNumber = page.locator(".slide-number");
-  const total = Number((await slideNumber.textContent())?.split("/")[1]);
+  const [, total] = await getSlideNumber(page);
 
   await page.keyboard.press("End");
-  await expect(page.locator(".slides section.present")).toContainText("Homework");
-  const last = Number((await slideNumber.textContent())?.split("/")[0]);
+  await expect(page).toHaveURL("/presentation-mode/lesson/#code");
+  const [last] = await getSlideNumber(page);
 
-  await page.keyboard.press("ArrowRight");
+  await page.locator(".controls .navigate-right").click();
   await expect(page).toHaveURL("/presentation-mode/homework/");
   await expect(page.locator("starlight-view-modes-presentation[data-ready]")).toBeAttached();
-  await expect(slideNumber).toHaveText(new RegExp(`^\\s*${last + 1}\\s*/\\s*${total}\\s*$`));
+  expect(await getSlideNumber(page)).toEqual([(last ?? 0) + 1, total]);
 
   await page.keyboard.press("ArrowLeft");
   await expect(page).toHaveURL("/presentation-mode/lesson/#code");
-  await expect(slideNumber).toHaveText(new RegExp(`^\\s*${last - 1}\\s*/\\s*${total}\\s*$`));
+  await expect(page.locator("starlight-view-modes-presentation[data-ready]")).toBeAttached();
+  expect(await getSlideNumber(page)).toEqual([last, total]);
+});
+
+test("jumps to slides of all pages of a sidebar group", async ({ page }) => {
+  await gotoPresentation(page, "/presentation-mode/homework/");
+
+  const [first, total] = await getSlideNumber(page);
+  const jump = page.getByRole("textbox", { name: "Jump to slide" });
+
+  await page.keyboard.press("g");
+  await jump.fill("2");
+  await jump.press("Enter");
+  await expect(page).toHaveURL(/\/presentation-mode\/lesson\/#/);
+  await expect(page.locator("starlight-view-modes-presentation[data-ready]")).toBeAttached();
+  expect(await getSlideNumber(page)).toEqual([2, total]);
+
+  await page.keyboard.press("g");
+  await jump.fill(String(first));
+  await jump.press("Enter");
+  await expect(page).toHaveURL("/presentation-mode/homework/");
+  await expect(page.locator("starlight-view-modes-presentation[data-ready]")).toBeAttached();
+  expect(await getSlideNumber(page)).toEqual([first, total]);
 });

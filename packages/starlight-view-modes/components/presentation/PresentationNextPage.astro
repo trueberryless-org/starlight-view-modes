@@ -1,5 +1,7 @@
 ---
-const { next } = Astro.locals.starlightRoute.pagination;
+import { getPresentationNextPage } from "../../libs/presentation";
+
+const next = getPresentationNextPage(Astro.locals.starlightRoute);
 ---
 
 {next && (
