@@ -49,7 +49,9 @@ export function getPathnamePageKey(pathname: string): string {
 export function stripModePathname(pathname: string): string | undefined {
   const segments = pathname.split("/");
   const position =
-    getBaseSegments().length + (getLocaleFromSlug(pathname) ? 1 : 0) + (pathname.startsWith("/") ? 1 : 0);
+    getBaseSegments().length +
+    (getLocaleFromSlug(pathname) ? 1 : 0) +
+    (pathname.startsWith("/") ? 1 : 0);
   const modes = AdditionalModes.map((mode) => mode.name);
 
   if (!modes.includes(segments[position] ?? "")) return undefined;

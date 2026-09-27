@@ -3,15 +3,9 @@ import context from "virtual:starlight-view-modes/context";
 
 import type { StarlightViewModesRouteData } from "../data";
 import { type AvailableMode, AvailableModes, isAdditionalMode } from "./modes";
-import {
-  stripTrailingSlash,
-  trimToExactlyOneLeadingSlash,
-} from "./path";
+import { stripTrailingSlash, trimToExactlyOneLeadingSlash } from "./path";
 import { getCurrentModeFromPath, getModePages, hasModePage } from "./server";
-import {
-  getUpdatedModePathname,
-  insertModePathname,
-} from "./utils";
+import { getUpdatedModePathname, insertModePathname } from "./utils";
 
 export async function getRouteData(
   starlightRoute: StarlightRouteData,

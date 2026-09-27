@@ -33,12 +33,18 @@ export async function getModePages(mode: AdditionalMode): Promise<Set<string>> {
   return new Set(
     pages
       .filter((page) => isDefaultLocalePage(page, mode))
-      .map((page) => normalizeSlug(handleIndexSlug(getLocalizedSlug(page.id, undefined)) ?? ""))
+      .map((page) =>
+        normalizeSlug(
+          handleIndexSlug(getLocalizedSlug(page.id, undefined)) ?? ""
+        )
+      )
   );
 }
 
 export function hasModePage(pages: Set<string>, slug: string): boolean {
-  return pages.has(normalizeSlug(getLocalizedSlug(normalizeSlug(slug), undefined)));
+  return pages.has(
+    normalizeSlug(getLocalizedSlug(normalizeSlug(slug), undefined))
+  );
 }
 
 export async function generateStaticPaths(mode: AdditionalMode) {
