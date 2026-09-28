@@ -103,7 +103,7 @@ importers:
         specifier: ^1.63.0
         version: 1.63.0
       '@types/hast':
-        specifier: ^3.0.4
+        specifier: ^3.0.5
         version: 3.0.5
       '@types/picomatch':
         specifier: ^4.0.3
