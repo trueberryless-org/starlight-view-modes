@@ -17,6 +17,9 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Starlight View Modes",
+      components: {
+        Footer: "./src/components/Footer.astro",
+      },
       head: [
         {
           tag: "meta",
