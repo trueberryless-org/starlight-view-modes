@@ -1,5 +1,6 @@
 import { type CollectionEntry, getCollection, getEntry } from "astro:content";
 
+import { isExcludedPage } from "./exclude";
 import {
   defaultLocale,
   getLocaleFromSlug,
@@ -12,7 +13,6 @@ import {
   getCurrentModeFromPath as getCurrentModeFromPathname,
   getPageKey,
   handleIndexSlug,
-  isExcludedPage,
 } from "./utils";
 
 export async function getCurrentModeFromPath(

@@ -1,13 +1,10 @@
 import type { StarlightRouteData } from "@astrojs/starlight/route-data";
 
+import { isExcludedPage } from "./exclude";
 import { type AdditionalMode, AdditionalModes } from "./modes";
 import { stripLeadingSlash, stripTrailingSlash } from "./path";
 import { getCurrentModeFromPath, getModePages, hasModePage } from "./server";
-import {
-  getPathnamePageKey,
-  insertModePathname,
-  isExcludedPage,
-} from "./utils";
+import { getPathnamePageKey, insertModePathname } from "./utils";
 
 export async function updateSidebarAndPagination(
   starlightRoute: StarlightRouteData

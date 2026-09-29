@@ -1,4 +1,3 @@
-import picomatch from "picomatch";
 import context from "virtual:starlight-view-modes/context";
 
 import { getLocaleFromSlug } from "./i18n";
@@ -6,10 +5,6 @@ import { AdditionalModes, AvailableModes } from "./modes";
 import { insertSegment, stripLeadingSlash, stripTrailingSlash } from "./path";
 
 const DefaultMode = "default";
-
-export function isExcludedPage(path: string, exclude: string[]): boolean {
-  return picomatch(exclude)(path);
-}
 
 export function handleIndexSlug(slug: string): string | undefined {
   if (slug === "") return undefined;
