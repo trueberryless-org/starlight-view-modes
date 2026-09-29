@@ -36,6 +36,11 @@ export default defineConfig({
       customCss: ["./src/styles/custom.css"],
       social: [
         {
+          icon: "blueSky",
+          label: "BlueSky",
+          href: "https://bsky.app/profile/felixs.dev",
+        },
+        {
           icon: "github",
           label: "GitHub",
           href: "https://github.com/trueberryless-org/starlight-view-modes",
