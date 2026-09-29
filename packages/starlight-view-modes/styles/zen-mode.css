@@ -28,7 +28,7 @@
     display: none;
   }
   body:has(.starlight-view-modes-zen-mode):has(#starlight__sidebar) main {
-    width: 100vw;
+    width: 100%;
   }
   body:has(.starlight-view-modes-zen-mode):has(#starlight__sidebar)
     main
@@ -73,7 +73,7 @@
   }
   body:has(.starlight-view-modes-zen-mode-header):has(#starlight__sidebar)
     main {
-    width: 100vw;
+    width: 100%;
   }
   body:has(.starlight-view-modes-zen-mode-header):has(#starlight__sidebar)
     main
@@ -102,7 +102,7 @@
     }
   }
   body:has(.starlight-view-modes-zen-mode-footer) main {
-    width: calc(100vw - var(--sl-sidebar-pad-x));
+    width: calc(100% - var(--sl-sidebar-pad-x));
   }
   body:has(.starlight-view-modes-zen-mode-footer) .right-sidebar-container {
     display: none;
@@ -115,7 +115,7 @@
   }
   body:has(.starlight-view-modes-zen-mode-footer):has(#starlight__sidebar)
     main {
-    width: 100vw;
+    width: 100%;
   }
   body:has(.starlight-view-modes-zen-mode-footer):has(#starlight__sidebar)
     main
@@ -158,7 +158,7 @@
   @media (min-width: 50rem) {
     body:has(.starlight-view-modes-zen-mode-sidebar):has(#starlight__sidebar)
       main {
-      width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
+      width: calc(100% - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
       margin-left: var(--sl-sidebar-width);
     }
   }
@@ -184,21 +184,7 @@
       #starlight__sidebar
     )
     main {
-    width: 100vw;
-  }
-  @media (min-width: 72rem) {
-    body:has(.starlight-view-modes-zen-mode-table-of-contents):has(
-        #starlight__sidebar
-      )
-      main {
-      width: calc(
-        100vw -
-          (
-            var(--sl-sidebar-width) +
-              (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2
-          )
-      );
-    }
+    width: 100%;
   }
   body:has(.starlight-view-modes-zen-mode-table-of-contents):has(
       #starlight__sidebar
@@ -242,7 +228,7 @@
       #starlight__sidebar
     )
     main {
-    width: 100vw;
+    width: 100%;
   }
   body:has(.starlight-view-modes-zen-mode-header-footer):has(
       #starlight__sidebar
@@ -310,7 +296,7 @@
         #starlight__sidebar
       )
       main {
-      width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
+      width: calc(100% - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
       margin-left: var(--sl-sidebar-width);
     }
   }
@@ -359,21 +345,7 @@
       #starlight__sidebar
     )
     main {
-    width: 100vw;
-  }
-  @media (min-width: 72rem) {
-    body:has(.starlight-view-modes-zen-mode-header-table-of-contents):has(
-        #starlight__sidebar
-      )
-      main {
-      width: calc(
-        100vw -
-          (
-            var(--sl-sidebar-width) +
-              (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2
-          )
-      );
-    }
+    width: 100%;
   }
   body:has(.starlight-view-modes-zen-mode-header-table-of-contents):has(
       #starlight__sidebar
@@ -417,7 +389,7 @@
         #starlight__sidebar
       )
       main {
-      width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
+      width: calc(100% - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
       margin-left: var(--sl-sidebar-width);
     }
   }
@@ -457,21 +429,7 @@
       #starlight__sidebar
     )
     main {
-    width: 100vw;
-  }
-  @media (min-width: 72rem) {
-    body:has(.starlight-view-modes-zen-mode-table-of-contents-footer):has(
-        #starlight__sidebar
-      )
-      main {
-      width: calc(
-        100vw -
-          (
-            var(--sl-sidebar-width) +
-              (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2
-          )
-      );
-    }
+    width: 100%;
   }
   body:has(.starlight-view-modes-zen-mode-table-of-contents-footer):has(
       #starlight__sidebar
@@ -529,7 +487,7 @@
         #starlight__sidebar
       )
       main {
-      width: calc(100vw - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
+      width: calc(100% - var(--sl-sidebar-width) - var(--sl-sidebar-pad-x));
       margin-left: var(--sl-sidebar-width);
     }
   }
@@ -583,21 +541,7 @@
       #starlight__sidebar
     )
     main {
-    width: 100vw;
-  }
-  @media (min-width: 72rem) {
-    body:has(
-        .starlight-view-modes-zen-mode-header-table-of-contents-footer
-      ):has(#starlight__sidebar)
-      main {
-      width: calc(
-        100vw -
-          (
-            var(--sl-sidebar-width) +
-              (100vw - var(--sl-content-width) - var(--sl-sidebar-width)) / 2
-          )
-      );
-    }
+    width: 100%;
   }
   body:has(.starlight-view-modes-zen-mode-header-table-of-contents-footer):has(
       #starlight__sidebar
@@ -624,6 +568,11 @@
   /* Remove the space reserved for the hidden header. */
   body:has(.starlight-view-modes-zen-mode-no-header) {
     --sl-nav-height: 0rem;
+  }
+
+  /* Let the main pane use the space of the hidden table of contents. */
+  body:has(.starlight-view-modes-zen-mode-no-table-of-contents) .main-pane {
+    width: 100%;
   }
 
   @media (max-width: 50rem) {
