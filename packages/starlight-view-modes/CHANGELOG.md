@@ -1,5 +1,11 @@
 # starlight-view-modes
 
+## 0.15.3
+
+### Patch Changes
+
+- [#212](https://github.com/trueberryless-org/starlight-view-modes/pull/212) [`6f95d81`](https://github.com/trueberryless-org/starlight-view-modes/commit/6f95d81f98f6a6a13c052959676fb32cc2ffc435) Thanks [@trueberryless](https://github.com/trueberryless)! - Fixes horizontal overflow in Zen Mode on browsers with classic, non-overlay scrollbars.
+
 ## 0.15.2
 
 ### Patch Changes
