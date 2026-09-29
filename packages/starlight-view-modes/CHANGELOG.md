@@ -1,5 +1,11 @@
 # starlight-view-modes
 
+## 0.15.2
+
+### Patch Changes
+
+- [#210](https://github.com/trueberryless-org/starlight-view-modes/pull/210) [`d55fc98`](https://github.com/trueberryless-org/starlight-view-modes/commit/d55fc98b0bbbfe8d7ad6254273b5be312fcd0c8a) Thanks [@trueberryless-bot](https://github.com/trueberryless-bot)! - Fixes Presentation Mode and view mode switching not working in development due to the `picomatch` dependency being loaded in the browser.
+
 ## 0.15.1
 
 ### Patch Changes
