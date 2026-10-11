@@ -1,9 +1,32 @@
 {
   "name": "starlight-view-modes",
   "version": "0.15.3",
-  "license": "MIT",
   "description": "Starlight plugin to add view mode capabilities to your documentation website.",
+  "keywords": [
+    "starlight",
+    "plugin",
+    "view-modes",
+    "zen-mode",
+    "presentation-mode",
+    "slides",
+    "distraction-free",
+    "documentation",
+    "astro",
+    "withastro",
+    "astro-integration"
+  ],
+  "homepage": "https://starlight-view-modes.netlify.app/",
+  "bugs": {
+    "url": "https://github.com/trueberryless-org/starlight-view-modes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueberryless-org/starlight-view-modes.git",
+    "directory": "packages/starlight-view-modes"
+  },
+  "license": "MIT",
   "author": "trueberryless <trueberryless@gmail.com> (https://felixs.dev)",
+  "sideEffects": false,
   "type": "module",
   "exports": {
     ".": "./index.ts",
@@ -59,26 +82,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "sideEffects": false,
-  "keywords": [
-    "starlight",
-    "plugin",
-    "view-modes",
-    "zen-mode",
-    "presentation-mode",
-    "slides",
-    "distraction-free",
-    "documentation",
-    "astro",
-    "withastro",
-    "astro-integration"
-  ],
-  "homepage": "https://starlight-view-modes.netlify.app",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/trueberryless-org/starlight-view-modes.git",
-    "directory": "packages/starlight-view-modes"
-  },
-  "bugs": "https://github.com/trueberryless-org/starlight-view-modes/issues"
+  }
 }
