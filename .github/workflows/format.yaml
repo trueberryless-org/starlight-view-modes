@@ -37,6 +37,6 @@ jobs:
       - name: Run pngquant
         run: |
           shopt -s globstar
-          find . -name '*.png' -exec pngquant --ext .png 256 {} \;
+          find . -type d \( -name node_modules -o -name dist \) -prune -o -type f -name '*.png' -exec pngquant --force --skip-if-larger --ext .png 256 {} \;
 
       - uses: autofix-ci/action@7a166d7532b277f34e16238930461bf77f9d7ed8
