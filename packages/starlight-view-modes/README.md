@@ -12,4 +12,4 @@ Check out the [`starlight-view-modes` getting started guide](https://starlight-v
 
 Licensed under the MIT license, Copyright © trueberryless.
 
-See [LICENSE](https://github.com/trueberryless-org/starlight-view-modes/blob/main/LICENSE) for more information.
+See [LICENSE](https://github.com/trueberryless/starlight-view-modes/blob/main/LICENSE) for more information.

@@ -17,11 +17,11 @@
   ],
   "homepage": "https://starlight-view-modes.netlify.app/",
   "bugs": {
-    "url": "https://github.com/trueberryless-org/starlight-view-modes/issues"
+    "url": "https://github.com/trueberryless/starlight-view-modes/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/trueberryless-org/starlight-view-modes.git",
+    "url": "https://github.com/trueberryless/starlight-view-modes.git",
     "directory": "packages/starlight-view-modes"
   },
   "license": "MIT",
