@@ -10,10 +10,10 @@ Run the documentation locally by running the following command in your terminal:
 pnpm run dev
 ```
 
-Content can be found in the [`src/content/docs/`](https://github.com/trueberryless-org/starlight-view-modes/tree/main/docs/src/content/docs) directory.
+Content can be found in the [`src/content/docs/`](https://github.com/trueberryless/starlight-view-modes/tree/main/docs/src/content/docs) directory.
 
 ## License
 
 Licensed under the MIT License, Copyright © trueberryless.
 
-See [LICENSE](https://github.com/trueberryless-org/starlight-view-modes/blob/main/LICENSE) for more information.
+See [LICENSE](https://github.com/trueberryless/starlight-view-modes/blob/main/LICENSE) for more information.
