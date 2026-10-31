@@ -10,7 +10,7 @@ Read the [Starlight View Modes docs](https://starlight-view-modes.netlify.app).
 
 ## Package
 
-If you are looking for the Starlight plugin package, you can find it in the [`packages/starlight-view-modes/`](https://github.com/trueberryless-org/starlight-view-modes/tree/main/packages/starlight-view-modes) directory.
+If you are looking for the Starlight plugin package, you can find it in the [`packages/starlight-view-modes/`](https://github.com/trueberryless/starlight-view-modes/tree/main/packages/starlight-view-modes) directory.
 
 ## Project structure
 
@@ -20,4 +20,4 @@ This project uses pnpm workspaces to develop a single Starlight plugin from the 
 
 Licensed under the MIT License, Copyright © trueberryless.
 
-See [LICENSE](https://github.com/trueberryless-org/starlight-view-modes/blob/main/LICENSE) for more information.
+See [LICENSE](https://github.com/trueberryless/starlight-view-modes/blob/main/LICENSE) for more information.
