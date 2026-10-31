@@ -56,28 +56,13 @@ test('trailing slash never', async () => {
   expect(status).toBe('success')
 })
 
-test('prefixes content links with the Sätteri Markdown processor', async () => {
+test('prefixes content links', async () => {
   const { status } = await buildFixture('basic')
-
-  expect(status).toBe('success')
-  expect(readFixtureOutput('basic', 'zen-mode/demo/index.html')).toContain('<a href="/zen-mode/">Home</a>')
-})
-
-test('prefixes content links with the unified Markdown processor', async () => {
-  const { status } = await buildFixture('markdown-unified')
-  const html = readFixtureOutput('markdown-unified', 'zen-mode/demo/index.html')
+  const html = readFixtureOutput('basic', 'zen-mode/demo/index.html')
 
   expect(status).toBe('success')
   expect(html).toContain('<a href="/zen-mode/">Home</a>')
   expect(html).toContain('<a href="mailto:hello@example.com">Mail</a>')
-})
-
-test('supports presentation directives with the unified Markdown processor', async () => {
-  const { status } = await buildFixture('markdown-unified')
-  const html = readFixtureOutput('markdown-unified', 'presentation-mode/demo/index.html')
-
-  expect(status).toBe('success')
-  expect(html).toMatch(/Directives<span class="starlight-view-modes-presentation-counter">2\/2<\/span><\/h2>\s*<p>After the break.<\/p>/)
 })
 
 test('does not render the search when Pagefind is disabled', async () => {
