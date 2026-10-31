@@ -57,7 +57,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.3.1",
+    "@astrojs/markdown-remark": "^7.3.2",
     "@pagefind/default-ui": "^1.5.2",
     "hast-util-from-html": "^2.0.3",
     "hast-util-to-html": "^9.0.5",
@@ -68,12 +68,12 @@
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
-    "@astrojs/starlight": "^0.42.4",
-    "@playwright/test": "^1.63.0",
+    "@astrojs/starlight": "^0.42.6",
+    "@playwright/test": "^1.64.0",
     "@types/hast": "^3.0.5",
     "@types/picomatch": "^4.0.3",
-    "astro": "^7.3.5",
-    "vitest": "^5.0.2"
+    "astro": "^7.3.8",
+    "vitest": "^5.0.3"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.42.0"
