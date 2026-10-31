@@ -1,5 +1,11 @@
 # starlight-view-modes
 
+## 0.15.4
+
+### Patch Changes
+
+- [#220](https://github.com/trueberryless/starlight-view-modes/pull/220) [`d641d39`](https://github.com/trueberryless/starlight-view-modes/commit/d641d39f4969815e3e46ae540512c4ba7c9bf0cb) Thanks [@trueberryless-bot](https://github.com/trueberryless-bot)! - Updates the repository links after the move from the `trueberryless-org` GitHub organization to the `trueberryless` account.
+
 ## 0.15.3
 
 ### Patch Changes
