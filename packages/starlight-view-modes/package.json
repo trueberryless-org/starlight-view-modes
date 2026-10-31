@@ -52,7 +52,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "test": "vitest",
+    "test:satteri": "vitest --mode satteri",
+    "test:unified": "vitest --mode unified",
     "test:e2e": "playwright test"
   },
   "dependencies": {

@@ -18,11 +18,12 @@ env:
 
 jobs:
   test:
-    name: Test
+    name: Test (${{ matrix.processor }})
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
+        processor: [satteri, unified]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -47,7 +48,7 @@ jobs:
       #   working-directory: docs
 
       - name: Test
-        run: pnpm test
+        run: pnpm test:${{ matrix.processor }}
         working-directory: ./packages/starlight-view-modes
 
   e2e:
